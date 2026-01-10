@@ -1,0 +1,99 @@
+/* Basic reset and layout */
+:root {
+  --accent:#2b6cb0;
+  --bg:#ffffff;
+  --text:#222;
+  --muted:#666;
+  --max-width: 880px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Header */
+.site-header {
+  background: #f7fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 1.125rem;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 12px;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+/* Hero */
+.hero {
+  padding: 36px 0 12px;
+}
+
+.lead {
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* Posts */
+.posts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.posts li {
+  padding: 12px 0;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-footer {
+  border-top: 1px solid #e2e8f0;
+  padding: 18px 0;
+  background: #fff;
+  color: var(--muted);
+  margin-top: 32px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/*# sourceMappingURL=style.css.map */
