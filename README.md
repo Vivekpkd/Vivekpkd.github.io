@@ -1,16 +1,115 @@
-# Simple Jakyll (Jekyll) sample site
+<<<<<<< HEAD
+# 🌐 Vivek A – Portfolio Website
 
-This repository contains a minimal Jekyll site skeleton you can use as a starting point.
+This repository contains the source code for my **personal portfolio website**, built using **Jekyll (Chirpy theme)** and hosted on **GitHub Pages**.
 
-How to run locally
-1. Install Ruby and Bundler (if not installed).
-   - macOS / Linux: install Ruby via your package manager or rbenv/rvm
-   - Windows: use RubyInstaller
-2. From the repo root:
-   - bundle install
-   - bundle exec jekyll serve
-3. Visit http://127.0.0.1:4000 in your browser.
+🔗 **Live Website:** https://vivekpkd.github.io - visit
 
-Notes
-- The site uses plain Jekyll (no remote theme). Edit `_config.yml` to change title, url, etc.
-- Add posts under `_posts/` using the filename format `YYYY-MM-DD-title.md`.
+---
+
+## 👋 About Me
+
+Hi, I’m **Vivek A**, an **Automotive Engineer** with a strong interest in **automotive software, embedded systems, and AUTOSAR Classic**.
+
+- 📍 Native: **Kerala, India**
+- 💼 Currently working in: **Bangalore, India**
+- 🚗 Domain: **Automotive Software Engineering**
+- 💻 Interests: AUTOSAR, Embedded C, ECU software, learning new technologies
+
+This website serves as my **digital portfolio and learning journal**, where I showcase my projects, skills, and technical notes.
+
+---
+
+## 🛠️ Technologies Used
+
+- **Jekyll** – Static site generator  
+- **Chirpy Theme** – Modern Jekyll theme  
+- **Markdown** – Content writing  
+- **HTML / CSS** – Custom styling  
+- **GitHub Pages** – Hosting  
+
+---
+
+## 📂 Website Sections
+
+- 🏠 **Home** – Latest posts and highlights  
+- 👤 **About** – Personal and professional details  
+- 📝 **Blog / Posts** – Technical learnings and notes  
+- 📁 **Projects** – Automotive and software-related work (planned)  
+
+---
+
+## 🚀 How This Site Works
+
+- Content is written in **Markdown files**
+- Layouts are handled by the **Chirpy Jekyll theme**
+- The site is automatically built and deployed by **GitHub Pages**
+- No backend or database is required (fully static site)
+
+---
+
+## 📌 Running Locally (Optional)
+
+If you want to run this site locally:
+
+```bash
+bundle install
+bundle exec jekyll serve
+=======
+# 🌐 Vivek A – Portfolio Website
+
+This repository contains the source code for my **personal portfolio website**, built using **Jekyll (Chirpy theme)** and hosted on **GitHub Pages**.
+
+🔗 **Live Website:** https://vivekpkd.github.io
+
+---
+
+## 👋 About Me
+
+Hi, I’m **Vivek A**, an **Automotive Engineer** with a strong interest in **automotive software, embedded systems, and AUTOSAR Classic**.
+
+- 📍 Native: **Kerala, India**
+- 💼 Currently working in: **Bangalore, India**
+- 🚗 Domain: **Automotive Software Engineering**
+- 💻 Interests: AUTOSAR, Embedded C, ECU software, learning new technologies
+
+This website serves as my **digital portfolio and learning journal**, where I showcase my projects, skills, and technical notes.
+
+---
+
+## 🛠️ Technologies Used
+
+- **Jekyll** – Static site generator  
+- **Chirpy Theme** – Modern Jekyll theme  
+- **Markdown** – Content writing  
+- **HTML / CSS** – Custom styling  
+- **GitHub Pages** – Hosting  
+
+---
+
+## 📂 Website Sections
+
+- 🏠 **Home** – Latest posts and highlights  
+- 👤 **About** – Personal and professional details  
+- 📝 **Blog / Posts** – Technical learnings and notes  
+- 📁 **Projects** – Automotive and software-related work (planned)  
+
+---
+
+## 🚀 How This Site Works
+
+- Content is written in **Markdown files**
+- Layouts are handled by the **Chirpy Jekyll theme**
+- The site is automatically built and deployed by **GitHub Pages**
+- No backend or database is required (fully static site)
+
+---
+
+## 📌 Running Locally (Optional)
+
+If you want to run this site locally:
+
+```bash
+bundle install
+bundle exec jekyll serve
+>>>>>>> 6443563782569e6859cda46467e213231a1e984a
