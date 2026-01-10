@@ -1,0 +1,7 @@
+title: "Jakyll Sample"
+email: "you@example.com"
+description: "A basic simple Jakyll (Jekyll) website"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://example.com" # the base hostname & protocol for your site
+# No theme used; we supply our own layouts
+markdown: kramdown
