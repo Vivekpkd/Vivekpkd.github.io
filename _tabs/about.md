@@ -1,7 +1,7 @@
 ---
 title: About
 icon: fas fa-user
-order: 1
+order: 7
 ---
 
 ## 👋 Hi, I'm Vivek A
