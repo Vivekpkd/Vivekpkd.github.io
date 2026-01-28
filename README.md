@@ -68,5 +68,3 @@ To add a new article, copy and paste an existing block and change the details:
 ```
 **Tip**: Since you are writing HTML inside the `content` backticks (`` ` ``), you can use `<h2>` for subheadings, `<p>` for paragraphs, and `<pre><code>` for code blocks.
 
-By Vivek A . Kerala
-
