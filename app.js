@@ -81,25 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme Toggle Logic
     const themeBtn = document.getElementById('theme-toggle');
     const html = document.documentElement;
-    const isArticle = window.location.pathname.includes('article-');
-    let themeToApply = localStorage.getItem('theme');
 
-    // Default Logic: Articles default to Light if no preference is saved
-    if (!themeToApply && isArticle) {
-        themeToApply = 'light';
-    }
-
-    // Apply recorded or default theme
-    if (themeToApply === 'light') {
-        html.setAttribute('data-theme', 'light');
-    } else {
-        html.removeAttribute('data-theme');
-    }
-
-    // Sync button icon if it exists
     if (themeBtn) {
         const icon = themeBtn.querySelector('i');
-        if (themeToApply === 'light') {
+
+        // Sync icon on load (theme already applied by head script)
+        const currentTheme = html.getAttribute('data-theme');
+        if (currentTheme === 'light') {
             icon.classList.replace('fa-moon', 'fa-sun');
         } else {
             icon.classList.replace('fa-sun', 'fa-moon');

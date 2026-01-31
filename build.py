@@ -111,6 +111,17 @@ def generate_site():
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <script>
+        (function() {{
+            const theme = localStorage.getItem('theme');
+            const isArticle = window.location.pathname.includes('article-');
+            if (theme === 'light' || (!theme && isArticle)) {{
+                document.documentElement.setAttribute('data-theme', 'light');
+            }} else {{
+                document.documentElement.removeAttribute('data-theme');
+            }}
+        }})();
+    </script>
     <!-- Adsense Placeholder -->
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 </head>
@@ -124,10 +135,8 @@ def generate_site():
                 <li><a href="index.html#portfolio">Work</a></li>
                 <li><a href="index.html#blog" class="active">Blog</a></li>
                 <li><a href="index.html#contact" class="btn-small">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme"><i class="fa-solid fa-moon"></i></button></li>
             </ul>
-            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
-                <i class="fa-solid fa-moon"></i>
-            </button>
         </div>
     </nav>
     <section class="section">
