@@ -1,7 +1,7 @@
 const articlesData = [
     {
         "title": "ADAS Fundamentals: How Cars See",
-        "excerpt": "Introduction to Advanced Driver Assistance Systems: Radar, Lidar, and Camera Fusion.",
+        "excerpt": "A beginner-friendly introduction to Advanced Driver Assistance Systems (ADAS) and the core sensors behind modern vehicle perception.",
         "date": "Jan 18, 2026",
         "link": "article-adas-fundamentals.html"
     },
