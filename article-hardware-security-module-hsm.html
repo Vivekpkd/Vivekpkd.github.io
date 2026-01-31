@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware Security Module (HSM) - Autodevv</title>
+    <meta name="description" content="Introduction to Hardware Security Modules in Automotive ECUs. Secure key storage and cryptographic acceleration.">
+    <meta name="author" content="Autodevv">
+    <meta property="og:title" content="Hardware Security Module (HSM)">
+    <meta property="og:description" content="Introduction to Hardware Security Modules in Automotive ECUs. Secure key storage and cryptographic acceleration.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            const isArticle = window.location.pathname.includes('article-');
+            if (theme === 'light' || (!theme && isArticle)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        })();
+    </script>
+    <!-- Adsense Placeholder -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn" title="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="categories.html">Categories</a>
+    </div>
+
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
+                <span class="tag">Feb 01, 2026</span>
+                <h1>Hardware Security Module (HSM)</h1>
+            </header>
+            <article class="article-content">
+                <h1>Hardware Security Module (HSM)</h1>
+
+<p>In the modern automotive landscape, security is no longer an option—it is a mandatory requirement. With vehicles becoming increasingly connected and autonomous, the threat surface for cyber-attacks has expanded significantly.</p>
+
+<p>The <strong>Hardware Security Module (HSM)</strong> is the dedicated hardware component within an Automotive MCU (like Infineon AURIX or ST Stellar) that handles all security-critical tasks.</p>
+
+<h2>Why do we need an HSM?</h2>
+
+<p>Traditional software-based security is vulnerable to side-channel attacks and memory dumping. The HSM provides:</p>
+
+<ul>
+<li><strong>Isolated Execution</strong>: Cryptographic operations run in a dedicated core, isolated from the functional software (Application).</li>
+<li><strong>Secure Key Storage</strong>: Keys are stored in protected memory that cannot be read by the main CPU.</li>
+<li><strong>Cryptographic Acceleration</strong>: Dedicated hardware engines for AES, RSA, ECC, and SHA.</li>
+<li><strong>Secure Boot</strong>: Ensuring that only authentic and unmodified software can run on the ECU.</li>
+</ul>
+
+<h2>HSM Architectures: SHE vs. EVITA</h2>
+
+<p>Automotive HSMs generally follow specific standards depending on the required security level:</p>
+
+<p>1. <strong>SHE (Secure Hardware Extension)</strong>: A basic standard for secure key storage and simple symmetric cryptography (AES-128).</p>
+<p>2. <strong>EVITA (E-safety Vehicle Intrusion Protected Applications)</strong>:</p>
+<ul>
+<li><strong>Light</strong>: Minimal security for sensors/actuators.</li>
+<li><strong>Medium</strong>: Balance of performance and security for most ECUs.</li>
+<li><strong>Full</strong>: High-performance crypto-processors for Gateways and V2X.</li>
+</ul>
+
+<hr>
+
+<p>[Body content to be updated by user]</p>
+
+<div class="ad-slot-container"><div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div></div>
+            </article>
+            <div class="ad-slot-container" style="margin-top: 40px;">
+                <div class="ad-placeholder">
+                    <small>Advertisement Space (Google Adsense)</small>
+                </div>
+            </div>
+            <footer class="article-footer">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
+            </footer>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Autodevv. Professional Automotive Software Systems.</p>
+            <div style="margin-top: 10px; font-size: 0.9em;">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <script src="articles.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
