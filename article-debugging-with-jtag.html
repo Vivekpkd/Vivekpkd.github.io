@@ -24,12 +24,12 @@
             </ul>
         </div>
     </nav>
-    <main style="padding-top: 100px; padding-bottom: 60px;">
+    <main style="padding-top: var(--nav-height); padding-bottom: 80px;">
         <article class="container">
-            <header style="margin-bottom: 3rem;">
-                <span class="tag">Jan 20, 2026</span>
-                <h1 style="margin-top: 1rem;">Debugging with JTAG and SWD</h1>
-                <p style="font-size: 1.25rem; color: var(--text-muted); line-height: 1.6;">Stop using printf debugging. Learn to use hardware debuggers.</p>
+            <header>
+                <div class="tag">Jan 20, 2026</div>
+                <h1>Debugging with JTAG and SWD</h1>
+                <p class="excerpt" style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 3rem;">Stop using printf debugging. Learn to use hardware debuggers.</p>
             </header>
             <div class="content">
                 <h1>Debugging with JTAG</h1>
@@ -42,7 +42,7 @@
 3.  <strong>Register View</strong>: See the state of CPU registers and Peripherals in real-time.
 4.  <strong>Fault Analysis</strong>: When the system crashes to `HardFault_Handler`, JTAG tells you exactly which instruction caused it.
             </div>
-            <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <footer style="margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: left;">
                 <a href="index.html#blog" class="btn btn-outline">← Back to Blog</a>
             </footer>
         </article>

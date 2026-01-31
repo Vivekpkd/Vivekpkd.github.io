@@ -24,12 +24,12 @@
             </ul>
         </div>
     </nav>
-    <main style="padding-top: 100px; padding-bottom: 60px;">
+    <main style="padding-top: var(--nav-height); padding-bottom: 80px;">
         <article class="container">
-            <header style="margin-bottom: 3rem;">
-                <span class="tag">Jan 23, 2026</span>
-                <h1 style="margin-top: 1rem;">Memory Management in Embedded Systems</h1>
-                <p style="font-size: 1.25rem; color: var(--text-muted); line-height: 1.6;">Stack, Heap, .bss, and .data. Where does your variable live?</p>
+            <header>
+                <div class="tag">Jan 23, 2026</div>
+                <h1>Memory Management in Embedded Systems</h1>
+                <p class="excerpt" style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 3rem;">Stack, Heap, .bss, and .data. Where does your variable live?</p>
             </header>
             <div class="content">
                 <h1>Memory Management</h1>
@@ -50,7 +50,7 @@ static uint8_t buffer[1024];
 <h2>Stack Overflow</h2>
 Not the website. The crash. If your recursion goes too deep, you overwrite variables. ALways analyze stack depth.
             </div>
-            <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <footer style="margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: left;">
                 <a href="index.html#blog" class="btn btn-outline">← Back to Blog</a>
             </footer>
         </article>
