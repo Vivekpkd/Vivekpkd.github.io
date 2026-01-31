@@ -53,21 +53,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchResults = document.getElementById('search-results');
 
     if (themeToggle) {
-        // Initial sync of icon based on current theme
+        // Initial sync of icon based on current theme (set by head script)
         const currentTheme = document.documentElement.getAttribute('data-theme');
         updateThemeIcon(currentTheme);
 
         themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const targetTheme = currentTheme === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', targetTheme);
-            localStorage.setItem('theme', targetTheme);
-            updateThemeIcon(targetTheme);
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+                updateThemeIcon('dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                updateThemeIcon('light');
+            }
         });
     }
 
     function updateThemeIcon(theme) {
         const icon = themeToggle.querySelector('i');
+        if (!icon) return;
         if (theme === 'light') {
             icon.className = 'fa-solid fa-sun';
         } else {
@@ -158,32 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Theme Toggle Logic
-    const themeBtn = document.getElementById('theme-toggle');
-    const html = document.documentElement;
-
-    if (themeBtn) {
-        const icon = themeBtn.querySelector('i');
-
-        // Sync icon on load (theme already applied by head script)
-        const currentTheme = html.getAttribute('data-theme');
-        if (currentTheme === 'light') {
-            icon.classList.replace('fa-moon', 'fa-sun');
-        } else {
-            icon.classList.replace('fa-sun', 'fa-moon');
-        }
-
-        themeBtn.addEventListener('click', () => {
-            if (html.getAttribute('data-theme') === 'light') {
-                html.removeAttribute('data-theme');
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                html.setAttribute('data-theme', 'light');
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-    }
 
     // Intersection Observer for Animation
     const observer = new IntersectionObserver((entries) => {

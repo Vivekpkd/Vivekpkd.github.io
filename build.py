@@ -173,6 +173,15 @@ def generate_site():
             <div id="search-results" class="search-results"></div>
         </div>
     </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="categories.html">Categories</a>
+    </div>
+
     <section class="section article-page">
         <div class="article-container">
             <header class="article-header">
@@ -194,7 +203,7 @@ def generate_site():
     </section>
     <footer>
         <div class="container">
-            <p>&copy; 2026 Vivek. Built for Monetization.</p>
+            <p>&copy; 2026 Vivek. Autodevv - Professional Automotive Software Site.</p>
             <div style="margin-top: 10px; font-size: 0.9em;">
                 <a href="privacy.html">Privacy Policy</a>
                 <a href="terms.html">Terms of Service</a>
