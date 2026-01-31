@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                     </div>
                     <h3>${project.title}</h3>
-                    <p style="margin-top: 10px; color: #888; font-size: 0.9rem;">${project.desc}</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">${project.desc}</p>
                 </div>
             `;
             projectsContainer.appendChild(card);
@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card-content">
                     <span class="tag" style="margin-bottom: 10px; display:inline-block;">${article.date}</span>
                     <h3>${article.title}</h3>
-                    <p style="margin-top: 10px; color: #888; font-size: 0.9rem;">${article.excerpt}</p>
-                    <a href="${article.link}" class="btn-small" style="margin-top: 15px; border: none; background: rgba(255,255,255,0.1); color: white; cursor: pointer; display: inline-block; text-align: center; text-decoration: none;">Read More</a>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">${article.excerpt}</p>
+                    <a href="${article.link}" class="btn-small">Read More</a>
                 </div>
             `;
             blogContainer.appendChild(card);
