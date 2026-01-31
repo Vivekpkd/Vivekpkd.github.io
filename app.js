@@ -101,7 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const icon = themeBtn.querySelector('i');
 
     // Check Local Storage
-    if (localStorage.getItem('theme') === 'light') {
+    // Default to 'light' if no preference is stored, or if 'light' is stored
+    if (localStorage.getItem('theme') !== 'dark') {
         html.setAttribute('data-theme', 'light');
         icon.classList.replace('fa-moon', 'fa-sun');
     }
