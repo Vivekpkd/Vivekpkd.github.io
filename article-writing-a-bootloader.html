@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Writing a Custom Bootloader - Autodevv</title>
+    <title>Bootloader in Automotive Software - Autodevv</title>
     <meta name="description" content="How to update firmware in the field. Dual-bank updates and memory jumping.">
     <meta name="author" content="Autodevv">
-    <meta property="og:title" content="Writing a Custom Bootloader">
+    <meta property="og:title" content="Bootloader in Automotive Software">
     <meta property="og:description" content="How to update firmware in the field. Dual-bank updates and memory jumping.">
     <meta property="og:type" content="article">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,16 +78,36 @@
         <div class="article-container">
             <header class="article-header">
                 <span class="tag">Jan 17, 2026</span>
-                <h1>Writing a Custom Bootloader</h1>
+                <h1>Bootloader in Automotive Software</h1>
             </header>
             <article class="article-content">
-                <p>A bootloader is the first code to run. It decides whether to stay and update firmware or jump to the main Application.</p>
-<p>!<a href="images/embedded-circuit.png">Embedded Circuit</a></p>
+                <p>🚗💡 Ever flashed an ECU… but wondered what actually happens inside?
+Many of us have done ECU flashing hundreds of times,
+but few stop to think — what’s running inside</p>
+<p>That’s where the Automotive Bootloader comes in —
+the hidden software that makes ECU updates possible and safe.</p>
+<p>🔹 Flash Bootloader (FBL)
+The FBL is like the ECU’s “update manager.”
+It decides whether to start the application or go into programming mode.
+It’s what allows secure software updates via CAN, FlexRay, or Ethernet.</p>
+<p>🔹 Inside the FBL:
+There are two main parts —
+1️⃣ Primary Bootloader (PBL)
+ • Runs first after reset.
+ • Stored in protected flash.
+ • Checks if the app is valid and secure.
+ • Loads the next stage if reprogramming is needed.
+2️⃣ Secondary Bootloader (SBL)
+ • Handles UDS flashing services like 0x10, 0x27, 0x34, 0x36, and 0x37.
+ • Receives the new software, verifies it, and activates the update.</p>
+<p>⚙️ Why two stages?
+✅ Safer – even if flashing fails, ECU can recover
+✅ Secure – signatures and CRCs verified before boot
+✅ Flexible – easier to update logic later
+✅ ISO 26262 & UDS compliant</p>
+<p>💬 So next time you flash an ECU, remember —
+you’re not just loading code; you’re running a two-stage secure boot process that keeps the vehicle safe and updatable.</p>
 <p><!-- ad-placeholder --></p>
-<h2>The Jump Mechanism</h2>
-To jump to the application, we must:
-1.  Set the Main Stack Pointer (MSP) to the application's stack.
-2.  Set the Program Counter (PC) to the application's Reset Handler.
 <pre><code>c
 void JumpToApp(uint32_t appAddress) {
     uint32_t jumpAddress = *(__IO uint32_t*) (appAddress + 4);
