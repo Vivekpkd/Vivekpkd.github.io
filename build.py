@@ -52,8 +52,11 @@ def parse_markdown(content):
     # Links
     html = re.sub(r'\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', html)
     
-    # Ad Placeholder (Removed from here, now in global template)
-    # html = html.replace('<!-- ad-placeholder -->', ...)
+    # Blockquotes
+    html = re.sub(r'^> (.*?)$', r'<blockquote>\1</blockquote>', html, flags=re.MULTILINE)
+
+    # Horizontal Rules
+    html = re.sub(r'^---$', r'<hr>', html, flags=re.MULTILINE)
     
     # Paragraphs (Simple split by double newline)
     lines = html.split('\n\n')
@@ -61,12 +64,12 @@ def parse_markdown(content):
     for line in lines:
         line = line.strip()
         if not line: continue
-        if line.startswith('<h') or line.startswith('<pre') or line.startswith('<div'):
+        if line.startswith('<h') or line.startswith('<pre') or line.startswith('<div') or line.startswith('<blockquote') or line.startswith('<hr'):
             final_lines.append(line)
         else:
             final_lines.append(f'<p>{line}</p>')
             
-    return frontmatter, '\n'.join(final_lines)
+    return metadata, '\n'.join(final_lines)
 
 def generate_site():
     print("Starting Build...")
