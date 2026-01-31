@@ -82,19 +82,31 @@
             </header>
             <article class="article-content">
                 <h1>I2C vs SPI: Choosing the Right Peripheral</h1>
+
 <p>When connecting sensors, EEPROMs, or displays to your micro-controller, you usually face two choices: I2C (Inter-Integrated Circuit) or SPI (Serial Peripheral Interface).</p>
+
 <h2>I2C: The Two-Wire Convenience</h2>
-I2C uses only two lines: <strong>SDA</strong> (Data) and <strong>SCL</strong> (Clock).
-<p>- <strong>Pros</strong>: Very easy to wire multiple devices (up to 127) on the same bus using addressing.
-- <strong>Cons</strong>: Slower speeds (standard 400kHz or 1MHz) and higher overhead due to protocol bits.
-- <strong>Best For</strong>: Low-speed sensors and configuration chips.</p>
+<p>I2C uses only two lines: <strong>SDA</strong> (Data) and <strong>SCL</strong> (Clock).</p>
+
+<ul>
+<li><strong>Pros</strong>: Very easy to wire multiple devices (up to 127) on the same bus using addressing.</li>
+<li><strong>Cons</strong>: Slower speeds (standard 400kHz or 1MHz) and higher overhead due to protocol bits.</li>
+<li><strong>Best For</strong>: Low-speed sensors and configuration chips.</li>
+</ul>
+
 <h2>SPI: The High-Speed Giant</h2>
-SPI is a 4-wire full-duplex protocol: <strong>MOSI</strong>, <strong>MISO</strong>, <strong>SCK</strong>, and <strong>SS</strong>.
-<p>- <strong>Pros</strong>: Faster speeds (20MHz to 50MHz+) and very low hardware overhead.
-- <strong>Cons</strong>: Requires a dedicated "Slave Select" (SS) pin for every device you add, complicating PCB routing.
-- <strong>Best For</strong>: Displays, high-speed ADCs, and external flash memory.</p>
+<p>SPI is a 4-wire full-duplex protocol: <strong>MOSI</strong>, <strong>MISO</strong>, <strong>SCK</strong>, and <strong>SS</strong>.</p>
+
+<ul>
+<li><strong>Pros</strong>: Faster speeds (20MHz to 50MHz+) and very low hardware overhead.</li>
+<li><strong>Cons</strong>: Requires a dedicated "Slave Select" (SS) pin for every device you add, complicating PCB routing.</li>
+<li><strong>Best For</strong>: Displays, high-speed ADCs, and external flash memory.</li>
+</ul>
+
 <hr>
+
 <h2>The Verdict</h2>
+
 <p>If you are pin-constrained and speed isn't critical, go with <strong>I2C</strong>. If you need to move large amounts of data (like pixel data for a dashboard) quickly, <strong>SPI</strong> is the winner.</p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">

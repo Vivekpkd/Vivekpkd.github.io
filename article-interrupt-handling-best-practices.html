@@ -82,24 +82,29 @@
             </header>
             <article class="article-content">
                 <h1>Interrupt Handling</h1>
+
 <p>An Interrupt Service Routine (ISR) pauses the main CPU task to handle an event (e.g., button press, timer, CAN message).</p>
-<p>!<a href="images/embedded-circuit.png">Embedded Circuit</a></p>
-<p><!-- ad-placeholder --></p>
+
+<p align="center"><img src="images/embedded-circuit.png" alt="Embedded Circuit" width="700"></p>
+
+<div class="ad-slot-container"><div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div></div>
+
 <h2>Golden Rules</h2>
-1.  <strong>Keep it Short</strong>: Do the bare minimum (clear flag, copy data) and exit. Complex logic belongs in the main loop.
-2.  <strong>No Blocking Code</strong>: Never use `delay()`, `printf()`, or wait for mutexes inside an ISR.
-3.  <strong>Atomic Access</strong>: If sharing data with `main()`, ensure access is atomic or disable interrupts briefly while reading.
-<pre><code>c
-// Bad ISR
-void EXTI0_IRQHandler(void) {
-    printf("Button Pressed!"); // TOO SLOW!
-    delay(100); // SYSTEM FREEZE!
-}
-<p>// Good ISR
-void EXTI0_IRQHandler(void) {
-    flag = 1; // Fast
-}
-</code></pre></p>
+<p>1.  <strong>Keep it Short</strong>: Do the bare minimum (clear flag, copy data) and exit. Complex logic belongs in the main loop.</p>
+<p>2.  <strong>No Blocking Code</strong>: Never use `delay()`, `printf()`, or wait for mutexes inside an ISR.</p>
+<p>3.  <strong>Atomic Access</strong>: If sharing data with `main()`, ensure access is atomic or disable interrupts briefly while reading.</p>
+
+<pre><code class="language-c">// Bad ISR
+<p>void EXTI0_IRQHandler(void) {</p>
+<p>printf("Button Pressed!"); // TOO SLOW!</p>
+<p>delay(100); // SYSTEM FREEZE!</p>
+<p>}</p>
+
+<p>// Good ISR</p>
+<p>void EXTI0_IRQHandler(void) {</p>
+<p>flag = 1; // Fast</p>
+<p>}</p>
+</code></pre>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">
                 <div class="ad-placeholder">

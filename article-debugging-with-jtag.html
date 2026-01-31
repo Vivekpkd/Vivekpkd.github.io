@@ -82,23 +82,36 @@
             </header>
             <article class="article-content">
                 <h1>Debugging with JTAG and SWD</h1>
+
 <p>When your embedded system crashes at 3:00 AM, `printf("Here\n");` isn't going to save you. You need to look inside the registers and memory of the chip while it's running. This is where JTAG and SWD come in.</p>
+
 <h2>The Tools of the Trade</h2>
+
 <h3>JTAG (Joint Test Action Group)</h3>
-The traditional industry standard. Uses 4-5 pins.
-- <strong>Capabilities</strong>: Can "Chain" multiple chips together on a single board for testing.
-- <strong>Use Case</strong>: Large, complex PCBs with multiple processors.
+<p>The traditional industry standard. Uses 4-5 pins.</p>
+<ul>
+<li><strong>Capabilities</strong>: Can "Chain" multiple chips together on a single board for testing.</li>
+<li><strong>Use Case</strong>: Large, complex PCBs with multiple processors.</li>
+</ul>
+
 <h3>SWD (Serial Wire Debug)</h3>
-The ARM-specific, two-wire alternative.
-- <strong>Pros</strong>: Saves pins! Only requires <strong>SWDIO</strong> and <strong>SWCLK</strong>.
-- <strong>Capabilities</strong>: Provides almost all the same features as JTAG but with a smaller footprint.
+<p>The ARM-specific, two-wire alternative.</p>
+<ul>
+<li><strong>Pros</strong>: Saves pins! Only requires <strong>SWDIO</strong> and <strong>SWCLK</strong>.</li>
+<li><strong>Capabilities</strong>: Provides almost all the same features as JTAG but with a smaller footprint.</li>
+</ul>
+
 <h2>Why You Need a Debugger (Segger J-Link, ST-LINK)</h2>
-<p>1. <strong>Breakpoints</strong>: Stop the code execution on a specific line of code.
-2. <strong>Step-Through</strong>: Watch the code execute line-be-line.
-3. <strong>Register View</strong>: See the EXACT state of the hardware (Interrupts, Timers, DMA).
-4. <strong>Memory Watch</strong>: Monitor variables in real-time without stopping the CPU.</p>
+
+<p>1. <strong>Breakpoints</strong>: Stop the code execution on a specific line of code.</p>
+<p>2. <strong>Step-Through</strong>: Watch the code execute line-be-line.</p>
+<p>3. <strong>Register View</strong>: See the EXACT state of the hardware (Interrupts, Timers, DMA).</p>
+<p>4. <strong>Memory Watch</strong>: Monitor variables in real-time without stopping the CPU.</p>
+
 <hr>
+
 <h2>Conclusion</h2>
+
 <p>Hardware debugging is a "superpower" for firmware engineers. Once you master a debugger, you'll find and fix bugs in minutes that would have taken days using serial logs.</p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">

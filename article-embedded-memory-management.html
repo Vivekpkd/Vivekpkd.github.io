@@ -82,21 +82,34 @@
             </header>
             <article class="article-content">
                 <h1>Memory Management in Embedded Systems</h1>
+
 <p>In a PC, you have gigabytes of RAM. In an ECU, you might have less than 512KB. Precision memory management is what separates a stable automotive component from a system prone to hard-faults.</p>
+
 <h2>The Rule: Static Over Dynamic</h2>
+
 <p>In high-integrity systems (MISRA compliant), dynamic memory allocation (`malloc`, `free`) is almost always forbidden after the initialization phase.</p>
+
 <h3>1. The Stack</h3>
-Used for local variables and function call management.
-- <strong>Risk</strong>: Stack Overflow. If your call stack or deep recursion exceeds the allocated space, you will corrupt other memory.
-- <strong>Best Practice</strong>: Always perform a worst-case stack analysis during development.
+<p>Used for local variables and function call management.</p>
+<ul>
+<li><strong>Risk</strong>: Stack Overflow. If your call stack or deep recursion exceeds the allocated space, you will corrupt other memory.</li>
+<li><strong>Best Practice</strong>: Always perform a worst-case stack analysis during development.</li>
+</ul>
+
 <h3>2. The Heap</h3>
-Used for variables whose size or lifetime is determined at runtime.
-- <strong>Risk</strong>: Fragmentation. Over time, "holes" appear in memory, preventing large allocations even if total free space exists.
-- <strong>Automotive Rule</strong>: If you must use dynamic memory, use a fixed-size block pool allocator.
+<p>Used for variables whose size or lifetime is determined at runtime.</p>
+<ul>
+<li><strong>Risk</strong>: Fragmentation. Over time, "holes" appear in memory, preventing large allocations even if total free space exists.</li>
+<li><strong>Automotive Rule</strong>: If you must use dynamic memory, use a fixed-size block pool allocator.</li>
+</ul>
+
 <h3>3. Data & BSS Sections</h3>
-Where global variables live. These are allocated at compile-time, providing the ultimate stability for safety-critical state management.
+<p>Where global variables live. These are allocated at compile-time, providing the ultimate stability for safety-critical state management.</p>
+
 <hr>
+
 <h2>Memory Protection Units (MPU)</h2>
+
 <p>Modern microcontrollers (ARM Cortex-R5/M7) use MPUs to define "Sandboxes." If a certain software module tries to write to memory it doesn't own, the hardware triggers an exception, preventing a single buggy component from crashing the entire car.</p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">

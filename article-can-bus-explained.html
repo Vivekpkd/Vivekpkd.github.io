@@ -82,21 +82,36 @@
             </header>
             <article class="article-content">
                 <h1>CAN Bus Explained: The Nervous System of the Car</h1>
+
 <p>Developed by Bosch in the 1980s, the Controller Area Network (CAN) bus is a robust communication protocol designed to allow microcontrollers and devices to communicate with each other's applications without a host computer.</p>
-<blockquote>[!TIP]</blockquote>
-<blockquote>CAN Bus uses "Differential Signaling" on two wires (CAN High and CAN Low), making it incredibly resilient to electromagnetic noise.</blockquote>
+
+<div class="alert alert-tip">
+CAN Bus uses "Differential Signaling" on two wires (CAN High and CAN Low), making it incredibly resilient to electromagnetic noise.
+</div>
+
 <h2>Key Features of the CAN Protocol</h2>
+
 <p>CAN is a multi-master, message-based broadcast system.</p>
+
 <h3>1. Message Prioritization</h3>
-CAN frames do not have addresses; they have <strong>Identifiers</strong>.
-- <strong>Arbitration</strong>: Lower identifiers have higher priority. If two nodes start talking at once, the one with the more important ID (lower number) wins without losing any data.
+<p>CAN frames do not have addresses; they have <strong>Identifiers</strong>.</p>
+<ul>
+<li><strong>Arbitration</strong>: Lower identifiers have higher priority. If two nodes start talking at once, the one with the more important ID (lower number) wins without losing any data.</li>
+</ul>
+
 <h3>2. Error Detection and Fault Confinement</h3>
-CAN has built-in mechanisms for CRC checks and bit stuffing error detection.
-- <strong>Self-Healing</strong>: A "faulty" node that keeps sending errors will eventually "Bus Off" to prevent taking down the entire network.
+<p>CAN has built-in mechanisms for CRC checks and bit stuffing error detection.</p>
+<ul>
+<li><strong>Self-Healing</strong>: A "faulty" node that keeps sending errors will eventually "Bus Off" to prevent taking down the entire network.</li>
+</ul>
+
 <h3>3. Harness Simplification</h3>
-Before CAN, cars had miles of copper wire connecting every single switch to every single light. With CAN, all components share the same two wires, significantly reducing weight and cost.
+<p>Before CAN, cars had miles of copper wire connecting every single switch to every single light. With CAN, all components share the same two wires, significantly reducing weight and cost.</p>
+
 <hr>
+
 <h2>CAN vs. CAN FD</h2>
+
 <p>While standard CAN is limited to <strong>1 Mbps</strong>, the newer <strong>CAN FD (Flexible Data-Rate)</strong> supports payloads up to 64 bytes and speeds up to <strong>8 Mbps</strong>, meeting the demands of modern ADAS and Infotainment systems.</p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">

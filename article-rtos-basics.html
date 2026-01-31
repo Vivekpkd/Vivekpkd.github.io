@@ -82,19 +82,31 @@
             </header>
             <article class="article-content">
                 <h1>RTOS vs GPOS: When to use Real-Time Systems</h1>
+
 <p>In automotive engineering, the choice of Operating System can be a life-or-death decision. While you might use a General Purpose OS (GPOS) like Windows for your PC, cars require a Real-Time OS (RTOS).</p>
+
 <h2>The Core Difference: Determinism</h2>
+
 <p>The defining characteristic of an RTOS is not "speed," but <strong>Determinism</strong>.</p>
+
 <h3>RTOS (Real-Time OS)</h3>
-An RTOS guarantees that a particular task will be executed within a specific, predictable timeframe.
-- <strong>Worst-Case Execution</strong>: Safety depends on meeting the deadline, not just the logical result.
-- <strong>Example</strong>: Airbag deployment. It must trigger *exactly* when needed, regardless of other system load.
+<p>An RTOS guarantees that a particular task will be executed within a specific, predictable timeframe.</p>
+<ul>
+<li><strong>Worst-Case Execution</strong>: Safety depends on meeting the deadline, not just the logical result.</li>
+<li><strong>Example</strong>: Airbag deployment. It must trigger *exactly* when needed, regardless of other system load.</li>
+</ul>
+
 <h3>GPOS (General Purpose OS)</h3>
-A GPOS is designed for "Fairness" and "Throughput."
-- <strong>Variable Latency</strong>: Your computer might lag if it's doing an update. That's fine for a spreadsheet, but fatal for a vehicle's braking system.
-- <strong>Example</strong>: Android Automotive (Infotainment) vs. FreeRTOS/AUTOSAR OS (Power Steering).
+<p>A GPOS is designed for "Fairness" and "Throughput."</p>
+<ul>
+<li><strong>Variable Latency</strong>: Your computer might lag if it's doing an update. That's fine for a spreadsheet, but fatal for a vehicle's braking system.</li>
+<li><strong>Example</strong>: Android Automotive (Infotainment) vs. FreeRTOS/AUTOSAR OS (Power Steering).</li>
+</ul>
+
 <hr>
+
 <h2>When to Choose an RTOS</h2>
+
 <p>If your system involves control loops, functional safety (ISO 26262), or sub-millisecond response times, an RTOS is the only professional choice. Common examples include <strong>FreeRTOS</strong>, <strong>QNX</strong>, and <strong>SafeRTOS</strong>.</p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">

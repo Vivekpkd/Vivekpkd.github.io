@@ -82,29 +82,34 @@
             </header>
             <article class="article-content">
                 <h1>State Machines in C</h1>
+
 <p>A Finite State Machine (FSM) is the backbone of most embedded systems. Whether it's a Traffic Light or a Cruise Control system.</p>
-<p>!<a href="images/automotive-dashboard.png">Automotive Dashboard</a></p>
-<p><!-- ad-placeholder --></p>
+
+<p align="center"><img src="images/automotive-dashboard.png" alt="Automotive Dashboard" width="700"></p>
+
+<div class="ad-slot-container"><div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div></div>
+
 <h2>Switch-Case Approach</h2>
-The simplest way to implement an FSM.
-<pre><code>c
-typedef enum { IDLE, RUNNING, ERROR } State;
-State currentState = IDLE;
-<p>void Run_FSM() {
-    switch(currentState) {
-        case IDLE:
-            if(StartPressed()) currentState = RUNNING;
-            break;
-        case RUNNING:
-            if(ErrorDetected()) currentState = ERROR;
-            break;
-        case ERROR:
-            ResetSystem();
-            currentState = IDLE;
-            break;
-    }
-}
-</code></pre></p>
+<p>The simplest way to implement an FSM.</p>
+
+<pre><code class="language-c">typedef enum { IDLE, RUNNING, ERROR } State;
+<p>State currentState = IDLE;</p>
+
+<p>void Run_FSM() {</p>
+<p>switch(currentState) {</p>
+<p>case IDLE:</p>
+<p>if(StartPressed()) currentState = RUNNING;</p>
+<p>break;</p>
+<p>case RUNNING:</p>
+<p>if(ErrorDetected()) currentState = ERROR;</p>
+<p>break;</p>
+<p>case ERROR:</p>
+<p>ResetSystem();</p>
+<p>currentState = IDLE;</p>
+<p>break;</p>
+<p>}</p>
+<p>}</p>
+</code></pre>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">
                 <div class="ad-placeholder">

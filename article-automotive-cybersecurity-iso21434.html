@@ -82,21 +82,34 @@
             </header>
             <article class="article-content">
                 <h1>Automotive Cybersecurity: ISO21434</h1>
+
 <p>As vehicles become "Computers on Wheels," the attack surface has expanded exponentially. ISO/SAE 21434 is the landmark standard defining the cyber-physical security requirements for the road.</p>
-<blockquote>[!CAUTION]</blockquote>
-<blockquote>Safety-critical systems (like steering) can no longer be protected by "Air Gaps" alone.</blockquote>
+
+<div class="alert alert-caution">
+Safety-critical systems (like steering) can no longer be protected by "Air Gaps" alone.
+</div>
+
 <h2>The Threat Landscape</h2>
+
 <p>Connectivity (LTE, Wi-Fi, V2X) has introduced risks that didn't exist in traditional mechanical engineering.</p>
+
 <h3>1. The Secure Gateway</h3>
-The Gateway acts as the firewall between external networks and internal safety-critical buses (CAN, Ethernet). It must perform deep packet inspection to block malicious commands.
+<p>The Gateway acts as the firewall between external networks and internal safety-critical buses (CAN, Ethernet). It must perform deep packet inspection to block malicious commands.</p>
+
 <h3>2. Secure Boot & HSM</h3>
-Hardware Security Modules (HSM) ensure that the code running on an ECU hasn't been tampered with.
-- <strong>Root of Trust</strong>: Firmware is digitally signed and verified during the boot process.
-- <strong>Crypto-Acceleration</strong>: HSMs handle the heavy lifting of encryption without slowing down real-time controls.
+<p>Hardware Security Modules (HSM) ensure that the code running on an ECU hasn't been tampered with.</p>
+<ul>
+<li><strong>Root of Trust</strong>: Firmware is digitally signed and verified during the boot process.</li>
+<li><strong>Crypto-Acceleration</strong>: HSMs handle the heavy lifting of encryption without slowing down real-time controls.</li>
+</ul>
+
 <h3>3. Intrusion Detection (IDPS)</h3>
-Modern E/E architectures include sensors that look for anomalous behavior on the vehicle's network—detecting patterns that suggest a hacker is trying to "Flood" the bus.
+<p>Modern E/E architectures include sensors that look for anomalous behavior on the vehicle's network—detecting patterns that suggest a hacker is trying to "Flood" the bus.</p>
+
 <hr>
+
 <h2>Conclusion</h2>
+
 <p>Compliance with ISO 21434 is not just a regulatory hurdle; it's a fundamental requirement to ensure that software innovation does not compromise human safety.</p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">

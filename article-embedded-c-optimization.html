@@ -82,27 +82,36 @@
             </header>
             <article class="article-content">
                 <h1>Embedded C Optimization</h1>
+
 <p>In the world of embedded systems, resources are scarce. Every byte of RAM and every CPU cycle counts. Writing "working" code isn't enough; you must write <strong>efficient</strong> code.</p>
-<p>!<a href="images/embedded-circuit.png">Embedded Circuit</a></p>
-<p><!-- ad-placeholder --></p>
+
+<p align="center"><img src="images/embedded-circuit.png" alt="Embedded Circuit" width="700"></p>
+
+<div class="ad-slot-container"><div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div></div>
+
 <h2>1. Use the Right Data Types</h2>
-Don't use `int` blindly. If your variable counts from 0 to 100, use `uint8_t`.
-- `int` might be 16-bit or 32-bit depending on architecture.
-- `uint8_t` is always 8-bit.
-<pre><code>c
-// Bad
-int counter = 0;
-<p>// Good
-uint_fast8_t counter = 0;
-</code></pre></p>
+<p>Don't use `int` blindly. If your variable counts from 0 to 100, use `uint8_t`.</p>
+<ul>
+<li>`int` might be 16-bit or 32-bit depending on architecture.</li>
+<li>`uint8_t` is always 8-bit.</li>
+</ul>
+
+<pre><code class="language-c">// Bad
+<p>int counter = 0;</p>
+
+<p>// Good</p>
+<p>uint_fast8_t counter = 0;</p>
+</code></pre>
+
 <h2>2. Volatile Keyword</h2>
-The `volatile` keyword tells the compiler: "Do not optimize this variable, its value can change unexpectedly (e.g., by hardware interrupt)."
+<p>The `volatile` keyword tells the compiler: "Do not optimize this variable, its value can change unexpectedly (e.g., by hardware interrupt)."</p>
+
 <h2>3. Inline Functions vs Macros</h2>
-Prefer `static inline` functions over `#define` macros. They provide type checking while maintaining the speed of inlined code.
-<pre><code>c
-static inline uint32_t max(uint32_t a, uint32_t b) {
-    return (a &gt; b) ? a : b;
-}
+<p>Prefer `static inline` functions over `#define` macros. They provide type checking while maintaining the speed of inlined code.</p>
+
+<pre><code class="language-c">static inline uint32_t max(uint32_t a, uint32_t b) {
+<p>return (a &gt; b) ? a : b;</p>
+<p>}</p>
 </code></pre>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">

@@ -81,129 +81,252 @@
                 <h1>ADAS Fundamentals: Architecture of the Modern Vehicle</h1>
             </header>
             <article class="article-content">
-                <p>Advanced Driver Assistance Systems (ADAS) are transforming modern vehicles into intelligent safety machines.  
-ADAS acts as the critical bridge between traditional driving and full autonomous mobility.</p>
+                <p>Advanced Driver Assistance Systems (ADAS) are transforming modern vehicles into intelligent safety machines.</p>
+<p>ADAS acts as the critical bridge between traditional driving and full autonomous mobility.</p>
+
 <p>At its core, ADAS is designed to <strong>reduce accidents, improve driver awareness, and enable real-time decision-making</strong> on the road.</p>
-<blockquote>[!NOTE]  </blockquote>
-<blockquote>ADAS functions operate under strict real-time constraints, where even a delay of a few milliseconds can impact safety-critical outcomes.</blockquote>
-<p>!<a href="images/automotive-dashboard.png">Automotive Dashboard Sensor View</a></p>
-<p><!-- ad-placeholder --></p>
+
+<div class="alert alert-note">
+ADAS functions operate under strict real-time constraints, where even a delay of a few milliseconds can impact safety-critical outcomes.
+</div>
+
+<p align="center"><img src="images/automotive-dashboard.png" alt="Automotive Dashboard Sensor View" width="700"></p>
+
+<div class="ad-slot-container"><div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div></div>
+
 <hr>
+
 <h2>Why ADAS Matters in Modern Vehicles</h2>
+
 <p>ADAS features are now common in almost every new car, supporting capabilities such as:</p>
-<p>- Adaptive Cruise Control (ACC)  
-- Lane Keep Assist (LKA)  
-- Automatic Emergency Braking (AEB)  
-- Blind Spot Monitoring (BSM)  
-- Traffic Sign Recognition (TSR)</p>
+
+<ul>
+<li>Adaptive Cruise Control (ACC)</li>
+<li>Lane Keep Assist (LKA)</li>
+<li>Automatic Emergency Braking (AEB)</li>
+<li>Blind Spot Monitoring (BSM)</li>
+<li>Traffic Sign Recognition (TSR)</li>
+</ul>
+
 <p>These systems continuously monitor the vehicle’s surroundings and assist the driver with faster and more accurate responses.</p>
+
 <hr>
+
 <h2>The Multi-Layered Sensor Suite</h2>
-<p>Modern ADAS relies on a combination of sensors, each contributing unique strengths.  
-This approach is known as <strong>Sensor Fusion</strong>, where multiple sensor inputs are merged to build a reliable understanding of the environment.</p>
+
+<p>Modern ADAS relies on a combination of sensors, each contributing unique strengths.</p>
+<p>This approach is known as <strong>Sensor Fusion</strong>, where multiple sensor inputs are merged to build a reliable understanding of the environment.</p>
+
 <h3>Key sensors include:</h3>
+
 <hr>
+
 <h3>1. Radar (Radio Detection and Ranging)</h3>
+
 <p>Radar is the backbone of features like <strong>Adaptive Cruise Control</strong> and <strong>Collision Warning Systems</strong>.</p>
+
 <p>It transmits radio waves and measures reflections to determine:</p>
-<p>- Object distance  
-- Relative speed  
-- Object angle</p>
-<p><strong>Strengths</strong></p>
-<p>- Works reliably in fog, rain, and snow  
-- Excellent for velocity estimation</p>
-<p><strong>Limitations</strong></p>
-<p>- Low resolution compared to cameras  
-- Cannot easily classify objects (pedestrian vs pole)</p>
+
+<ul>
+<li>Object distance</li>
+<li>Relative speed</li>
+<li>Object angle</li>
+</ul>
+
+<strong>Strengths</strong>
+
+<ul>
+<li>Works reliably in fog, rain, and snow</li>
+<li>Excellent for velocity estimation</li>
+</ul>
+
+<strong>Limitations</strong>
+
+<ul>
+<li>Low resolution compared to cameras</li>
+<li>Cannot easily classify objects (pedestrian vs pole)</li>
+</ul>
+
 <hr>
+
 <h3>2. LiDAR (Light Detection and Ranging)</h3>
+
 <p>LiDAR uses laser pulses to create a highly detailed <strong>3D point cloud map</strong> of the surroundings.</p>
+
 <p>It provides precise depth and shape information, making it valuable for:</p>
-<p>- High-accuracy object detection  
-- Mapping and localization</p>
-<p><strong>Strengths</strong></p>
-<p>- Outstanding spatial accuracy  
-- Strong performance in 3D environment modeling</p>
-<p><strong>Limitations</strong></p>
-<p>- Expensive hardware  
-- Reduced effectiveness in heavy rain, dust, or snow</p>
+
+<ul>
+<li>High-accuracy object detection</li>
+<li>Mapping and localization</li>
+</ul>
+
+<strong>Strengths</strong>
+
+<ul>
+<li>Outstanding spatial accuracy</li>
+<li>Strong performance in 3D environment modeling</li>
+</ul>
+
+<strong>Limitations</strong>
+
+<ul>
+<li>Expensive hardware</li>
+<li>Reduced effectiveness in heavy rain, dust, or snow</li>
+</ul>
+
 <hr>
+
 <h3>3. Cameras (Computer Vision Sensors)</h3>
+
 <p>Cameras serve as the primary “eyes” of the vehicle and are widely used for:</p>
-<p>- Lane marking detection  
-- Traffic light recognition  
-- Pedestrian and sign classification</p>
-<p><strong>Strengths</strong></p>
-<p>- Best for visual understanding and object recognition  
-- Cost-effective and high resolution</p>
-<p><strong>Limitations</strong></p>
-<p>- Sensitive to lighting conditions  
-- Performance drops in glare, darkness, or shadows</p>
+
+<ul>
+<li>Lane marking detection</li>
+<li>Traffic light recognition</li>
+<li>Pedestrian and sign classification</li>
+</ul>
+
+<strong>Strengths</strong>
+
+<ul>
+<li>Best for visual understanding and object recognition</li>
+<li>Cost-effective and high resolution</li>
+</ul>
+
+<strong>Limitations</strong>
+
+<ul>
+<li>Sensitive to lighting conditions</li>
+<li>Performance drops in glare, darkness, or shadows</li>
+</ul>
+
 <hr>
+
 <h2>Sensor Fusion: Building a Complete View</h2>
-<p>No single sensor is perfect.  
-Therefore, ADAS systems combine sensor data to achieve:</p>
-<p>- Higher reliability  
-- Improved accuracy  
-- Robust perception under all driving conditions</p>
+
+<p>No single sensor is perfect.</p>
+<p>Therefore, ADAS systems combine sensor data to achieve:</p>
+
+<ul>
+<li>Higher reliability</li>
+<li>Improved accuracy</li>
+<li>Robust perception under all driving conditions</li>
+</ul>
+
 <p>Example:</p>
-<p>- Radar detects object speed  
-- Camera identifies object type  
-- LiDAR provides exact 3D distance</p>
+
+<ul>
+<li>Radar detects object speed</li>
+<li>Camera identifies object type</li>
+<li>LiDAR provides exact 3D distance</li>
+</ul>
+
 <p>Together, they form a safer and smarter perception model.</p>
+
 <hr>
+
 <h2>The ADAS Perception Pipeline: Sense → Think → Act</h2>
+
 <p>Every ADAS decision follows a structured real-time processing loop:</p>
+
 <h3>1. Sense (Data Acquisition)</h3>
+
 <p>Raw input is captured from:</p>
-<p>- Radar  
-- Cameras  
-- LiDAR  
-- Ultrasonic sensors</p>
+
+<ul>
+<li>Radar</li>
+<li>Cameras</li>
+<li>LiDAR</li>
+<li>Ultrasonic sensors</li>
+</ul>
+
 <hr>
+
 <h3>2. Perceive (Environment Understanding)</h3>
+
 <p>The system performs:</p>
-<p>- Object detection  
-- Lane recognition  
-- Tracking of moving vehicles  
-- Free-space estimation</p>
+
+<ul>
+<li>Object detection</li>
+<li>Lane recognition</li>
+<li>Tracking of moving vehicles</li>
+<li>Free-space estimation</li>
+</ul>
+
 <p>AI and ML algorithms are often used at this stage.</p>
+
 <hr>
+
 <h3>3. Plan (Decision and Risk Assessment)</h3>
+
 <p>Once objects are understood, the vehicle must decide:</p>
-<p>- Is braking required?  
-- Should steering correction occur?  
-- Is there a collision risk?</p>
+
+<ul>
+<li>Is braking required?</li>
+<li>Should steering correction occur?</li>
+<li>Is there a collision risk?</li>
+</ul>
+
 <p>This stage includes trajectory prediction and safety validation.</p>
+
 <hr>
+
 <h3>4. Act (Vehicle Control Execution)</h3>
+
 <p>Finally, the system sends commands through automotive networks such as:</p>
-<p>- CAN  
-- FlexRay  
-- Automotive Ethernet</p>
+
+<ul>
+<li>CAN</li>
+<li>FlexRay</li>
+<li>Automotive Ethernet</li>
+</ul>
+
 <p>Actions may include:</p>
-<p>- Emergency braking  
-- Steering assistance  
-- Speed adjustment</p>
+
+<ul>
+<li>Emergency braking</li>
+<li>Steering assistance</li>
+<li>Speed adjustment</li>
+</ul>
+
 <hr>
+
 <h2>Real-Time Safety Requirement</h2>
+
 <p>ADAS is considered a <strong>safety-critical automotive domain</strong>.</p>
+
 <p>Professional engineers must ensure the complete Sense → Act loop finishes within:</p>
-<p>- <strong>50–100 milliseconds</strong></p>
+
+<ul>
+<li><strong>50–100 milliseconds</strong></li>
+</ul>
+
 <p>This is essential for:</p>
-<p>- High-speed driving response  
-- Pedestrian detection  
-- Collision prevention</p>
+
+<ul>
+<li>High-speed driving response</li>
+<li>Pedestrian detection</li>
+<li>Collision prevention</li>
+</ul>
+
 <hr>
+
 <h2>Conclusion: The Foundation of Autonomous Driving</h2>
-<p>ADAS represents the first major step toward autonomous vehicles.  
-By combining sensors, real-time software, and intelligent decision-making, cars are now capable of "seeing" and reacting faster than humans in many situations.</p>
+
+<p>ADAS represents the first major step toward autonomous vehicles.</p>
+<p>By combining sensors, real-time software, and intelligent decision-making, cars are now capable of "seeing" and reacting faster than humans in many situations.</p>
+
 <p>Understanding ADAS fundamentals is essential for engineers working in:</p>
-<p>- Automotive Embedded Systems  
-- AUTOSAR  
-- ECU Development  
-- Functional Safety (ISO 26262)</p>
+
+<ul>
+<li>Automotive Embedded Systems</li>
+<li>AUTOSAR</li>
+<li>ECU Development</li>
+<li>Functional Safety (ISO 26262)</li>
+</ul>
+
 <hr>
+
 <p>📌 *Stay tuned for upcoming articles on ADAS ECU architecture, CAN communication, sensor fusion algorithms, and AUTOSAR integration.*</p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">

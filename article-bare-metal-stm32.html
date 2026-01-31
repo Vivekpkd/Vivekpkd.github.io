@@ -82,28 +82,34 @@
             </header>
             <article class="article-content">
                 <h1>Bare Metal Programming</h1>
+
 <p>Before RTOS, there was Bare Metal. Direct register manipulation gives you ultimate control and zero overhead.</p>
-<p>!<a href="images/embedded-circuit.png">Embedded Circuit</a></p>
-<p><!-- ad-placeholder --></p>
+
+<p align="center"><img src="images/embedded-circuit.png" alt="Embedded Circuit" width="700"></p>
+
+<div class="ad-slot-container"><div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div></div>
+
 <h2>Blinking an LED (The Register Way)</h2>
+
 <p>Instead of `HAL_GPIO_WritePin`, we write directly to the memory address mapped to the GPIO hardware.</p>
-<pre><code>c
-#define RCC_AHB1ENR  (*((volatile uint32_t *)0x40023830))
-#define GPIOA_MODER  (*((volatile uint32_t *)0x40020000))
-#define GPIOA_ODR    (*((volatile uint32_t *)0x40020014))
-<p>void main() {
-    // Enable Clock for GPIOA
-    RCC_AHB1ENR |= 0x01;
+
+<pre><code class="language-c">#define RCC_AHB1ENR  (*((volatile uint32_t *)0x40023830))
+<p>#define GPIOA_MODER  (*((volatile uint32_t *)0x40020000))</p>
+<p>#define GPIOA_ODR    (*((volatile uint32_t *)0x40020014))</p>
+
+<p>void main() {</p>
+<p>// Enable Clock for GPIOA</p>
+<p>RCC_AHB1ENR |= 0x01;</p>
     
-    // Set PA5 as Output
-    GPIOA_MODER |= (1 &lt;&lt; 10);
+<p>// Set PA5 as Output</p>
+<p>GPIOA_MODER |= (1 &lt;&lt; 10);</p>
     
-    while(1) {
-        GPIOA_ODR ^= (1 &lt;&lt; 5); // Toggle LED
-        delay(100000);
-    }
-}
-</code></pre></p>
+<p>while(1) {</p>
+<p>GPIOA_ODR ^= (1 &lt;&lt; 5); // Toggle LED</p>
+<p>delay(100000);</p>
+<p>}</p>
+<p>}</p>
+</code></pre>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">
                 <div class="ad-placeholder">

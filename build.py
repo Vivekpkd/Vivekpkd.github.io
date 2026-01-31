@@ -9,10 +9,9 @@ TEMPLATE_FILE = 'blog-template.html'
 
 def parse_markdown(content):
     """
-    Simple Regex-based Markdown parser to avoid dependencies.
-    Supports: Frontmatter, H1/H2, Paragraphs, Code Blocks, Links, Bold.
+    Enhanced Markdown parser supporting: Frontmatter, H1-H3, Bold, Links, 
+    Images, Lists, GitHub-style Alerts, and Code Blocks.
     """
-    # Parse frontmatter manually to avoid dependencies
     metadata = {}
     if content.startswith('---'):
         parts = content.split('---', 2)
@@ -24,7 +23,7 @@ def parse_markdown(content):
                     metadata[key.strip()] = value.strip().strip('"')
             content = parts[2]
 
-    # Additional metadata extraction for category and tags
+    # Defaults
     metadata['category'] = metadata.get('category', 'General')
     tags_raw = metadata.get('tags', '')
     if isinstance(tags_raw, str):
@@ -32,44 +31,87 @@ def parse_markdown(content):
     else:
         metadata['tags'] = tags_raw if isinstance(tags_raw, list) else []
 
-    # Convert Markdown to HTML
-    html = content.strip()
-    
-    # Code Blocks (Triple backticks)
-    def repl_code(match):
-        code = match.group(1).replace('<', '&lt;').replace('>', '&gt;')
-        return f'<pre><code>{code}</code></pre>'
-    html = re.sub(r'```(.*?)```', repl_code, html, flags=re.DOTALL)
-    
-    # Headers
-    html = re.sub(r'^# (.*?)$', r'<h1>\1</h1>', html, flags=re.MULTILINE)
-    html = re.sub(r'^## (.*?)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)
-    html = re.sub(r'^### (.*?)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)
-    
-    # Bold
-    html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
-    
-    # Links
-    html = re.sub(r'\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', html)
-    
-    # Blockquotes
-    html = re.sub(r'^> (.*?)$', r'<blockquote>\1</blockquote>', html, flags=re.MULTILINE)
+    text = content.strip()
 
-    # Horizontal Rules
-    html = re.sub(r'^---$', r'<hr>', html, flags=re.MULTILINE)
-    
-    # Paragraphs (Simple split by double newline)
-    lines = html.split('\n\n')
-    final_lines = []
+    # 1. Block Level: Code Blocks (Triple backticks)
+    def repl_code(match):
+        lang = match.group(1).strip()
+        code = match.group(2).replace('<', '&lt;').replace('>', '&gt;')
+        return f'<pre><code class="language-{lang}">{code}</code></pre>'
+    text = re.sub(r'```(\w*)\n?(.*?)```', repl_code, text, flags=re.DOTALL)
+
+    # 2. Block Level: Ad Placeholder
+    ad_html = """<div class="ad-slot-container"><div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div></div>"""
+    text = text.replace('<!-- ad-placeholder -->', ad_html)
+
+    # 3. Block Level: Headers
+    text = re.sub(r'^# (.*?)$', r'<h1>\1</h1>', text, flags=re.MULTILINE)
+    text = re.sub(r'^## (.*?)$', r'<h2>\1</h2>', text, flags=re.MULTILINE)
+    text = re.sub(r'^### (.*?)$', r'<h3>\1</h3>', text, flags=re.MULTILINE)
+
+    # 4. Block Level: Horizontal Rules
+    text = re.sub(r'^---$', r'<hr>', text, flags=re.MULTILINE)
+
+    # 5. Inline Level: Bold, Images, Links
+    text = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', text)
+    # Images: ![alt](url) -> Centered image with fixed width
+    def repl_img(match):
+        alt = match.group(1)
+        url = match.group(2)
+        return f'<p align="center"><img src="{url}" alt="{alt}" width="700"></p>'
+    text = re.sub(r'\!\[(.*?)\]\((.*?)\)', repl_img, text)
+    # Links: [text](url) (must not be preceded by !)
+    text = re.sub(r'(?<!\!)\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', text)
+
+    # 6. Advanced Block Level: Lists, Alerts, and Paragraphs
+    lines = text.split('\n')
+    processed_lines = []
+    in_list = False
+    in_alert = False
+    alert_type = ""
+
     for line in lines:
-        line = line.strip()
-        if not line: continue
-        if line.startswith('<h') or line.startswith('<pre') or line.startswith('<div') or line.startswith('<blockquote') or line.startswith('<hr'):
-            final_lines.append(line)
+        stripped = line.strip()
+        
+        # Handle Alerts (> [!NOTE])
+        alert_match = re.match(r'^> \[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]', stripped)
+        if alert_match:
+            if in_list: processed_lines.append('</ul>'); in_list = False
+            alert_type = alert_match.group(1).lower()
+            processed_lines.append(f'<div class="alert alert-{alert_type}">')
+            in_alert = True
+            continue
+        
+        if in_alert and stripped.startswith('>'):
+            content_line = stripped[1:].strip()
+            processed_lines.append(content_line)
+            continue
+        elif in_alert and not stripped.startswith('>'):
+            processed_lines.append('</div>')
+            in_alert = False
+
+        # Handle Lists
+        list_match = re.match(r'^[\-\*\+] (.*)$', stripped)
+        if list_match:
+            if not in_list:
+                processed_lines.append('<ul>')
+                in_list = True
+            processed_lines.append(f'<li>{list_match.group(1)}</li>')
         else:
-            final_lines.append(f'<p>{line}</p>')
+            if in_list:
+                processed_lines.append('</ul>')
+                in_list = False
             
-    return metadata, '\n'.join(final_lines)
+            # Paragraphs (if not a tag)
+            if stripped and not stripped.startswith('<'):
+                processed_lines.append(f'<p>{stripped}</p>')
+            else:
+                processed_lines.append(line)
+
+    if in_list: processed_lines.append('</ul>')
+    if in_alert: processed_lines.append('</div>')
+
+    return metadata, '\n'.join(processed_lines)
 
 def generate_site():
     print("Starting Build...")
