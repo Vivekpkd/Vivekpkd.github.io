@@ -93,10 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            if (typeof articlesData === 'undefined') {
+                searchResults.innerHTML = '<p style="padding:10px; color:var(--text-muted)">Search data loading...</p>';
+                return;
+            }
+
             const matches = articlesData.filter(a =>
                 a.title.toLowerCase().includes(term) ||
                 a.excerpt.toLowerCase().includes(term) ||
-                a.tags.some(t => t.toLowerCase().includes(term))
+                (a.tags && a.tags.some(t => t.toLowerCase().includes(term)))
             );
 
             searchResults.innerHTML = matches.map(match => `
