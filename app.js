@@ -81,25 +81,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme Toggle Logic
     const themeBtn = document.getElementById('theme-toggle');
     const html = document.documentElement;
-    const icon = themeBtn.querySelector('i');
+    const isArticle = window.location.pathname.includes('article-');
+    let themeToApply = localStorage.getItem('theme');
 
-    // Check Local Storage
-    if (localStorage.getItem('theme') === 'light') {
-        html.setAttribute('data-theme', 'light');
-        icon.classList.replace('fa-moon', 'fa-sun');
+    // Default Logic: Articles default to Light if no preference is saved
+    if (!themeToApply && isArticle) {
+        themeToApply = 'light';
     }
 
-    themeBtn.addEventListener('click', () => {
-        if (html.getAttribute('data-theme') === 'light') {
-            html.removeAttribute('data-theme');
-            icon.classList.replace('fa-sun', 'fa-moon');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            html.setAttribute('data-theme', 'light');
+    // Apply recorded or default theme
+    if (themeToApply === 'light') {
+        html.setAttribute('data-theme', 'light');
+    } else {
+        html.removeAttribute('data-theme');
+    }
+
+    // Sync button icon if it exists
+    if (themeBtn) {
+        const icon = themeBtn.querySelector('i');
+        if (themeToApply === 'light') {
             icon.classList.replace('fa-moon', 'fa-sun');
-            localStorage.setItem('theme', 'light');
+        } else {
+            icon.classList.replace('fa-sun', 'fa-moon');
         }
-    });
+
+        themeBtn.addEventListener('click', () => {
+            if (html.getAttribute('data-theme') === 'light') {
+                html.removeAttribute('data-theme');
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
 
     // Intersection Observer for Animation
     const observer = new IntersectionObserver((entries) => {

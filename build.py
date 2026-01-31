@@ -125,6 +125,9 @@ def generate_site():
                 <li><a href="index.html#blog" class="active">Blog</a></li>
                 <li><a href="index.html#contact" class="btn-small">Contact</a></li>
             </ul>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
         </div>
     </nav>
     <section class="section">
