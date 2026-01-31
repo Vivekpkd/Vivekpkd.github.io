@@ -13,10 +13,8 @@ Write-Host "Renaming branch to main..."
 git branch -M main
 
 Write-Host "Configuring remote..."
-# Try to remove it first (suppressing error if it doesn't exist)
 git remote remove origin *>$null
-# Add fresh
 git remote add origin https://github.com/Vivekpkd/Vivekpkd.github.io.git
 
-Write-Host "Pushing to GitHub..."
-git push -u origin main
+Write-Host "Pushing to GitHub (Forced)..."
+git push -u origin main --force
