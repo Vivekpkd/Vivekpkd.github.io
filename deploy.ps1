@@ -10,7 +10,7 @@ Write-Host "Adding files..."
 git add .
 
 Write-Host "Committing changes..."
-git commit -m "Initial commit - Monetized Portfolio with Blog Refactor"
+git commit -m "Automotive Content Pivot - 14 Articles"
 
 Write-Host "Renaming branch to main..."
 git branch -M main

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded C Code Optimization Techniques - Vivek</title>
+    <meta name="description" content="Maximize performance and minimize memory usage in resource-constrained embedded systems.">
+    <meta name="author" content="Vivek">
+    <meta property="og:title" content="Embedded C Code Optimization Techniques">
+    <meta property="og:description" content="Maximize performance and minimize memory usage in resource-constrained embedded systems.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Adsense Placeholder -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">VIVEK A<span class="dot">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog" class="active">Blog</a></li>
+                <li><a href="index.html#contact" class="btn-small">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="section">
+        <div class="container" style="max-width: 800px; padding-top: 50px;">
+            <div style="margin-bottom: 30px;">
+                <span class="tag">Jan 30, 2026</span>
+                <h1 style="font-size: 2.5rem; margin: 15px 0;">Embedded C Code Optimization Techniques</h1>
+            </div>
+            <article style="line-height: 1.8; font-size: 1.1rem; color: var(--text-muted);">
+                <h1>Embedded C Optimization</h1>
+<p>In the world of embedded systems, resources are scarce. Every byte of RAM and every CPU cycle counts. Writing "working" code isn't enough; you must write <strong>efficient</strong> code.</p>
+<p>!<a href="images/embedded-circuit.png">Embedded Circuit</a></p>
+<div class="ad-placeholder in-article" style="margin: 30px 0;"><small>Advertisement Space (Google Adsense)</small></div>
+<h2>1. Use the Right Data Types</h2>
+Don't use `int` blindly. If your variable counts from 0 to 100, use `uint8_t`.
+- `int` might be 16-bit or 32-bit depending on architecture.
+- `uint8_t` is always 8-bit.
+<pre><code>c
+// Bad
+int counter = 0;
+<p>// Good
+uint_fast8_t counter = 0;
+</code></pre></p>
+<h2>2. Volatile Keyword</h2>
+The `volatile` keyword tells the compiler: "Do not optimize this variable, its value can change unexpectedly (e.g., by hardware interrupt)."
+<h2>3. Inline Functions vs Macros</h2>
+Prefer `static inline` functions over `#define` macros. They provide type checking while maintaining the speed of inlined code.
+<pre><code>c
+static inline uint32_t max(uint32_t a, uint32_t b) {
+    return (a &gt; b) ? a : b;
+}
+</code></pre>
+            </article>
+            <div style="margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Vivek. Built for Monetization.</p>
+            <div style="margin-top: 10px; font-size: 0.9em;">
+                <a href="privacy.html" style="color: #666; margin-right: 15px;">Privacy Policy</a>
+                <a href="terms.html" style="color: #666;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>

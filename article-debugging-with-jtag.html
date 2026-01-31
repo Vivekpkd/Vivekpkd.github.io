@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging with JTAG and SWD - Vivek</title>
+    <meta name="description" content="Stop using printf debugging. Learn to use hardware debuggers.">
+    <meta name="author" content="Vivek">
+    <meta property="og:title" content="Debugging with JTAG and SWD">
+    <meta property="og:description" content="Stop using printf debugging. Learn to use hardware debuggers.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Adsense Placeholder -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">VIVEK A<span class="dot">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog" class="active">Blog</a></li>
+                <li><a href="index.html#contact" class="btn-small">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="section">
+        <div class="container" style="max-width: 800px; padding-top: 50px;">
+            <div style="margin-bottom: 30px;">
+                <span class="tag">Jan 20, 2026</span>
+                <h1 style="font-size: 2.5rem; margin: 15px 0;">Debugging with JTAG and SWD</h1>
+            </div>
+            <article style="line-height: 1.8; font-size: 1.1rem; color: var(--text-muted);">
+                <h1>Debugging with JTAG</h1>
+<p>`printf("Here 1");` is not debugging. Real debugging requires a probe (J-Link, ST-Link) and JTAG/SWD.</p>
+<p>!<a href="images/embedded-circuit.png">Embedded Circuit</a></p>
+<div class="ad-placeholder in-article" style="margin: 30px 0;"><small>Advertisement Space (Google Adsense)</small></div>
+<h2>What can JTAG do?</h2>
+1.  <strong>Breakpoints</strong>: Halt the CPU at a specific line.
+2.  <strong>Watchpoints</strong>: Halt the CPU when a specific variable changes value.
+3.  <strong>Register View</strong>: See the state of CPU registers and Peripherals in real-time.
+4.  <strong>Fault Analysis</strong>: When the system crashes to `HardFault_Handler`, JTAG tells you exactly which instruction caused it.
+            </article>
+            <div style="margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Vivek. Built for Monetization.</p>
+            <div style="margin-top: 10px; font-size: 0.9em;">
+                <a href="privacy.html" style="color: #666; margin-right: 15px;">Privacy Policy</a>
+                <a href="terms.html" style="color: #666;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
