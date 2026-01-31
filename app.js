@@ -71,16 +71,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('.mobile-menu');
     const navLinks = document.querySelectorAll('.mobile-menu a');
 
-    burger.addEventListener('click', () => {
-        nav.classList.toggle('active');
-        burger.classList.toggle('toggle');
-    });
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('active');
+    if (burger && nav) {
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            burger.classList.toggle('toggle');
         });
-    });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+    }
 
     // Theme Toggle Logic
     const themeBtn = document.getElementById('theme-toggle');
