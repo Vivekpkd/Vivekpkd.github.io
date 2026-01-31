@@ -81,13 +81,11 @@
                 <h1>Hardware Security Module (HSM)</h1>
             </header>
             <article class="article-content">
-                <h1>Hardware Security Module (HSM)</h1>
-
-<p>In the modern automotive landscape, security is no longer an option—it is a mandatory requirement. With vehicles becoming increasingly connected and autonomous, the threat surface for cyber-attacks has expanded significantly.</p>
+                <p>In the modern automotive landscape, security is no longer an option—it is a mandatory requirement. With vehicles becoming increasingly connected and autonomous, the threat surface for cyber-attacks has expanded significantly.</p>
 
 <p>The <strong>Hardware Security Module (HSM)</strong> is the dedicated hardware component within an Automotive MCU (like Infineon AURIX or ST Stellar) that handles all security-critical tasks.</p>
 
-<h2>Why do we need an HSM?</h2>
+
 
 <p>Traditional software-based security is vulnerable to side-channel attacks and memory dumping. The HSM provides:</p>
 
@@ -97,24 +95,21 @@
 <li><strong>Cryptographic Acceleration</strong>: Dedicated hardware engines for AES, RSA, ECC, and SHA.</li>
 <li><strong>Secure Boot</strong>: Ensuring that only authentic and unmodified software can run on the ECU.</li>
 </ul>
+<br>
+<p>it’s a dedicated hardware vault with its own CPU core, memory, and crypto engine — that performs:<br></p>
+<p>✅ Secure Boot → verifies the ECU firmware signature before startup</p>
+<p>✅ Secure Flashing → allows only signed software to be programmed</p>
+<p>✅ Crypto Operations → encrypts and authenticates data</p>
+<p>✅ Key Management → keeps cryptographic keys locked in protected memory</p>
+ <br>
+<p>⚙️ How It Works (Simplified Flow)</p>
+<p>When power comes ON:</p>
+<p>1️⃣ HSM wakes up before the main application.</p>
+<p>2️⃣ It checks if the firmware is signed by a trusted key.</p>
+<p>3️⃣ If it’s valid → Host Core boots AUTOSAR.</p>
+<p>4️⃣ If not → ECU locks itself to prevent tampering.<br></p>
 
-<h2>HSM Architectures: SHE vs. EVITA</h2>
-
-<p>Automotive HSMs generally follow specific standards depending on the required security level:</p>
-
-<p>1. <strong>SHE (Secure Hardware Extension)</strong>: A basic standard for secure key storage and simple symmetric cryptography (AES-128).</p>
-<p>2. <strong>EVITA (E-safety Vehicle Intrusion Protected Applications)</strong>:</p>
-<ul>
-<li><strong>Light</strong>: Minimal security for sensors/actuators.</li>
-<li><strong>Medium</strong>: Balance of performance and security for most ECUs.</li>
-<li><strong>Full</strong>: High-performance crypto-processors for Gateways and V2X.</li>
-</ul>
-
-<hr>
-
-<p>[Body content to be updated by user]</p>
-
-<div class="ad-slot-container"><div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div></div>
+<p align="center"><img src="https://media.licdn.com/dms/image/v2/D5622AQGMDNVYEGZ7mw/feedshare-shrink_2048_1536/B56Zp4ghQmJYAw-/0/1762958383610?e=1771459200&v=beta&t=9rt74L4Sx3RXcqlBjP1wDtvGP0Y-CB39IjCeVbDTi1E" alt="HSM" width="700"></p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">
                 <div class="ad-placeholder">
