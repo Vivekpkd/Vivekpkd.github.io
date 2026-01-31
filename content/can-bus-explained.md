@@ -1,29 +1,32 @@
 ---
-title: "The CAN Bus Protocol Explained"
-date: "Jan 27, 2026"
-excerpt: "Deep dive into Controller Area Network (CAN) frames, arbitration, and error handling."
+title: "CAN Bus Explained: The Nervous System of the Car"
+date: "Jan 21, 2026"
+excerpt: "How Controller Area Network (CAN) allows ECUs to talk without a central host."
 ---
-# CAN Bus Protocol
+# CAN Bus Explained: The Nervous System of the Car
 
-Modern cars have 70+ ECUs (Electronic Control Units). They talk to each other using CAN (Controller Area Network).
+Developed by Bosch in the 1980s, the Controller Area Network (CAN) bus is a robust communication protocol designed to allow microcontrollers and devices to communicate with each other's applications without a host computer.
 
-![Automotive Dashboard](images/automotive-dashboard.png)
+> [!TIP]
+> CAN Bus uses "Differential Signaling" on two wires (CAN High and CAN Low), making it incredibly resilient to electromagnetic noise.
 
-<!-- ad-placeholder -->
+## Key Features of the CAN Protocol
 
-## Why CAN?
-1.  **Differential Signaling**: Resistant to noise (EMI) in harsh car environments.
-2.  **Robust**: Built-in error checking and retransmission.
-3.  **Arbitration**: Non-destructive bitwise arbitration ensures critical messages (like Brakes) always win the bus.
+CAN is a multi-master, message-based broadcast system.
 
-## The Standard Frame (CAN 2.0A) - 11-bit ID
+### 1. Message Prioritization
+CAN frames do not have addresses; they have **Identifiers**.
+- **Arbitration**: Lower identifiers have higher priority. If two nodes start talking at once, the one with the more important ID (lower number) wins without losing any data.
 
-| Field | Bits | Description |
-| :--- | :--- | :--- |
-| SOF | 1 | Start of Frame |
-| Identifier | 11 | Message Priority |
-| RTR | 1 | Remote Transmission Request |
-| DLC | 4 | Data Length Code |
-| Data | 0-64 | Payload (up to 8 bytes) |
-| CRC | 15 | Error check |
-| EOF | 7 | End of Frame |
+### 2. Error Detection and Fault Confinement
+CAN has built-in mechanisms for CRC checks and bit stuffing error detection.
+- **Self-Healing**: A "faulty" node that keeps sending errors will eventually "Bus Off" to prevent taking down the entire network.
+
+### 3. Harness Simplification
+Before CAN, cars had miles of copper wire connecting every single switch to every single light. With CAN, all components share the same two wires, significantly reducing weight and cost.
+
+---
+
+## CAN vs. CAN FD
+
+While standard CAN is limited to **1 Mbps**, the newer **CAN FD (Flexible Data-Rate)** supports payloads up to 64 bytes and speeds up to **8 Mbps**, meeting the demands of modern ADAS and Infotainment systems.

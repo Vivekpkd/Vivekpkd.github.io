@@ -1,27 +1,28 @@
 ---
-title: "I2C vs SPI: Choosing the Right Bus"
-date: "Jan 21, 2026"
-excerpt: "Comparison of the two most common on-board communication protocols."
+title: "I2C vs SPI: Choosing the Right Peripheral"
+date: "Jan 23, 2026"
+excerpt: "A comparison of serial communication protocols for board-level sensors."
 ---
-# I2C vs SPI
+# I2C vs SPI: Choosing the Right Peripheral
 
-Every embedded engineer faces this choice. Which one is better?
+When connecting sensors, EEPROMs, or displays to your micro-controller, you usually face two choices: I2C (Inter-Integrated Circuit) or SPI (Serial Peripheral Interface).
 
-![Automotive Dashboard](images/automotive-dashboard.png)
+## I2C: The Two-Wire Convenience
+I2C uses only two lines: **SDA** (Data) and **SCL** (Clock).
 
-<!-- ad-placeholder -->
+- **Pros**: Very easy to wire multiple devices (up to 127) on the same bus using addressing.
+- **Cons**: Slower speeds (standard 400kHz or 1MHz) and higher overhead due to protocol bits.
+- **Best For**: Low-speed sensors and configuration chips.
 
-## I2C (Inter-Integrated Circuit)
-- **Wires**: 2 (SDA, SCL).
-- **Speed**: Slow (100kHz - 3.4MHz).
-- **Addressing**: Software addresses (great for many slaves).
-- **Use Case**: Sensors, EEPROM, reading configurations.
+## SPI: The High-Speed Giant
+SPI is a 4-wire full-duplex protocol: **MOSI**, **MISO**, **SCK**, and **SS**.
 
-## SPI (Serial Peripheral Interface)
-- **Wires**: 4 (MISO, MOSI, SCK, CS).
-- **Speed**: Fast (up to 50MHz+).
-- **Addressing**: Chip Select Lines (hardware).
-- **Use Case**: SD Cards, LCD Displays, High-speed ADCs.
+- **Pros**: Faster speeds (20MHz to 50MHz+) and very low hardware overhead.
+- **Cons**: Requires a dedicated "Slave Select" (SS) pin for every device you add, complicating PCB routing.
+- **Best For**: Displays, high-speed ADCs, and external flash memory.
 
-## Verdict
-Use **SPI** when speed matters. Use **I2C** when pin count is limited.
+---
+
+## The Verdict
+
+If you are pin-constrained and speed isn't critical, go with **I2C**. If you need to move large amounts of data (like pixel data for a dashboard) quickly, **SPI** is the winner.

@@ -45,9 +45,8 @@ def parse_markdown(content):
     # Links
     html = re.sub(r'\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', html)
     
-    # Ad Placeholder
-    html = html.replace('<!-- ad-placeholder -->', 
-        '<div class="ad-placeholder in-article" style="margin: 30px 0;"><small>Advertisement Space (Google Adsense)</small></div>')
+    # Ad Placeholder (Removed from here, now in global template)
+    # html = html.replace('<!-- ad-placeholder -->', ...)
     
     # Paragraphs (Simple split by double newline)
     lines = html.split('\n\n')
@@ -148,6 +147,11 @@ def generate_site():
             <article class="article-content">
                 {html_content}
             </article>
+            <div class="ad-slot-container" style="margin-top: 40px;">
+                <div class="ad-placeholder">
+                    <small>Advertisement Space (Google Adsense)</small>
+                </div>
+            </div>
             <footer class="article-footer">
                 <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
             </footer>

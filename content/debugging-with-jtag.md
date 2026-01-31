@@ -1,18 +1,33 @@
 ---
 title: "Debugging with JTAG and SWD"
-date: "Jan 20, 2026"
-excerpt: "Stop using printf debugging. Learn to use hardware debuggers."
+date: "Jan 23, 2026"
+excerpt: "Going beyond printf: Hardware-level debugging of embedded firmware."
 ---
-# Debugging with JTAG
+# Debugging with JTAG and SWD
 
-`printf("Here 1");` is not debugging. Real debugging requires a probe (J-Link, ST-Link) and JTAG/SWD.
+When your embedded system crashes at 3:00 AM, `printf("Here\n");` isn't going to save you. You need to look inside the registers and memory of the chip while it's running. This is where JTAG and SWD come in.
 
-![Embedded Circuit](images/embedded-circuit.png)
+## The Tools of the Trade
 
-<!-- ad-placeholder -->
+### JTAG (Joint Test Action Group)
+The traditional industry standard. Uses 4-5 pins.
+- **Capabilities**: Can "Chain" multiple chips together on a single board for testing.
+- **Use Case**: Large, complex PCBs with multiple processors.
 
-## What can JTAG do?
-1.  **Breakpoints**: Halt the CPU at a specific line.
-2.  **Watchpoints**: Halt the CPU when a specific variable changes value.
-3.  **Register View**: See the state of CPU registers and Peripherals in real-time.
-4.  **Fault Analysis**: When the system crashes to `HardFault_Handler`, JTAG tells you exactly which instruction caused it.
+### SWD (Serial Wire Debug)
+The ARM-specific, two-wire alternative.
+- **Pros**: Saves pins! Only requires **SWDIO** and **SWCLK**.
+- **Capabilities**: Provides almost all the same features as JTAG but with a smaller footprint.
+
+## Why You Need a Debugger (Segger J-Link, ST-LINK)
+
+1. **Breakpoints**: Stop the code execution on a specific line of code.
+2. **Step-Through**: Watch the code execute line-be-line.
+3. **Register View**: See the EXACT state of the hardware (Interrupts, Timers, DMA).
+4. **Memory Watch**: Monitor variables in real-time without stopping the CPU.
+
+---
+
+## Conclusion
+
+Hardware debugging is a "superpower" for firmware engineers. Once you master a debugger, you'll find and fix bugs in minutes that would have taken days using serial logs.

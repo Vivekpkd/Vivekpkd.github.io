@@ -1,30 +1,28 @@
 ---
-title: "RTOS vs GPOS: What's the Difference?"
-date: "Jan 26, 2026"
-excerpt: "Why your car uses a Real-Time OS while your phone uses Android/iOS."
+title: "RTOS vs GPOS: When to use Real-Time Systems"
+date: "Jan 22, 2026"
+excerpt: "Why Windows or Linux won't cut it for safety-critical automotive applications."
 ---
-# RTOS vs GPOS
+# RTOS vs GPOS: When to use Real-Time Systems
 
-A General Purpose OS (GPOS) like Windows is designed for throughput. A Real-Time OS (RTOS) like FreeRTOS is designed for **determinism**.
+In automotive engineering, the choice of Operating System can be a life-or-death decision. While you might use a General Purpose OS (GPOS) like Windows for your PC, cars require a Real-Time OS (RTOS).
 
-![Embedded Circuit](images/embedded-circuit.png)
+## The Core Difference: Determinism
 
-<!-- ad-placeholder -->
+The defining characteristic of an RTOS is not "speed," but **Determinism**.
 
-## Determinism
-In an airbag system, you don't care if the CPU is 99% idle; you care that the interrupt fires exactly 5ms after impact.
+### RTOS (Real-Time OS)
+An RTOS guarantees that a particular task will be executed within a specific, predictable timeframe.
+- **Worst-Case Execution**: Safety depends on meeting the deadline, not just the logical result.
+- **Example**: Airbag deployment. It must trigger *exactly* when needed, regardless of other system load.
 
-## The Scheduler
-- **GPOS**: Fairness. Gives everyone a slice of CPU.
-- **RTOS**: Priority. High priority tasks ALWAYS preempt low priority tasks instantly.
+### GPOS (General Purpose OS)
+A GPOS is designed for "Fairness" and "Throughput."
+- **Variable Latency**: Your computer might lag if it's doing an update. That's fine for a spreadsheet, but fatal for a vehicle's braking system.
+- **Example**: Android Automotive (Infotainment) vs. FreeRTOS/AUTOSAR OS (Power Steering).
 
-## Code Example: FreeRTOS Task Creation
-```c
-void vTaskFunction( void * pvParameters ) {
-    for( ;; ) {
-        // Task code
-    }
-}
+---
 
-xTaskCreate( vTaskFunction, "Task 1", 1000, NULL, 1, NULL );
-```
+## When to Choose an RTOS
+
+If your system involves control loops, functional safety (ISO 26262), or sub-millisecond response times, an RTOS is the only professional choice. Common examples include **FreeRTOS**, **QNX**, and **SafeRTOS**.

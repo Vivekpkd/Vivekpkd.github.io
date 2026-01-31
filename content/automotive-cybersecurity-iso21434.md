@@ -1,21 +1,32 @@
 ---
-title: "Automotive Cybersecurity (ISO 21434)"
-date: "Jan 24, 2026"
-excerpt: "With cars becoming connected computers, security is the new safety."
+title: "Automotive Cybersecurity: ISO/SAE 21434"
+date: "Jan 23, 2026"
+excerpt: "Mapping security across the vehicle lifecycle - from boot to cloud."
 ---
-# Automotive Cybersecurity
+# Automotive Cybersecurity: ISO21434
 
-Hackers can now remotely stop a Jeep on a highway. This reality birthed ISO 21434.
+As vehicles become "Computers on Wheels," the attack surface has expanded exponentially. ISO/SAE 21434 is the landmark standard defining the cyber-physical security requirements for the road.
 
-![Automotive Dashboard](images/automotive-dashboard.png)
+> [!CAUTION]
+> Safety-critical systems (like steering) can no longer be protected by "Air Gaps" alone.
 
-<!-- ad-placeholder -->
+## The Threat Landscape
 
-## Threat Modeling (TARA)
-Before writing code, we analyze threats.
-- **Spoofing**: Fake CAN messages.
-- **Tampering**: Altering firmware.
-- **Repudiation**: Denying actions.
+Connectivity (LTE, Wi-Fi, V2X) has introduced risks that didn't exist in traditional mechanical engineering.
 
-## SecOC (Secure Onboard Communication)
-Standard CAN frames are unencrypted. SecOC adds a MAC (Message Authentication Code) to every frame. Even if a hacker injects a message, the ECU rejects it because they lack the private key to generate the correct MAC.
+### 1. The Secure Gateway
+The Gateway acts as the firewall between external networks and internal safety-critical buses (CAN, Ethernet). It must perform deep packet inspection to block malicious commands.
+
+### 2. Secure Boot & HSM
+Hardware Security Modules (HSM) ensure that the code running on an ECU hasn't been tampered with.
+- **Root of Trust**: Firmware is digitally signed and verified during the boot process.
+- **Crypto-Acceleration**: HSMs handle the heavy lifting of encryption without slowing down real-time controls.
+
+### 3. Intrusion Detection (IDPS)
+Modern E/E architectures include sensors that look for anomalous behavior on the vehicle's network—detecting patterns that suggest a hacker is trying to "Flood" the bus.
+
+---
+
+## Conclusion
+
+Compliance with ISO 21434 is not just a regulatory hurdle; it's a fundamental requirement to ensure that software innovation does not compromise human safety.

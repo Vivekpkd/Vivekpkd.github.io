@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The CAN Bus Protocol Explained - Vivek</title>
-    <meta name="description" content="Deep dive into Controller Area Network (CAN) frames, arbitration, and error handling.">
+    <title>CAN Bus Explained: The Nervous System of the Car - Vivek</title>
+    <meta name="description" content="How Controller Area Network (CAN) allows ECUs to talk without a central host.">
     <meta name="author" content="Vivek">
-    <meta property="og:title" content="The CAN Bus Protocol Explained">
-    <meta property="og:description" content="Deep dive into Controller Area Network (CAN) frames, arbitration, and error handling.">
+    <meta property="og:title" content="CAN Bus Explained: The Nervous System of the Car">
+    <meta property="og:description" content="How Controller Area Network (CAN) allows ECUs to talk without a central host.">
     <meta property="og:type" content="article">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,29 +45,33 @@
     <section class="section article-page">
         <div class="article-container">
             <header class="article-header">
-                <span class="tag">Jan 27, 2026</span>
-                <h1>The CAN Bus Protocol Explained</h1>
+                <span class="tag">Jan 21, 2026</span>
+                <h1>CAN Bus Explained: The Nervous System of the Car</h1>
             </header>
             <article class="article-content">
-                <h1>CAN Bus Protocol</h1>
-<p>Modern cars have 70+ ECUs (Electronic Control Units). They talk to each other using CAN (Controller Area Network).</p>
-<p>!<a href="images/automotive-dashboard.png">Automotive Dashboard</a></p>
-<div class="ad-placeholder in-article" style="margin: 30px 0;"><small>Advertisement Space (Google Adsense)</small></div>
-<h2>Why CAN?</h2>
-1.  <strong>Differential Signaling</strong>: Resistant to noise (EMI) in harsh car environments.
-2.  <strong>Robust</strong>: Built-in error checking and retransmission.
-3.  <strong>Arbitration</strong>: Non-destructive bitwise arbitration ensures critical messages (like Brakes) always win the bus.
-<h2>The Standard Frame (CAN 2.0A) - 11-bit ID</h2>
-<p>| Field | Bits | Description |
-| :--- | :--- | :--- |
-| SOF | 1 | Start of Frame |
-| Identifier | 11 | Message Priority |
-| RTR | 1 | Remote Transmission Request |
-| DLC | 4 | Data Length Code |
-| Data | 0-64 | Payload (up to 8 bytes) |
-| CRC | 15 | Error check |
-| EOF | 7 | End of Frame |</p>
+                <h1>CAN Bus Explained: The Nervous System of the Car</h1>
+<p>Developed by Bosch in the 1980s, the Controller Area Network (CAN) bus is a robust communication protocol designed to allow microcontrollers and devices to communicate with each other's applications without a host computer.</p>
+<p>> [!TIP]
+> CAN Bus uses "Differential Signaling" on two wires (CAN High and CAN Low), making it incredibly resilient to electromagnetic noise.</p>
+<h2>Key Features of the CAN Protocol</h2>
+<p>CAN is a multi-master, message-based broadcast system.</p>
+<h3>1. Message Prioritization</h3>
+CAN frames do not have addresses; they have <strong>Identifiers</strong>.
+- <strong>Arbitration</strong>: Lower identifiers have higher priority. If two nodes start talking at once, the one with the more important ID (lower number) wins without losing any data.
+<h3>2. Error Detection and Fault Confinement</h3>
+CAN has built-in mechanisms for CRC checks and bit stuffing error detection.
+- <strong>Self-Healing</strong>: A "faulty" node that keeps sending errors will eventually "Bus Off" to prevent taking down the entire network.
+<h3>3. Harness Simplification</h3>
+Before CAN, cars had miles of copper wire connecting every single switch to every single light. With CAN, all components share the same two wires, significantly reducing weight and cost.
+<p>---</p>
+<h2>CAN vs. CAN FD</h2>
+<p>While standard CAN is limited to <strong>1 Mbps</strong>, the newer <strong>CAN FD (Flexible Data-Rate)</strong> supports payloads up to 64 bytes and speeds up to <strong>8 Mbps</strong>, meeting the demands of modern ADAS and Infotainment systems.</p>
             </article>
+            <div class="ad-slot-container" style="margin-top: 40px;">
+                <div class="ad-placeholder">
+                    <small>Advertisement Space (Google Adsense)</small>
+                </div>
+            </div>
             <footer class="article-footer">
                 <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
             </footer>

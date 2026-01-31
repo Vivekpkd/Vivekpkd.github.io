@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Understanding AUTOSAR Layered Architecture - Vivek</title>
-    <meta name="description" content="A comprehensive guide to the AUTomotive Open System ARchitecture standard.">
+    <meta name="description" content="A deep dive into the industry standard for automotive software: ASW, RTE, and BSW layers.">
     <meta name="author" content="Vivek">
     <meta property="og:title" content="Understanding AUTOSAR Layered Architecture">
-    <meta property="og:description" content="A comprehensive guide to the AUTomotive Open System ARchitecture standard.">
+    <meta property="og:description" content="A deep dive into the industry standard for automotive software: ASW, RTE, and BSW layers.">
     <meta property="og:type" content="article">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,28 +45,37 @@
     <section class="section article-page">
         <div class="article-container">
             <header class="article-header">
-                <span class="tag">Jan 29, 2026</span>
+                <span class="tag">Jan 19, 2026</span>
                 <h1>Understanding AUTOSAR Layered Architecture</h1>
             </header>
             <article class="article-content">
-                <h1>Understanding AUTOSAR</h1>
-<p>AUTOSAR (AUTomotive Open System ARchitecture) is the global standard for automotive software. It decouples software from hardware, allowing improved reusability.</p>
-<p>!<a href="images/automotive-dashboard.png">Automotive Dashboard</a></p>
-<div class="ad-placeholder in-article" style="margin: 30px 0;"><small>Advertisement Space (Google Adsense)</small></div>
-<h2>The Three Layers</h2>
-<h3>1. Application Layer (ASW)</h3>
-Contains the actual functionality (e.g., Anti-lock Braking logic). It is hardware independent.
+                <h1>Understanding AUTOSAR Layered Architecture</h1>
+<p>The Automotive Open System Architecture (AUTOSAR) is the global development partnership of vehicle manufacturers and suppliers. It provides a standardized software architecture for Electronic Control Units (ECUs).</p>
+<p>> [!IMPORTANT]
+> The primary goal of AUTOSAR is to enable software portability and scalability across different vehicle platforms.</p>
+<h2>The Three Core Layers</h2>
+<p>AUTOSAR conceptually separates software into different functional layers to maximize modularity.</p>
+<h3>1. Application Software (ASW)</h3>
+The top layer where the actual vehicle functionality resides (e.g., Engine Control, Brake Logic).
+- <strong>Format</strong>: Composed of individual "Software Components" (SWCs).
+- <strong>Hardware Agnostic</strong>: ASW doesn't know what MCU it is running on.
 <h3>2. Runtime Environment (RTE)</h3>
-The middleware that handles communication between the Application Layer and the Basic Software.
+The "Information Bus" of the ECU. The RTE handles communication between ASW components and between ASW and the lower layers.
+- <strong>Role</strong>: It acts as the glue that makes the architecture possible by decoupling applications from the hardware.
 <h3>3. Basic Software (BSW)</h3>
-Interacts directly with the microcontroller (drivers, OS, communication stack).
-<pre><code>c
-// Pseudo-code visualization
-void RTE_Write_Speed(uint16_t speed) {
-    // RTE handles mapping to CAN or internal variable
-}
-</code></pre>
+The lowest layer that provides standardized services like I/O, memory management, and diagnostic services.
+- <strong>Service Layer</strong>: High-level OS services.
+- <strong>ECU Abstraction</strong>: Makes the upper layers independent of the specific ECU hardware.
+- <strong>MCAL (Microcontroller Abstraction Layer)</strong>: Direct drivers for the microcontroller (ADC, SPI, CAN).
+<p>---</p>
+<h2>Why Use AUTOSAR?</h2>
+<p>Standardizing the architecture allows Tier-1 suppliers to develop software that can be easily integrated by multiple OEMs, drastically reducing development costs and increasing software reliability through common modules.</p>
             </article>
+            <div class="ad-slot-container" style="margin-top: 40px;">
+                <div class="ad-placeholder">
+                    <small>Advertisement Space (Google Adsense)</small>
+                </div>
+            </div>
             <footer class="article-footer">
                 <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
             </footer>

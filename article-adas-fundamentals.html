@@ -49,20 +49,40 @@
                 <h1>ADAS Fundamentals: How Cars See</h1>
             </header>
             <article class="article-content">
-                <h1>ADAS Fundamentals</h1>
-<p>Self-driving cars aren't magic. They are a fusion of sensors.</p>
-<p>!<a href="images/automotive-dashboard.png">Automotive Dashboard</a></p>
-<div class="ad-placeholder in-article" style="margin: 30px 0;"><small>Advertisement Space (Google Adsense)</small></div>
-<h2>Sensor Fusion</h2>
-1.  <strong>Radar</strong>: Good for speed and distance (Adaptive Cruise Control). Works in fog/rain.
-2.  <strong>Lidar</strong>: Creates 3D point cloud maps. Expensive but accurate.
-3.  <strong>Cameras</strong>: Good for object classification (Stop signs, Lanes).
-<h2>The Perception Loop</h2>
-1.  <strong>Sense</strong>: Gather raw data.
-2.  <strong>Perceive</strong>: Detect objects and lanes.
-3.  <strong>Plan</strong>: Calculate path.
-4.  <strong>Act</strong>: Steer and Accelerate.
+                <h1>ADAS Fundamentals: Architecture of the Modern Vehicle</h1>
+<p>Advanced Driver Assistance Systems (ADAS) represent the bridge between traditional driving and full autonomy. At its core, ADAS is about safety and precision.</p>
+<p>> [!NOTE]
+> ADAS systems must operate in real-time with zero-latency tolerance for safety-critical decisions.</p>
+<p>!<a href="images/automotive-dashboard.png">Automotive Dashboard Sensor View</a></p>
+<p><!-- ad-placeholder --></p>
+<h2>The Multi-Layered Sensor Suite</h2>
+<p>Modern ADAS rely on "Sensor Fusion"—the practice of combining data from multiple sources to create a unified view of the environment.</p>
+<h3>1. Radar (Radio Detection and Ranging)</h3>
+Radar is the backbone of <strong>Adaptive Cruise Control (ACC)</strong>. It uses radio waves to determine the range, angle, and velocity of objects.
+- <strong>Strength</strong>: Unaffected by weather conditions like fog, rain, or snow.
+- <strong>Weakness</strong>: Poor at object classification (e.g., distinguishing a person from a pole).
+<h3>2. Lidar (Light Detection and Ranging)</h3>
+Lidar pulses laser light to create a precise <strong>3D Point Cloud</strong>.
+- <strong>Strength</strong>: Incredible spatial accuracy and depth perception.
+- <strong>Weakness</strong>: High cost and performance degradation in heavy rain or dust.
+<h3>3. Cameras (Computer Vision)</h3>
+High-resolution CMOS sensors act as the "eyes" of the vehicle.
+- <strong>Strength</strong>: Best for object recognition, traffic light detection, and lane marking.
+- <strong>Weakness</strong>: Struggles in low light or direct sun glare.
+<p>---</p>
+<h2>The Perception Pipeline: Sense to Act</h2>
+<p>Every ADAS decision follows a deterministic feedback loop:</p>
+<p>1.  <strong>Sense</strong>: Raw data acquisition from the sensor suite.
+2.  <strong>Perceive</strong>: Object detection, tracking, and environmental mapping using AI/ML.
+3.  <strong>Plan</strong>: Path planning and risk assessment (e.g., "Will that pedestrian cross?").
+4.  <strong>Act</strong>: Command execution via the CAN bus (Electronic Braking, Power Steering).</p>
+<p>Professional ADAS engineers must ensure that this entire loop completes in less than <strong>100ms</strong> to ensure vehicle safety.</p>
             </article>
+            <div class="ad-slot-container" style="margin-top: 40px;">
+                <div class="ad-placeholder">
+                    <small>Advertisement Space (Google Adsense)</small>
+                </div>
+            </div>
             <footer class="article-footer">
                 <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
             </footer>

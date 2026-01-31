@@ -6,15 +6,15 @@ const articlesData = [
         "link": "article-adas-fundamentals.html"
     },
     {
-        "title": "Automotive Cybersecurity (ISO 21434)",
-        "excerpt": "With cars becoming connected computers, security is the new safety.",
-        "date": "Jan 24, 2026",
+        "title": "Automotive Cybersecurity: ISO/SAE 21434",
+        "excerpt": "Mapping security across the vehicle lifecycle - from boot to cloud.",
+        "date": "Jan 23, 2026",
         "link": "article-automotive-cybersecurity-iso21434.html"
     },
     {
         "title": "Understanding AUTOSAR Layered Architecture",
-        "excerpt": "A comprehensive guide to the AUTomotive Open System ARchitecture standard.",
-        "date": "Jan 29, 2026",
+        "excerpt": "A deep dive into the industry standard for automotive software: ASW, RTE, and BSW layers.",
+        "date": "Jan 19, 2026",
         "link": "article-autosar-layered-architecture.html"
     },
     {
@@ -24,9 +24,9 @@ const articlesData = [
         "link": "article-bare-metal-stm32.html"
     },
     {
-        "title": "The CAN Bus Protocol Explained",
-        "excerpt": "Deep dive into Controller Area Network (CAN) frames, arbitration, and error handling.",
-        "date": "Jan 27, 2026",
+        "title": "CAN Bus Explained: The Nervous System of the Car",
+        "excerpt": "How Controller Area Network (CAN) allows ECUs to talk without a central host.",
+        "date": "Jan 21, 2026",
         "link": "article-can-bus-explained.html"
     },
     {
@@ -37,8 +37,8 @@ const articlesData = [
     },
     {
         "title": "Debugging with JTAG and SWD",
-        "excerpt": "Stop using printf debugging. Learn to use hardware debuggers.",
-        "date": "Jan 20, 2026",
+        "excerpt": "Going beyond printf: Hardware-level debugging of embedded firmware.",
+        "date": "Jan 23, 2026",
         "link": "article-debugging-with-jtag.html"
     },
     {
@@ -49,14 +49,14 @@ const articlesData = [
     },
     {
         "title": "Memory Management in Embedded Systems",
-        "excerpt": "Stack, Heap, .bss, and .data. Where does your variable live?",
-        "date": "Jan 23, 2026",
+        "excerpt": "Mastering Stack vs Heap and the dangers of dynamic allocation in safety systems.",
+        "date": "Jan 19, 2026",
         "link": "article-embedded-memory-management.html"
     },
     {
-        "title": "I2C vs SPI: Choosing the Right Bus",
-        "excerpt": "Comparison of the two most common on-board communication protocols.",
-        "date": "Jan 21, 2026",
+        "title": "I2C vs SPI: Choosing the Right Peripheral",
+        "excerpt": "A comparison of serial communication protocols for board-level sensors.",
+        "date": "Jan 23, 2026",
         "link": "article-i2c-vs-spi.html"
     },
     {
@@ -66,9 +66,9 @@ const articlesData = [
         "link": "article-interrupt-handling-best-practices.html"
     },
     {
-        "title": "MISRA C: Writing Safe Code",
-        "excerpt": "The Motor Industry Software Reliability Association guidelines are not just for cars.",
-        "date": "Jan 25, 2026",
+        "title": "MISRA C Compliance: Writing Rugged Code",
+        "excerpt": "Ensuring safety and reliability in C through strict coding standards.",
+        "date": "Jan 23, 2026",
         "link": "article-misra-c-guide.html"
     },
     {
@@ -84,9 +84,9 @@ const articlesData = [
         "link": "article-react-server-components.html"
     },
     {
-        "title": "RTOS vs GPOS: What's the Difference?",
-        "excerpt": "Why your car uses a Real-Time OS while your phone uses Android/iOS.",
-        "date": "Jan 26, 2026",
+        "title": "RTOS vs GPOS: When to use Real-Time Systems",
+        "excerpt": "Why Windows or Linux won't cut it for safety-critical automotive applications.",
+        "date": "Jan 22, 2026",
         "link": "article-rtos-basics.html"
     },
     {

@@ -1,29 +1,31 @@
 ---
 title: "Memory Management in Embedded Systems"
-date: "Jan 23, 2026"
-excerpt: "Stack, Heap, .bss, and .data. Where does your variable live?"
+date: "Jan 19, 2026"
+excerpt: "Mastering Stack vs Heap and the dangers of dynamic allocation in safety systems."
 ---
-# Memory Management
+# Memory Management in Embedded Systems
 
-In desktop apps, `malloc` is your friend. In embedded, `malloc` is your enemy.
+In a PC, you have gigabytes of RAM. In an ECU, you might have less than 512KB. Precision memory management is what separates a stable automotive component from a system prone to hard-faults.
 
-![Embedded Circuit](images/embedded-circuit.png)
+## The Rule: Static Over Dynamic
 
-<!-- ad-placeholder -->
+In high-integrity systems (MISRA compliant), dynamic memory allocation (`malloc`, `free`) is almost always forbidden after the initialization phase.
 
-## The Problem with Heap (Dynamic Memory)
-1.  **Fragmentation**: Over time, free blocks become too small to use.
-2.  **Non-deterministic**: `malloc` might take 10 cycles or 1000 cycles.
+### 1. The Stack
+Used for local variables and function call management.
+- **Risk**: Stack Overflow. If your call stack or deep recursion exceeds the allocated space, you will corrupt other memory.
+- **Best Practice**: Always perform a worst-case stack analysis during development.
 
-## Static Allocation
-Allocate everything at compile time.
-```c
-// Dynamic (Bad)
-uint8_t *buffer = malloc(1024);
+### 2. The Heap
+Used for variables whose size or lifetime is determined at runtime.
+- **Risk**: Fragmentation. Over time, "holes" appear in memory, preventing large allocations even if total free space exists.
+- **Automotive Rule**: If you must use dynamic memory, use a fixed-size block pool allocator.
 
-// Static (Good)
-static uint8_t buffer[1024];
-```
+### 3. Data & BSS Sections
+Where global variables live. These are allocated at compile-time, providing the ultimate stability for safety-critical state management.
 
-## Stack Overflow
-Not the website. The crash. If your recursion goes too deep, you overwrite variables. ALways analyze stack depth.
+---
+
+## Memory Protection Units (MPU)
+
+Modern microcontrollers (ARM Cortex-R5/M7) use MPUs to define "Sandboxes." If a certain software module tries to write to memory it doesn't own, the hardware triggers an exception, preventing a single buggy component from crashing the entire car.
