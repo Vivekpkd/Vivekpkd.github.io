@@ -1,7 +1,6 @@
 import os
 import re
 import json
-import yaml
 import datetime
 
 CONTENT_DIR = 'content'
@@ -13,14 +12,16 @@ def parse_markdown(content):
     Simple Regex-based Markdown parser to avoid dependencies.
     Supports: Frontmatter, H1/H2, Paragraphs, Code Blocks, Links, Bold.
     """
-    # Parse frontmatter
+    # Parse frontmatter manually to avoid dependencies
     metadata = {}
     if content.startswith('---'):
         parts = content.split('---', 2)
         if len(parts) >= 3:
-            frontmatter_data = yaml.safe_load(parts[1])
-            if frontmatter_data:
-                metadata = frontmatter_data
+            yaml_text = parts[1]
+            for line in yaml_text.strip().split('\n'):
+                if ':' in line:
+                    key, value = line.split(':', 1)
+                    metadata[key.strip()] = value.strip().strip('"')
             content = parts[2]
 
     # Additional metadata extraction for category and tags
