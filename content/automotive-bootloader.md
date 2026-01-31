@@ -1,5 +1,5 @@
 ---
-title: "Bootloader in Automotive Software"
+title: "Automotive Bootloader"
 date: "Jan 17, 2026"
 excerpt: "How to update firmware in the field. Dual-bank updates and memory jumping."
 ---

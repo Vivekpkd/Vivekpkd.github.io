@@ -12,6 +12,14 @@ const articlesData = [
         ]
     },
     {
+        "title": "Automotive Bootloader",
+        "date": "Jan 17, 2026",
+        "excerpt": "How to update firmware in the field. Dual-bank updates and memory jumping.",
+        "link": "article-automotive-bootloader.html",
+        "category": "General",
+        "tags": []
+    },
+    {
         "title": "Automotive Cybersecurity: ISO/SAE 21434",
         "date": "Jan 23, 2026",
         "excerpt": "Mapping security across the vehicle lifecycle - from boot to cloud.",
@@ -138,14 +146,6 @@ const articlesData = [
         "date": "Jan 19, 2026",
         "excerpt": "Say goodbye to spaghetti code. Learn how to implement robust FSMs for embedded systems.",
         "link": "article-state-machines-in-c.html",
-        "category": "General",
-        "tags": []
-    },
-    {
-        "title": "Bootloader in Automotive Software",
-        "date": "Jan 17, 2026",
-        "excerpt": "How to update firmware in the field. Dual-bank updates and memory jumping.",
-        "link": "article-writing-a-bootloader.html",
         "category": "General",
         "tags": []
     }
