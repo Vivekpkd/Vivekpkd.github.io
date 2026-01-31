@@ -52,11 +52,18 @@
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme"><i
-                            class="fa-solid fa-moon"></i></button></li>
+                <li><a href="categories.html">Categories</a></li>
             </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn" title="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
             <div class="burger">
                 <div class="line1"></div>
                 <div class="line2"></div>
@@ -64,6 +71,17 @@
             </div>
         </div>
     </nav>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu">
@@ -82,7 +100,8 @@
                 <h1 class="title">Architecting <span class="gradient-text">Safe & Reliable</span><br>Automotive Systems.
                 </h1>
                 <p class="description">
-                    Embedded Systems and Automotive Software,high-integrity firmware, AUTOSAR, and safety-critical controls.
+                    Embedded Systems and Automotive Software,high-integrity firmware, AUTOSAR, and safety-critical
+                    controls.
                 </p>
                 <div class="cta-group">
                     <a href="#portfolio" class="btn btn-primary">View Work</a>
@@ -122,7 +141,7 @@
                 </div>
                 <div class="about-text">
                     <p>I am a Senior Automotive Software Engineer with over 5 years of experience.</p>
-                      <br>
+                    <br>
                     <ul class="skills-list">
                         <li><i class="fa-solid fa-code"></i> Embedded C/C++ & python</li>
                         <li><i class="fa-solid fa-diagram-project"></i> AUTOSAR , RTOS & Bare-metal Development</li>

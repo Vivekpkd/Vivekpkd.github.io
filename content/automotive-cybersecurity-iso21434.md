@@ -1,6 +1,9 @@
 ---
-title: "Automotive Cybersecurity: ISO/SAE 21434"
-date: "Jan 23, 2026"
+title: "Memory Management in Embedded Systems"
+date: "Jan 19, 2026"
+category: "Embedded Development"
+tags: "Memory, Stack, Heap, Optimization"
+excerpt: "Mastering Stack vs Heap and the dangers of dynamic allocation in safety systems."
 excerpt: "Mapping security across the vehicle lifecycle - from boot to cloud."
 ---
 # Automotive Cybersecurity: ISO21434

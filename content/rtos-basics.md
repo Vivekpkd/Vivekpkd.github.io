@@ -1,6 +1,8 @@
 ---
 title: "RTOS vs GPOS: When to use Real-Time Systems"
 date: "Jan 22, 2026"
+category: "Operating Systems"
+tags: "RTOS, Scheduling, Determinism, FreeRTOS"
 excerpt: "Why Windows or Linux won't cut it for safety-critical automotive applications."
 ---
 # RTOS vs GPOS: When to use Real-Time Systems

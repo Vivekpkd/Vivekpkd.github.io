@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Autodevv</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html" class="active">Categories</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="section-title">Article Categories</h1>
+            <div id="categories-list" class="categories-grid">
+                <!-- Categories will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <script src="articles.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('categories-list');
+            if (!container || typeof articlesData === 'undefined') return;
+
+            const categories = {};
+            articlesData.forEach(article => {
+                if (!categories[article.category]) {
+                    categories[article.category] = [];
+                }
+                categories[article.category].push(article);
+            });
+
+            container.innerHTML = Object.keys(categories).map(cat => `
+                <div class="category-group" style="margin-bottom: 50px;">
+                    <h2 style="color: var(--primary); margin-bottom: 20px; border-left: 4px solid var(--secondary); padding-left: 15px;">${cat}</h2>
+                    <div class="blog-grid">
+                        ${categories[cat].map(article => `
+                            <div class="blog-card">
+                                <div class="card-content">
+                                    <span class="tag">${article.date}</span>
+                                    <h3>${article.title}</h3>
+                                    <p>${article.excerpt}</p>
+                                    <a href="${article.link}" class="btn-small">Read More</a>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+
+</html>

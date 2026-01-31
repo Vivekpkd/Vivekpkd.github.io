@@ -12,21 +12,26 @@ def parse_markdown(content):
     Simple Regex-based Markdown parser to avoid dependencies.
     Supports: Frontmatter, H1/H2, Paragraphs, Code Blocks, Links, Bold.
     """
-    # Parse Frontmatter
-    frontmatter = {}
-    body = content
+    # Parse frontmatter
+    metadata = {}
     if content.startswith('---'):
         parts = content.split('---', 2)
         if len(parts) >= 3:
-            yaml_text = parts[1]
-            body = parts[2]
-            for line in yaml_text.strip().split('\n'):
-                if ':' in line:
-                    key, value = line.split(':', 1)
-                    frontmatter[key.strip()] = value.strip().strip('"')
+            frontmatter_data = yaml.safe_load(parts[1])
+            if frontmatter_data:
+                metadata = frontmatter_data
+            content = parts[2]
+
+    # Additional metadata extraction for category and tags
+    metadata['category'] = metadata.get('category', 'General')
+    tags_raw = metadata.get('tags', '')
+    if isinstance(tags_raw, str):
+        metadata['tags'] = [t.strip() for t in tags_raw.split(',')] if tags_raw else []
+    else:
+        metadata['tags'] = tags_raw if isinstance(tags_raw, list) else []
 
     # Convert Markdown to HTML
-    html = body
+    html = content.strip()
     
     # Code Blocks (Triple backticks)
     def repl_code(match):
@@ -88,9 +93,11 @@ def generate_site():
         # Add to articles list
         articles.append({
             'title': metadata.get('title', 'Untitled'),
-            'excerpt': metadata.get('excerpt', ''),
             'date': metadata.get('date', ''),
-            'link': slug
+            'excerpt': metadata.get('excerpt', ''),
+            'link': filename.replace('.md', '.html'),
+            'category': metadata.get('category', 'General'),
+            'tags': metadata.get('tags', [])
         })
         
         # HTML Template

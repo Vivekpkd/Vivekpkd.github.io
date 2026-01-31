@@ -1,7 +1,9 @@
 ---
-title: "ADAS Fundamentals: How Cars See"
+title: "ADAS Fundamentals: Architecture of the Modern Vehicle"
 date: "Jan 18, 2026"
-excerpt: "A beginner-friendly introduction to Advanced Driver Assistance Systems (ADAS) and the core sensors behind modern vehicle perception."
+category: "Autonomous Driving"
+tags: "Perception, Sensors, Computer Vision"
+excerpt: "Introduction to Advanced Driver Assistance Systems: Radar, Lidar, and Camera Fusion."
 ---
 
 Advanced Driver Assistance Systems (ADAS) are transforming modern vehicles into intelligent safety machines.  
