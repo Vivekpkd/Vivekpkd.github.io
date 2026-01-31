@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
         rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -32,22 +32,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body data-theme="dark">
 
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="#" class="logo">VIVEK A<span class="dot">.</span></a>
+            <a href="#" class="logo">VIVEK A<span style="color:var(--primary)">.</span></a>
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#portfolio">Work</a></li>
                 <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact" class="btn-small">Contact</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme"><i
+                            class="fa-solid fa-moon"></i></button></li>
             </ul>
-            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
-                <i class="fa-solid fa-moon"></i>
-            </button>
             <div class="burger">
                 <div class="line1"></div>
                 <div class="line2"></div>
@@ -168,42 +166,35 @@
     <!-- Blog Modal Removed (Using separate pages for SEO) -->
 
     <!-- Contact Section -->
-    <section id="contact" class="section contact">
+    <section id="contact" class="section">
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-box">
-                <p>Have a project in mind or want to discuss a blog post?</p>
-                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form"
-                    style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 20px auto;">
-                    <!-- Replace with your Access Key -->
-                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+            <p class="section-desc">Have a question or want to work together? Send me a message below.</p>
 
-                    <input type="text" name="name" placeholder="Your Name" required
-                        style="padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main);">
-                    <input type="email" name="email" placeholder="Your Email" required
-                        style="padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main);">
-                    <textarea name="message" placeholder="Message" rows="4" required
-                        style="padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main); font-family: inherit;"></textarea>
+            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
 
-                    <button type="submit" class="btn btn-primary"
-                        style="width: 100%; border: none; cursor: pointer;">Send Message</button>
-                </form>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Message" rows="5" required></textarea>
 
-                <div class="social-links" style="margin-top: 30px;">
-                    <a href="#"><i class="fa-brands fa-github"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+
+            <div style="text-align: center; margin-top: 2rem;" class="nav-links">
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Vivek. Built for Monetization.</p>
+            <p>&copy; 2026 Vivek A. Professional Automotive Software Portfolio.</p>
             <div style="margin-top: 10px; font-size: 0.9em;">
-                <a href="privacy.html" style="color: #666; margin-right: 15px;">Privacy Policy</a>
-                <a href="terms.html" style="color: #666;">Terms of Service</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
             </div>
         </div>
     </footer>

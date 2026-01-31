@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bare Metal Programming on STM32 - Vivek</title>
+    <title>Bare Metal Programming on STM32 - Vivek A</title>
     <meta name="description" content="Getting down to the registers: Programming ARM Cortex-M without an OS or HAL.">
-    <meta name="author" content="Vivek">
-    <meta property="og:title" content="Bare Metal Programming on STM32">
-    <meta property="og:description" content="Getting down to the registers: Programming ARM Cortex-M without an OS or HAL.">
-    <meta property="og:type" content="article">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <!-- Adsense Placeholder -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+    <!-- AdSense Placeholder -->
 </head>
 <body>
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="index.html" class="logo">VIVEK A<span class="dot">.</span></a>
+            <a href="index.html" class="logo">VIVEK A<span style="color:var(--primary)">.</span></a>
             <ul class="nav-links">
                 <li><a href="index.html#home">Home</a></li>
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="index.html#portfolio">Work</a></li>
                 <li><a href="index.html#blog" class="active">Blog</a></li>
-                <li><a href="index.html#contact" class="btn-small">Contact</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-btn"><i class="fas fa-moon"></i></button></li>
             </ul>
         </div>
     </nav>
-    <section class="section">
-        <div class="container" style="max-width: 800px; padding-top: 50px;">
-            <div style="margin-bottom: 30px;">
+    <main style="padding-top: 100px; padding-bottom: 60px;">
+        <article class="container">
+            <header style="margin-bottom: 3rem;">
                 <span class="tag">Jan 28, 2026</span>
-                <h1 style="font-size: 2.5rem; margin: 15px 0;">Bare Metal Programming on STM32</h1>
-            </div>
-            <article style="line-height: 1.8; font-size: 1.1rem; color: var(--text-muted);">
+                <h1 style="margin-top: 1rem;">Bare Metal Programming on STM32</h1>
+                <p style="font-size: 1.25rem; color: var(--text-muted); line-height: 1.6;">Getting down to the registers: Programming ARM Cortex-M without an OS or HAL.</p>
+            </header>
+            <div class="content">
                 <h1>Bare Metal Programming</h1>
 <p>Before RTOS, there was Bare Metal. Direct register manipulation gives you ultimate control and zero overhead.</p>
 <p>!<a href="images/embedded-circuit.png">Embedded Circuit</a></p>
@@ -60,18 +55,18 @@
     }
 }
 </code></pre></p>
-            </article>
-            <div style="margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px;">
-                <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
             </div>
-        </div>
-    </section>
+            <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Blog</a>
+            </footer>
+        </article>
+    </main>
     <footer>
         <div class="container">
-            <p>&copy; 2026 Vivek. Built for Monetization.</p>
-            <div style="margin-top: 10px; font-size: 0.9em;">
-                <a href="privacy.html" style="color: #666; margin-right: 15px;">Privacy Policy</a>
-                <a href="terms.html" style="color: #666;">Terms of Service</a>
+            <p>&copy; 2026 Vivek A. Professional Automotive Software Portfolio.</p>
+            <div style="margin-top: 10px;">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
             </div>
         </div>
     </footer>

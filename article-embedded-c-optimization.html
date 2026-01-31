@@ -1,294 +1,75 @@
-<article style="line-height: 1.8; font-size: 1.1rem; color: var(--text-muted);">
-
-    <h1>Embedded C Optimization</h1>
-
-    <p>
-        In the world of embedded systems, resources are always limited. Unlike desktop computers,
-        microcontrollers have very small RAM, limited Flash memory, and restricted CPU power.
-        That is why writing just “working code” is not enough — you must write
-        <strong>efficient, optimized, and reliable Embedded C code</strong>.
-    </p>
-
-    <p>
-        Code optimization in embedded systems means improving performance while reducing memory
-        usage and power consumption. This becomes critical in automotive ECUs, IoT devices,
-        medical electronics, and real-time control systems.
-    </p>
-
-    <p>
-        In this article, we will explore the most important Embedded C optimization techniques
-        that every embedded developer should know.
-    </p>
-
-    <img src="images/embedded-circuit.png" alt="Embedded Circuit"
-        style="width:100%; border-radius:12px; margin:20px 0;">
-
-    <div class="ad-placeholder in-article" style="margin: 30px 0;">
-        <small>Advertisement Space (Google Adsense)</small>
-    </div>
-
-    <hr>
-
-    <h2>1. Use the Right Data Types</h2>
-
-    <p>
-        Choosing the correct data type is one of the simplest and most powerful optimization
-        methods. Many beginners use <code>int</code> everywhere, but this wastes memory and can slow
-        execution depending on the architecture.
-    </p>
-
-    <ul>
-        <li><code>int</code> may be 16-bit or 32-bit depending on the compiler.</li>
-        <li><code>uint8_t</code> is always 8-bit and saves memory.</li>
-        <li>Smaller data types reduce RAM usage and improve cache efficiency.</li>
-    </ul>
-
-    <pre><code class="language-c">
-// Bad practice
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded C Code Optimization Techniques - Vivek A</title>
+    <meta name="description" content="Maximize performance and minimize memory usage in resource-constrained embedded systems.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- AdSense Placeholder -->
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">VIVEK A<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#blog" class="active">Blog</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><button id="theme-toggle" class="theme-btn"><i class="fas fa-moon"></i></button></li>
+            </ul>
+        </div>
+    </nav>
+    <main style="padding-top: 100px; padding-bottom: 60px;">
+        <article class="container">
+            <header style="margin-bottom: 3rem;">
+                <span class="tag">Jan 30, 2026</span>
+                <h1 style="margin-top: 1rem;">Embedded C Code Optimization Techniques</h1>
+                <p style="font-size: 1.25rem; color: var(--text-muted); line-height: 1.6;">Maximize performance and minimize memory usage in resource-constrained embedded systems.</p>
+            </header>
+            <div class="content">
+                <h1>Embedded C Optimization</h1>
+<p>In the world of embedded systems, resources are scarce. Every byte of RAM and every CPU cycle counts. Writing "working" code isn't enough; you must write <strong>efficient</strong> code.</p>
+<p>!<a href="images/embedded-circuit.png">Embedded Circuit</a></p>
+<div class="ad-placeholder in-article" style="margin: 30px 0;"><small>Advertisement Space (Google Adsense)</small></div>
+<h2>1. Use the Right Data Types</h2>
+Don't use `int` blindly. If your variable counts from 0 to 100, use `uint8_t`.
+- `int` might be 16-bit or 32-bit depending on architecture.
+- `uint8_t` is always 8-bit.
+<pre><code>c
+// Bad
 int counter = 0;
-
-// Better practice
-uint8_t counter = 0;
-
-// Best for speed portability
-uint_fast8_t counterFast = 0;
-</code></pre>
-
-    <p>
-        Always prefer fixed-width integer types from <code>&lt;stdint.h&gt;</code> for portability
-        in automotive and safety-critical embedded projects.
-    </p>
-
-    <hr>
-
-    <h2>2. Use the <code>volatile</code> Keyword Correctly</h2>
-
-    <p>
-        The <code>volatile</code> keyword tells the compiler that a variable’s value may change
-        unexpectedly due to hardware or interrupts. Without it, the compiler may optimize the
-        variable away, leading to incorrect behavior.
-    </p>
-
-    <p>
-        Common use cases include:
-    </p>
-
-    <ul>
-        <li>Hardware registers</li>
-        <li>Interrupt service routine (ISR) shared variables</li>
-        <li>Memory-mapped peripherals</li>
-    </ul>
-
-    <pre><code class="language-c">
-volatile uint8_t buttonPressed = 0;
-
-void ISR_Button(void)
-{
-    buttonPressed = 1;  // value changes inside interrupt
+<p>// Good
+uint_fast8_t counter = 0;
+</code></pre></p>
+<h2>2. Volatile Keyword</h2>
+The `volatile` keyword tells the compiler: "Do not optimize this variable, its value can change unexpectedly (e.g., by hardware interrupt)."
+<h2>3. Inline Functions vs Macros</h2>
+Prefer `static inline` functions over `#define` macros. They provide type checking while maintaining the speed of inlined code.
+<pre><code>c
+static inline uint32_t max(uint32_t a, uint32_t b) {
+    return (a &gt; b) ? a : b;
 }
 </code></pre>
-
-    <p>
-        However, do not overuse <code>volatile</code>, because it prevents useful compiler optimizations.
-    </p>
-
-    <hr>
-
-    <h2>3. Inline Functions vs Macros</h2>
-
-    <p>
-        Macros are fast but dangerous because they do not provide type safety. Instead,
-        modern embedded projects prefer <code>static inline</code> functions.
-    </p>
-
-    <pre><code class="language-c">
-// Macro (no type checking)
-#define MAX(a,b) ((a) > (b) ? (a) : (b))
-
-// Inline function (safe and optimized)
-static inline uint32_t max(uint32_t a, uint32_t b)
-{
-    return (a > b) ? a : b;
-}
-</code></pre>
-
-    <p>
-        Inline functions combine the speed of macros with the safety of real functions.
-    </p>
-
-    <hr>
-
-    <h2>4. Avoid Expensive Operations</h2>
-
-    <p>
-        Certain operations are costly on microcontrollers, especially those without hardware support.
-        Avoid:
-    </p>
-
-    <ul>
-        <li>Floating-point calculations</li>
-        <li>Division and modulus operations</li>
-        <li>Large library calls inside loops</li>
-    </ul>
-
-    <p>
-        Instead, use bit shifting whenever possible:
-    </p>
-
-    <pre><code class="language-c">
-// Division (slow)
-value = value / 2;
-
-// Bit shift (fast)
-value = value >> 1;
-</code></pre>
-
-    <p>
-        This technique is widely used in automotive control algorithms where timing is critical.
-    </p>
-
-    <hr>
-
-    <h2>5. Optimize Loops and Reduce Function Calls</h2>
-
-    <p>
-        Loops are executed repeatedly, so even small improvements matter.
-    </p>
-
-    <ul>
-        <li>Move constant calculations outside loops</li>
-        <li>Avoid calling heavy functions repeatedly</li>
-        <li>Use local variables instead of global ones</li>
-    </ul>
-
-    <pre><code class="language-c">
-// Inefficient loop
-for(int i = 0; i < 1000; i++)
-{
-    total += readSensor();
-}
-
-// Optimized approach
-uint16_t sensorValue = readSensor();
-for(int i = 0; i < 1000; i++)
-{
-    total += sensorValue;
-}
-</code></pre>
-
-    <hr>
-
-    <h2>6. Use Bitwise Operations for Flags</h2>
-
-    <p>
-        In embedded systems, memory is precious. Instead of using separate variables for
-        multiple ON/OFF states, store them as bits inside one variable.
-    </p>
-
-    <pre><code class="language-c">
-uint8_t statusFlags = 0;
-
-#define FLAG_ERROR   (1 << 0)
-#define FLAG_READY   (1 << 1)
-
-statusFlags |= FLAG_READY;   // Set flag
-statusFlags &= ~FLAG_ERROR;  // Clear flag
-</code></pre>
-
-    <p>
-        This reduces RAM usage and is extremely common in ECU software design.
-    </p>
-
-    <hr>
-
-    <h2>7. Reduce Global Variables</h2>
-
-    <p>
-        Global variables increase memory usage and make debugging harder.
-        Prefer local variables or static module-level variables.
-    </p>
-
-    <p>
-        Global variables also reduce code reusability and may cause unexpected side effects
-        in larger embedded projects.
-    </p>
-
-    <hr>
-
-    <h2>8. Enable Compiler Optimizations</h2>
-
-    <p>
-        Modern compilers provide powerful optimization flags. Common GCC options:
-    </p>
-
-    <ul>
-        <li><code>-O0</code> : No optimization (debugging)</li>
-        <li><code>-O1</code> : Basic optimization</li>
-        <li><code>-O2</code> : Balanced optimization (recommended)</li>
-        <li><code>-Os</code> : Optimize for size (best for small Flash)</li>
-    </ul>
-
-    <p>
-        In production builds, automotive projects often use <code>-O2</code> or <code>-Os</code>.
-    </p>
-
-    <hr>
-
-    <h2>9. Memory Optimization Techniques</h2>
-
-    <p>
-        To reduce RAM usage:
-    </p>
-
-    <ul>
-        <li>Use <code>const</code> for read-only data (stored in Flash)</li>
-        <li>Prefer smaller arrays</li>
-        <li>Avoid dynamic memory allocation (<code>malloc</code>)</li>
-    </ul>
-
-    <pre><code class="language-c">
-const char message[] = "Stored in Flash, not RAM!";
-</code></pre>
-
-    <hr>
-
-    <h2>10. Profile and Measure Performance</h2>
-
-    <p>
-        Optimization should always be based on measurement. Use tools such as:
-    </p>
-
-    <ul>
-        <li>Debugger timing analysis</li>
-        <li>Logic analyzer</li>
-        <li>Compiler map files</li>
-        <li>Static analysis tools</li>
-    </ul>
-
-    <p>
-        Never optimize blindly — focus on bottlenecks that truly matter.
-    </p>
-
-    <hr>
-
-    <h2>Conclusion</h2>
-
-    <p>
-        Embedded C code optimization is essential for building efficient and reliable systems.
-        By selecting proper data types, using bitwise techniques, avoiding costly operations,
-        and leveraging compiler optimizations, you can significantly improve performance and
-        reduce memory footprint.
-    </p>
-
-    <p>
-        These techniques are widely applied in real-world automotive ECUs, IoT devices, and
-        real-time embedded applications. Mastering them will make you a stronger embedded
-        software engineer.
-    </p>
-
-    <p>
-        If you enjoyed this article, stay tuned for more topics on Embedded C, RTOS, AUTOSAR,
-        and automotive software development.
-    </p>
-
-</article>
+            </div>
+            <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Blog</a>
+            </footer>
+        </article>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Vivek A. Professional Automotive Software Portfolio.</p>
+            <div style="margin-top: 10px;">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>
