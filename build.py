@@ -111,9 +111,9 @@ def generate_site():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{metadata.get('title')} - Vivek</title>
+    <title>{metadata.get('title')} - Autodevv</title>
     <meta name="description" content="{metadata.get('excerpt')}">
-    <meta name="author" content="Vivek">
+    <meta name="author" content="Autodevv">
     <meta property="og:title" content="{metadata.get('title')}">
     <meta property="og:description" content="{metadata.get('excerpt')}">
     <meta property="og:type" content="article">
@@ -139,7 +139,7 @@ def generate_site():
 <body>
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="index.html" class="logo">VIVEK A<span class="dot">.</span></a>
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
             <ul class="nav-links">
                 <li><a href="index.html#home">Home</a></li>
                 <li><a href="index.html#about">About</a></li>
@@ -203,7 +203,7 @@ def generate_site():
     </section>
     <footer>
         <div class="container">
-            <p>&copy; 2026 Vivek. Autodevv - Professional Automotive Software Site.</p>
+            <p>&copy; 2026 Autodevv. Professional Automotive Software Systems.</p>
             <div style="margin-top: 10px; font-size: 0.9em;">
                 <a href="privacy.html">Privacy Policy</a>
                 <a href="terms.html">Terms of Service</a>
