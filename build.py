@@ -100,7 +100,7 @@ def generate_site():
             'title': metadata.get('title', 'Untitled'),
             'date': metadata.get('date', ''),
             'excerpt': metadata.get('excerpt', ''),
-            'link': filename.replace('.md', '.html'),
+            'link': 'article-' + filename.replace('.md', '.html'),
             'category': metadata.get('category', 'General'),
             'tags': metadata.get('tags', [])
         })
