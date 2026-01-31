@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivek | Creative Developer & Writer</title>
+    <meta name="description"
+        content="Portfolio of Vivek, a Creative Developer and Technical Writer. Explore web projects, tutorials on React/Node.js, and insights on verifying adsense for monetization.">
+    <meta name="keywords" content="Web Developer, React, Portfolio, Adsense Approval, Technical Writing, JavaScript">
+    <meta name="author" content="Vivek">
+
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="Vivek | Creative Developer & Writer">
+    <meta property="og:description"
+        content="Building Future-Ready Digital Experiences. Check out my projects and technical articles.">
+    <meta property="og:image" content="images/profile.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Google Adsense (Placeholder) -->
+    <!-- Replace 'ca-pub-XXXXXXXXXXXXXXXX' with your actual Publisher ID -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">VIVEK A<span class="dot">.</span></a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Work</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact" class="btn-small">Contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h2 class="subtitle">HELLO, I'M VIVEK</h2>
+                <h1 class="title">Building <span class="gradient-text">Future-Ready</span><br>Digital Experiences.</h1>
+                <p class="description">
+                    I craft high-performance websites and write deep-dive technical articles.
+                    Merging code with creativity to build products that stand out.
+                </p>
+                <div class="cta-group">
+                    <a href="#portfolio" class="btn btn-primary">View My Work</a>
+                    <a href="#blog" class="btn btn-outline">Read Articles</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <!-- CSS Animated Shapes -->
+                <div class="blob blob-1"></div>
+                <div class="blob blob-2"></div>
+                <div class="glass-card">
+                    <i class="fa-solid fa-code"></i>
+                    <span>Clean Code</span>
+                </div>
+                <div class="glass-card card-2">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Fast Performance</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Placeholder (Top) -->
+    <div class="container ad-slot-container">
+        <div class="ad-placeholder">
+            <small>Advertisement Space (Google Adsense)</small>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-photo">
+                    <img src="images/profile.jpg" alt="Profile Photo">
+                </div>
+                <div class="about-text">
+                    <p>I am a passionate developer focused on web technologies. My goal is not just to write code, but
+                        to create monetization-ready assets and share knowledge through my technical writing.</p>
+                    <ul class="skills-list">
+                        <li><i class="fa-brands fa-html5"></i> HTML5 & CSS3</li>
+                        <li><i class="fa-brands fa-js"></i> JavaScript (ES6+)</li>
+                        <li><i class="fa-brands fa-react"></i> React</li>
+                        <li><i class="fa-solid fa-pen-nib"></i> Technical Writing</li>
+                    </ul>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <h3>10+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Articles</h3>
+                        <p>Published on Tech</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio">
+        <div class="container">
+            <h2 class="section-title">Selected Works</h2>
+            <div class="projects-grid" id="projects-container">
+                <!-- Projects injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Placeholder (Middle) -->
+    <div class="container ad-slot-container">
+        <div class="ad-placeholder">
+            <small>Advertisement Space (Google Adsense)</small>
+        </div>
+    </div>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section blog">
+        <div class="container">
+            <h2 class="section-title">Latest Articles</h2>
+            <p class="section-desc">Technical deep-dives and tutorials. This content is the engine for site traffic and
+                monetization.</p>
+            <div class="blog-grid" id="blog-container">
+                <!-- Blog Posts injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Modal Removed (Using separate pages for SEO) -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-box">
+                <p>Have a project in mind or want to discuss a blog post?</p>
+                <a href="mailto:email@example.com" class="btn btn-primary">Say Hello</a>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Vivek. Built for Monetization.</p>
+            <div style="margin-top: 10px; font-size: 0.9em;">
+                <a href="privacy.html" style="color: #666; margin-right: 15px;">Privacy Policy</a>
+                <a href="terms.html" style="color: #666;">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
