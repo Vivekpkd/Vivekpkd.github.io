@@ -44,26 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render Blog Posts
     const blogContainer = document.getElementById('blog-container');
-    const articles = [
-        {
-            title: "How to Build a Monetized Portfolio in 2026",
-            excerpt: "Learn the exact strategy I used to get Google Adsense approval for my personal developer site.",
-            date: "Jan 28, 2026",
-            link: "article-monetized-portfolio.html"
-        },
-        {
-            title: "Mastering CSS Grid: A Deep Dive",
-            excerpt: "Stop struggling with layout. This comprehensive guide explains Grid vs Flexbox with examples.",
-            date: "Jan 15, 2026",
-            link: "article-mastering-css-grid.html"
-        },
-        {
-            title: "The Future of React: Server Components",
-            excerpt: "Understanding RSCs and how they change the way we build web applications.",
-            date: "Jan 02, 2026",
-            link: "article-react-server-components.html"
-        }
-    ];
+
+    // Use data from articles.js, fallback to empty array if not loaded
+    const articles = (typeof articlesData !== 'undefined') ? articlesData : [];
 
     articles.forEach(article => {
         const card = document.createElement('div');

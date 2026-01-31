@@ -172,8 +172,23 @@
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-box">
                 <p>Have a project in mind or want to discuss a blog post?</p>
-                <a href="mailto:email@example.com" class="btn btn-primary">Say Hello</a>
-                <div class="social-links">
+                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form"
+                    style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 20px auto;">
+                    <!-- Replace with your Access Key -->
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+
+                    <input type="text" name="name" placeholder="Your Name" required
+                        style="padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main);">
+                    <input type="email" name="email" placeholder="Your Email" required
+                        style="padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main);">
+                    <textarea name="message" placeholder="Message" rows="4" required
+                        style="padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main); font-family: inherit;"></textarea>
+
+                    <button type="submit" class="btn btn-primary"
+                        style="width: 100%; border: none; cursor: pointer;">Send Message</button>
+                </form>
+
+                <div class="social-links" style="margin-top: 30px;">
                     <a href="#"><i class="fa-brands fa-github"></i></a>
                     <a href="#"><i class="fa-brands fa-twitter"></i></a>
                     <a href="#"><i class="fa-brands fa-linkedin"></i></a>
@@ -192,6 +207,7 @@
         </div>
     </footer>
 
+    <script src="articles.js"></script>
     <script src="app.js"></script>
 </body>
 

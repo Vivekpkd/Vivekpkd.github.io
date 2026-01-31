@@ -1,5 +1,8 @@
 $ErrorActionPreference = "Continue"
 
+Write-Host "Running Build Script..."
+python build.py
+
 Write-Host "Initializing Git..."
 git init
 
