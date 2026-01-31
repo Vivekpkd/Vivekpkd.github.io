@@ -584,6 +584,38 @@ footer a:hover {
     color: var(--primary);
 }
 
+/* Article Page Styling */
+.article-page {
+    padding-top: 50px;
+}
+
+.article-container {
+    max-width: 1550px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.article-header {
+    margin-bottom: 40px;
+}
+
+.article-header h1 {
+    font-size: 3rem;
+    margin: 15px 0;
+}
+
+.article-content {
+    line-height: 1.8;
+    font-size: 1.15rem;
+    color: var(--text-muted);
+}
+
+.article-footer {
+    margin-top: 50px;
+    border-top: 1px solid var(--border);
+    padding-top: 30px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .burger {

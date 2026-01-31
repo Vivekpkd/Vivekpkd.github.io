@@ -139,18 +139,18 @@ def generate_site():
             </ul>
         </div>
     </nav>
-    <section class="section">
-        <div class="container" style="max-width: 800px; padding-top: 50px;">
-            <div style="margin-bottom: 30px;">
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
                 <span class="tag">{metadata.get('date')}</span>
-                <h1 style="font-size: 2.5rem; margin: 15px 0;">{metadata.get('title')}</h1>
-            </div>
-            <article style="line-height: 1.8; font-size: 1.1rem; color: var(--text-muted);">
+                <h1>{metadata.get('title')}</h1>
+            </header>
+            <article class="article-content">
                 {html_content}
             </article>
-            <div style="margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px;">
+            <footer class="article-footer">
                 <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
-            </div>
+            </footer>
         </div>
     </section>
     <footer>
