@@ -26,41 +26,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render Projects
     const projectsContainer = document.getElementById('projects-container');
-    projects.forEach(project => {
-        const card = document.createElement('div');
-        card.className = 'project-card fade-in';
-        card.innerHTML = `
-            <img src="${project.image}" alt="${project.title}" class="card-img">
-            <div class="card-content">
-                <div class="card-tags">
-                    ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+    if (projectsContainer) {
+        projects.forEach(project => {
+            const card = document.createElement('div');
+            card.className = 'project-card fade-in';
+            card.innerHTML = `
+                <img src="${project.image}" alt="${project.title}" class="card-img">
+                <div class="card-content">
+                    <div class="card-tags">
+                        ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <h3>${project.title}</h3>
+                    <p style="margin-top: 10px; color: #888; font-size: 0.9rem;">${project.desc}</p>
                 </div>
-                <h3>${project.title}</h3>
-                <p style="margin-top: 10px; color: #888; font-size: 0.9rem;">${project.desc}</p>
-            </div>
-        `;
-        projectsContainer.appendChild(card);
-    });
+            `;
+            projectsContainer.appendChild(card);
+        });
+    }
 
     // Render Blog Posts
     const blogContainer = document.getElementById('blog-container');
 
-    // Use data from articles.js, fallback to empty array if not loaded
-    const articles = (typeof articlesData !== 'undefined') ? articlesData : [];
+    if (blogContainer) {
+        // Use data from articles.js, fallback to empty array if not loaded
+        const articles = (typeof articlesData !== 'undefined') ? articlesData : [];
 
-    articles.forEach(article => {
-        const card = document.createElement('div');
-        card.className = 'blog-card fade-in';
-        card.innerHTML = `
-            <div class="card-content">
-                <span class="tag" style="margin-bottom: 10px; display:inline-block;">${article.date}</span>
-                <h3>${article.title}</h3>
-                <p style="margin-top: 10px; color: #888; font-size: 0.9rem;">${article.excerpt}</p>
-                <a href="${article.link}" class="btn-small" style="margin-top: 15px; border: none; background: rgba(255,255,255,0.1); color: white; cursor: pointer; display: inline-block; text-align: center; text-decoration: none;">Read More</a>
-            </div>
-        `;
-        blogContainer.appendChild(card);
-    });
+        articles.forEach(article => {
+            const card = document.createElement('div');
+            card.className = 'blog-card fade-in';
+            card.innerHTML = `
+                <div class="card-content">
+                    <span class="tag" style="margin-bottom: 10px; display:inline-block;">${article.date}</span>
+                    <h3>${article.title}</h3>
+                    <p style="margin-top: 10px; color: #888; font-size: 0.9rem;">${article.excerpt}</p>
+                    <a href="${article.link}" class="btn-small" style="margin-top: 15px; border: none; background: rgba(255,255,255,0.1); color: white; cursor: pointer; display: inline-block; text-align: center; text-decoration: none;">Read More</a>
+                </div>
+            `;
+            blogContainer.appendChild(card);
+        });
+    }
 
     // Mobile Menu
     const burger = document.querySelector('.burger');
