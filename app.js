@@ -2,22 +2,22 @@
 // Projects
 const projects = [
     {
-        title: "E-Commerce Dashboard",
-        tags: ["React", "Node.js", "MongoDB"],
-        image: "https://via.placeholder.com/400x300/1a1a1a/8b5cf6?text=Dashboard",
-        desc: "A full-stack analytics dashboard for online retailers with real-time data visualization."
+        title: "AUTOSAR BSW Stack Implementation",
+        tags: ["AUTOSAR", "C", "CAN/LIN"],
+        image: "https://via.placeholder.com/400x300/1a1a1a/8b5cf6?text=AUTOSAR+BSW",
+        desc: "Developed and integrated AUTOSAR Basic Software modules including CAN, LIN drivers, and diagnostic services compliant with ISO 14229 (UDS)."
     },
     {
-        title: "AI Chat Interface",
-        tags: ["OpenAI API", "Next.js", "Tailwind"],
-        image: "https://via.placeholder.com/400x300/1a1a1a/06b6d4?text=AI+Chat",
-        desc: "Modern chat UI interacting with GPT-4, featuring streaming responses and code highlighting."
+        title: "Secure CAN Bootloader",
+        tags: ["Embedded C", "UDS", "Crypto"],
+        image: "https://via.placeholder.com/400x300/1a1a1a/06b6d4?text=Bootloader",
+        desc: "Implemented dual-bank flash bootloader with secure boot verification, CRC checks, and over-the-air (OTA) update capability for automotive ECUs."
     },
     {
-        title: "Crypto Portfolio Tracker",
-        tags: ["Vue.js", "CoinGecko API"],
-        image: "https://via.placeholder.com/400x300/1a1a1a/8b5cf6?text=Crypto",
-        desc: "Real-time cryptocurrency tracking app with portfolio balancing features."
+        title: "Battery Management System (BMS)",
+        tags: ["FreeRTOS", "STM32", "CAN"],
+        image: "https://via.placeholder.com/400x300/1a1a1a/8b5cf6?text=BMS",
+        desc: "Real-time battery monitoring system with cell balancing, SOC estimation, and CAN communication for electric vehicle applications."
     }
 ];
 
