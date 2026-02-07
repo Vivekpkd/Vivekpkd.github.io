@@ -5,16 +5,12 @@ excerpt: "How to update firmware in the field. Dual-bank updates and memory jump
 ---
 
 🚗💡 Ever flashed an ECU… but wondered what actually happens inside?
-Many of us have done ECU flashing hundreds of times,
-but few stop to think — what’s running inside 
+Many of us have done ECU flashing hundreds of times,but few stop to think — what’s running inside 
 
-That’s where the Automotive Bootloader comes in —
-the hidden software that makes ECU updates possible and safe.
+That’s where the Automotive Bootloader comes in the hidden software that makes ECU updates possible and safe.
 
 🔹 Flash Bootloader (FBL)
-The FBL is like the ECU’s “update manager.”
-It decides whether to start the application or go into programming mode.
-It’s what allows secure software updates via CAN, FlexRay, or Ethernet.
+The FBL is like the ECU’s “update manager.” It decides whether to start the application or go into programming mode.It’s what allows secure software updates via CAN, FlexRay, or Ethernet.
 
 🔹 Inside the FBL:
 There are two main parts —
