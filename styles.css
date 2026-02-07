@@ -713,10 +713,12 @@ footer a:hover {
 /* Article Page Styling */
 .article-page {
     padding-top: 50px;
+    background-color: var(--bg-dark);
+    min-height: 100vh;
 }
 
 .article-container {
-    max-width: 680px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 80px 20px 40px;
 }
