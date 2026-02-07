@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hardware Security Module (HSM) - Autodevv</title>
-    <meta name="description"
-        content="Introduction to Hardware Security Modules in Automotive ECUs. Secure key storage and cryptographic acceleration.">
+    <meta name="description" content="Introduction to Hardware Security Modules in Automotive ECUs. Secure key storage and cryptographic acceleration.">
     <meta name="author" content="Autodevv">
     <meta property="og:title" content="Hardware Security Module (HSM)">
-    <meta property="og:description"
-        content="Introduction to Hardware Security Modules in Automotive ECUs. Secure key storage and cryptographic acceleration.">
+    <meta property="og:description" content="Introduction to Hardware Security Modules in Automotive ECUs. Secure key storage and cryptographic acceleration.">
     <meta property="og:type" content="article">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css?v=1.1">
     <script>
-        (function () {
+        (function() {
             const theme = localStorage.getItem('theme');
             const isArticle = window.location.pathname.includes('article-');
             if (theme === 'light' || (!theme && isArticle)) {
@@ -33,7 +28,6 @@
     <!-- Adsense Placeholder -->
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 </head>
-
 <body>
     <nav class="navbar">
         <div class="container nav-content">
@@ -50,7 +44,7 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
                 <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
-                    <i class="fa-solid fa-moon"></i>
+                    <i class="fa-solid fa-sun"></i>
                 </button>
             </div>
             <div class="burger">
@@ -87,46 +81,35 @@
                 <h1>Hardware Security Module (HSM)</h1>
             </header>
             <article class="article-content">
-                <p>In the modern automotive landscape, security is no longer an option—it is a mandatory requirement.
-                    With vehicles becoming increasingly connected and autonomous, the threat surface for cyber-attacks
-                    has expanded significantly.</p>
+                <p>In the modern automotive landscape, security is no longer an option—it is a mandatory requirement. With vehicles becoming increasingly connected and autonomous, the threat surface for cyber-attacks has expanded significantly.</p>
 
-                <p>The <strong>Hardware Security Module (HSM)</strong> is the dedicated hardware component within an
-                    Automotive MCU (like Infineon AURIX or ST Stellar) that handles all security-critical tasks.</p>
+<p>The <strong>Hardware Security Module (HSM)</strong> is the dedicated hardware component within an Automotive MCU (like Infineon AURIX or ST Stellar) that handles all security-critical tasks.</p>
 
 
 
-                <p>Traditional software-based security is vulnerable to side-channel attacks and memory dumping. The HSM
-                    provides:</p>
+<p>Traditional software-based security is vulnerable to side-channel attacks and memory dumping. The HSM provides:</p>
 
-                <ul>
-                    <li><strong>Isolated Execution</strong>: Cryptographic operations run in a dedicated core, isolated
-                        from the functional software (Application).</li>
-                    <li><strong>Secure Key Storage</strong>: Keys are stored in protected memory that cannot be read by
-                        the main CPU.</li>
-                    <li><strong>Cryptographic Acceleration</strong>: Dedicated hardware engines for AES, RSA, ECC, and
-                        SHA.</li>
-                    <li><strong>Secure Boot</strong>: Ensuring that only authentic and unmodified software can run on
-                        the ECU.</li>
-                </ul>
-                <br>
-                <p>it’s a dedicated hardware vault with its own CPU core, memory, and crypto engine — that performs:<br>
-                </p>
-                <p>✅ Secure Boot → verifies the ECU firmware signature before startup</p>
-                <p>✅ Secure Flashing → allows only signed software to be programmed</p>
-                <p>✅ Crypto Operations → encrypts and authenticates data</p>
-                <p>✅ Key Management → keeps cryptographic keys locked in protected memory</p>
-                <br>
-                <p>⚙️ How It Works (Simplified Flow)</p>
-                <p>When power comes ON:</p>
-                <p>1️⃣ HSM wakes up before the main application.</p>
-                <p>2️⃣ It checks if the firmware is signed by a trusted key.</p>
-                <p>3️⃣ If it’s valid → Host Core boots AUTOSAR.</p>
-                <p>4️⃣ If not → ECU locks itself to prevent tampering.<br></p>
+<ul>
+<li><strong>Isolated Execution</strong>: Cryptographic operations run in a dedicated core, isolated from the functional software (Application).</li>
+<li><strong>Secure Key Storage</strong>: Keys are stored in protected memory that cannot be read by the main CPU.</li>
+<li><strong>Cryptographic Acceleration</strong>: Dedicated hardware engines for AES, RSA, ECC, and SHA.</li>
+<li><strong>Secure Boot</strong>: Ensuring that only authentic and unmodified software can run on the ECU.</li>
+</ul>
+<br>
+<p>it’s a dedicated hardware vault with its own CPU core, memory, and crypto engine — that performs:<br></p>
+<p>✅ Secure Boot → verifies the ECU firmware signature before startup</p>
+<p>✅ Secure Flashing → allows only signed software to be programmed</p>
+<p>✅ Crypto Operations → encrypts and authenticates data</p>
+<p>✅ Key Management → keeps cryptographic keys locked in protected memory</p>
+ <br>
+<p>⚙️ How It Works (Simplified Flow)</p>
+<p>When power comes ON:</p>
+<p>1️⃣ HSM wakes up before the main application.</p>
+<p>2️⃣ It checks if the firmware is signed by a trusted key.</p>
+<p>3️⃣ If it’s valid → Host Core boots AUTOSAR.</p>
+<p>4️⃣ If not → ECU locks itself to prevent tampering.<br></p>
 
-                <p align="center"><img
-                        src="https://media.licdn.com/dms/image/v2/D5622AQGMDNVYEGZ7mw/feedshare-shrink_2048_1536/B56Zp4ghQmJYAw-/0/1762958383610?e=1771459200&v=beta&t=9rt74L4Sx3RXcqlBjP1wDtvGP0Y-CB39IjCeVbDTi1E"
-                        alt="HSM" width="700"></p>
+<p align="center"><img src="https://media.licdn.com/dms/image/v2/D5622AQGMDNVYEGZ7mw/feedshare-shrink_2048_1536/B56Zp4ghQmJYAw-/0/1762958383610?e=1771459200&v=beta&t=9rt74L4Sx3RXcqlBjP1wDtvGP0Y-CB39IjCeVbDTi1E" alt="HSM" width="700"></p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">
                 <div class="ad-placeholder">
@@ -150,5 +133,4 @@
     <script src="articles.js"></script>
     <script src="app.js"></script>
 </body>
-
 </html>

@@ -163,7 +163,7 @@ def generate_site():
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.1">
     <script>
         (function() {{
             const theme = localStorage.getItem('theme');
@@ -194,7 +194,7 @@ def generate_site():
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
                 <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
-                    <i class="fa-solid fa-moon"></i>
+                    <i class="fa-solid fa-sun"></i>
                 </button>
             </div>
             <div class="burger">

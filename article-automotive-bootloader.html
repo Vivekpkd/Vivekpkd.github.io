@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +7,15 @@
     <meta name="description" content="How to update firmware in the field. Dual-bank updates and memory jumping.">
     <meta name="author" content="Autodevv">
     <meta property="og:title" content="Automotive Bootloader">
-    <meta property="og:description"
-        content="How to update firmware in the field. Dual-bank updates and memory jumping.">
+    <meta property="og:description" content="How to update firmware in the field. Dual-bank updates and memory jumping.">
     <meta property="og:type" content="article">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css?v=1.1">
     <script>
-        (function () {
+        (function() {
             const theme = localStorage.getItem('theme');
             const isArticle = window.location.pathname.includes('article-');
             if (theme === 'light' || (!theme && isArticle)) {
@@ -32,7 +28,6 @@
     <!-- Adsense Placeholder -->
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 </head>
-
 <body>
     <nav class="navbar">
         <div class="container nav-content">
@@ -49,7 +44,7 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
                 <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
-                    <i class="fa-solid fa-moon"></i>
+                    <i class="fa-solid fa-sun"></i>
                 </button>
             </div>
             <div class="burger">
@@ -87,56 +82,49 @@
             </header>
             <article class="article-content">
                 <p>🚗💡 Ever flashed an ECU… but wondered what actually happens inside?</p>
-                <p>Many of us have done ECU flashing hundreds of times,but few stop to think — what’s running inside</p>
+<p>Many of us have done ECU flashing hundreds of times,but few stop to think — what’s running inside</p>
 
-                <p>That’s where the Automotive Bootloader comes in the hidden software that makes ECU updates possible
-                    and safe.</p>
+<p>That’s where the Automotive Bootloader comes in the hidden software that makes ECU updates possible and safe.</p>
 
-                <p>🔹 Flash Bootloader (FBL)</p>
-                <p>The FBL is like the ECU’s “update manager.” It decides whether to start the application or go into
-                    programming mode.It’s what allows secure software updates via CAN, FlexRay, or Ethernet.</p>
+<p>🔹 Flash Bootloader (FBL)</p>
+<p>The FBL is like the ECU’s “update manager.” It decides whether to start the application or go into programming mode.It’s what allows secure software updates via CAN, FlexRay, or Ethernet.</p>
 
-                <p>🔹 Inside the FBL:</p>
-                <p>There are two main parts —</p>
+<p>🔹 Inside the FBL:</p>
+<p>There are two main parts —</p>
 
-                <p>1️⃣ <strong>Primary Bootloader (PBL)</strong></p>
-                <ul>
-                    <li>Runs first after reset.</li>
-                    <li>Stored in protected flash.</li>
-                    <li>Checks if the app is valid and secure.</li>
-                    <li>Loads the next stage if reprogramming is needed.</li>
-                </ul>
+<p>1️⃣ <strong>Primary Bootloader (PBL)</strong></p>
+<ul>
+<li>Runs first after reset.</li>
+<li>Stored in protected flash.</li>
+<li>Checks if the app is valid and secure.</li>
+<li>Loads the next stage if reprogramming is needed.</li>
+</ul>
 
-                <p>2️⃣ <strong>Secondary Bootloader (SBL)</strong></p>
-                <ul>
-                    <li>Handles UDS flashing services like 0x10, 0x27, 0x34, 0x36, and 0x37.</li>
-                    <li>Receives the new software, verifies it, and activates the update.</li>
-                </ul>
+<p>2️⃣ <strong>Secondary Bootloader (SBL)</strong></p>
+<ul>
+<li>Handles UDS flashing services like 0x10, 0x27, 0x34, 0x36, and 0x37.</li>
+<li>Receives the new software, verifies it, and activates the update.</li>
+</ul>
 
 
-                <p>⚙️ Why two stages?</p>
-                <ul>
-                    <li>✅ Safer – even if flashing fails, ECU can recover</li>
-                    <li>✅ Secure – signatures and CRCs verified before boot</li>
-                    <li>✅ Flexible – easier to update logic later</li>
-                    <li>✅ ISO 26262 & UDS compliant</li>
-                </ul>
+<p>⚙️ Why two stages?</p>
+<ul>
+<li>✅ Safer – even if flashing fails, ECU can recover</li>
+<li>✅ Secure – signatures and CRCs verified before boot</li>
+<li>✅ Flexible – easier to update logic later</li>
+<li>✅ ISO 26262 & UDS compliant</li>
+</ul>
 
-                <p>💬 So next time you flash an ECU, remember — you’re not just loading code; you’re running a two-stage
-                    secure boot process that keeps the vehicle safe and updatable.</p>
+<p>💬 So next time you flash an ECU, remember — you’re not just loading code; you’re running a two-stage secure boot process that keeps the vehicle safe and updatable.</p>
 
-                <p align="center"><img
-                        src="https://media.licdn.com/dms/image/v2/D5622AQEKAerAyvHFDA/feedshare-shrink_2048_1536/B56Zps8NhrH8Aw-/0/1762764315959?e=1771459200&v=beta&t=bMmOufTnuhskbU4HG-_JtzYsXVdSEeFgeiAM-MxXi3M"
-                        alt="Automotive Bootloader Architecture" width="700"></p>
+<p align="center"><img src="https://media.licdn.com/dms/image/v2/D5622AQEKAerAyvHFDA/feedshare-shrink_2048_1536/B56Zps8NhrH8Aw-/0/1762764315959?e=1771459200&v=beta&t=bMmOufTnuhskbU4HG-_JtzYsXVdSEeFgeiAM-MxXi3M" alt="Automotive Bootloader Architecture" width="700"></p>
 
 
 
 
-                <div class="ad-slot-container">
-                    <div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div>
-                </div>
+<div class="ad-slot-container"><div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div></div>
 
-                <p>```</p>
+<p>```</p>
             </article>
             <div class="ad-slot-container" style="margin-top: 40px;">
                 <div class="ad-placeholder">
@@ -160,5 +148,4 @@
     <script src="articles.js"></script>
     <script src="app.js"></script>
 </body>
-
 </html>
