@@ -1,206 +1,164 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Automotive Bootloader - Autodevv</title>
-
-<!-- Medium-style Fonts -->
-
-<link href="https://fonts.googleapis.com/css2?family=Charter:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-/* ===== Base ===== */
-body{
-    margin:0;
-    background:#ffffff;
-    color:#1a1a1a;
-    font-family: Charter, Georgia, serif;
-}
-
-/* ===== Minimal Topbar ===== */
-.topbar{
-    border-bottom:1px solid #eee;
-    padding:14px 24px;
-    font-family: Inter, sans-serif;
-}
-
-.logo{
-    font-weight:700;
-    font-size:18px;
-    text-decoration:none;
-    color:#000;
-}
-
-/* ===== Article Layout ===== */
-.article-wrapper{
-    max-width:740px;
-    margin:60px auto;
-    padding:0 20px;
-}
-
-/* ===== Header ===== */
-.article-header h1{
-    font-size:48px;
-    line-height:1.2;
-    margin-bottom:10px;
-    font-weight:700;
-}
-
-.meta{
-    font-family: Inter, sans-serif;
-    color:#6b6b6b;
-    font-size:14px;
-    margin-bottom:40px;
-}
-
-/* ===== Content ===== */
-.article-content p{
-    font-size:21px;
-    line-height:1.8;
-    margin:22px 0;
-}
-
-.article-content ul{
-    margin:18px 0 28px 22px;
-    font-size:20px;
-    line-height:1.8;
-}
-
-/* Section Labels */
-.section-label{
-    font-weight:700;
-    font-size:22px;
-    margin-top:40px;
-}
-
-/* ===== Image ===== */
-.hero-img{
-    margin:40px 0;
-    text-align:center;
-}
-
-.hero-img img{
-    max-width:100%;
-    border-radius:6px;
-}
-
-/* ===== Ad Slot ===== */
-.ad-slot{
-    border:1px dashed #ccc;
-    text-align:center;
-    padding:25px;
-    margin:50px 0;
-    font-family: Inter, sans-serif;
-    color:#888;
-}
-
-/* ===== Footer ===== */
-.footer{
-    border-top:1px solid #eee;
-    margin-top:60px;
-    padding:30px;
-    text-align:center;
-    font-family: Inter, sans-serif;
-    font-size:14px;
-    color:#777;
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automotive Bootloader - Autodevv</title>
+    <meta name="description" content="How to update firmware in the field. Dual-bank updates and memory jumping.">
+    <meta name="author" content="Autodevv">
+    <meta property="og:title" content="Automotive Bootloader">
+    <meta property="og:description"
+        content="How to update firmware in the field. Dual-bank updates and memory jumping.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.1">
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme');
+            const isArticle = window.location.pathname.includes('article-');
+            if (theme === 'light' || (!theme && isArticle)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        })();
+    </script>
+    <!-- Adsense Placeholder -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 </head>
 
 <body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn" title="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
 
-<!-- Topbar -->
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="categories.html">Categories</a>
+    </div>
 
-<div class="topbar">
-    <a href="index.html" class="logo">Autodevv.</a>
-</div>
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
+                <span class="tag">Jan 17, 2026</span>
+                <h1>Automotive Bootloader</h1>
+            </header>
+            <article class="article-content">
+                <p>🚗💡 Ever flashed an ECU… but wondered what actually happens inside?</p>
+                <p>Many of us have done ECU flashing hundreds of times,but few stop to think — what’s running inside</p>
 
-<!-- Article -->
+                <p>That’s where the Automotive Bootloader comes in the hidden software that makes ECU updates possible
+                    and safe.</p>
 
-<div class="article-wrapper">
+                <p>🔹 Flash Bootloader (FBL)</p>
+                <p>The FBL is like the ECU’s “update manager.” It decides whether to start the application or go into
+                    programming mode.It’s what allows secure software updates via CAN, FlexRay, or Ethernet.</p>
 
-<header class="article-header">
-    <h1>Automotive Bootloader</h1>
-    <div class="meta">Jan 17, 2026 • 5 min read • Autodevv</div>
-</header>
+                <p>🔹 Inside the FBL:</p>
+                <p>There are two main parts —</p>
 
-<article class="article-content">
+                <p>1️⃣ <strong>Primary Bootloader (PBL)</strong></p>
+                <ul>
+                    <li>Runs first after reset.</li>
+                    <li>Stored in protected flash.</li>
+                    <li>Checks if the app is valid and secure.</li>
+                    <li>Loads the next stage if reprogramming is needed.</li>
+                </ul>
 
-<p>🚗💡 Ever flashed an ECU… but wondered what actually happens inside?</p>
+                <p>2️⃣ <strong>Secondary Bootloader (SBL)</strong></p>
+                <ul>
+                    <li>Handles UDS flashing services like 0x10, 0x27, 0x34, 0x36, and 0x37.</li>
+                    <li>Receives the new software, verifies it, and activates the update.</li>
+                </ul>
 
-<p>Many of us have done ECU flashing hundreds of times, but few stop to think — what’s running inside</p>
 
-<p>That’s where the Automotive Bootloader comes in — the hidden software that makes ECU updates possible and safe.</p>
+                <p>⚙️ Why two stages?</p>
+                <ul>
+                    <li>✅ Safer – even if flashing fails, ECU can recover</li>
+                    <li>✅ Secure – signatures and CRCs verified before boot</li>
+                    <li>✅ Flexible – easier to update logic later</li>
+                    <li>✅ ISO 26262 & UDS compliant</li>
+                </ul>
 
-<p class="section-label">🔹 Flash Bootloader (FBL)</p>
+                <p>💬 So next time you flash an ECU, remember — you’re not just loading code; you’re running a two-stage
+                    secure boot process that keeps the vehicle safe and updatable.</p>
 
-<p>
-The FBL is like the ECU’s “update manager.”
-It decides whether to start the application or go into programming mode.
-It’s what allows secure software updates via CAN, FlexRay, or Ethernet.
-</p>
+                <p align="center"><img
+                        src="https://media.licdn.com/dms/image/v2/D5622AQEKAerAyvHFDA/feedshare-shrink_2048_1536/B56Zps8NhrH8Aw-/0/1762764315959?e=1771459200&v=beta&t=bMmOufTnuhskbU4HG-_JtzYsXVdSEeFgeiAM-MxXi3M"
+                        alt="Automotive Bootloader Architecture" width="700"></p>
 
-<p class="section-label">🔹 Inside the FBL:</p>
 
-<p>There are two main parts —</p>
 
-<p><strong>1️⃣ Primary Bootloader (PBL)</strong></p>
 
-<ul>
-<li>Runs first after reset.</li>
-<li>Stored in protected flash.</li>
-<li>Checks if the app is valid and secure.</li>
-<li>Loads the next stage if reprogramming is needed.</li>
-</ul>
+                <div class="ad-slot-container">
+                    <div class="ad-placeholder"><small>Advertisement Space (Google Adsense)</small></div>
+                </div>
 
-<p><strong>2️⃣ Secondary Bootloader (SBL)</strong></p>
-
-<ul>
-<li>Handles UDS flashing services like 0x10, 0x27, 0x34, 0x36, and 0x37.</li>
-<li>Receives the new software, verifies it, and activates the update.</li>
-</ul>
-
-<p class="section-label">⚙️ Why two stages?</p>
-
-<ul>
-<li>✅ Safer – even if flashing fails, ECU can recover</li>
-<li>✅ Secure – signatures and CRCs verified before boot</li>
-<li>✅ Flexible – easier to update logic later</li>
-<li>✅ ISO 26262 & UDS compliant</li>
-</ul>
-
-<p>
-💬 So next time you flash an ECU, remember — you’re not just loading code;
-you’re running a two-stage secure boot process that keeps the vehicle safe and updatable.
-</p>
-
-<!-- Image -->
-
-<div class="hero-img">
-<img src="https://media.licdn.com/dms/image/v2/D5622AQEKAerAyvHFDA/feedshare-shrink_2048_1536/B56Zps8NhrH8Aw-/0/1762764315959?e=1771459200&v=beta&t=bMmOufTnuhskbU4HG-_JtzYsXVdSEeFgeiAM-MxXi3M"
-alt="Automotive Bootloader Architecture">
-</div>
-
-<!-- Ad -->
-
-<div class="ad-slot">
-Advertisement Space (Google Adsense)
-</div>
-
-</article>
-</div>
-
-<!-- Footer -->
-
-<div class="footer">
-© 2026 Autodevv • Professional Automotive Software Systems
-</div>
-
+                <p>```</p>
+            </article>
+            <div class="ad-slot-container" style="margin-top: 40px;">
+                <div class="ad-placeholder">
+                    <small>Advertisement Space (Google Adsense)</small>
+                </div>
+            </div>
+            <footer class="article-footer">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
+            </footer>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Autodevv. Professional Automotive Software Systems.</p>
+            <div style="margin-top: 10px; font-size: 0.9em;">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    <script src="articles.js"></script>
+    <script src="app.js"></script>
 </body>
+
 </html>
