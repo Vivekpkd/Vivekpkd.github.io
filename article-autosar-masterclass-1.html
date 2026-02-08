@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOSAR Masterclass: Part 1 - The Foundation - Autodevv</title>
+    <meta name="description" content="What is AUTOSAR? Why does the automotive industry depend on it? Learn the philosophy and the massive layered architecture behind modern vehicles.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.2">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .code-ide {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-left: 4px solid var(--primary);
+            color: #24292e;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        [data-theme="dark"] .code-ide {
+            background-color: #24292e;
+            border: 1px solid #444;
+            color: #e1e4e8;
+        }
+        .line-num {
+            color: var(--text-muted);
+            display: inline-block;
+            width: 2rem;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            margin-right: 1rem;
+        }
+        .keyword { color: #d73a49; font-weight: bold; }
+        [data-theme="dark"] .keyword { color: #ff7b72; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="categories.html">Categories</a>
+    </div>
+
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
+                <span class="tag">Feb 09, 2026</span>
+                <h1>AUTOSAR Masterclass: Part 1 - The Foundation</h1>
+            </header>
+            <article class="article-content">
+                <p>Welcome to the <strong>AUTOSAR Learning Masterclass</strong>. If you want to work for giants like BMW, Tesla, or Bosch, understanding this standard is not optional—it is the language of the industry.</p>
+
+<div class="toc-card">
+    <h2>📑 Series Roadmap</h2>
+    <div class="toc-grid">
+        <a href="article-autosar-masterclass-1.html" class="toc-item">
+            <h4>Part 1: The Foundation</h4>
+            <p>What, Why, and How of the AUTOSAR standard.</p>
+        </a>
+        <a href="article-autosar-masterclass-2.html" class="toc-item">
+            <h4>Part 2: ASW & VFB</h4>
+            <p>Software Components (SWCs), Ports, and Interfaces.</p>
+        </a>
+        <a href="article-autosar-masterclass-3.html" class="toc-item">
+            <h4>Part 3: The Glue (RTE)</h4>
+            <p>How the Runtime Environment connects everything.</p>
+        </a>
+        <a href="article-autosar-masterclass-4.html" class="toc-item">
+            <h4>Part 4: Data in Motion</h4>
+            <p>Mastering the Communication Stack (CAN/LIN/Eth).</p>
+        </a>
+        <a href="article-autosar-masterclass-5.html" class="toc-item">
+            <h4>Part 5: Stability Stacks</h4>
+            <p>Memory (NvM) and Diagnostic (DCM/DEM) stacks.</p>
+        </a>
+        <a href="article-autosar-masterclass-6.html" class="toc-item">
+            <h4>Part 6: Tooling/Workflow</h4>
+            <p>From ARXML to DaVinci/Tresos configurations.</p>
+        </a>
+    </div>
+</div>
+
+<hr>
+
+<h2>1) What is AUTOSAR?</h2>
+
+<strong>AUTOSAR</strong> (AUTomotive Open System ARchitecture) is a global partnership of automotive companies. It is a standardized software architecture designed to handle the increasing complexity of vehicle electronics.
+
+<p>Think of it as the <strong>Android/Windows for Cars</strong>.</p>
+
+<p>In the old days, software for an Engine Controller was tied to a specific chip. If the chip changed, the software had to be rewritten. AUTOSAR was created to break this dependency.</p>
+
+<h2>2) Why do we use it? (The "Pain" it solves)</h2>
+
+<p>Imagine a modern luxury car with over <strong>100 Electronic Control Units (ECUs)</strong>.</p>
+<ul>
+<li><strong>Complexity</strong>: Software is too big for one company to write from scratch.</li>
+<li><strong>Portability</strong>: Manufacturers want to swap the hardware chip without rewriting the logic.</li>
+<li><strong>Scalability</strong>: Reusing a "Cruise Control" module from a Sedan in an SUV.</li>
+<li><strong>Collaboration</strong>: Allowing Tier-1 suppliers (like Continental) to provide a module that plugs perfectly into an OEM's (like Ford) system.</li>
+</ul>
+
+<div class="alert alert-important">
+<strong>Key Goal</strong>: "Cooperate on standards, compete on implementation."
+</div>
+
+<h2>3) How is it structured? (The Layered Cake)</h2>
+
+<p>The core magic of AUTOSAR is its <strong>Layered Architecture</strong>. This separation allows developers to work on specific parts without knowing the details of the silicon or the final application.</p>
+
+<div class="architecture-diagram" style="margin: 3rem 0; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+    <div style="background: #3b82f6; color: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 10px; text-align: center; font-weight: 800; border: 1px solid rgba(255,255,255,0.2);">APPLICATION LAYER</div>
+    <div style="background: #f59e0b; color: white; padding: 1.2rem; border-radius: 8px; margin-bottom: 10px; text-align: center; font-weight: 800; border: 1px solid rgba(255,255,255,0.2);">RUNTIME ENVIRONMENT (RTE)</div>
+    <div style="background: #10b981; color: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 10px; text-align: center; font-weight: 800; border: 1px solid rgba(255,255,255,0.2);">BASIC SOFTWARE (BSW)</div>
+    <div style="background: #8b5cf6; color: white; padding: 1.5rem; border-radius: 8px; text-align: center; font-weight: 800; border: 1px solid rgba(255,255,255,0.2);">MCAL (Hardware Abstraction)</div>
+</div>
+
+<h4>A. Application Layer (ASW)</h4>
+<p>The "Brain". This is where the actual vehicle functions live (e.g., Anti-lock braking logic, Wiper control). It consists of <strong>Software Components (SWCs)</strong>.</p>
+
+<h4>B. Runtime Environment (RTE)</h4>
+<p>The "Glue". This layer handles communication. An SWC doesn't talk to the hardware; it talks to the RTE. The RTE then decides if the message goes to another local SWC or out to the hardware.</p>
+
+<h4>C. Basic Software (BSW)</h4>
+<p>The "Engine Room". This massive stack provides system services like:</p>
+<ul>
+<li><strong>Services Layer</strong>: OS, Memory, Diagnostics.</li>
+<li><strong>ECU Abstraction Layer</strong>: Interfaces between the BSW and the hardware drivers.</li>
+</ul>
+
+<h4>D. Microcontroller Abstraction Layer (MCAL)</h4>
+<p>The "Silcon Bridge". This is the only layer that touches the CPU registers. It is provided by semiconductor manufacturers (like NXP, ST, or Infineon).</p>
+
+<hr>
+
+<h2>4) The Mindset: Configuration vs Coding</h2>
+
+<p>In Bare Metal C, you spend 90% of your time writing driver logic. In AUTOSAR, you spend 90% of your time <strong>configuring</strong> existing modules.</p>
+<ul>
+<li>You define your system in <strong>ARXML</strong> (XML-based files).</li>
+<li>You use configuration tools (like Vector DaVinci or EB Tresos).</li>
+<li>The tools <strong>generate</strong> the C code for the BSW and RTE.</li>
+</ul>
+
+<p>This ensures that the generated code is compliant with safety standards (ISO 26262) and minimizes human error.</p>
+
+<p>In <a href="article-autosar-masterclass-2.html">Part 2: ASW & VFB</a>, we will dive into the Application Layer and learn how to build Software Components using Ports and Interfaces.</p>
+            </article>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                
+                <a href="article-autosar-masterclass-2.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;">Next <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles List</a>
+            </footer>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted);">
+            <p>&copy; 2026 Autodevv. Master the Machine.</p>
+        </div>
+    </footer>
+    <script src="articles.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOSAR Masterclass: Part 4 - Data in Motion (COM Stack) - Autodevv</title>
+    <meta name="description" content="Deep dive into the AUTOSAR Communication Stack. Learn how signals travel from your application to the CAN/Ethernet bus through the PduR and COM modules.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.2">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .code-ide {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-left: 4px solid var(--primary);
+            color: #24292e;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        [data-theme="dark"] .code-ide {
+            background-color: #24292e;
+            border: 1px solid #444;
+            color: #e1e4e8;
+        }
+        .line-num {
+            color: var(--text-muted);
+            display: inline-block;
+            width: 2rem;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            margin-right: 1rem;
+        }
+        .keyword { color: #d73a49; font-weight: bold; }
+        [data-theme="dark"] .keyword { color: #ff7b72; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="categories.html">Categories</a>
+    </div>
+
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
+                <span class="tag">Feb 09, 2026</span>
+                <h1>AUTOSAR Masterclass: Part 4 - Data in Motion (COM Stack)</h1>
+            </header>
+            <article class="article-content">
+                <p>In <a href="article-autosar-masterclass-3.html">Part 3: The Glue (RTE)</a>, we saw how Application Software talks to the middleware. But how does that data actually leave the ECU and travel across a wire?</p>
+
+<p>Welcome to the <strong>Communication Stack (COM Stack)</strong>.</p>
+
+<hr>
+
+<h2>1) The Role of the COM Stack</h2>
+
+<p>The COM Stack is a vertical pillar in the Basic Software (BSW). Its job is to provide a standardized way to send and receive data via automotive networks (CAN, LIN, FlexRay, Ethernet).</p>
+
+<p>It abstracts the network specifics so the <strong>RTE</strong> doesn't need to know if it's talking over a 500kbps CAN bus or a 1Gbps Ethernet link.</p>
+
+<hr>
+
+<h2>2) The Main Actors (Modules)</h2>
+
+<p>The COM Stack is composed of several specialized modules. Think of it like a relay race where the "Data Packet" is the baton.</p>
+
+<div class="com-stack-diagram" style="margin: 3rem 0; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;">
+    <!-- COM -->
+    <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; padding: 1rem; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+        <strong style="color: #10b981;">COM Module</strong>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Signals to PDUs (Packing/Unpacking, Filtering)</div>
+    </div>
+    
+    <div style="text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-arrow-down" style="color: var(--primary);"></i></div>
+
+    <!-- PduR -->
+    <div style="background: rgba(59, 130, 246, 0.2); border: 2px solid #3b82f6; padding: 1rem; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+        <strong style="color: #3b82f6;">PDU Router (PduR)</strong>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">The Traffic Controller (Routes PDUs to the right Bus)</div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 20px;"><i class="fa-solid fa-arrow-down" style="color: var(--primary);"></i></div>
+
+    <!-- Interface Layers -->
+    <div style="display: flex; justify-content: space-around;">
+        <div style="width: 45%; background: rgba(139, 92, 246, 0.1); border: 1px solid var(--primary); padding: 1rem; border-radius: 8px; text-align: center;">
+            <strong style="color: var(--primary);">CAN Interface</strong>
+        </div>
+        <div style="width: 45%; background: rgba(139, 92, 246, 0.1); border: 1px solid var(--primary); padding: 1rem; border-radius: 8px; text-align: center;">
+            <strong style="color: var(--primary);">Eth Interface</strong>
+        </div>
+    </div>
+</div>
+
+<h3>A. COM Module</h3>
+<p>This is the entry point. It converts high-level <strong>Signals</strong> (like `EngineSpeed`) into <strong>PDUs</strong> (Protocol Data Units—raw byte arrays). It handles:</p>
+<ul>
+<li>Signal Packing/Unpacking.</li>
+<li>Filtering (e.g., only send if value changes).</li>
+<li>Transmission deadlines.</li>
+</ul>
+
+<h3>B. PDU Router (PduR)</h3>
+<p>The "Heart" of the stack. It receives a PDU and decides where it goes.</p>
+<ul>
+<li>Is it for the CAN Interface?</li>
+<li>Should it be routed to another ECU (Gatewaying)?</li>
+<li>Is it a large message that needs the <strong>Transport Protocol (CanTp)</strong>?</li>
+</ul>
+
+<h3>C. Interface Layers (CanIf / LinIf)</h3>
+<p>These modules abstract the hardware. They provide a common set of APIs for the PduR regardless of which CAN controller chip is being used.</p>
+
+<hr>
+
+<h2>3) The Life of a Message (Transmission)</h2>
+
+<p>1. <strong>SWC</strong>: Calls `Rte_Write_Port_Speed(120)`.</p>
+<p>2. <strong>RTE</strong>: Calls `Com_SendSignal(SignalID, 120)`.</p>
+<p>3. <strong>COM</strong>: Packs '120' into Byte 2 of PDU_01. Calls `PduR_ComTransmit(PduID, &data)`.</p>
+<p>4. <strong>PduR</strong>: Sees that PDU_01 belongs to CAN_BUS_1. Calls `CanIf_Transmit(PduID, &data)`.</p>
+<p>5. <strong>CanIf</strong>: Calls the <strong>MCAL</strong> driver function: `Can_Write(Hth, &pduinfo)`.</p>
+<p>6. <strong>MCAL</strong>: Writes the data to the physical SPI or internal registers of the CAN peripheral.</p>
+
+<hr>
+
+<h2>4) Transport Protocols (TP)</h2>
+
+<p>What if you need to send a <strong>Diagnostic Message</strong> that is 100 bytes long, but CAN only supports 8 bytes per frame?</p>
+<p>The <strong>CanTp</strong> module handles this by:</p>
+<ul>
+<li><strong>Segmentation</strong>: Breaking the 100 bytes into small frames.</li>
+<li><strong>Flow Control</strong>: Ensuring the receiver isn't overwhelmed.</li>
+<li><strong>Reassembly</strong>: Putting it back together on the other side.</li>
+</ul>
+
+<hr>
+
+<h2>5) Summary</h2>
+
+<p>The COM Stack is a high-performance, strictly ordered pipeline. It ensures that data moves from a logical variable in your code to a voltage spike on a wire with mathematical precision.</p>
+
+<p>In <a href="article-autosar-masterclass-5.html">Part 5: Stability & Storage</a>, we will look at how AUTOSAR handles permanent data storage (NvM) and error detection (DEM/DCM).</p>
+            </article>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <a href="article-autosar-masterclass-3.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;"><i class="fa-solid fa-chevron-left"></i> Prev</a>
+                <a href="article-autosar-masterclass-5.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;">Next <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles List</a>
+            </footer>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted);">
+            <p>&copy; 2026 Autodevv. Master the Machine.</p>
+        </div>
+    </footer>
+    <script src="articles.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

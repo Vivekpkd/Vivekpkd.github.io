@@ -5,28 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hardware Security Module (HSM) - Autodevv</title>
     <meta name="description" content="Introduction to Hardware Security Modules in Automotive ECUs. Secure key storage and cryptographic acceleration.">
-    <meta name="author" content="Autodevv">
-    <meta property="og:title" content="Hardware Security Module (HSM)">
-    <meta property="og:description" content="Introduction to Hardware Security Modules in Automotive ECUs. Secure key storage and cryptographic acceleration.">
-    <meta property="og:type" content="article">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1.1">
+    <link rel="stylesheet" href="styles.css?v=1.2">
     <script>
         (function() {
             const theme = localStorage.getItem('theme');
-            const isArticle = window.location.pathname.includes('article-');
-            if (theme === 'light' || (!theme && isArticle)) {
-                document.documentElement.setAttribute('data-theme', 'light');
-            } else {
+            if (theme === 'dark') {
                 document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
             }
         })();
     </script>
-    <!-- Adsense Placeholder -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+    <style>
+        .code-ide {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-left: 4px solid var(--primary);
+            color: #24292e;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        [data-theme="dark"] .code-ide {
+            background-color: #24292e;
+            border: 1px solid #444;
+            color: #e1e4e8;
+        }
+        .line-num {
+            color: var(--text-muted);
+            display: inline-block;
+            width: 2rem;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            margin-right: 1rem;
+        }
+        .keyword { color: #d73a49; font-weight: bold; }
+        [data-theme="dark"] .keyword { color: #ff7b72; }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -40,17 +63,11 @@
                 <li><a href="categories.html">Categories</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="search-toggle" class="theme-btn" title="Search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-                <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
-                    <i class="fa-solid fa-sun"></i>
-                </button>
+                <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
             </div>
             <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
             </div>
         </div>
     </nav>
@@ -65,6 +82,7 @@
             <div id="search-results" class="search-results"></div>
         </div>
     </div>
+
     <!-- Mobile Menu -->
     <div class="mobile-menu">
         <a href="index.html#home">Home</a>
@@ -109,25 +127,24 @@
 <p>3️⃣ If it’s valid → Host Core boots AUTOSAR.</p>
 <p>4️⃣ If not → ECU locks itself to prevent tampering.<br></p>
 
-<p align="center"><img src="https://media.licdn.com/dms/image/v2/D5622AQGMDNVYEGZ7mw/feedshare-shrink_2048_1536/B56Zp4ghQmJYAw-/0/1762958383610?e=1771459200&v=beta&t=9rt74L4Sx3RXcqlBjP1wDtvGP0Y-CB39IjCeVbDTi1E" alt="HSM" width="700"></p>
+<p align="center"><img src="https://media.licdn.com/dms/image/v2/D5622AQGMDNVYEGZ7mw/feedshare-shrink_2048_1536/B56Zp4ghQmJYAw-/0/1762958383610?e=1771459200&v=beta&t=9rt74L4Sx3RXcqlBjP1wDtvGP0Y-CB39IjCeVbDTi1E" alt="HSM" style="max-width:100%; border-radius:12px; margin: 20px 0;"></p>
             </article>
-            <div class="ad-slot-container" style="margin-top: 40px;">
-                <div class="ad-placeholder">
-                    <small>Advertisement Space (Google Adsense)</small>
-                </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                
+                
             </div>
-            <footer class="article-footer">
-                <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
+
+            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles List</a>
             </footer>
         </div>
     </section>
+
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Autodevv. Professional Automotive Software Systems.</p>
-            <div style="margin-top: 10px; font-size: 0.9em;">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
-            </div>
+        <div class="container" style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted);">
+            <p>&copy; 2026 Autodevv. Master the Machine.</p>
         </div>
     </footer>
     <script src="articles.js"></script>

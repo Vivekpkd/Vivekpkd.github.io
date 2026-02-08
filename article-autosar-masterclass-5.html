@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOSAR Masterclass: Part 5 - Stability Stacks (Mem & Diag) - Autodevv</title>
+    <meta name="description" content="How cars remember settings and detect faults. Explore the Memory Stack (NvM) and the Diagnostic Stack (DCM/DEM) in the BSW.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.2">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .code-ide {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-left: 4px solid var(--primary);
+            color: #24292e;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        [data-theme="dark"] .code-ide {
+            background-color: #24292e;
+            border: 1px solid #444;
+            color: #e1e4e8;
+        }
+        .line-num {
+            color: var(--text-muted);
+            display: inline-block;
+            width: 2rem;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            margin-right: 1rem;
+        }
+        .keyword { color: #d73a49; font-weight: bold; }
+        [data-theme="dark"] .keyword { color: #ff7b72; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="categories.html">Categories</a>
+    </div>
+
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
+                <span class="tag">Feb 09, 2026</span>
+                <h1>AUTOSAR Masterclass: Part 5 - Stability Stacks (Mem & Diag)</h1>
+            </header>
+            <article class="article-content">
+                <p>A car that forgets your steering wheel position or doesn't know why the "Check Engine" light is on is a poorly designed system.</p>
+
+<p>In AUTOSAR, these critical safety and convenience features are handled by the <strong>Stability Stacks</strong>: The Memory Stack and the Diagnostic Stack.</p>
+
+<hr>
+
+<h2>1) The Memory Stack (NvM)</h2>
+
+<p>Embedded memory (like EEPROM or Flash) is slow and can wear out. The <strong>Non-Volatile Memory (NvM)</strong> module abstracts these complexities.</p>
+
+<h3>The Problem: Flash vs C Logic</h3>
+<p>Your Application SWC wants to save a setting. It shouldn't care if it's being saved to an external SPI Flash or internal CPU EEPROM.</p>
+
+<h3>The Solution: Blocks & RAM Mirrors</h3>
+<p>1. <strong>The Block</strong>: Data is organized into blocks (e.g., `Block_UserPreferences`).</p>
+<p>2. <strong>RAM Mirror</strong>: To keep the system fast, the NvM maintains a copy of the data in RAM.</p>
+<p>3. <strong>Implicit/Explicit Sync</strong>: The SWC writes to the RAM mirror, and the NvM handles the background task of writing it to the physical hardware.</p>
+
+<div class="nvm-diagram" style="margin: 2rem 0; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: space-around;">
+    <div style="text-align: center; width: 30%;">
+        <div style="background: rgba(59, 130, 246, 0.2); border: 1px solid #3b82f6; padding: 10px; border-radius: 4px; color: #3b82f6; font-size: 0.8rem;">Application SWC</div>
+        <i class="fa-solid fa-arrow-right" style="margin: 10px 0; color: var(--text-muted);"></i>
+    </div>
+    <div style="text-align: center; width: 30%; background: var(--glass); padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+        <strong style="color: var(--secondary); font-size: 0.9rem;">NvM Module</strong>
+        <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 5px;">(RAM Mirror)</div>
+    </div>
+    <div style="text-align: center; width: 30%;">
+        <i class="fa-solid fa-arrow-right" style="margin: 10px 0; color: var(--text-muted);"></i>
+        <div style="background: #2a2a2a; border: 1px solid #444; padding: 10px; border-radius: 4px; color: #aaa; font-size: 0.8rem;">Physical Flash</div>
+    </div>
+</div>
+
+<hr>
+
+<h2>2) The Diagnostic Stack (DCM & DEM)</h2>
+
+<p>Modern cars are rolling sensors. If a sensor fails, the car must record it. This is the domain of <strong>OBD (On-Board Diagnostics)</strong> and <strong>UDS (Unified Diagnostic Services)</strong>.</p>
+
+<h3>A. Diagnostic Event Manager (DEM)</h3>
+<p>The "Black Box Recorder". When an error occurs (e.g., `Voltage_Too_High`), the software reports it to the DEM.</p>
+<ul>
+<li><strong>DTC (Diagnostic Trouble Code)</strong>: The DEM stores a unique code for the error (e.g., P0101).</li>
+<li><strong>Freeze Frame</strong>: It records the vehicle state (Speed, Temp, Time) the exact moment the error happened.</li>
+</ul>
+
+<h3>B. Diagnostic Communication Manager (DCM)</h3>
+<p>The "External Interface". When a mechanic plugs a scan tool into the OBD port, they talk to the DCM.</p>
+<ul>
+<li>It handles the <strong>UDS Protocol</strong>.</li>
+<li>It retrieves DTCs from the DEM.</li>
+<li>It allows the mechanic to trigger hardware tests (e.g., "Flash the headlights").</li>
+</ul>
+
+<hr>
+
+<h2>3) Function Inhibitor Manager (FiM)</h2>
+
+<p>The FiM is the "Safety Guard". If the DEM detects a critical error, it tells the FiM to <strong>inhibit</strong> certain car functions.</p>
+<ul>
+<li><strong>Example</strong>: If the "Brake Sensor" has a DTC, the FiM may disable the "Cruise Control" for safety.</li>
+</ul>
+
+<hr>
+
+<h2>4) Summary</h2>
+
+<p>The Stability Stacks ensure that:</p>
+<p>1. Data is <strong>Persistent</strong> (remembered after the key is turned off).</p>
+<p>2. Faults are <strong>Observable</strong> (mechanics can find the problem).</p>
+<p>3. The system is <strong>Self-Aware</strong> (blocking dangerous functions during failure).</p>
+
+<p>In <a href="article-autosar-masterclass-6.html">Part 6: From Config to Code</a>, we will wrap up the series by looking at the <strong>Methodology</strong>—how we actually move from an idea to a running ECU using tools and ARXML.</p>
+            </article>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <a href="article-autosar-masterclass-4.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;"><i class="fa-solid fa-chevron-left"></i> Prev</a>
+                <a href="article-autosar-masterclass-6.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;">Next <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles List</a>
+            </footer>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted);">
+            <p>&copy; 2026 Autodevv. Master the Machine.</p>
+        </div>
+    </footer>
+    <script src="articles.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

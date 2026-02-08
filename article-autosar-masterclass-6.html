@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOSAR Masterclass: Part 6 - From Config to Code - Autodevv</title>
+    <meta name="description" content="The final piece. Learn the AUTOSAR Methodology, the role of ARXML files, and how professional tools translate configurations into binary code.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.2">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .code-ide {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-left: 4px solid var(--primary);
+            color: #24292e;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        [data-theme="dark"] .code-ide {
+            background-color: #24292e;
+            border: 1px solid #444;
+            color: #e1e4e8;
+        }
+        .line-num {
+            color: var(--text-muted);
+            display: inline-block;
+            width: 2rem;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            margin-right: 1rem;
+        }
+        .keyword { color: #d73a49; font-weight: bold; }
+        [data-theme="dark"] .keyword { color: #ff7b72; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="categories.html">Categories</a>
+    </div>
+
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
+                <span class="tag">Feb 09, 2026</span>
+                <h1>AUTOSAR Masterclass: Part 6 - From Config to Code</h1>
+            </header>
+            <article class="article-content">
+                <p>Congratulations! You've navigated the layers (Part 1), the logic (Part 2), the glue (Part 3), the wires (Part 4), and the stability (Part 5).</p>
+
+<p>But how does it all come together? In the world of AUTOSAR, we don't just "hit compile". We follow the <strong>AUTOSAR Methodology</strong>.</p>
+
+<hr>
+
+<h2>1) The Methodology Workflow</h2>
+
+<p>AUTOSAR software development is a strictly defined sequence of steps. It is designed to allow different teams (OEMs and Tier-1s) to work in parallel.</p>
+
+<h3>Phase 1: System Configuration</h3>
+<p>The car manufacturer (OEM) defines the overall vehicle system:</p>
+<ul>
+<li>Which ECUs exist?</li>
+<li>What are the network topologies?</li>
+<li>What data is exchanged between them?</li>
+<li><strong>Output</strong>: The <strong>System Description (ARXML)</strong>.</li>
+</ul>
+
+<h3>Phase 2: ECU Extraction</h3>
+<p>The manufacturer "extracts" the portion of the system description that applies to a specific ECU and gives it to a supplier (Tier-1).</p>
+<ul>
+<li><strong>Output</strong>: The <strong>ECU Extract (ARXML)</strong>.</li>
+</ul>
+
+<h3>Phase 3: ECU Configuration</h3>
+<p>The supplier uses a tool (e.g., Vector DaVinci Configurator) to fill in the details:</p>
+<ul>
+<li>Mapping SWCs to Tasks.</li>
+<li>Configuring CAN filters.</li>
+<li>Setting up the OS.</li>
+<li><strong>Output</strong>: The <strong>ECU Configuration (ARXML)</strong>.</li>
+</ul>
+
+<hr>
+
+<h2>2) The Language of AUTOSAR: ARXML</h2>
+
+<strong>ARXML</strong> (AUTOSAR XML) is the standardized file format used for all data exchange.
+<ul>
+<li>It is human-readable (barely!) but intended for machine consumption.</li>
+<li>It defines everything: from the bit-duration of a CAN signal to the name of a C function pointer.</li>
+</ul>
+
+<div class="alert alert-important">
+<strong>The Secret</strong>: In a professional AUTOSAR project, the "source of truth" is the ARXML, not the C code. If you change the C code manually, your changes will be overwritten the next time the tool runs!
+</div>
+
+<hr>
+
+<h2>3) The Generation Phase</h2>
+
+<p>Once the configuration is complete, you trigger the <strong>Generators</strong>.</p>
+<ul>
+<li>The <strong>RTE Generator</strong> creates `Rte.c` and `Rte.h`.</li>
+<li>The <strong>BSW Generators</strong> create the code for COM, NvM, CanIf, etc.</li>
+</ul>
+
+<div class="gen-diagram" style="margin: 2rem 0; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; text-align: center;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+        <div style="background: var(--glass); padding: 15px; border: 1px solid var(--primary); border-radius: 8px;">
+            <i class="fa-solid fa-file-code" style="color: var(--primary); font-size: 1.5rem;"></i>
+            <div style="font-size: 0.8rem; margin-top: 5px;">ARXML Config</div>
+        </div>
+        <i class="fa-solid fa-gears" style="color: var(--text-muted); font-size: 2rem; animation: spin 4s linear infinite;"></i>
+        <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border: 1px solid #10b981; border-radius: 8px;">
+            <i class="fa-solid fa-code" style="color: #10b981; font-size: 1.5rem;"></i>
+            <div style="font-size: 0.8rem; margin-top: 5px;">Generated C Code</div>
+        </div>
+    </div>
+    <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted);">Automation leads to safety and consistency.</p>
+</div>
+
+<style>
+<p>@keyframes spin {</p>
+<p>from { transform: rotate(0deg); }</p>
+<p>to { transform: rotate(360deg); }</p>
+<p>}</p>
+</style>
+
+<hr>
+
+<h2>4) Professional Tooling</h2>
+
+<p>You cannot do AUTOSAR in Notepad. You need high-end engineering tools:</p>
+<ul>
+<li><strong>Vector MICROSAR/DaVinci</strong>: The industry standard.</li>
+<li><strong>ETAS ISOLAR</strong>: Popular for Bosch-centric projects.</li>
+<li><strong>Elektrobit (EB) Tresos</strong>: Widely used for MCAL and BSW configuration.</li>
+</ul>
+
+<hr>
+
+<h2>5) Final Summary: Your Next Steps</h2>
+
+<p>You have now completed the <strong>AUTOSAR Learning Masterclass</strong>. You understand:</p>
+<p>1. The <strong>Layered Architecture</strong>.</p>
+<p>2. <strong>Software Components</strong> & the <strong>VFB</strong>.</p>
+<p>3. The vital role of the <strong>RTE</strong>.</p>
+<p>4. The complex <strong>Communication Stack</strong>.</p>
+<p>5. The <strong>Stability Stacks</strong> (Mem/Diag).</p>
+<p>6. The professional <strong>Methodology</strong>.</p>
+
+<strong>Mastering the Machine</strong> requires constant practice. Start by looking at open-source implementations like <strong>ARCCORE</strong> or exploring the MCAL configurators from chip vendors like <strong>ST</strong> or <strong>NXP</strong>.
+
+<p>Thank you for following this series. Now go and build the future of mobility!</p>
+            </article>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <a href="article-autosar-masterclass-5.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;"><i class="fa-solid fa-chevron-left"></i> Prev</a>
+                
+            </div>
+
+            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles List</a>
+            </footer>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted);">
+            <p>&copy; 2026 Autodevv. Master the Machine.</p>
+        </div>
+    </footer>
+    <script src="articles.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

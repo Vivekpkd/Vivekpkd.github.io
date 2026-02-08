@@ -25,19 +25,38 @@ def parse_markdown(content):
 
     # Defaults
     metadata['category'] = metadata.get('category', 'General')
+    metadata['title'] = metadata.get('title', 'Untitled')
+    metadata['date'] = metadata.get('date', datetime.datetime.now().strftime("%b %d, %Y"))
+    
     tags_raw = metadata.get('tags', '')
     if isinstance(tags_raw, str):
+        # Handle cases like ["tag1", "tag2"] or tag1, tag2
+        tags_raw = tags_raw.strip('[]').replace('"', '').replace("'", "")
         metadata['tags'] = [t.strip() for t in tags_raw.split(',')] if tags_raw else []
     else:
         metadata['tags'] = tags_raw if isinstance(tags_raw, list) else []
 
     text = content.strip()
 
-    # 1. Block Level: Code Blocks (Triple backticks)
+    # 1. Block Level: Code Blocks (Premium IDE Style)
     def repl_code(match):
         lang = match.group(1).strip()
-        code = match.group(2).replace('<', '&lt;').replace('>', '&gt;')
-        return f'<pre><code class="language-{lang}">{code}</code></pre>'
+        code_content = match.group(2).strip()
+        
+        # Add line numbers
+        lines = code_content.split('\n')
+        highlighted_code = []
+        for i, line in enumerate(lines, 1):
+            line = line.replace('<', '&lt;').replace('>', '&gt;')
+            # Basic syntax highlighting (keywords)
+            keywords = ['void', 'int', 'char', 'uint32_t', 'uint8_t', 'static', 'extern', 'volatile', 'if', 'else', 'for', 'while', 'switch', 'case', 'break', 'return', '#define', '#include']
+            for kw in keywords:
+                line = re.sub(rf'\b{kw}\b', f'<span class="keyword">{kw}</span>', line)
+            
+            highlighted_code.append(f'<span class="line-num">{i}</span>{line}')
+            
+        return f'<div class="code-ide">{"\n".join(highlighted_code)}</div>'
+        
     text = re.sub(r'```(\w*)\n?(.*?)```', repl_code, text, flags=re.DOTALL)
 
     # 2. Block Level: Ad Placeholder
@@ -48,19 +67,21 @@ def parse_markdown(content):
     text = re.sub(r'^# (.*?)$', r'<h1>\1</h1>', text, flags=re.MULTILINE)
     text = re.sub(r'^## (.*?)$', r'<h2>\1</h2>', text, flags=re.MULTILINE)
     text = re.sub(r'^### (.*?)$', r'<h3>\1</h3>', text, flags=re.MULTILINE)
+    text = re.sub(r'^#### (.*?)$', r'<h4>\1</h4>', text, flags=re.MULTILINE)
+    text = re.sub(r'^##### (.*?)$', r'<h5>\1</h5>', text, flags=re.MULTILINE)
 
     # 4. Block Level: Horizontal Rules
     text = re.sub(r'^---$', r'<hr>', text, flags=re.MULTILINE)
 
     # 5. Inline Level: Bold, Images, Links
     text = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', text)
-    # Images: ![alt](url) -> Centered image with fixed width
+    # Images: ![alt](url)
     def repl_img(match):
         alt = match.group(1)
         url = match.group(2)
-        return f'<p align="center"><img src="{url}" alt="{alt}" width="700"></p>'
+        return f'<p align="center"><img src="{url}" alt="{alt}" style="max-width:100%; border-radius:12px; margin: 20px 0;"></p>'
     text = re.sub(r'\!\[(.*?)\]\((.*?)\)', repl_img, text)
-    # Links: [text](url) (must not be preceded by !)
+    # Links
     text = re.sub(r'(?<!\!)\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', text)
 
     # 6. Advanced Block Level: Lists, Alerts, and Paragraphs
@@ -73,7 +94,7 @@ def parse_markdown(content):
     for line in lines:
         stripped = line.strip()
         
-        # Handle Alerts (> [!NOTE])
+        # Handle Alerts
         alert_match = re.match(r'^> \[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]', stripped)
         if alert_match:
             if in_list: processed_lines.append('</ul>'); in_list = False
@@ -102,7 +123,7 @@ def parse_markdown(content):
                 processed_lines.append('</ul>')
                 in_list = False
             
-            # Paragraphs (if not a tag)
+            # Paragraphs
             if stripped and not stripped.startswith('<'):
                 processed_lines.append(f'<p>{stripped}</p>')
             else:
@@ -139,12 +160,12 @@ def generate_site():
         
         # Add to articles list
         articles.append({
-            'title': metadata.get('title', 'Untitled'),
-            'date': metadata.get('date', ''),
+            'title': metadata.get('title'),
+            'date': metadata.get('date'),
             'excerpt': metadata.get('excerpt', ''),
-            'link': 'article-' + filename.replace('.md', '.html'),
-            'category': metadata.get('category', 'General'),
-            'tags': metadata.get('tags', [])
+            'link': slug,
+            'category': metadata.get('category'),
+            'tags': metadata.get('tags')
         })
         
         # HTML Template
@@ -155,28 +176,51 @@ def generate_site():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{metadata.get('title')} - Autodevv</title>
     <meta name="description" content="{metadata.get('excerpt')}">
-    <meta name="author" content="Autodevv">
-    <meta property="og:title" content="{metadata.get('title')}">
-    <meta property="og:description" content="{metadata.get('excerpt')}">
-    <meta property="og:type" content="article">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1.1">
+    <link rel="stylesheet" href="styles.css?v=1.2">
     <script>
         (function() {{
             const theme = localStorage.getItem('theme');
-            const isArticle = window.location.pathname.includes('article-');
-            if (theme === 'light' || (!theme && isArticle)) {{
-                document.documentElement.setAttribute('data-theme', 'light');
-            }} else {{
+            if (theme === 'dark') {{
                 document.documentElement.removeAttribute('data-theme');
+            }} else {{
+                document.documentElement.setAttribute('data-theme', 'light');
             }}
         }})();
     </script>
-    <!-- Adsense Placeholder -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+    <style>
+        .code-ide {{
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-left: 4px solid var(--primary);
+            color: #24292e;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow: auto;
+        }}
+        [data-theme="dark"] .code-ide {{
+            background-color: #24292e;
+            border: 1px solid #444;
+            color: #e1e4e8;
+        }}
+        .line-num {{
+            color: var(--text-muted);
+            display: inline-block;
+            width: 2rem;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            margin-right: 1rem;
+        }}
+        .keyword {{ color: #d73a49; font-weight: bold; }}
+        [data-theme="dark"] .keyword {{ color: #ff7b72; }}
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -190,17 +234,11 @@ def generate_site():
                 <li><a href="categories.html">Categories</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="search-toggle" class="theme-btn" title="Search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-                <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
-                    <i class="fa-solid fa-sun"></i>
-                </button>
+                <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
             </div>
             <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
             </div>
         </div>
     </nav>
@@ -215,6 +253,7 @@ def generate_site():
             <div id="search-results" class="search-results"></div>
         </div>
     </div>
+
     <!-- Mobile Menu -->
     <div class="mobile-menu">
         <a href="index.html#home">Home</a>
@@ -233,23 +272,22 @@ def generate_site():
             <article class="article-content">
                 {html_content}
             </article>
-            <div class="ad-slot-container" style="margin-top: 40px;">
-                <div class="ad-placeholder">
-                    <small>Advertisement Space (Google Adsense)</small>
-                </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                {f'<a href="{metadata.get("prev_link")}" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;"><i class="fa-solid fa-chevron-left"></i> Prev</a>' if metadata.get("prev_link") else ''}
+                {f'<a href="{metadata.get("next_link")}" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;">Next <i class="fa-solid fa-chevron-right"></i></a>' if metadata.get("next_link") else ''}
             </div>
-            <footer class="article-footer">
-                <a href="index.html#blog" class="btn btn-outline">← Back to Articles</a>
+
+            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles List</a>
             </footer>
         </div>
     </section>
+
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Autodevv. Professional Automotive Software Systems.</p>
-            <div style="margin-top: 10px; font-size: 0.9em;">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
-            </div>
+        <div class="container" style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted);">
+            <p>&copy; 2026 Autodevv. Master the Machine.</p>
         </div>
     </footer>
     <script src="articles.js"></script>

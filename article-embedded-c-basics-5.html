@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded C Masterclass: Part 5 - Communication Protocols - Autodevv</title>
+    <meta name="description" content="Exhaustive guide to UART, SPI, I2C, and CAN. Master the physical and logical layers of industrial communication.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.2">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .code-ide {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-left: 4px solid var(--primary);
+            color: #24292e;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        [data-theme="dark"] .code-ide {
+            background-color: #24292e;
+            border: 1px solid #444;
+            color: #e1e4e8;
+        }
+        .line-num {
+            color: var(--text-muted);
+            display: inline-block;
+            width: 2rem;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            margin-right: 1rem;
+        }
+        .keyword { color: #d73a49; font-weight: bold; }
+        [data-theme="dark"] .keyword { color: #ff7b72; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="categories.html">Categories</a>
+    </div>
+
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
+                <span class="tag">Feb 08, 2026</span>
+                <h1>Embedded C Masterclass: Part 5 - Communication Protocols</h1>
+            </header>
+            <article class="article-content">
+                <p>Welcome to the most critical part of the series. Microcontrollers don't live in isolation; they must talk to sensors, memory, and each other. In this part, we deep-dive into the "Big 4" protocols: <strong>UART, SPI, I2C, and CAN</strong>.</p>
+
+<h2>10) Communication Protocols (Exhaustive Analysis)</h2>
+
+<hr>
+
+<h3>A. UART (The Universal Debugger)</h3>
+<strong>Physical</strong>: 2 Wires (TX/RX). Asynchronous (no shared clock).
+<strong>Usage</strong>: PC-to-MCU, GSM modules, Bluetooth.
+
+<h4>Driver Logic (Polling Transmission)</h4>
+<div class="code-ide"><span class="line-num">1</span><span class="keyword">void</span> UART_SendChar(<span class="keyword">char</span> c) {
+<span class="line-num">2</span>    // 1. Wait <span class="keyword">for</span> Transmission Register to be Empty
+<span class="line-num">3</span>    <span class="keyword">while</span>(!(USART1-&gt;SR & (1 &lt;&lt; 7)));
+<span class="line-num">4</span>    
+<span class="line-num">5</span>    // 2. Load data into Register
+<span class="line-num">6</span>    USART1-&gt;DR = (<span class="keyword">uint8_t</span>)c;
+<span class="line-num">7</span>}
+<span class="line-num">8</span>
+<span class="line-num">9</span><span class="keyword">void</span> UART_SendString(<span class="keyword">char</span> *s) {
+<span class="line-num">10</span>    <span class="keyword">while</span>(*s) UART_SendChar(*s++);
+<span class="line-num">11</span>}</div>
+
+<hr>
+
+<h3>B. SPI (The High-Speed Bus)</h3>
+<strong>Physical</strong>: 4 Wires (SCK, MOSI, MISO, CS). Synchronous (shared clock).
+<strong>Usage</strong>: SD cards, Displays, High-speed ADCs.
+
+<h4>Protocol Characteristics</h4>
+<ul>
+<li><strong>Full-Duplex</strong>: Sends and receives data simultaneously.</li>
+<li><strong>Master/Slave</strong>: One Master drives the clock.</li>
+<li><strong>Chip Select (CS)</strong>: Hardware pin used to select which slave should listen.</li>
+</ul>
+
+<div class="code-ide"><span class="line-num">1</span><span class="keyword">uint8_t</span> SPI_TransmitReceive(<span class="keyword">uint8_t</span> data) {
+<span class="line-num">2</span>    // 1. Write data to Buffer
+<span class="line-num">3</span>    SPI1-&gt;DR = data;
+<span class="line-num">4</span>    
+<span class="line-num">5</span>    // 2. Wait <span class="keyword">for</span> transmission to complete
+<span class="line-num">6</span>    <span class="keyword">while</span>(!(SPI1-&gt;SR & (1 &lt;&lt; 1))); // TXE (Transmit Empty)
+<span class="line-num">7</span>    <span class="keyword">while</span>(SPI1-&gt;SR & (1 &lt;&lt; 7));    // BSY (Busy Flag)
+<span class="line-num">8</span>    
+<span class="line-num">9</span>    // 3. Return the data received simultaneously
+<span class="line-num">10</span>    <span class="keyword">return</span> SPI1-&gt;DR;
+<span class="line-num">11</span>}</div>
+
+<hr>
+
+<h3>C. I2C (The 2-Wire Specialist)</h3>
+<strong>Physical</strong>: 2 Wires (SDA - Data, SCL - Clock). Pull-up resistors required.
+<strong>Usage</strong>: Temperature sensors, EEPROM, RTCs.
+
+<h4>Protocol Characteristics</h4>
+<ul>
+<li><strong>Addressing</strong>: Every slave has a unique 7-bit address.</li>
+<li><strong>Multi-Master</strong>: Built-in arbitration for multiple controllers.</li>
+<li><strong>ACK/NACK</strong>: Mechanism to confirm if the receiver is alive.</li>
+</ul>
+
+<div class="code-ide"><span class="line-num">1</span><span class="keyword">void</span> I2C_Write(<span class="keyword">uint8_t</span> addr, <span class="keyword">uint8_t</span> data) {
+<span class="line-num">2</span>    I2C_Start();
+<span class="line-num">3</span>    I2C_SendAddress(addr, WRITE_MODE);
+<span class="line-num">4</span>    <span class="keyword">if</span>(I2C_CheckACK()) {
+<span class="line-num">5</span>        I2C_SendData(data);
+<span class="line-num">6</span>    }
+<span class="line-num">7</span>    I2C_Stop();
+<span class="line-num">8</span>}</div>
+
+<hr>
+
+<h3>D. CAN Bus (The Automotive King)</h3>
+<strong>Physical</strong>: 2 Wires (CAN High / CAN Low). Differential signalling for noise immunity.
+<strong>Usage</strong>: Engine Control, Transmission, ABS, Body Electronics.
+
+<h4>Why CAN is Different</h4>
+<ul>
+<li><strong>Message-Based</strong>: No addresses. Every message has an <strong>ID</strong> (e.g., Engine Temp or Speed).</li>
+<li><strong>Arbitration</strong>: Lower IDs have higher priority. If two ECUs send at once, the lower ID wins without destroying data.</li>
+<li><strong>Fault Tolerance</strong>: Automatic re-transmission and error-passive states.</li>
+</ul>
+
+<h4>CAN Transmission Structure (C-Abstraction)</h4>
+<div class="code-ide"><span class="line-num">1</span>typedef struct {
+<span class="line-num">2</span>    <span class="keyword">uint32_t</span> StdId;     // Standard ID (11 bits)
+<span class="line-num">3</span>    <span class="keyword">uint32_t</span> DLC;       // Data Length Code (0-8 bytes)
+<span class="line-num">4</span>    <span class="keyword">uint8_t</span>  Data[8];   // The actual 8-byte payload
+<span class="line-num">5</span>} CAN_Msg_t;
+<span class="line-num">6</span>
+<span class="line-num">7</span><span class="keyword">void</span> CAN_Transmit(CAN_Msg_t *msg) {
+<span class="line-num">8</span>    // 1. Check <span class="keyword">for</span> empty mailbox
+<span class="line-num">9</span>    <span class="keyword">while</span>(!(CAN1-&gt;TSR & (1 &lt;&lt; 26))); // Mailbox 0 empty?
+<span class="line-num">10</span>    
+<span class="line-num">11</span>    // 2. Load ID and Data
+<span class="line-num">12</span>    CAN1-&gt;sTxMailBox[0].TIR = (msg-&gt;StdId &lt;&lt; 21);
+<span class="line-num">13</span>    CAN1-&gt;sTxMailBox[0].TDTR = msg-&gt;DLC;
+<span class="line-num">14</span>    
+<span class="line-num">15</span>    // Copy data (usually 2 <span class="keyword">uint32_t</span> words)
+<span class="line-num">16</span>    <span class="keyword">uint32_t</span> data_low = (msg-&gt;Data[3] &lt;&lt; 24 | msg-&gt;Data[2] &lt;&lt; 16 | msg-&gt;Data[1] &lt;&lt; 8 | msg-&gt;Data[0]);
+<span class="line-num">17</span>    CAN1-&gt;sTxMailBox[0].TDLR = data_low;
+<span class="line-num">18</span>    
+<span class="line-num">19</span>    // 3. Request Transmission
+<span class="line-num">20</span>    CAN1-&gt;sTxMailBox[0].TIR |= (1 &lt;&lt; 0);
+<span class="line-num">21</span>}</div>
+
+<p>In <a href="article-embedded-c-basics-6.html">Part 6: Systems & Automotive</a>, we will conclude the series by looking at the high-level architectures like UDS and AUTOSAR that reside on top of these protocols.</p>
+            </article>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <a href="article-embedded-c-basics-4.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;"><i class="fa-solid fa-chevron-left"></i> Prev</a>
+                <a href="article-embedded-c-basics-6.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;">Next <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles List</a>
+            </footer>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted);">
+            <p>&copy; 2026 Autodevv. Master the Machine.</p>
+        </div>
+    </footer>
+    <script src="articles.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

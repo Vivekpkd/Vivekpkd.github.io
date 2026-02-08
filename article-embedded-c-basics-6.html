@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded C Masterclass: Part 6 - Systems & Automotive - Autodevv</title>
+    <meta name="description" content="The big picture. Master software architecture, layered driver design, and automotive industry standards like UDS and AUTOSAR.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.2">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .code-ide {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-left: 4px solid var(--primary);
+            color: #24292e;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        [data-theme="dark"] .code-ide {
+            background-color: #24292e;
+            border: 1px solid #444;
+            color: #e1e4e8;
+        }
+        .line-num {
+            color: var(--text-muted);
+            display: inline-block;
+            width: 2rem;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            margin-right: 1rem;
+        }
+        .keyword { color: #d73a49; font-weight: bold; }
+        [data-theme="dark"] .keyword { color: #ff7b72; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="categories.html">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="categories.html">Categories</a>
+    </div>
+
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
+                <span class="tag">Feb 08, 2026</span>
+                <h1>Embedded C Masterclass: Part 6 - Systems & Automotive</h1>
+            </header>
+            <article class="article-content">
+                <p>In this final part of the series, we move beyond individual peripherals and look at how code is structured in professional production environments. We will explore the analog world, software architecture, and the high-trust standards of the automotive industry.</p>
+
+<h2>11) ADC & DAC (The Analog Bridge)</h2>
+
+<p>Microcontrollers process 0s and 1s, but the world is analog.</p>
+<ul>
+<li><strong>ADC (Analog-to-Digital Converter)</strong>: Converts a sensor's voltage (e.g., 2.5V) into a digital number (e.g., 2048 in a 12-bit ADC).</li>
+<li><strong>DAC (Digital-to-Analog Converter)</strong>: The reverse. Used for generating audio or driving specialized actuators.</li>
+</ul>
+
+<div class="code-ide"><span class="line-num">1</span>// Production-grade ADC Read (with error handling)
+<span class="line-num">2</span>uint16_t ADC_Get_Millivolts() {
+<span class="line-num">3</span>    ADC1-&gt;CR2 |= (1 &lt;&lt; 30); // Start conversion
+<span class="line-num">4</span>    
+<span class="line-num">5</span>    // Timeout mechanism to prevent infinite hanging
+<span class="line-num">6</span>    <span class="keyword">uint32_t</span> timeout = 10000;
+<span class="line-num">7</span>    <span class="keyword">while</span>(!(ADC1-&gt;SR & (1 &lt;&lt; 1)) && --timeout);
+<span class="line-num">8</span>    
+<span class="line-num">9</span>    <span class="keyword">if</span>(timeout == 0) <span class="keyword">return</span> ERROR_VAL;
+<span class="line-num">10</span>    
+<span class="line-num">11</span>    // Convert 12-bit value (0-4095) to 0-3300mV
+<span class="line-num">12</span>    <span class="keyword">return</span> (uint16_t)((ADC1-&gt;DR * 3300) / 4095);
+<span class="line-num">13</span>}</div>
+
+<hr>
+
+<h2>12) Persistence: EEPROM & Flash</h2>
+
+<p>When you turn off your car, it remembers your seat position and mileage. This is done via non-volatile memory.</p>
+<ul>
+<li><strong>EEPROM</strong>: Fast for small writes, but pins are expensive. Often emulated in Flash.</li>
+<li><strong>Flash Writing</strong>: Requires "Unlocking", "Erasing" a whole sector, then "Programming".</li>
+</ul>
+
+<hr>
+
+<h2>13) Embedded Software Architecture</h2>
+
+<p>A "Spaghetti" code approach will fail safety audits. Use structured patterns:</p>
+
+<h4>1. The Super Loop (Bare Metal)</h4>
+<p>The most common. A simple `while(1)` containing state machines.</p>
+<div class="code-ide"><span class="line-num">1</span><span class="keyword">while</span>(1) {
+<span class="line-num">2</span>    Sensor_Task();
+<span class="line-num">3</span>    Control_Logic_Task();
+<span class="line-num">4</span>    Safety_Watchdog_Task();
+<span class="line-num">5</span>}</div>
+
+<h4>2. Layered Design (HAL/MCAL)</h4>
+<p>Decouple your application from the specific silicon.</p>
+<ul>
+<li><strong>Application Layer</strong>: Business logic (e.g., "If RPM > 6000, trigger alarm").</li>
+<li><strong>HAL (Hardware Abstraction Layer)</strong>: Generic drivers (`GPIO_Toggle`).</li>
+<li><strong>MCAL (Microcontroller Abstraction Layer)</strong>: Direct register writes (`GPIOA->ODR`).</li>
+</ul>
+
+<hr>
+
+<h2>14) Embedded Debugging (Production Tools)</h2>
+
+<ul>
+<li><strong>GDB/OpenOCD</strong>: For command-line debugging.</li>
+<li><strong>Trace Hubs</strong>: Viewing real-time CPU performance without stopping the processor (Critical for high-speed motor control).</li>
+<li><strong>Static Analysis (MISRA C)</strong>: Automated tools that check your code for compliance with safety standards (e.g., "Don't use recursion").</li>
+</ul>
+
+<hr>
+
+<h2>15) Automotive Diagnostics: UDS (ISO 14229)</h2>
+
+<p>If your "Check Engine" light is on, a mechanic uses a tool to read the <strong>DTC (Diagnostic Trouble Code)</strong>.</p>
+<ul>
+<li><strong>Service 0x19</strong>: Read DTC Information.</li>
+<li><strong>Service 0x22</strong>: Read Data by Identifier (e.g., read the current Oil Temperature).</li>
+</ul>
+
+<hr>
+
+<h2>16) AUTOSAR: The Global Standard</h2>
+
+<p>AUTOSAR (AUTomotive Open System ARchitecture) is a standard used by BMW, Toyota, Tesla, etc. It separates software from hardware completely, allowing an "Engine Controller" software to run on an STM32 today and an NXP chip tomorrow without a full rewrite.</p>
+
+<hr>
+
+<h2>17) Final Practical Lab: The "Auto-Pilot" Blink</h2>
+
+<p>To graduate from this masterclass, you should implement the following project:</p>
+<p>1.  <strong>Objective</strong>: Blink an LED at a frequency controlled by a Potentiometer (ADC).</p>
+<p>2.  <strong>Constraint</strong>: The ADC reading must be done via a <strong>Timer-triggered Interrupt</strong>.</p>
+<p>3.  <strong>Advanced</strong>: Send the current ADC value and LED frequency over <strong>CAN Bus</strong> every 500ms.</p>
+
+<h4>Conclusion</h4>
+<p>Embedded C is about control. You now have the knowledge to control the flow of electrons, the timing of silicon, and the complexity of automotive systems. <strong>Now, go build the future!</strong></p>
+            </article>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <a href="article-embedded-c-basics-5.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;"><i class="fa-solid fa-chevron-left"></i> Prev</a>
+                
+            </div>
+
+            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                <a href="index.html#blog" class="btn btn-outline">← Back to Articles List</a>
+            </footer>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted);">
+            <p>&copy; 2026 Autodevv. Master the Machine.</p>
+        </div>
+    </footer>
+    <script src="articles.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
