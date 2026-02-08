@@ -2,22 +2,25 @@
 // Projects
 const projects = [
     {
-        title: "AUTOSAR BSW Stack Implementation",
-        tags: ["AUTOSAR", "C", "CAN/LIN"],
-        image: "https://via.placeholder.com/400x300/1a1a1a/8b5cf6?text=AUTOSAR+BSW",
-        desc: "Developed and integrated AUTOSAR Basic Software modules including CAN, LIN drivers, and diagnostic services compliant with ISO 14229 (UDS)."
+        title: "NRF24 Wireless Sensor Node",
+        tags: ["Arduino", "Embedded C", "SPI"],
+        image: "https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=NRF24+Arduino",
+        desc: "Low-power wireless communication implementation using NRF24L01+ and Arduino Nano for sensor data telemetry.",
+        link: "https://github.com/Vivekpkd/NRF24_Arduino"
     },
     {
-        title: "Secure CAN Bootloader",
-        tags: ["Embedded C", "UDS", "Crypto"],
-        image: "https://via.placeholder.com/400x300/1a1a1a/06b6d4?text=Bootloader",
-        desc: "Implemented dual-bank flash bootloader with secure boot verification, CRC checks, and over-the-air (OTA) update capability for automotive ECUs."
+        title: "Mongocxx Singleton Pattern",
+        tags: ["C++", "MongoDB", "Architecture"],
+        image: "https://via.placeholder.com/400x300/1a1a1a/06b6d4?text=Mongocxx+Singleton",
+        desc: "Professional C++ implementation of the Singleton design pattern for efficient MongoDB client management in distributed systems.",
+        link: "https://github.com/Vivekpkd/Mongocxx_Singleton"
     },
     {
-        title: "Battery Management System (BMS)",
-        tags: ["FreeRTOS", "STM32", "CAN"],
-        image: "https://via.placeholder.com/400x300/1a1a1a/8b5cf6?text=BMS",
-        desc: "Real-time battery monitoring system with cell balancing, SOC estimation, and CAN communication for electric vehicle applications."
+        title: "Jetson Nano IoT Gateway",
+        tags: ["Python", "Jetson Nano", "NRF24"],
+        image: "https://via.placeholder.com/400x300/1a1a1a/8b5cf6?text=Jetson+NRF24",
+        desc: "Automotive-grade IoT gateway connecting NRF24L01+ sensor networks to high-performance NVIDIA Jetson edge computing platforms.",
+        link: "https://github.com/Vivekpkd/Jetson_NRF24"
     }
 ];
 
@@ -28,8 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectsContainer = document.getElementById('projects-container');
     if (projectsContainer) {
         projects.forEach(project => {
-            const card = document.createElement('div');
+            const card = document.createElement('a');
+            card.href = project.link;
+            card.target = "_blank";
             card.className = 'project-card fade-in';
+            card.style.textDecoration = 'none';
+            card.style.color = 'inherit';
             card.innerHTML = `
                 <img src="${project.image}" alt="${project.title}" class="card-img">
                 <div class="card-content">
