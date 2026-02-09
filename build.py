@@ -55,7 +55,8 @@ def parse_markdown(content):
             
             highlighted_code.append(f'<span class="line-num">{i}</span>{line}')
             
-        return f'<div class="code-ide">{"\n".join(highlighted_code)}</div>'
+        inner_html = "\n".join(highlighted_code)
+        return f'<div class="code-ide">{inner_html}</div>'
         
     text = re.sub(r'```(\w*)\n?(.*?)```', repl_code, text, flags=re.DOTALL)
 
