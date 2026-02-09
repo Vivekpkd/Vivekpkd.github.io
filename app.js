@@ -159,18 +159,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const card = document.createElement('div');
                 card.className = 'blog-card fade-in';
+                // Ultra-Compact Layout: 6px Header, NO Description, Minimal Padding
                 card.innerHTML = `
-                    <div class="card-img-small" style="background: ${style.gradient}; height: 100px; display: flex; align-items: center; justify-content: center;">
-                        <i class="fa-solid ${style.icon}" style="font-size: 2rem; color: rgba(255,255,255,0.2);"></i>
-                    </div>
-                    <div class="card-content">
-                        <span class="tag" style="margin-bottom: 10px; display:inline-block;">${article.date}</span>
-                        <h3>${article.title}</h3>
-                        <p>${article.excerpt}</p>
-                        <div class="card-tags" style="margin-top:auto; font-size:0.8rem; color:var(--text-muted);">
-                            ${article.tags.map(tag => `#${tag}`).join(' ')}
+                    <div class="card-img-small" style="background: ${style.gradient}; height: 6px; width: 100%;"></div>
+                    <div class="card-content" style="padding: 10px 15px; display: flex; flex-direction: column; justify-content: center; min-height: 80px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+                            <span class="tag" style="font-size: 0.65rem; padding: 2px 6px; background: rgba(255,255,255,0.05); margin:0;">${article.category}</span>
+                            <span style="font-size: 0.7rem; color: var(--text-muted);">${article.date}</span>
                         </div>
-                        <a href="${article.link}" class="btn-small" style="margin-top:15px">Read More</a>
+                        <h3 style="font-size: 0.95rem; margin: 4px 0 0; line-height: 1.3; font-weight: 600;">
+                            <a href="${article.link}" style="color: inherit; text-decoration: none;">${article.title}</a>
+                        </h3>
+                        
+                        <!-- Description REMOVED for compactness -->
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                            <div class="card-tags" style="font-size:0.65rem; color:var(--text-muted); opacity: 0.8;">
+                                ${article.tags.slice(0, 2).map(tag => `#${tag}`).join(' ')}
+                            </div>
+                            <a href="${article.link}" style="font-size: 0.75rem; color: var(--primary);"><i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 `;
                 blogContainer.appendChild(card);
