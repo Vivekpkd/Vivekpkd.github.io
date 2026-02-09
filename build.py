@@ -232,7 +232,7 @@ def generate_site():
                 <li><a href="index.html#about">About</a></li>
                 <li><a href="index.html#portfolio">Work</a></li>
                 <li><a href="index.html#blog">Blog</a></li>
-                <li><a href="categories.html">Categories</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
                 <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -261,7 +261,7 @@ def generate_site():
         <a href="index.html#about">About</a>
         <a href="index.html#portfolio">Work</a>
         <a href="index.html#blog">Blog</a>
-        <a href="categories.html">Categories</a>
+        <a href="contact.html">Contact</a>
     </div>
 
     <section class="section article-page">
