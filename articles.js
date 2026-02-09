@@ -1,17 +1,5 @@
 const articlesData = [
     {
-        "title": "CI/CD Pipeline Test",
-        "date": "Feb 09, 2026",
-        "excerpt": "A simple article to verify that the GitHub Actions build pipeline is working as expected.",
-        "link": "article-cicd-test.html",
-        "category": "DevOps",
-        "tags": [
-            "Automation",
-            "CI/CD",
-            "Test"
-        ]
-    },
-    {
         "title": "AUTOSAR Masterclass: Part 2 - ASW & VFB",
         "date": "Feb 09, 2026",
         "excerpt": "Software Components (SWCs), Ports, and the Virtual Functional Bus. Learn how AUTOSAR enables hardware-independent software design.",
