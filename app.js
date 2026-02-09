@@ -127,29 +127,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Render Blog Posts
+    // Render Blog Posts (with Show More logic)
     const blogContainer = document.getElementById('blog-container');
 
     if (blogContainer) {
-        // Use data from articles.js, fallback to empty array if not loaded
         const articles = (typeof articlesData !== 'undefined') ? articlesData : [];
+        const INITIAL_COUNT = 8;
+        let visibleCount = INITIAL_COUNT;
 
-        articles.forEach(article => {
-            const card = document.createElement('div');
-            card.className = 'blog-card fade-in';
-            card.innerHTML = `
-                <div class="card-content">
-                    <span class="tag" style="margin-bottom: 10px; display:inline-block;">${article.date}</span>
-                    <h3>${article.title}</h3>
-                    <p>${article.excerpt}</p>
-                    <div class="card-tags" style="margin-top:auto; font-size:0.8rem; color:var(--text-muted);">
-                        ${article.tags.map(tag => `#${tag}`).join(' ')}
+        function renderArticles(count) {
+            blogContainer.innerHTML = '';
+            const toShow = articles.slice(0, count);
+
+            toShow.forEach(article => {
+                const card = document.createElement('div');
+                card.className = 'blog-card fade-in';
+                card.innerHTML = `
+                    <div class="card-content">
+                        <span class="tag" style="margin-bottom: 10px; display:inline-block;">${article.date}</span>
+                        <h3>${article.title}</h3>
+                        <p>${article.excerpt}</p>
+                        <div class="card-tags" style="margin-top:auto; font-size:0.8rem; color:var(--text-muted);">
+                            ${article.tags.map(tag => `#${tag}`).join(' ')}
+                        </div>
+                        <a href="${article.link}" class="btn-small" style="margin-top:15px">Read More</a>
                     </div>
-                    <a href="${article.link}" class="btn-small" style="margin-top:15px">Read More</a>
-                </div>
-            `;
-            blogContainer.appendChild(card);
-        });
+                `;
+                blogContainer.appendChild(card);
+            });
+
+            // Re-apply Intersection Observer for new elements
+            if (window.observer) {
+                document.querySelectorAll('.fade-in').forEach(el => window.observer.observe(el));
+            }
+        }
+
+        renderArticles(visibleCount);
+
+        // Add Show More button if needed
+        if (articles.length > INITIAL_COUNT) {
+            const btnContainer = document.createElement('div');
+            btnContainer.style.textAlign = 'center';
+            btnContainer.style.marginTop = '40px';
+            btnContainer.style.width = '100%';
+
+            const showMoreBtn = document.createElement('button');
+            showMoreBtn.className = 'btn btn-outline';
+            showMoreBtn.id = 'show-more-blog';
+            showMoreBtn.textContent = 'View More Articles';
+
+            btnContainer.appendChild(showMoreBtn);
+            blogContainer.after(btnContainer);
+
+            showMoreBtn.addEventListener('click', () => {
+                visibleCount = articles.length; // Show all for now, or could increment
+                renderArticles(visibleCount);
+                btnContainer.remove(); // Remove button once all shown
+            });
+        }
     }
 
     // Mobile Menu
@@ -173,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme Toggle Logic
 
     // Intersection Observer for Animation
-    const observer = new IntersectionObserver((entries) => {
+    window.observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = 1;
@@ -186,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.opacity = 0;
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
+        window.observer.observe(el);
     });
 });
 

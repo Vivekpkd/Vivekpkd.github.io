@@ -4,10 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "content/**"
-      - "build.py"
-      - "styles.css"
-      - "app.js"
+      - "content/**.md"
   workflow_dispatch:
 
 jobs:
