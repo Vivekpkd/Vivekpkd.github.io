@@ -16,7 +16,7 @@ const articlesData = [
         "date": "Feb 09, 2026",
         "excerpt": "Software Components (SWCs), Ports, and the Virtual Functional Bus. Learn how AUTOSAR enables hardware-independent software design.",
         "link": "article-autosar-masterclass-2.html",
-        "category": "Embedded Systems",
+        "category": "AUTOSAR",
         "tags": [
             "AUTOSAR",
             "ASW",
@@ -30,7 +30,7 @@ const articlesData = [
         "date": "Feb 09, 2026",
         "excerpt": "How cars remember settings and detect faults. Explore the Memory Stack (NvM) and the Diagnostic Stack (DCM/DEM) in the BSW.",
         "link": "article-autosar-masterclass-5.html",
-        "category": "Embedded Systems",
+        "category": "AUTOSAR",
         "tags": [
             "AUTOSAR",
             "NvM",
@@ -65,7 +65,7 @@ const articlesData = [
         "date": "Feb 09, 2026",
         "excerpt": "Deep dive into the AUTOSAR Communication Stack. Learn how signals travel from your application to the CAN/Ethernet bus through the PduR and COM modules.",
         "link": "article-autosar-masterclass-4.html",
-        "category": "Embedded Systems",
+        "category": "AUTOSAR",
         "tags": [
             "AUTOSAR",
             "COM Stack",
@@ -122,7 +122,7 @@ const articlesData = [
         "date": "Feb 09, 2026",
         "excerpt": "What is AUTOSAR? Why does the automotive industry depend on it? Learn the philosophy and the massive layered architecture behind modern vehicles.",
         "link": "article-autosar-masterclass-1.html",
-        "category": "Embedded Systems",
+        "category": "AUTOSAR",
         "tags": [
             "AUTOSAR",
             "Architecture",
@@ -136,7 +136,7 @@ const articlesData = [
         "date": "Feb 09, 2026",
         "excerpt": "Master the Runtime Environment (RTE). The vital middleware that transforms virtual connections into real C code and handles task scheduling.",
         "link": "article-autosar-masterclass-3.html",
-        "category": "Embedded Systems",
+        "category": "AUTOSAR",
         "tags": [
             "AUTOSAR",
             "RTE",
