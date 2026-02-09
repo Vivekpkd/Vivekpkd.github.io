@@ -1,0 +1,33 @@
+name: Convert MD to HTML
+ 
+on:
+  push:
+    paths:
+      - '**.md'
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+ 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+ 
+      - name: Install dependencies
+        run: pip install markdown
+ 
+      - name: Run build script
+        run: python build.py
+ 
+      - name: Commit HTML files
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Auto convert MD to HTML" || echo "No changes"
+          git push
