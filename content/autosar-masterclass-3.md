@@ -2,7 +2,7 @@
 title: "AUTOSAR Masterclass: Part 3 - The Glue (RTE)"
 date: "Feb 09, 2026"
 excerpt: "Master the Runtime Environment (RTE). The vital middleware that transforms virtual connections into real C code and handles task scheduling."
-category: "Embedded Systems"
+category: "AUTOSAR"
 tags: ["AUTOSAR", "RTE", "Middleware", "Code Generation", "Scheduling"]
 prev_link: "article-autosar-masterclass-2.html"
 next_link: "article-autosar-masterclass-4.html"

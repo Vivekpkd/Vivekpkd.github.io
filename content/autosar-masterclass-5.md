@@ -2,7 +2,7 @@
 title: "AUTOSAR Masterclass: Part 5 - Stability Stacks (Mem & Diag)"
 date: "Feb 09, 2026"
 excerpt: "How cars remember settings and detect faults. Explore the Memory Stack (NvM) and the Diagnostic Stack (DCM/DEM) in the BSW."
-category: "Embedded Systems"
+category: "AUTOSAR"
 tags: ["AUTOSAR", "NvM", "Diagnostics", "DEM", "DCM"]
 prev_link: "article-autosar-masterclass-4.html"
 next_link: "article-autosar-masterclass-6.html"

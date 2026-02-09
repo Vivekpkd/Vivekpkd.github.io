@@ -2,7 +2,7 @@
 title: "AUTOSAR Masterclass: Part 2 - ASW & VFB"
 date: "Feb 09, 2026"
 excerpt: "Software Components (SWCs), Ports, and the Virtual Functional Bus. Learn how AUTOSAR enables hardware-independent software design."
-category: "Embedded Systems"
+category: "AUTOSAR"
 tags: ["AUTOSAR", "ASW", "VFB", "SWC", "Ports"]
 prev_link: "article-autosar-masterclass-1.html"
 next_link: "article-autosar-masterclass-3.html"

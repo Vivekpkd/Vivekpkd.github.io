@@ -2,7 +2,7 @@
 title: "AUTOSAR Masterclass: Part 4 - Data in Motion (COM Stack)"
 date: "Feb 09, 2026"
 excerpt: "Deep dive into the AUTOSAR Communication Stack. Learn how signals travel from your application to the CAN/Ethernet bus through the PduR and COM modules."
-category: "Embedded Systems"
+category: "AUTOSAR"
 tags: ["AUTOSAR", "COM Stack", "CAN", "PduR", "Networking"]
 prev_link: "article-autosar-masterclass-3.html"
 next_link: "article-autosar-masterclass-5.html"
