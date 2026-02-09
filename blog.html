@@ -7,8 +7,149 @@
     <title>Blog - All Articles | Autodevv</title>
     <meta name="description"
         content="Technical blog of Autodevv. Explore all articles on Automotive Software, Embedded Systems, and more.">
+    <!-- Theme Script -->
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css?v=1.1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .blog-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .blog-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .filter-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .filter-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .filter-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .filter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .filter-item:hover,
+        .filter-item.active {
+            color: var(--primary);
+        }
+
+        .filter-item .count {
+            background: var(--bg-alt);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag-filter {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tag-filter:hover,
+        .tag-filter.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            margin-top: 40px;
+            padding-bottom: 20px;
+        }
+
+        .pg-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        .pg-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pg-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pg-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,7 +160,7 @@
                 <li><a href="index.html#home">Home</a></li>
                 <li><a href="index.html#about">About</a></li>
                 <li><a href="index.html#portfolio">Work</a></li>
-                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="index.html#blog" class="active">Blog</a></li>
                 <li><a href="categories.html">Categories</a></li>
             </ul>
             <div class="nav-actions">
@@ -60,17 +201,57 @@
 
     <section class="section">
         <div class="container">
-            <h1 class="section-title">All Articles</h1>
-            <p class="section-desc">A comprehensive list of all technical tutorials, guides, and masterclasses.</p>
+            <h1 class="section-title">Technical Publication Room</h1>
+            <p class="section-desc">Filtering and deep-dives for automotive professionals.</p>
 
-            <div class="ad-slot-container" style="margin-bottom: 40px;">
-                <div class="ad-placeholder">
-                    <small>Top Banner Ad (Google Adsense)</small>
+            <div class="blog-layout">
+                <!-- Articles List -->
+                <div id="blog-content">
+                    <div id="articles-grid" class="blog-grid" style="grid-template-columns: 1fr;">
+                        <!-- Articles will be injected here -->
+                    </div>
+                    <!-- Pagination info will be injected here -->
+                    <div id="pagination-controls" class="pagination-container"></div>
                 </div>
-            </div>
 
-            <div id="blog-toc" class="blog-toc-list">
-                <!-- Articles will be injected here as a Table of Contents -->
+                <!-- Sidebar Filters -->
+                <aside class="filter-sidebar">
+                    <!-- Ads Slot -->
+                    <div class="filter-section" style="padding: 10px; text-align: center;">
+                        <small style="color:var(--text-muted)">Advertisement</small>
+                        <div
+                            style="background:var(--bg-alt); height: 250px; display:flex; align-items:center; justify-content:center; border-radius:8px; margin-top:10px; border: 1px dashed var(--border);">
+                            <p style="font-size:0.8rem">Google AdSense Slot</p>
+                        </div>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div class="filter-section">
+                        <div class="filter-title"><i class="fa-solid fa-layer-group"></i> Categories</div>
+                        <ul class="filter-list" id="category-filters">
+                            <li class="filter-item active" data-category="all">All Categories <span
+                                    class="count">0</span></li>
+                            <!-- JS injected -->
+                        </ul>
+                    </div>
+
+                    <!-- Date/Year Filter -->
+                    <div class="filter-section">
+                        <div class="filter-title"><i class="fa-solid fa-calendar-days"></i> Archive</div>
+                        <ul class="filter-list" id="year-filters">
+                            <li class="filter-item active" data-year="all">All Time <span class="count">0</span></li>
+                            <!-- JS injected -->
+                        </ul>
+                    </div>
+
+                    <!-- Topics Cloud -->
+                    <div class="filter-section">
+                        <div class="filter-title"><i class="fa-solid fa-hashtag"></i> Topics</div>
+                        <div class="tag-cloud" id="tag-filters">
+                            <!-- JS injected -->
+                        </div>
+                    </div>
+                </aside>
             </div>
         </div>
     </section>
@@ -85,32 +266,174 @@
     <script src="app.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('blog-toc');
-            if (!container || typeof articlesData === 'undefined') return;
+            if (typeof articlesData === 'undefined') return;
 
-            // Sort articles by date (newest first)
-            const sortedArticles = [...articlesData].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const grid = document.getElementById('articles-grid');
+            const paginationControls = document.getElementById('pagination-controls');
+            const categoryList = document.getElementById('category-filters');
+            const yearList = document.getElementById('year-filters');
+            const tagCloud = document.getElementById('tag-filters');
 
-            container.innerHTML = sortedArticles.map(article => `
-                <div class="blog-toc-item fade-in" style="margin-bottom: 30px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; transition: 0.3s;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 250px;">
-                            <span class="tag" style="margin-bottom: 10px; display: inline-block;">${article.date}</span>
-                            <h2 style="margin-bottom: 10px;"><a href="${article.link}" style="color: inherit; text-decoration: none;">${article.title}</a></h2>
-                            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px;">${article.excerpt}</p>
-                            <div class="card-tags">
-                                ${article.tags.map(tag => `<span class="tag" style="font-size: 0.7rem;">#${tag}</span>`).join(' ')}
-                            </div>
-                        </div>
-                        <a href="${article.link}" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">Read Article</a>
-                    </div>
-                </div>
-            `).join('');
+            const PAGE_SIZE = 8;
+            let currentPage = 1;
+            let currentFilteredData = [...articlesData];
 
-            // Re-trigger observer for fade-in animations
-            if (window.observer) {
-                document.querySelectorAll('.fade-in').forEach(el => window.observer.observe(el));
+            let currentFilters = {
+                category: 'all',
+                year: 'all',
+                tag: 'all'
+            };
+
+            // Initialize Filters
+            function initFilters() {
+                const cats = {};
+                const years = {};
+                const tags = {};
+
+                articlesData.forEach(a => {
+                    cats[a.category] = (cats[a.category] || 0) + 1;
+                    const year = new Date(a.date).getFullYear();
+                    years[year] = (years[year] || 0) + 1;
+                    a.tags.forEach(t => tags[t] = (tags[t] || 0) + 1);
+                });
+
+                // Render Categories
+                categoryList.innerHTML = `<li class="filter-item ${currentFilters.category === 'all' ? 'active' : ''}" data-category="all">All Categories <span class="count">${articlesData.length}</span></li>` +
+                    Object.keys(cats).map(c => `<li class="filter-item" data-category="${c}">${c} <span class="count">${cats[c]}</span></li>`).join('');
+
+                // Render Years
+                yearList.innerHTML = `<li class="filter-item ${currentFilters.year === 'all' ? 'active' : ''}" data-year="all">All Time <span class="count">${articlesData.length}</span></li>` +
+                    Object.keys(years).sort((a, b) => b - a).map(y => `<li class="filter-item" data-year="${y}">${y} <span class="count">${years[y]}</span></li>`).join('');
+
+                // Render Tags
+                tagCloud.innerHTML = Object.keys(tags).map(t => `<span class="tag-filter" data-tag="${t}">${t}</span>`).join('');
             }
+
+            function applyFilters() {
+                currentFilteredData = articlesData.filter(a => {
+                    const catMatch = currentFilters.category === 'all' || a.category === currentFilters.category;
+                    const yearMatch = currentFilters.year === 'all' || new Date(a.date).getFullYear().toString() === currentFilters.year;
+                    const tagMatch = currentFilters.tag === 'all' || a.tags.includes(currentFilters.tag);
+                    return catMatch && yearMatch && tagMatch;
+                });
+
+                currentPage = 1;
+                renderArticles();
+            }
+
+            function renderArticles() {
+                if (currentFilteredData.length === 0) {
+                    grid.innerHTML = '<div class="no-results"><i class="fa-solid fa-magnifying-glass" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.2;"></i><p>No articles match those filters.</p></div>';
+                    paginationControls.innerHTML = '';
+                    return;
+                }
+
+                const start = (currentPage - 1) * PAGE_SIZE;
+                const end = start + PAGE_SIZE;
+                const pagedData = currentFilteredData.slice(start, end);
+
+                grid.innerHTML = pagedData.map(article => `
+                    <div class="blog-toc-item fade-in" style="margin-bottom: 24px; padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; transition: 0.3s;">
+                        <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 250px;">
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                                    <span class="tag" style="background: var(--bg-alt);">${article.date}</span>
+                                    <span style="color: var(--primary); font-weight: 600; font-size: 0.85rem;">${article.category}</span>
+                                </div>
+                                <h2 style="margin-bottom: 12px; font-size: 1.4rem;"><a href="${article.link}" style="color: inherit; text-decoration: none;">${article.title}</a></h2>
+                                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px;">${article.excerpt}</p>
+                                <div class="card-tags">
+                                    ${article.tags.map(tag => `<span class="tag" style="font-size: 0.75rem;">#${tag}</span>`).join(' ')}
+                                </div>
+                            </div>
+                            <a href="${article.link}" class="btn btn-primary" style="padding: 12px 30px;">Read More</a>
+                        </div>
+                    </div>
+                `).join('');
+
+                renderPagination();
+
+                if (window.observer) {
+                    document.querySelectorAll('.fade-in').forEach(el => window.observer.observe(el));
+                }
+
+                // Scroll to top of articles when page changes
+                if (currentPage > 1 || pagedData.length > 0) {
+                    window.scrollTo({ top: grid.offsetTop - 150, behavior: 'smooth' });
+                }
+            }
+
+            function renderPagination() {
+                const totalPages = Math.ceil(currentFilteredData.length / PAGE_SIZE);
+                if (totalPages <= 1) {
+                    paginationControls.innerHTML = '';
+                    return;
+                }
+
+                let html = `
+                    <button class="pg-btn ${currentPage === 1 ? 'disabled' : ''}" onclick="window.changePage(${currentPage - 1})">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                `;
+
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                        html += `<button class="pg-btn ${i === currentPage ? 'active' : ''}" onclick="window.changePage(${i})">${i}</button>`;
+                    } else if (i === currentPage - 2 || i === currentPage + 2) {
+                        html += `<span style="color:var(--text-muted)">...</span>`;
+                    }
+                }
+
+                html += `
+                    <button class="pg-btn ${currentPage === totalPages ? 'disabled' : ''}" onclick="window.changePage(${currentPage + 1})">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                `;
+
+                paginationControls.innerHTML = html;
+            }
+
+            window.changePage = (page) => {
+                currentPage = page;
+                renderArticles();
+            };
+
+            // Event Listeners
+            categoryList.addEventListener('click', (e) => {
+                const item = e.target.closest('.filter-item');
+                if (!item) return;
+                categoryList.querySelectorAll('.filter-item').forEach(li => li.classList.remove('active'));
+                item.classList.add('active');
+                currentFilters.category = item.dataset.category;
+                applyFilters();
+            });
+
+            yearList.addEventListener('click', (e) => {
+                const item = e.target.closest('.filter-item');
+                if (!item) return;
+                yearList.querySelectorAll('.filter-item').forEach(li => li.classList.remove('active'));
+                item.classList.add('active');
+                currentFilters.year = item.dataset.year;
+                applyFilters();
+            });
+
+            tagCloud.addEventListener('click', (e) => {
+                const item = e.target.closest('.tag-filter');
+                if (!item) return;
+                const wasActive = item.classList.contains('active');
+                tagCloud.querySelectorAll('.tag-filter').forEach(t => t.classList.remove('active'));
+
+                if (wasActive) {
+                    currentFilters.tag = 'all';
+                } else {
+                    item.classList.add('active');
+                    currentFilters.tag = item.dataset.tag;
+                }
+                applyFilters();
+            });
+
+            initFilters();
+            renderArticles();
         });
     </script>
 </body>

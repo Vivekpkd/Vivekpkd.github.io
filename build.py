@@ -281,7 +281,7 @@ def generate_site():
             </div>
 
             <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
-                <a href="index.html#blog" class="btn btn-outline">← Back to Articles List</a>
+                <a href="blog.html" class="btn btn-outline">← Back to Articles List</a>
             </footer>
         </div>
     </section>

@@ -2,7 +2,7 @@
 title: "AUTOSAR Masterclass: Part 6 - From Config to Code"
 date: "Feb 09, 2026"
 excerpt: "The final piece. Learn the AUTOSAR Methodology, the role of ARXML files, and how professional tools translate configurations into binary code."
-category: "Embedded Systems"
+category: "AUTOSAR"
 tags: ["AUTOSAR", "Methodology", "ARXML", "Tooling", "Workflow"]
 prev_link: "article-autosar-masterclass-5.html"
 ---
