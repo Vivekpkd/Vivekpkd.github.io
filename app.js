@@ -4,21 +4,24 @@ const projects = [
     {
         title: "NRF24 Wireless Sensor Node",
         tags: ["Arduino", "Embedded C", "SPI"],
-        image: "https://via.placeholder.com/400x300/1a1a1a/3b82f6?text=NRF24+Arduino",
+        background: "linear-gradient(135deg, #3b82f6 0%, #172554 100%)",
+        icon: "fa-microchip",
         desc: "Low-power wireless communication implementation using NRF24L01+ and Arduino Nano for sensor data telemetry.",
         link: "https://github.com/Vivekpkd/NRF24_Arduino"
     },
     {
         title: "Mongocxx Singleton Pattern",
         tags: ["C++", "MongoDB", "Architecture"],
-        image: "https://via.placeholder.com/400x300/1a1a1a/06b6d4?text=Mongocxx+Singleton",
+        background: "linear-gradient(135deg, #06b6d4 0%, #164e63 100%)",
+        icon: "fa-database",
         desc: "Professional C++ implementation of the Singleton design pattern for efficient MongoDB client management in distributed systems.",
         link: "https://github.com/Vivekpkd/Mongocxx_Singleton"
     },
     {
         title: "Jetson Nano IoT Gateway",
         tags: ["Python", "Jetson Nano", "NRF24"],
-        image: "https://via.placeholder.com/400x300/1a1a1a/8b5cf6?text=Jetson+NRF24",
+        background: "linear-gradient(135deg, #8b5cf6 0%, #4c1d95 100%)",
+        icon: "fa-network-wired",
         desc: "Automotive-grade IoT gateway connecting NRF24L01+ sensor networks to high-performance NVIDIA Jetson edge computing platforms.",
         link: "https://github.com/Vivekpkd/Jetson_NRF24"
     }
@@ -38,7 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.textDecoration = 'none';
             card.style.color = 'inherit';
             card.innerHTML = `
-                <img src="${project.image}" alt="${project.title}" class="card-img">
+                <div class="card-img" style="background: ${project.background}; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-solid ${project.icon}" style="font-size: 3.5rem; color: rgba(255,255,255,0.2);"></i>
+                </div>
                 <div class="card-content">
                     <div class="card-tags">
                         ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
