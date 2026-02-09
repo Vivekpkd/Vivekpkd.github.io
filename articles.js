@@ -191,7 +191,7 @@ const articlesData = [
         "date": "Feb 09, 2026",
         "excerpt": "The final piece. Learn the AUTOSAR Methodology, the role of ARXML files, and how professional tools translate configurations into binary code.",
         "link": "article-autosar-masterclass-6.html",
-        "category": "Embedded Systems",
+        "category": "AUTOSAR",
         "tags": [
             "AUTOSAR",
             "Methodology",
