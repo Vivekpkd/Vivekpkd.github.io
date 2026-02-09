@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (blogContainer) {
         const articles = (typeof articlesData !== 'undefined') ? articlesData : [];
         const INITIAL_COUNT = 8;
+        const INCREMENT = 4;
         let visibleCount = INITIAL_COUNT;
 
         function renderArticles(count) {
@@ -160,13 +161,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.observer) {
                 document.querySelectorAll('.fade-in').forEach(el => window.observer.observe(el));
             }
+
+            // Toggle button visibility
+            const btn = document.getElementById('show-more-blog');
+            if (btn) {
+                if (visibleCount >= articles.length) {
+                    btn.parentElement.style.display = 'none';
+                } else {
+                    btn.parentElement.style.display = 'block';
+                }
+            }
         }
 
-        renderArticles(visibleCount);
-
-        // Add Show More button if needed
+        // Create Show More button container if needed
         if (articles.length > INITIAL_COUNT) {
             const btnContainer = document.createElement('div');
+            btnContainer.id = 'blog-btn-container';
             btnContainer.style.textAlign = 'center';
             btnContainer.style.marginTop = '40px';
             btnContainer.style.width = '100%';
@@ -180,11 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
             blogContainer.after(btnContainer);
 
             showMoreBtn.addEventListener('click', () => {
-                visibleCount = articles.length; // Show all for now, or could increment
+                visibleCount += INCREMENT;
                 renderArticles(visibleCount);
-                btnContainer.remove(); // Remove button once all shown
             });
         }
+
+        renderArticles(visibleCount);
     }
 
     // Mobile Menu
