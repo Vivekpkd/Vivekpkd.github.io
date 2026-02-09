@@ -154,33 +154,62 @@ document.addEventListener('DOMContentLoaded', () => {
             blogContainer.innerHTML = '';
             const toShow = articles.slice(0, count);
 
+            // check if we are on home page by looking for the specific class
+            const isHome = blogContainer.classList.contains('home-latest-cards');
+
             toShow.forEach(article => {
                 const style = categoryStyles[article.category] || categoryStyles['General'];
 
                 const card = document.createElement('div');
                 card.className = 'blog-card fade-in';
-                // Ultra-Compact Layout: 6px Header, NO Description, Minimal Padding
-                card.innerHTML = `
-                    <div class="card-img-small" style="background: ${style.gradient}; height: 6px; width: 100%;"></div>
-                    <div class="card-content" style="padding: 10px 15px; display: flex; flex-direction: column; justify-content: center; min-height: 80px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-                            <span class="tag" style="font-size: 0.65rem; padding: 2px 6px; background: rgba(255,255,255,0.05); margin:0;">${article.category}</span>
-                            <span style="font-size: 0.7rem; color: var(--text-muted);">${article.date}</span>
-                        </div>
-                        <h3 style="font-size: 0.95rem; margin: 4px 0 0; line-height: 1.3; font-weight: 600;">
-                            <a href="${article.link}" style="color: inherit; text-decoration: none;">${article.title}</a>
-                        </h3>
-                        
-                        <!-- Description REMOVED for compactness -->
-                        
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
-                            <div class="card-tags" style="font-size:0.65rem; color:var(--text-muted); opacity: 0.8;">
-                                ${article.tags.slice(0, 2).map(tag => `#${tag}`).join(' ')}
+
+                if (isHome) {
+                    // Premium Layout for Home: 140px Header, Icon, Title, Tags
+                    card.innerHTML = `
+                        <div class="card-img-small" style="background: ${style.gradient}; height: 140px; width: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                            <i class="fa-solid ${style.icon}" style="font-size: 3.5rem; color: rgba(255,255,255,0.15); transform: rotate(-10deg);"></i>
+                            <div style="position: absolute; bottom: 10px; left: 15px;">
+                                <span class="tag" style="font-size: 0.7rem; padding: 4px 10px; background: rgba(0,0,0,0.2); backdrop-filter: blur(4px); color: white; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">${article.category}</span>
                             </div>
-                            <a href="${article.link}" style="font-size: 0.75rem; color: var(--primary);"><i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                    </div>
-                `;
+                        <div class="card-content" style="padding: 20px; min-height: 120px; display: flex; flex-direction: column;">
+                            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 8px;">${article.date}</span>
+                            <h3 style="font-size: 1.15rem; margin: 0 0 12px; line-height: 1.35; font-weight: 700;">
+                                <a href="${article.link}" style="color: inherit; text-decoration: none;">${article.title}</a>
+                            </h3>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border);">
+                                <div class="card-tags" style="font-size:0.7rem; color:var(--text-muted); opacity: 0.8;">
+                                    ${article.tags.slice(0, 2).map(tag => `#${tag}`).join(' ')}
+                                </div>
+                                <a href="${article.link}" style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">Read Article <i class="fa-solid fa-arrow-right" style="font-size: 0.75rem; margin-left: 5px;"></i></a>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Standard/Compact Layout for Blog/Category Pages
+                    card.innerHTML = `
+                        <div class="card-img-small" style="background: ${style.gradient}; height: 6px; width: 100%;"></div>
+                        <div class="card-content" style="padding: 15px; display: flex; flex-direction: column; justify-content: center;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                <span class="tag" style="font-size: 0.7rem; padding: 3px 8px; background: rgba(255,255,255,0.05); margin:0;">${article.category}</span>
+                                <span style="font-size: 0.75rem; color: var(--text-muted);">${article.date}</span>
+                            </div>
+                            <h3 style="font-size: 1.1rem; margin: 5px 0 10px; line-height: 1.4; font-weight: 600;">
+                                <a href="${article.link}" style="color: inherit; text-decoration: none;">${article.title}</a>
+                            </h3>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                                <div class="card-tags" style="font-size:0.75rem; color:var(--text-muted);">
+                                    <i class="fa-solid ${style.icon}" style="margin-right: 5px; color: ${style.gradient.match(/#[0-9a-f]{6}/i)[0]}"></i>
+                                    ${article.tags.slice(0, 3).map(tag => `#${tag}`).join(' ')}
+                                </div>
+                                <a href="${article.link}" style="font-size: 0.8rem; color: var(--primary); font-weight: 500;">Read <i class="fa-solid fa-arrow-right" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+                            </div>
+                        </div>
+                    `;
+                }
+
                 blogContainer.appendChild(card);
             });
 
