@@ -1,9 +1,9 @@
-name: Convert MD to HTML
+name: MD to HTML
 
 on:
   push:
     paths:
-      - '**/*.md'
+      - '**.md'
 
 jobs:
   build:
@@ -29,5 +29,4 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add .
-          git commit -m "Auto convert MD to HTML" || echo "No changes"
-          git push
+          git commit -m "Auto convert MD to
