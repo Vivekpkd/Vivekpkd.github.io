@@ -173,26 +173,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Create Show More button container if needed
+        // Create View all button and AdSense placeholder if needed
         if (articles.length > INITIAL_COUNT) {
             const btnContainer = document.createElement('div');
             btnContainer.id = 'blog-btn-container';
+            btnContainer.className = 'container';
             btnContainer.style.textAlign = 'center';
             btnContainer.style.marginTop = '40px';
             btnContainer.style.width = '100%';
 
-            const showMoreBtn = document.createElement('button');
-            showMoreBtn.className = 'btn btn-outline';
-            showMoreBtn.id = 'show-more-blog';
-            showMoreBtn.textContent = 'View More Articles';
+            // Add AdSense Placeholder near the button
+            const adPlace = document.createElement('div');
+            adPlace.className = 'ad-slot-container';
+            adPlace.innerHTML = `
+                <div class="ad-placeholder" style="margin-bottom: 20px;">
+                    <small>Advertisement Space (Google Adsense - High CTR Slot)</small>
+                </div>
+            `;
+            btnContainer.appendChild(adPlace);
 
-            btnContainer.appendChild(showMoreBtn);
+            const viewAllBtn = document.createElement('a');
+            viewAllBtn.className = 'btn btn-primary';
+            viewAllBtn.id = 'view-all-blog';
+            viewAllBtn.href = 'blog.html';
+            viewAllBtn.textContent = 'View all Articles';
+
+            btnContainer.appendChild(viewAllBtn);
             blogContainer.after(btnContainer);
-
-            showMoreBtn.addEventListener('click', () => {
-                visibleCount += INCREMENT;
-                renderArticles(visibleCount);
-            });
         }
 
         renderArticles(visibleCount);
