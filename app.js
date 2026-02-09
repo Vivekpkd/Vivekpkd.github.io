@@ -141,14 +141,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const INCREMENT = 4;
         let visibleCount = INITIAL_COUNT;
 
+        // Category Styles
+        const categoryStyles = {
+            'AUTOSAR': { gradient: 'linear-gradient(135deg, #f59e0b 0%, #b45309 100%)', icon: 'fa-microchip' },
+            'Embedded C': { gradient: 'linear-gradient(135deg, #10b981 0%, #047857 100%)', icon: 'fa-code' },
+            'C++': { gradient: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)', icon: 'fa-c' },
+            'Python': { gradient: 'linear-gradient(135deg, #eab308 0%, #a16207 100%)', icon: 'fa-python' },
+            'General': { gradient: 'linear-gradient(135deg, #6366f1 0%, #4338ca 100%)', icon: 'fa-file-lines' }
+        };
+
         function renderArticles(count) {
             blogContainer.innerHTML = '';
             const toShow = articles.slice(0, count);
 
             toShow.forEach(article => {
+                const style = categoryStyles[article.category] || categoryStyles['General'];
+
                 const card = document.createElement('div');
                 card.className = 'blog-card fade-in';
                 card.innerHTML = `
+                    <div class="card-img-small" style="background: ${style.gradient}; height: 100px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid ${style.icon}" style="font-size: 2rem; color: rgba(255,255,255,0.2);"></i>
+                    </div>
                     <div class="card-content">
                         <span class="tag" style="margin-bottom: 10px; display:inline-block;">${article.date}</span>
                         <h3>${article.title}</h3>
