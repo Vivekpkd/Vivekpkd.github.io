@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled - Autodevv</title>
+    <meta name="description" content="None">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=2.0">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .code-ide {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e4e8;
+            border-left: 4px solid var(--primary);
+            color: #24292e;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow: auto;
+        }
+        [data-theme="dark"] .code-ide {
+            background-color: #24292e;
+            border: 1px solid #444;
+            color: #e1e4e8;
+        }
+        .line-num {
+            color: var(--text-muted);
+            display: inline-block;
+            width: 2rem;
+            user-select: none;
+            border-right: 1px solid var(--border);
+            margin-right: 1rem;
+        }
+        .keyword { color: #d73a49; font-weight: bold; }
+        [data-theme="dark"] .keyword { color: #ff7b72; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#portfolio">Work</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn"><i class="fa-solid fa-sun"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#portfolio">Work</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <section class="section article-page">
+        <div class="article-container">
+            <header class="article-header">
+                <span class="tag">Feb 10, 2026</span>
+                <h1>Untitled</h1>
+            </header>
+            <article class="article-content">
+                <h1>FEE (Flash EEPROM Emulation)</h1>
+
+<strong>Why do we need FEE when we already have Flash memory on the MCU?</strong>
+
+<p>Here’s the simple answer 👇</p>
+
+<p>Most automotive microcontrollers use <strong>Flash</strong> as their non-volatile memory. However, Flash is <strong>not ideal for frequent rewrites</strong>:</p>
+
+<ul>
+<li>You can <strong>write only after an erase</strong></li>
+<li><strong>Erase happens at block level</strong>, not byte level</li>
+</ul>
+
+<p>So even if you want to update <strong>1 byte</strong>, the controller must erase a <strong>whole block</strong>.</p>
+<p>Not very efficient, right?</p>
+
+<p>This is where <strong>FEE (Flash EEPROM Emulation)</strong> comes in.</p>
+
+<hr>
+
+<h2>📘 Why FEE Exists</h2>
+
+<p>Think of FEE as AUTOSAR’s clever trick to make <strong>Flash behave like EEPROM</strong>, providing:</p>
+
+<ul>
+<li>✔️ More efficient write operations</li>
+<li>✔️ Wear-leveling to protect Flash lifetime</li>
+<li>✔️ Data integrity mechanisms</li>
+<li>✔️ Logical block handling instead of raw Flash operations</li>
+</ul>
+
+<p>In short, <strong>FEE gives you EEPROM-like flexibility while still using built-in Flash memory</strong>.</p>
+
+<hr>
+
+<h2>🚗 Where FEE Fits in the AUTOSAR Stack</h2>
+
+<p>FEE works under <strong>NvM (NVRAM Manager)</strong> and provides the actual storage mechanism.</p>
+
+<ul>
+<li><strong>NvM</strong> → Handles logical blocks and service APIs</li>
+<li><strong>FEE</strong> → Implements EEPROM-like behavior on Flash</li>
+<li><strong>Flash Driver</strong> → Manages low-level Flash operations</li>
+</ul>
+
+<p>This layering ensures that <strong>applications don’t need to worry about Flash limitations</strong>.</p>
+
+<hr>
+
+<h2>📌 Key Benefits of FEE</h2>
+
+<ul>
+<li>Eliminates the need for hardware EEPROM</li>
+<li>Improves Flash endurance via wear leveling</li>
+<li>Supports fast, small-size writes</li>
+<li>Manages block integrity and recovery</li>
+<li>Widely used for:</li>
+<li>Configuration data</li>
+<li>DTC storage</li>
+<li>System parameters</li>
+</ul>
+
+<hr>
+
+<p>If you're working on <strong>AUTOSAR BSW</strong> or <strong>memory services</strong>, understanding FEE is essential.</p>
+<p>It’s one of the <strong>quiet heroes</strong> ensuring your vehicle’s data stays reliable across <strong>millions of ignition cycles</strong> 🚘</p>
+
+<hr>
+
+<h3>🔖 Hashtags</h3>
+<p>`#AUTOSAR` `#EmbeddedSoftware` `#FlashEEPROMEmulation` `#FEE` `#NVMManager`</p>
+<p>`#AutomotiveSoftware` `#ECUDevelopment` `#AutomotiveEngineering`</p>
+<p>`#EmbeddedSystems` `#EEPROMEmulation` `#FlashMemory`</p>
+
+<hr>
+
+<h3>🖼️ AUTOSAR Memory Stack Overview</h3>
+<p align="center"><img src="images/autosar_fee.png" alt="AUTOSAR FEE Architecture" style="max-width:100%; border-radius:12px; margin: 20px 0;"></p>
+            </article>
+            
+            <!-- Pagination -->
+            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                
+                
+            </div>
+
+            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                <a href="blog.html" class="btn btn-outline">← Back to Articles List</a>
+            </footer>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted);">
+            <p>&copy; 2026 Autodevv. Master the Machine.</p>
+        </div>
+    </footer>
+    <script src="articles.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
