@@ -1,4 +1,9 @@
-# FEE (Flash EEPROM Emulation)
+
+---
+title: "FEE (Flash EEPROM Emulation)"
+date: "Jan 17, 2026"
+excerpt: "what is fee module in autosar and why it is required."
+---
 
 **Why do we need FEE when we already have Flash memory on the MCU?**
 
