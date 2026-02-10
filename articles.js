@@ -79,9 +79,9 @@ const articlesData = [
         ]
     },
     {
-        "title": "Untitled",
-        "date": "Feb 10, 2026",
-        "excerpt": "",
+        "title": "FEE (Flash EEPROM Emulation)",
+        "date": "Jan 17, 2026",
+        "excerpt": "what is fee module in autosar and why it is required.",
         "link": "article-fee-autosar.html",
         "category": "General",
         "tags": []
