@@ -99,27 +99,27 @@
                 <h1>FEE (Flash EEPROM Emulation)</h1>
             </header>
             <article class="article-content">
-                <strong>Why do we need FEE when we already have Flash memory on the MCU?</strong>
+                <p>Why do we need FEE when we already have Flash memory on the MCU?</p>
 
 <p>Here’s the simple answer 👇</p>
 
-<p>Most automotive microcontrollers use <strong>Flash</strong> as their non-volatile memory. However, Flash is <strong>not ideal for frequent rewrites</strong>:</p>
+<p>Most automotive microcontrollers use Flash as their non-volatile memory. However, Flash is not ideal for frequent rewrites:</p>
 
 <ul>
-<li>You can <strong>write only after an erase</strong></li>
-<li><strong>Erase happens at block level</strong>, not byte level</li>
+<li>You can write only after an erase</li>
+<li>Erase happens at block level, not byte level</li>
 </ul>
 
-<p>So even if you want to update <strong>1 byte</strong>, the controller must erase a <strong>whole block</strong>.</p>
+<p>So even if you want to update 1 byte, the controller must erase a whole block.</p>
 <p>Not very efficient, right?</p>
 
-<p>This is where <strong>FEE (Flash EEPROM Emulation)</strong> comes in.</p>
+<p>This is where FEE (Flash EEPROM Emulation) comes in.</p>
 
 <hr>
 
 <h2>📘 Why FEE Exists</h2>
 
-<p>Think of FEE as AUTOSAR’s clever trick to make <strong>Flash behave like EEPROM</strong>, providing:</p>
+<p>Think of FEE as AUTOSAR’s clever trick to make Flash behave like EEPROM, providing:</p>
 
 <ul>
 <li>✔️ More efficient write operations</li>
@@ -128,21 +128,21 @@
 <li>✔️ Logical block handling instead of raw Flash operations</li>
 </ul>
 
-<p>In short, <strong>FEE gives you EEPROM-like flexibility while still using built-in Flash memory</strong>.</p>
+<p>In short, FEE gives you EEPROM-like flexibility while still using built-in Flash memory.</p>
 
 <hr>
 
 <h2>🚗 Where FEE Fits in the AUTOSAR Stack</h2>
 
-<p>FEE works under <strong>NvM (NVRAM Manager)</strong> and provides the actual storage mechanism.</p>
+<p>FEE works under NvM (NVRAM Manager) and provides the actual storage mechanism.</p>
 
 <ul>
-<li><strong>NvM</strong> → Handles logical blocks and service APIs</li>
-<li><strong>FEE</strong> → Implements EEPROM-like behavior on Flash</li>
-<li><strong>Flash Driver</strong> → Manages low-level Flash operations</li>
+<li>NvM → Handles logical blocks and service APIs</li>
+<li>FEE → Implements EEPROM-like behavior on Flash</li>
+<li>Flash Driver → Manages low-level Flash operations</li>
 </ul>
 
-<p>This layering ensures that <strong>applications don’t need to worry about Flash limitations</strong>.</p>
+<p>This layering ensures that applications don’t need to worry about Flash limitations.</p>
 
 <hr>
 
@@ -161,8 +161,8 @@
 
 <hr>
 
-<p>If you're working on <strong>AUTOSAR BSW</strong> or <strong>memory services</strong>, understanding FEE is essential.</p>
-<p>It’s one of the <strong>quiet heroes</strong> ensuring your vehicle’s data stays reliable across <strong>millions of ignition cycles</strong> 🚘</p>
+<p>If you're working on AUTOSAR BSW or memory services, understanding FEE is essential.</p>
+<p>It’s one of the quiet heroes ensuring your vehicle’s data stays reliable across millions of ignition cycles 🚘</p>
 
 <hr>
 
