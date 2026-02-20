@@ -28,20 +28,6 @@ const articlesData = [
         ]
     },
     {
-        "title": "AUTOSAR Masterclass: Part 1 - The Foundation",
-        "date": "Feb 09, 2026",
-        "excerpt": "What is AUTOSAR? Why does the automotive industry depend on it? Learn the philosophy and the massive layered architecture behind modern vehicles.",
-        "link": "article-autosar.html",
-        "category": "AUTOSAR",
-        "tags": [
-            "AUTOSAR",
-            "Architecture",
-            "Automotive",
-            "BSW",
-            "RTE"
-        ]
-    },
-    {
         "title": "Automotive Bootloader",
         "date": "Jan 17, 2026",
         "excerpt": "How to update firmware in the field. Dual-bank updates and memory jumping.",
