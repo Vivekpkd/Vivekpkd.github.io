@@ -1,5 +1,5 @@
 ---
-title: "AUTOSAR Masterclass: Part 1 - Architecture & Stacks Foundation"
+title: "AUTOSAR Architecture & Stacks Foundation"
 date: "Feb 09, 2026"
 excerpt: "Understand AUTOSAR architecture, core software stacks, and how OEMs and suppliers build modern vehicle software using standardized layers."
 category: "AUTOSAR"
@@ -13,7 +13,7 @@ tags:
   - Communication Stack
   - Diagnostics
   - OEM Workflow
-series: "AUTOSAR Masterclass"
+
 part: 1
 reading_time: "8 min"
 difficulty: "Beginner → Intermediate"
@@ -22,7 +22,7 @@ last_updated: "Feb 2026"
 author: "Vivek PKD"
 ---
 
-## 5) AUTOSAR Stacks in Automotive Software
+## AUTOSAR Stacks in Automotive Software
 
 To understand AUTOSAR in real projects, you must see it not just as layers — but as **functional stacks** that power every ECU in a vehicle.
 
