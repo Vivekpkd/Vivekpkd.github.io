@@ -79,6 +79,14 @@ const articlesData = [
         ]
     },
     {
+        "title": "AUTOSAR Masterclass: Part 1 - Architecture & Stacks Foundation",
+        "date": "Feb 09, 2026",
+        "excerpt": "Understand AUTOSAR architecture, core software stacks, and how OEMs and suppliers build modern vehicle software using standardized layers.",
+        "link": "article-autosar_stacks.html",
+        "category": "AUTOSAR",
+        "tags": []
+    },
+    {
         "title": "FEE (Flash EEPROM Emulation)",
         "date": "Jan 17, 2026",
         "excerpt": "what is fee module in autosar and why it is required.",
