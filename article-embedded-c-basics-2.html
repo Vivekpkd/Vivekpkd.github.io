@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        })();
+    </script>
     <title>Embedded C Masterclass: Part 2 - Pointers & Memory Mapping - Autodevv</title>
     <meta name="description" content="The bridge to the hardware. Learn how pointers unlock direct access to high-speed registers and physical memory.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2.0">
-    <script>
-        (function() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
-        })();
-    </script>
+    <link rel="stylesheet" href="styles.css?v=2.1">
     <style>
         .code-ide {
-            background-color: #f8f9fa;
-            border: 1px solid #e1e4e8;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
             border-left: 4px solid var(--primary);
-            color: #24292e;
+            color: var(--text-main);
             font-family: var(--font-mono);
             font-size: 0.9rem;
             line-height: 1.6;
@@ -33,11 +33,6 @@
             padding: 1.5rem;
             border-radius: 8px;
             overflow: auto;
-        }
-        [data-theme="dark"] .code-ide {
-            background-color: #24292e;
-            border: 1px solid #444;
-            color: #e1e4e8;
         }
         .line-num {
             color: var(--text-muted);
@@ -47,8 +42,7 @@
             border-right: 1px solid var(--border);
             margin-right: 1rem;
         }
-        .keyword { color: #d73a49; font-weight: bold; }
-        [data-theme="dark"] .keyword { color: #ff7b72; }
+        .keyword { color: var(--secondary); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -93,13 +87,15 @@
     </div>
 
     <section class="section article-page">
-        <div class="article-container">
-            <header class="article-header">
-                <span class="tag">Feb 08, 2026</span>
-                <h1>Embedded C Masterclass: Part 2 - Pointers & Memory Mapping</h1>
-            </header>
-            <article class="article-content">
-                <p>In the first part, we mastered bitwise logic. Now, we use those tools to talk to human-engineered silicon. In embedded systems, <strong>Pointers</strong> are not just for data structures; they are the physical wires of your software.</p>
+        <div class="article-layout">
+            <aside class="article-sidebar" id="article-sidebar"></aside>
+            <div class="article-container">
+                <header class="article-header">
+                    <span class="tag">Feb 08, 2026</span>
+                    <h1>Embedded C Masterclass: Part 2 - Pointers & Memory Mapping</h1>
+                </header>
+                <article class="article-content">
+                    <p>In the first part, we mastered bitwise logic. Now, we use those tools to talk to human-engineered silicon. In embedded systems, <strong>Pointers</strong> are not just for data structures; they are the physical wires of your software.</p>
 
 <h2>4) Pointers in Embedded C (The Hardware Bridge)</h2>
 
@@ -173,17 +169,18 @@
 <p>If your code crashes randomly, you likely have a <strong>Stack Overflow</strong>. This happens when local variables or deep recursion exceed the allocated RAM. Always monitor your stack size!</p>
 
 <p>In <a href="article-embedded-c-basics-3.html">Part 3: Timing & GPIO</a>, we will bring this theory to life by creating a real-time blinky driver and handling inputs.</p>
-            </article>
-            
-            <!-- Pagination -->
-            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
-                <a href="article-embedded-c-basics-1.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;"><i class="fa-solid fa-chevron-left"></i> Prev</a>
-                <a href="article-embedded-c-basics-3.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;">Next <i class="fa-solid fa-chevron-right"></i></a>
-            </div>
+                </article>
+                
+                <!-- Pagination -->
+                <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                    <a href="article-embedded-c-basics-1.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s; color: var(--text-main); text-decoration: none;"><i class="fa-solid fa-chevron-left"></i> Prev</a>
+                    <a href="article-embedded-c-basics-3.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s; color: var(--text-main); text-decoration: none;">Next <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
 
-            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
-                <a href="blog.html" class="btn btn-outline">← Back to Articles List</a>
-            </footer>
+                <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                    <a href="blog.html" class="btn btn-outline">← Back to Articles List</a>
+                </footer>
+            </div>
         </div>
     </section>
 
@@ -194,5 +191,7 @@
     </footer>
     <script src="articles.js"></script>
     <script src="app.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/toc-right.js"></script>
 </body>
 </html>

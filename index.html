@@ -33,11 +33,10 @@
     <script>
         (function () {
             const theme = localStorage.getItem('theme');
-            // Default to light theme
-            if (theme === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-            } else {
+            if (theme === 'light') {
                 document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
             }
         })();
     </script>

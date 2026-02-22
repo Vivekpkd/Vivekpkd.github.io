@@ -20,36 +20,6 @@
             }
         })();
     </script>
-    <style>
-        .code-ide {
-            background-color: #f8f9fa;
-            border: 1px solid #e1e4e8;
-            border-left: 4px solid var(--primary);
-            color: #24292e;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin: 1.5rem 0;
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow: auto;
-        }
-        [data-theme="dark"] .code-ide {
-            background-color: #24292e;
-            border: 1px solid #444;
-            color: #e1e4e8;
-        }
-        .line-num {
-            color: var(--text-muted);
-            display: inline-block;
-            width: 2rem;
-            user-select: none;
-            border-right: 1px solid var(--border);
-            margin-right: 1rem;
-        }
-        .keyword { color: #d73a49; font-weight: bold; }
-        [data-theme="dark"] .keyword { color: #ff7b72; }
-    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -93,6 +63,8 @@
     </div>
 
     <section class="section article-page">
+            <div class="article-layout">
+        <aside class="article-sidebar" id="article-sidebar"></aside>
         <div class="article-container">
             <header class="article-header">
                 <span class="tag">Feb 09, 2026</span>
@@ -208,6 +180,7 @@
                 <a href="blog.html" class="btn btn-outline">← Back to Articles List</a>
             </footer>
         </div>
+                </div>
     </section>
 
     <footer>
@@ -217,5 +190,6 @@
     </footer>
     <script src="articles.js"></script>
     <script src="app.js"></script>
+    <script src="js/sidebar.js"></script>
 </body>
 </html>

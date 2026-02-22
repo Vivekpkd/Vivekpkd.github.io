@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        })();
+    </script>
     <title>Embedded C Masterclass: Part 1 - Kernels & Bitwise Logic - Autodevv</title>
     <meta name="description" content="Mastering the foundation. A deep dive into standard integer types, storage classes, and the art of bitwise manipulation.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2.0">
-    <script>
-        (function() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
-        })();
-    </script>
+    <link rel="stylesheet" href="styles.css?v=2.1">
     <style>
         .code-ide {
-            background-color: #f8f9fa;
-            border: 1px solid #e1e4e8;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
             border-left: 4px solid var(--primary);
-            color: #24292e;
+            color: var(--text-main);
             font-family: var(--font-mono);
             font-size: 0.9rem;
             line-height: 1.6;
@@ -33,11 +33,6 @@
             padding: 1.5rem;
             border-radius: 8px;
             overflow: auto;
-        }
-        [data-theme="dark"] .code-ide {
-            background-color: #24292e;
-            border: 1px solid #444;
-            color: #e1e4e8;
         }
         .line-num {
             color: var(--text-muted);
@@ -47,8 +42,7 @@
             border-right: 1px solid var(--border);
             margin-right: 1rem;
         }
-        .keyword { color: #d73a49; font-weight: bold; }
-        [data-theme="dark"] .keyword { color: #ff7b72; }
+        .keyword { color: var(--secondary); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -93,13 +87,15 @@
     </div>
 
     <section class="section article-page">
-        <div class="article-container">
-            <header class="article-header">
-                <span class="tag">Feb 08, 2026</span>
-                <h1>Embedded C Masterclass: Part 1 - Kernels & Bitwise Logic</h1>
-            </header>
-            <article class="article-content">
-                <p>Welcome to the <strong>Embedded C Masterclass</strong>. This series is designed to take you from a standard C programmer to a bare-metal expert capable of writing safety-critical code for automotive ECUs.</p>
+        <div class="article-layout">
+            <aside class="article-sidebar" id="article-sidebar"></aside>
+            <div class="article-container">
+                <header class="article-header">
+                    <span class="tag">Feb 08, 2026</span>
+                    <h1>Embedded C Masterclass: Part 1 - Kernels & Bitwise Logic</h1>
+                </header>
+                <article class="article-content">
+                    <p>Welcome to the <strong>Embedded C Masterclass</strong>. This series is designed to take you from a standard C programmer to a bare-metal expert capable of writing safety-critical code for automotive ECUs.</p>
 
 <div class="toc-card">
     <h2>📑 Series Table of Contents</h2>
@@ -219,17 +215,18 @@
 <span class="line-num">3</span>CONFIG_REG |= (0x02 &lt;&lt; 0);  // Apply new value</div>
 
 <p>In <a href="article-embedded-c-basics-2.html">Part 2: Memory & Pointers</a>, we will explore how to use these bitwise techniques to directly control hardware memory addresses.</p>
-            </article>
-            
-            <!-- Pagination -->
-            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                </article>
                 
-                <a href="article-embedded-c-basics-2.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s;">Next <i class="fa-solid fa-chevron-right"></i></a>
-            </div>
+                <!-- Pagination -->
+                <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                    
+                    <a href="article-embedded-c-basics-2.html" class="pg-item pg-btn" style="padding: 0 20px; width: auto; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border); font-weight: 600; transition: 0.3s; color: var(--text-main); text-decoration: none;">Next <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
 
-            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
-                <a href="blog.html" class="btn btn-outline">← Back to Articles List</a>
-            </footer>
+                <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                    <a href="blog.html" class="btn btn-outline">← Back to Articles List</a>
+                </footer>
+            </div>
         </div>
     </section>
 
@@ -240,5 +237,7 @@
     </footer>
     <script src="articles.js"></script>
     <script src="app.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/toc-right.js"></script>
 </body>
 </html>

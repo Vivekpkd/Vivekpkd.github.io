@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        })();
+    </script>
     <title>FEE (Flash EEPROM Emulation) - Autodevv</title>
     <meta name="description" content="what is fee module in autosar and why it is required.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=2.0">
-    <script>
-        (function() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
-        })();
-    </script>
+    <link rel="stylesheet" href="styles.css?v=2.1">
     <style>
         .code-ide {
-            background-color: #f8f9fa;
-            border: 1px solid #e1e4e8;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
             border-left: 4px solid var(--primary);
-            color: #24292e;
+            color: var(--text-main);
             font-family: var(--font-mono);
             font-size: 0.9rem;
             line-height: 1.6;
@@ -33,11 +33,6 @@
             padding: 1.5rem;
             border-radius: 8px;
             overflow: auto;
-        }
-        [data-theme="dark"] .code-ide {
-            background-color: #24292e;
-            border: 1px solid #444;
-            color: #e1e4e8;
         }
         .line-num {
             color: var(--text-muted);
@@ -47,8 +42,7 @@
             border-right: 1px solid var(--border);
             margin-right: 1rem;
         }
-        .keyword { color: #d73a49; font-weight: bold; }
-        [data-theme="dark"] .keyword { color: #ff7b72; }
+        .keyword { color: var(--secondary); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -93,13 +87,15 @@
     </div>
 
     <section class="section article-page">
-        <div class="article-container">
-            <header class="article-header">
-                <span class="tag">Jan 17, 2026</span>
-                <h1>FEE (Flash EEPROM Emulation)</h1>
-            </header>
-            <article class="article-content">
-                <p>Why do we need FEE when we already have Flash memory on the MCU?</p>
+        <div class="article-layout">
+            <aside class="article-sidebar" id="article-sidebar"></aside>
+            <div class="article-container">
+                <header class="article-header">
+                    <span class="tag">Jan 17, 2026</span>
+                    <h1>FEE (Flash EEPROM Emulation)</h1>
+                </header>
+                <article class="article-content">
+                    <p>Why do we need FEE when we already have Flash memory on the MCU?</p>
 
 <p>Here’s the simple answer 👇</p>
 
@@ -166,17 +162,18 @@
 
 <h3>🖼️ AUTOSAR Memory Stack Overview</h3>
 <p align="center"><img src="images/autosar_fee.png" alt="AUTOSAR FEE Architecture" style="max-width:100%; border-radius:12px; margin: 20px 0;"></p>
-            </article>
-            
-            <!-- Pagination -->
-            <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                </article>
                 
-                
-            </div>
+                <!-- Pagination -->
+                <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                    
+                    
+                </div>
 
-            <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
-                <a href="blog.html" class="btn btn-outline">← Back to Articles List</a>
-            </footer>
+                <footer class="article-footer" style="margin-top: 2rem; text-align: center;">
+                    <a href="blog.html" class="btn btn-outline">← Back to Articles List</a>
+                </footer>
+            </div>
         </div>
     </section>
 
@@ -187,5 +184,7 @@
     </footer>
     <script src="articles.js"></script>
     <script src="app.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/toc-right.js"></script>
 </body>
 </html>
