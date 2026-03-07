@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introduction to AUTOSAR - Autodevv</title>
+    <title>Introduction to STM32 - Autodevv</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -683,7 +683,7 @@
     </button>
     <div class="category-content">
         <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
-        <a href="autosar-basics.html" class="active" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
     </div>
 </div>
 <div class="sidebar-category" data-category="embedded-mastery">
@@ -722,7 +722,7 @@
     </button>
     <div class="category-content">
         <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
-        <a href="test.html" data-file="test.html">Introduction to STM32</a>
+        <a href="test.html" class="active" data-file="test.html">Introduction to STM32</a>
     </div>
 </div>
 
@@ -750,7 +750,7 @@
     </button>
     <div class="category-content">
         <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
-        <a href="autosar-basics.html" class="active" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
     </div>
 </div>
 <div class="sidebar-category" data-category="embedded-mastery">
@@ -789,7 +789,7 @@
     </button>
     <div class="category-content">
         <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
-        <a href="test.html" data-file="test.html">Introduction to STM32</a>
+        <a href="test.html" class="active" data-file="test.html">Introduction to STM32</a>
     </div>
 </div>
 
@@ -798,57 +798,80 @@
             <!-- MAIN CONTENT -->
             <main class="content">
                 <hr />
-<p>title: "AUTOSAR Basics: A Beginner's Guide"<br />
-category: "AUTOSAR"<br />
+<p>title: "STM32 Microcontroller: Beginner Introduction"<br />
+category: "Embedded Systems"<br />
 date: "Mar 07, 2026"<br />
-tags: ["AUTOSAR", "Automotive", "Architecture"]</p>
+tags: ["STM32", "Microcontroller", "Embedded C"]</p>
 <hr />
-<h1>Introduction to AUTOSAR</h1>
-<p>AUTOSAR (Automotive Open System Architecture) is a standardized automotive software architecture established by automobile manufacturers, suppliers, and electronics, semiconductor, and software companies.</p>
+<h1>Introduction to STM32</h1>
+<p>STM32 is a family of 32-bit microcontrollers developed by the <a href="chatgpt://generic-entity?number=0">STMicroelectronics</a>.<br />
+They are based on the <a href="chatgpt://generic-entity?number=1">ARM Cortex-M</a> processor architecture and are widely used in embedded systems such as automotive electronics, industrial automation, IoT devices, robotics, and consumer electronics.</p>
 <blockquote>
 <p>[!NOTE]<br />
-The primary goal of AUTOSAR is to manage the growing complexity of electrical and electronic (E/E) systems in vehicles.</p>
+STM32 microcontrollers provide high performance, low power consumption, and a rich set of peripherals, making them ideal for modern embedded applications.</p>
 </blockquote>
-<h2>The Three Layers</h2>
-<p>AUTOSAR architecture is defined by three main abstraction layers on top of the microcontroller:</p>
+<h2>The Three Main Parts of an STM32 System</h2>
+<p>A typical STM32-based embedded system consists of three main parts:</p>
 <ol>
-<li>Application Software (ASW)</li>
-<li>Runtime Environment (RTE)</li>
-<li>Basic Software (BSW)</li>
+<li>Core (Processor)</li>
+<li>Peripherals</li>
+<li>Memory</li>
 </ol>
 <hr />
-<h2>1. Application Software (ASW)</h2>
-<p>This layer contains all the applications that provide specific vehicle features, such as steering, braking, engine control, and infotainment.</p>
-<p>The components in this layer are independent of the underlying hardware. They communicate exclusively through the RTE.</p>
-<h2>2. Runtime Environment (RTE)</h2>
-<p>The RTE is the middleware layer that connects the Application Software with the Basic Software.</p>
+<h2>1. Core (Processor)</h2>
+<p>The core is the brain of the microcontroller that executes instructions written in C or assembly.</p>
+<p>STM32 devices use ARM Cortex-M cores such as:</p>
 <ul>
-<li>It abstracts the communication between Software Components (SWCs).</li>
-<li>It handles both inter-ECU (within the same ECU) and intra-ECU (across different ECUs via network) communications transparently.</li>
+<li>Cortex-M0</li>
+<li>Cortex-M3</li>
+<li>Cortex-M4</li>
+<li>Cortex-M7</li>
 </ul>
-<h2>3. Basic Software (BSW)</h2>
-<p>The Basic Software layer provides the foundational services needed by the Application Software but abstracts the microcontroller details.</p>
-<p>It is further divided into:<br />
-- <strong>Services Layer:</strong> Provides operating system, vehicle network communication, memory services, etc.<br />
-- <strong>ECU Abstraction Layer:</strong> Interacts with the drivers to provide a hardware-independent API.<br />
-- <strong>Microcontroller Abstraction Layer (MCAL):</strong> The lowest layer, containing drivers that directly interact with the microcontroller registers.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Example MCAL Initialization Structure</span>
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">BaudRate</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">uint8_t</span><span class="w">  </span><span class="n">Parity</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">uint8_t</span><span class="w">  </span><span class="n">StopBits</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">Uart_ConfigType</span><span class="p">;</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">Uart_Init</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Uart_ConfigType</span><span class="o">*</span><span class="w"> </span><span class="n">ConfigPtr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Hardware-specific register configuration goes here</span>
-<span class="p">}</span>
-</code></pre></div>
-
-<h2>Summary</h2>
-<p>By separating the application from the hardware, AUTOSAR enables:<br />
-- Reusability of software components.<br />
-- Scalability across different vehicle platforms.<br />
-- Easier integration of software from multiple suppliers.</p>
+<p>The core is responsible for:</p>
+<ul>
+<li>Executing program instructions</li>
+<li>Performing arithmetic and logical operations</li>
+<li>Handling interrupts</li>
+<li>Managing system control functions</li>
+</ul>
+<hr />
+<h2>2. Peripherals</h2>
+<p>Peripherals are hardware modules integrated inside the STM32 microcontroller that allow interaction with external devices.</p>
+<p>Common STM32 peripherals include:</p>
+<ul>
+<li>GPIO (General Purpose Input Output)</li>
+<li>UART / USART</li>
+<li>SPI</li>
+<li>I2C</li>
+<li>ADC (Analog to Digital Converter)</li>
+<li>Timers</li>
+<li>PWM</li>
+<li>CAN communication</li>
+</ul>
+<p>These peripherals allow the microcontroller to communicate with sensors, displays, motors, and other hardware components.</p>
+<hr />
+<h2>3. Memory</h2>
+<p>STM32 microcontrollers contain different types of internal memory:</p>
+<ul>
+<li><strong>Flash Memory:</strong> Stores the program code.</li>
+<li><strong>SRAM:</strong> Used for runtime variables and stack.</li>
+<li><strong>EEPROM / Emulated EEPROM:</strong> Used for storing non-volatile data.</li>
+</ul>
+<p>This memory structure enables efficient execution of embedded applications.</p>
+<p>```c<br />
+// Example STM32 GPIO Initialization (Bare Metal)</p>
+<h1>define GPIOA_BASE 0x48000000</h1>
+<h1>define GPIOA_MODER (<em>(volatile unsigned int</em>)(GPIOA_BASE + 0x00))</h1>
+<h1>define GPIOA_ODR   (<em>(volatile unsigned int</em>)(GPIOA_BASE + 0x14))</h1>
+<p>void GPIO_Init(void)<br />
+{<br />
+    // Configure PA5 as output<br />
+    GPIOA_MODER |= (1 &lt;&lt; 10);<br />
+}</p>
+<p>void LED_On(void)<br />
+{<br />
+    GPIOA_ODR |= (1 &lt;&lt; 5);<br />
+}</p>
             </main>
 
             <!-- RIGHT SIDEBAR -->

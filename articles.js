@@ -39,6 +39,18 @@ const articlesData = [
         "title": "Introduction to STM32",
         "date": "Mar 07, 2026",
         "excerpt": "---\ntitle: \"STM32 Microcontroller: Beginner Introduction\"\ncategory: \"Embedded Systems\"\ndate: \"Mar 07, 2026\"\ntags: \"STM32\", \"Microcontroller\", \"Embedde...",
+        "link": "test.html",
+        "category": "General",
+        "tags": [
+            "General",
+            "Automotive"
+        ],
+        "image": ""
+    },
+    {
+        "title": "Introduction to STM32",
+        "date": "Mar 07, 2026",
+        "excerpt": "---\ntitle: \"STM32 Microcontroller: Beginner Introduction\"\ncategory: \"Embedded Systems\"\ndate: \"Mar 07, 2026\"\ntags: \"STM32\", \"Microcontroller\", \"Embedde...",
         "link": "stm32intro.html",
         "category": "General",
         "tags": [
