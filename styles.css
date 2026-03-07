@@ -1180,7 +1180,7 @@ h3 {
 
 .gfg-courses-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(380px, 100%), 1fr));
     gap: 48px;
     max-width: 1300px;
     margin: 0 auto;
@@ -3360,9 +3360,11 @@ body {
         font-size: 1rem;
     }
 
-    .home-latest-cards {
+    .home-latest-cards,
+    .gfg-courses-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
+        padding: 0 8px;
     }
 
     .about-grid {

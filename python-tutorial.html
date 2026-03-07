@@ -540,9 +540,17 @@
         /* ============================================
            RESPONSIVE (Mobile layout for tutorial pages)
         ============================================ */
-        @media (max-width: 768px) {
 
-            /* Show burger, hide desktop nav */
+        /* Mobile sidebar toggle — hidden by default, JS shows on mobile */
+        .mobile-sidebar-toggle {
+            display: none;
+        }
+
+        .mobile-sidebar-panel {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
             .burger {
                 display: flex !important;
             }
@@ -551,48 +559,76 @@
                 display: none !important;
             }
 
-            /* Page layout: single column */
+            /* Page layout: single column block */
             .page {
-                grid-template-columns: 1fr !important;
+                display: block !important;
             }
 
-            /* Hide sidebar on mobile */
+            /* Hide the permanent sidebar */
             .sidebar {
                 display: none !important;
             }
 
-            /* Content area: full width, less padding */
+            /* Show mobile sidebar toggle button */
+            .mobile-sidebar-toggle {
+                display: flex !important;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                padding: 12px 16px;
+                margin: 12px 0 4px;
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                color: var(--text-main);
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: var(--font-body);
+                transition: background 0.2s;
+            }
+
+            .mobile-sidebar-toggle:hover {
+                background: var(--bg-elevated);
+            }
+
+            .mobile-sidebar-panel {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 12px;
+                margin-bottom: 8px;
+                overflow: hidden;
+            }
+
+            .mobile-sidebar-panel.open {
+                display: block !important;
+            }
+
+            /* Content area: full width */
             .content {
                 padding: 16px !important;
                 max-width: 100%;
                 overflow-x: hidden;
             }
 
-            /* Code blocks: scroll horizontally */
+            /* Code blocks: horizontal scroll */
             .code-body {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
             }
 
-            /* Content headers */
             .content h1 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
 
             .content h2 {
                 font-size: 1.2rem;
             }
 
-            /* Rightbar hidden */
+            /* Hide rightbar */
             .rightbar {
                 display: none !important;
-            }
-
-            /* Mobile menu: show below navbar */
-            .mobile-menu {
-                position: sticky;
-                top: 60px;
-                z-index: 900;
             }
         }
 
@@ -602,7 +638,7 @@
             }
 
             .content h1 {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -653,6 +689,65 @@
                 <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Mobile sidebar toggle button (only visible on mobile) -->
+    <div class="container" style="padding: 0 16px;">
+        <button class="mobile-sidebar-toggle" id="mobile-sidebar-btn" style="display:none;" aria-expanded="false">
+            <span><i class="fa-solid fa-bars" style="margin-right:8px;"></i> Explore Topics</span>
+            <i class="fa-solid fa-chevron-down" id="sidebar-chevron"></i>
+        </button>
+        <div class="mobile-sidebar-panel" id="mobile-sidebar-panel">
+            <div class="sidebar-category" data-category="main-hub">
+    <button class="category-header">
+        <span>Main Hub</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software Engineering</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="autosar-stack">
+    <button class="category-header">
+        <span>AUTOSAR Stack</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
+        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="embedded-mastery">
+    <button class="category-header">
+        <span>Embedded mastery</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
+        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
+        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="modern-tooling">
+    <button class="category-header">
+        <span>Modern Tooling</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="python-tutorial.html" class="active" data-file="python-tutorial.html">Python Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="resources">
+    <button class="category-header">
+        <span>Resources</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
+    </div>
+</div>
+
         </div>
     </div>
 
@@ -1189,6 +1284,30 @@ with open(&quot;hello.txt&quot;, &quot;r&quot;) as f:
                     });
                 });
             });
+            // Mobile Sidebar Toggle
+            const mobileSidebarBtn = document.getElementById('mobile-sidebar-btn');
+            const mobileSidebarPanel = document.getElementById('mobile-sidebar-panel');
+            const sidebarChevron = document.getElementById('sidebar-chevron');
+
+            // Show button only on mobile
+            function updateSidebarBtnVisibility() {
+                if (mobileSidebarBtn) {
+                    mobileSidebarBtn.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+                }
+            }
+            updateSidebarBtnVisibility();
+            window.addEventListener('resize', updateSidebarBtnVisibility);
+
+            if (mobileSidebarBtn && mobileSidebarPanel) {
+                mobileSidebarBtn.addEventListener('click', () => {
+                    const isOpen = mobileSidebarPanel.classList.contains('open');
+                    mobileSidebarPanel.classList.toggle('open', !isOpen);
+                    mobileSidebarBtn.setAttribute('aria-expanded', !isOpen);
+                    if (sidebarChevron) {
+                        sidebarChevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+                    }
+                });
+            }
         });
     </script>
 </body>

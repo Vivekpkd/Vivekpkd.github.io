@@ -317,10 +317,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenu = document.getElementById('mobile-menu');
 
     if (burger && mobileMenu) {
+        // Ensure menu starts closed
+        mobileMenu.style.display = 'none';
+
         burger.addEventListener('click', () => {
-            const isFlex = window.getComputedStyle(mobileMenu).display === 'flex';
-            mobileMenu.style.display = isFlex ? 'none' : 'flex';
-            burger.classList.toggle('toggle');
+            const isOpen = mobileMenu.style.display === 'flex';
+            mobileMenu.style.display = isOpen ? 'none' : 'flex';
+            mobileMenu.style.flexDirection = 'column';
+            burger.classList.toggle('toggle', !isOpen);
         });
 
         mobileMenu.querySelectorAll('a').forEach(link => {
@@ -328,6 +332,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 mobileMenu.style.display = 'none';
                 burger.classList.remove('toggle');
             });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.style.display === 'flex' &&
+                !mobileMenu.contains(e.target) &&
+                !burger.contains(e.target)) {
+                mobileMenu.style.display = 'none';
+                burger.classList.remove('toggle');
+            }
         });
     }
 
