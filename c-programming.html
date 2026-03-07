@@ -536,6 +536,75 @@
         .card a:hover {
             color: var(--tutorial-green);
         }
+
+        /* ============================================
+           RESPONSIVE (Mobile layout for tutorial pages)
+        ============================================ */
+        @media (max-width: 768px) {
+
+            /* Show burger, hide desktop nav */
+            .burger {
+                display: flex !important;
+            }
+
+            .nav-links {
+                display: none !important;
+            }
+
+            /* Page layout: single column */
+            .page {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Hide sidebar on mobile */
+            .sidebar {
+                display: none !important;
+            }
+
+            /* Content area: full width, less padding */
+            .content {
+                padding: 16px !important;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            /* Code blocks: scroll horizontally */
+            .code-body {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Content headers */
+            .content h1 {
+                font-size: 1.6rem;
+            }
+
+            .content h2 {
+                font-size: 1.2rem;
+            }
+
+            /* Rightbar hidden */
+            .rightbar {
+                display: none !important;
+            }
+
+            /* Mobile menu: show below navbar */
+            .mobile-menu {
+                position: sticky;
+                top: 60px;
+                z-index: 900;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 12px !important;
+            }
+
+            .content h1 {
+                font-size: 1.4rem;
+            }
+        }
     </style>
 </head>
 

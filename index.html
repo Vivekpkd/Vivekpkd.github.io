@@ -1150,13 +1150,90 @@
         }
 
         /* ============================================
-           RESPONSIVE
+           RESPONSIVE (Mobile-first fixes for local styles)
         ============================================ */
-        /* ============================================
-           RESPONSIVE — COMPREHENSIVE
-        ============================================ */
+        @media (max-width: 768px) {
 
-        /* Touch: ensure tap targets are 44px min (Apple HIG / WCAG) */
+            /* Burger: show on mobile */
+            .burger {
+                display: flex !important;
+            }
+
+            /* Nav links: hide on mobile */
+            .nav-links {
+                display: none !important;
+            }
+
+            /* Hero stacking */
+            .hero-content {
+                grid-template-columns: 1fr !important;
+                text-align: center;
+                padding: 60px 0 40px;
+            }
+
+            .hero-text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-visual {
+                display: none !important;
+            }
+
+            .description {
+                max-width: 100%;
+            }
+
+            /* CTA group: stack buttons vertically */
+            .cta-group {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .btn {
+                justify-content: center;
+                width: 100%;
+                max-width: 320px;
+            }
+
+            /* Explore grid: 2-column */
+            .explore-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            /* Stats: 2x2 grid */
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Section padding reduced */
+            .section {
+                padding: 50px 0;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .explore-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Touch targets */
         @media (hover: none) and (pointer: coarse) {
 
             .nav-links a,
