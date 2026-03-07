@@ -88,6 +88,28 @@
             --text-body: #4A5568;
             --text-muted: #8A9BB0;
             --text-code: #1A7F4B;
+
+            /* Tutorial Overhaul Tokens - Light Mode */
+            --tutorial-bg: #f8fafc;
+            --tutorial-text: #1e293b;
+            --tutorial-body: #475569;
+            --sidebar-bg: #ffffff;
+            --sidebar-border: #e2e8f0;
+            --sidebar-hover: #e8f5e9;
+            --content-bg: #ffffff;
+            --content-border: #e2e8f0;
+        }
+
+        :root:not([data-theme="light"]) {
+            /* Tutorial Overhaul Tokens - Dark Mode */
+            --tutorial-bg: #080C10;
+            --tutorial-text: #F0F6FF;
+            --tutorial-body: #9BABB8;
+            --sidebar-bg: #0D1117;
+            --sidebar-border: rgba(255, 255, 255, 0.07);
+            --sidebar-hover: rgba(255, 255, 255, 0.05);
+            --content-bg: #0D1117;
+            --content-border: rgba(255, 255, 255, 0.07);
         }
 
         *,
@@ -312,8 +334,8 @@
             top: 64px;
             height: calc(100vh - 64px);
             overflow-y: auto;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
             padding: 24px 0 40px;
         }
 
@@ -322,7 +344,7 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category {
@@ -346,13 +368,13 @@
         }
 
         .category-header:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
         }
 
         .toggle-icon {
             font-size: 10px;
             transition: transform 0.3s;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category.open .toggle-icon {
@@ -375,13 +397,13 @@
             display: block;
             padding: 7px 16px 7px 24px;
             font-size: 13px;
-            color: #444;
+            color: var(--tutorial-body);
             cursor: pointer;
             font-family: var(--font-ui);
         }
 
         .sidebar a:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 30px;
         }
@@ -389,15 +411,15 @@
         .sidebar a.active {
             border-left: 3px solid var(--tutorial-green);
             font-weight: 600;
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 21px;
         }
 
         .content {
             padding: 28px 32px 60px;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--content-bg);
+            border-right: 1px solid var(--content-border);
             font-family: var(--font-ui);
         }
 
@@ -410,7 +432,7 @@
 
         .content .meta {
             font-size: 12.5px;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 24px;
         }
 
@@ -486,11 +508,11 @@
         }
 
         .card {
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             border-radius: 12px;
-            background: white;
+            background: var(--bg-card);
             padding: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: var(--shadow-card);
             font-family: var(--font-ui);
         }
 
@@ -507,7 +529,7 @@
         .card a {
             display: block;
             font-size: 13px;
-            color: #444;
+            color: var(--text-body);
             margin-top: 8px;
         }
 
@@ -603,107 +625,94 @@
             <div class="sidebar">
                 <h4>EXPLORE</h4>
                 <div class="sidebar-category" data-category="main-hub">
-                    <button class="category-header">
-                        <span>Main Hub</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software
-                            Engineering</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="autosar-stack">
-                    <button class="category-header">
-                        <span>AUTOSAR Stack</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
-                        <a href="autosar-basics.html" class="active" data-file="autosar-basics.html">Introduction to
-                            AUTOSAR</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="embedded-mastery">
-                    <button class="category-header">
-                        <span>Embedded mastery</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
-                        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
-                        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems
-                            Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="modern-tooling">
-                    <button class="category-header">
-                        <span>Modern Tooling</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="resources">
-                    <button class="category-header">
-                        <span>Resources</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
-                    </div>
-                </div>
+    <button class="category-header">
+        <span>Main Hub</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software Engineering</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="autosar-stack">
+    <button class="category-header">
+        <span>AUTOSAR Stack</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
+        <a href="autosar-basics.html" class="active" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="embedded-mastery">
+    <button class="category-header">
+        <span>Embedded mastery</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
+        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
+        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="modern-tooling">
+    <button class="category-header">
+        <span>Modern Tooling</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="resources">
+    <button class="category-header">
+        <span>Resources</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
+    </div>
+</div>
 
             </div>
 
             <!-- MAIN CONTENT -->
             <main class="content">
                 <hr />
-                <p>title: "AUTOSAR Basics: A Beginner's Guide"<br />
-                    category: "AUTOSAR"<br />
-                    date: "Mar 07, 2026"<br />
-                    tags: ["AUTOSAR", "Automotive", "Architecture"]</p>
-                <hr />
-                <h1>Introduction to AUTOSAR</h1>
-                <p>AUTOSAR (Automotive Open System Architecture) is a standardized automotive software architecture
-                    established by automobile manufacturers, suppliers, and electronics, semiconductor, and software
-                    companies.</p>
-                <blockquote>
-                    <p>[!NOTE]<br />
-                        The primary goal of AUTOSAR is to manage the growing complexity of electrical and electronic
-                        (E/E) systems in vehicles.</p>
-                </blockquote>
-                <h2>The Three Layers</h2>
-                <p>AUTOSAR architecture is defined by three main abstraction layers on top of the microcontroller:</p>
-                <ol>
-                    <li>Application Software (ASW)</li>
-                    <li>Runtime Environment (RTE)</li>
-                    <li>Basic Software (BSW)</li>
-                </ol>
-                <hr />
-                <h2>1. Application Software (ASW)</h2>
-                <p>This layer contains all the applications that provide specific vehicle features, such as steering,
-                    braking, engine control, and infotainment.</p>
-                <p>The components in this layer are independent of the underlying hardware. They communicate exclusively
-                    through the RTE.</p>
-                <h2>2. Runtime Environment (RTE)</h2>
-                <p>The RTE is the middleware layer that connects the Application Software with the Basic Software.</p>
-                <ul>
-                    <li>It abstracts the communication between Software Components (SWCs).</li>
-                    <li>It handles both inter-ECU (within the same ECU) and intra-ECU (across different ECUs via
-                        network) communications transparently.</li>
-                </ul>
-                <h2>3. Basic Software (BSW)</h2>
-                <p>The Basic Software layer provides the foundational services needed by the Application Software but
-                    abstracts the microcontroller details.</p>
-                <p>It is further divided into:<br />
-                    - <strong>Services Layer:</strong> Provides operating system, vehicle network communication, memory
-                    services, etc.<br />
-                    - <strong>ECU Abstraction Layer:</strong> Interacts with the drivers to provide a
-                    hardware-independent API.<br />
-                    - <strong>Microcontroller Abstraction Layer (MCAL):</strong> The lowest layer, containing drivers
-                    that directly interact with the microcontroller registers.</p>
-                <pre class="codehilite"><code class="language-c">// Example MCAL Initialization Structure
+<p>title: "AUTOSAR Basics: A Beginner's Guide"<br />
+category: "AUTOSAR"<br />
+date: "Mar 07, 2026"<br />
+tags: ["AUTOSAR", "Automotive", "Architecture"]</p>
+<hr />
+<h1>Introduction to AUTOSAR</h1>
+<p>AUTOSAR (Automotive Open System Architecture) is a standardized automotive software architecture established by automobile manufacturers, suppliers, and electronics, semiconductor, and software companies.</p>
+<blockquote>
+<p>[!NOTE]<br />
+The primary goal of AUTOSAR is to manage the growing complexity of electrical and electronic (E/E) systems in vehicles.</p>
+</blockquote>
+<h2>The Three Layers</h2>
+<p>AUTOSAR architecture is defined by three main abstraction layers on top of the microcontroller:</p>
+<ol>
+<li>Application Software (ASW)</li>
+<li>Runtime Environment (RTE)</li>
+<li>Basic Software (BSW)</li>
+</ol>
+<hr />
+<h2>1. Application Software (ASW)</h2>
+<p>This layer contains all the applications that provide specific vehicle features, such as steering, braking, engine control, and infotainment.</p>
+<p>The components in this layer are independent of the underlying hardware. They communicate exclusively through the RTE.</p>
+<h2>2. Runtime Environment (RTE)</h2>
+<p>The RTE is the middleware layer that connects the Application Software with the Basic Software.</p>
+<ul>
+<li>It abstracts the communication between Software Components (SWCs).</li>
+<li>It handles both inter-ECU (within the same ECU) and intra-ECU (across different ECUs via network) communications transparently.</li>
+</ul>
+<h2>3. Basic Software (BSW)</h2>
+<p>The Basic Software layer provides the foundational services needed by the Application Software but abstracts the microcontroller details.</p>
+<p>It is further divided into:<br />
+- <strong>Services Layer:</strong> Provides operating system, vehicle network communication, memory services, etc.<br />
+- <strong>ECU Abstraction Layer:</strong> Interacts with the drivers to provide a hardware-independent API.<br />
+- <strong>Microcontroller Abstraction Layer (MCAL):</strong> The lowest layer, containing drivers that directly interact with the microcontroller registers.</p>
+<pre class="codehilite"><code class="language-c">// Example MCAL Initialization Structure
 typedef struct {
     uint32_t BaudRate;
     uint8_t  Parity;
@@ -715,11 +724,11 @@ void Uart_Init(const Uart_ConfigType* ConfigPtr) {
 }
 </code></pre>
 
-                <h2>Summary</h2>
-                <p>By separating the application from the hardware, AUTOSAR enables:<br />
-                    - Reusability of software components.<br />
-                    - Scalability across different vehicle platforms.<br />
-                    - Easier integration of software from multiple suppliers.</p>
+<h2>Summary</h2>
+<p>By separating the application from the hardware, AUTOSAR enables:<br />
+- Reusability of software components.<br />
+- Scalability across different vehicle platforms.<br />
+- Easier integration of software from multiple suppliers.</p>
             </main>
 
             <!-- RIGHT SIDEBAR -->
@@ -812,36 +821,7 @@ void Uart_Init(const Uart_ConfigType* ConfigPtr) {
     <script src="app.js"></script>
 
     <script>
-        // Exact Logic from index.html Header
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle?.addEventListener('click', () => {
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
-            localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-        });
 
-        // Sync icon on load
-        if (localStorage.getItem('theme') === 'light') {
-            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
-        }
-
-        document.getElementById('search-toggle')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.remove('hidden');
-            document.getElementById('search-input').focus();
-        });
-        document.getElementById('search-close')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.add('hidden');
-        });
-        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
-        });
-
-        const burger = document.querySelector('.burger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        burger?.addEventListener('click', () => {
-            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
-        });
 
         // Accordion Logic (Frozen)
         document.querySelectorAll('.category-header').forEach(header => {

@@ -88,6 +88,28 @@
             --text-body: #4A5568;
             --text-muted: #8A9BB0;
             --text-code: #1A7F4B;
+
+            /* Tutorial Overhaul Tokens - Light Mode */
+            --tutorial-bg: #f8fafc;
+            --tutorial-text: #1e293b;
+            --tutorial-body: #475569;
+            --sidebar-bg: #ffffff;
+            --sidebar-border: #e2e8f0;
+            --sidebar-hover: #e8f5e9;
+            --content-bg: #ffffff;
+            --content-border: #e2e8f0;
+        }
+
+        :root:not([data-theme="light"]) {
+            /* Tutorial Overhaul Tokens - Dark Mode */
+            --tutorial-bg: #080C10;
+            --tutorial-text: #F0F6FF;
+            --tutorial-body: #9BABB8;
+            --sidebar-bg: #0D1117;
+            --sidebar-border: rgba(255, 255, 255, 0.07);
+            --sidebar-hover: rgba(255, 255, 255, 0.05);
+            --content-bg: #0D1117;
+            --content-border: rgba(255, 255, 255, 0.07);
         }
 
         *,
@@ -146,21 +168,12 @@
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
             font-family: var(--font-display);
             font-weight: 800;
             font-size: 20px;
             color: var(--text-main);
             letter-spacing: -0.8px;
             flex-shrink: 0;
-        }
-
-        .logo img {
-            height: 32px;
-            width: auto;
-            border-radius: var(--radius-sm);
         }
 
         .logo span {
@@ -321,8 +334,8 @@
             top: 64px;
             height: calc(100vh - 64px);
             overflow-y: auto;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
             padding: 24px 0 40px;
         }
 
@@ -331,7 +344,7 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category {
@@ -355,13 +368,13 @@
         }
 
         .category-header:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
         }
 
         .toggle-icon {
             font-size: 10px;
             transition: transform 0.3s;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category.open .toggle-icon {
@@ -384,13 +397,13 @@
             display: block;
             padding: 7px 16px 7px 24px;
             font-size: 13px;
-            color: #444;
+            color: var(--tutorial-body);
             cursor: pointer;
             font-family: var(--font-ui);
         }
 
         .sidebar a:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 30px;
         }
@@ -398,15 +411,15 @@
         .sidebar a.active {
             border-left: 3px solid var(--tutorial-green);
             font-weight: 600;
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 21px;
         }
 
         .content {
             padding: 28px 32px 60px;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--content-bg);
+            border-right: 1px solid var(--content-border);
             font-family: var(--font-ui);
         }
 
@@ -419,7 +432,7 @@
 
         .content .meta {
             font-size: 12.5px;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 24px;
         }
 
@@ -495,11 +508,11 @@
         }
 
         .card {
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             border-radius: 12px;
-            background: white;
+            background: var(--bg-card);
             padding: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: var(--shadow-card);
             font-family: var(--font-ui);
         }
 
@@ -516,7 +529,7 @@
         .card a {
             display: block;
             font-size: 13px;
-            color: #444;
+            color: var(--text-body);
             margin-top: 8px;
         }
 
@@ -562,10 +575,7 @@
     <!-- Navbar (Exact from index.html) -->
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="index.html" class="logo">
-                <img src="images/site.jpg" alt="Autodevv Brand">
-                Autodevv<span>.</span>
-            </a>
+            <a href="index.html" class="logo">Autodevv<span>.</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#explore">Explore</a></li>
@@ -615,106 +625,97 @@
             <div class="sidebar">
                 <h4>EXPLORE</h4>
                 <div class="sidebar-category" data-category="main-hub">
-                    <button class="category-header">
-                        <span>Main Hub</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software
-                            Engineering</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="autosar-stack">
-                    <button class="category-header">
-                        <span>AUTOSAR Stack</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
-                        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="embedded-mastery">
-                    <button class="category-header">
-                        <span>Embedded mastery</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
-                        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
-                        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems
-                            Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="modern-tooling">
-                    <button class="category-header">
-                        <span>Modern Tooling</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="resources">
-                    <button class="category-header">
-                        <span>Resources</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="download.html" class="active" data-file="download.html">Free Downloads & Resources</a>
-                    </div>
-                </div>
+    <button class="category-header">
+        <span>Main Hub</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software Engineering</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="autosar-stack">
+    <button class="category-header">
+        <span>AUTOSAR Stack</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
+        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="embedded-mastery">
+    <button class="category-header">
+        <span>Embedded mastery</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
+        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
+        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="modern-tooling">
+    <button class="category-header">
+        <span>Modern Tooling</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="resources">
+    <button class="category-header">
+        <span>Resources</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="download.html" class="active" data-file="download.html">Free Downloads & Resources</a>
+    </div>
+</div>
 
             </div>
 
             <!-- MAIN CONTENT -->
             <main class="content">
                 <h1>Free Downloads &amp; Resources</h1>
-                <p>Download free cheat sheets, code templates, and reference guides for Automotive Software Engineers.
-                </p>
-                <h2>Cheat Sheets</h2>
-                <ul>
-                    <li>
-                        <p><strong>AUTOSAR Quick Reference Cheat Sheet</strong> (PDF · ~120 KB)<br />
-                            All key AUTOSAR concepts, layers, and modules in a single printable reference.<br />
-                            <a href="#">Download Here</a>
-                        </p>
-                    </li>
-                    <li>
-                        <p><strong>CAN Bus &amp; LIN Protocol Reference</strong> (PDF · ~200 KB)<br />
-                            Complete reference guide for CAN, LIN, FlexRay, and Ethernet.<br />
-                            <a href="#">Download Here</a>
-                        </p>
-                    </li>
-                    <li>
-                        <p><strong>ISO 26262 Functional Safety Overview</strong> (PDF · ~150 KB)<br />
-                            Summary of ISO 26262 ASIL levels, FMEA, FTA, and development phases.<br />
-                            <a href="#">Download Here</a>
-                        </p>
-                    </li>
-                </ul>
-                <h2>Templates &amp; Code</h2>
-                <ul>
-                    <li>
-                        <p><strong>Embedded C Code Templates Pack</strong> (ZIP · ~45 KB)<br />
-                            Ready-to-use C templates for GPIO, UART, SPI, I2C, ADC, DMA, and ISR handlers.<br />
-                            <a href="#">Download Here</a>
-                        </p>
-                    </li>
-                    <li>
-                        <p><strong>Automotive Python Script Library</strong> (ZIP · ~80 KB)<br />
-                            Python scripts for CAN bus analysis, DTC parsing, and automotive data logging.<br />
-                            <a href="#">Download Here</a>
-                        </p>
-                    </li>
-                </ul>
-                <h2>Guidelines</h2>
-                <ul>
-                    <li><strong>MISRA C Coding Guidelines Checklist</strong> (PDF · ~90 KB)<br />
-                        A practical MISRA-C:2012 checklist for safety-critical code reviews.<br />
-                        <a href="#">Download Here</a>
-                    </li>
-                </ul>
+<p>Download free cheat sheets, code templates, and reference guides for Automotive Software Engineers.</p>
+<h2>Cheat Sheets</h2>
+<ul>
+<li>
+<p><strong>AUTOSAR Quick Reference Cheat Sheet</strong> (PDF · ~120 KB)<br />
+  All key AUTOSAR concepts, layers, and modules in a single printable reference.<br />
+<a href="#">Download Here</a></p>
+</li>
+<li>
+<p><strong>CAN Bus &amp; LIN Protocol Reference</strong> (PDF · ~200 KB)<br />
+  Complete reference guide for CAN, LIN, FlexRay, and Ethernet.<br />
+<a href="#">Download Here</a></p>
+</li>
+<li>
+<p><strong>ISO 26262 Functional Safety Overview</strong> (PDF · ~150 KB)<br />
+  Summary of ISO 26262 ASIL levels, FMEA, FTA, and development phases.<br />
+<a href="#">Download Here</a></p>
+</li>
+</ul>
+<h2>Templates &amp; Code</h2>
+<ul>
+<li>
+<p><strong>Embedded C Code Templates Pack</strong> (ZIP · ~45 KB)<br />
+  Ready-to-use C templates for GPIO, UART, SPI, I2C, ADC, DMA, and ISR handlers.<br />
+<a href="#">Download Here</a></p>
+</li>
+<li>
+<p><strong>Automotive Python Script Library</strong> (ZIP · ~80 KB)<br />
+  Python scripts for CAN bus analysis, DTC parsing, and automotive data logging.<br />
+<a href="#">Download Here</a></p>
+</li>
+</ul>
+<h2>Guidelines</h2>
+<ul>
+<li><strong>MISRA C Coding Guidelines Checklist</strong> (PDF · ~90 KB)<br />
+  A practical MISRA-C:2012 checklist for safety-critical code reviews.<br />
+<a href="#">Download Here</a></li>
+</ul>
             </main>
 
             <!-- RIGHT SIDEBAR -->
@@ -735,7 +736,6 @@
         </div>
     </div>
 
-    <!-- ============ FOOTER (Frozen Redesign) ============ -->
     <!-- ============ FOOTER ============ -->
     <footer id="site-footer">
         <div class="footer-inner">
@@ -808,36 +808,7 @@
     <script src="app.js"></script>
 
     <script>
-        // Exact Logic from index.html Header
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle?.addEventListener('click', () => {
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
-            localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-        });
 
-        // Sync icon on load
-        if (localStorage.getItem('theme') === 'light') {
-            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
-        }
-
-        document.getElementById('search-toggle')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.remove('hidden');
-            document.getElementById('search-input').focus();
-        });
-        document.getElementById('search-close')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.add('hidden');
-        });
-        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
-        });
-
-        const burger = document.querySelector('.burger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        burger?.addEventListener('click', () => {
-            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
-        });
 
         // Accordion Logic (Frozen)
         document.querySelectorAll('.category-header').forEach(header => {

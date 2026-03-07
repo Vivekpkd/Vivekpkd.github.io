@@ -88,6 +88,28 @@
             --text-body: #4A5568;
             --text-muted: #8A9BB0;
             --text-code: #1A7F4B;
+
+            /* Tutorial Overhaul Tokens - Light Mode */
+            --tutorial-bg: #f8fafc;
+            --tutorial-text: #1e293b;
+            --tutorial-body: #475569;
+            --sidebar-bg: #ffffff;
+            --sidebar-border: #e2e8f0;
+            --sidebar-hover: #e8f5e9;
+            --content-bg: #ffffff;
+            --content-border: #e2e8f0;
+        }
+
+        :root:not([data-theme="light"]) {
+            /* Tutorial Overhaul Tokens - Dark Mode */
+            --tutorial-bg: #080C10;
+            --tutorial-text: #F0F6FF;
+            --tutorial-body: #9BABB8;
+            --sidebar-bg: #0D1117;
+            --sidebar-border: rgba(255, 255, 255, 0.07);
+            --sidebar-hover: rgba(255, 255, 255, 0.05);
+            --content-bg: #0D1117;
+            --content-border: rgba(255, 255, 255, 0.07);
         }
 
         *,
@@ -312,8 +334,8 @@
             top: 64px;
             height: calc(100vh - 64px);
             overflow-y: auto;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
             padding: 24px 0 40px;
         }
 
@@ -322,7 +344,7 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category {
@@ -346,13 +368,13 @@
         }
 
         .category-header:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
         }
 
         .toggle-icon {
             font-size: 10px;
             transition: transform 0.3s;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category.open .toggle-icon {
@@ -375,13 +397,13 @@
             display: block;
             padding: 7px 16px 7px 24px;
             font-size: 13px;
-            color: #444;
+            color: var(--tutorial-body);
             cursor: pointer;
             font-family: var(--font-ui);
         }
 
         .sidebar a:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 30px;
         }
@@ -389,15 +411,15 @@
         .sidebar a.active {
             border-left: 3px solid var(--tutorial-green);
             font-weight: 600;
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 21px;
         }
 
         .content {
             padding: 28px 32px 60px;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--content-bg);
+            border-right: 1px solid var(--content-border);
             font-family: var(--font-ui);
         }
 
@@ -410,7 +432,7 @@
 
         .content .meta {
             font-size: 12.5px;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 24px;
         }
 
@@ -486,11 +508,11 @@
         }
 
         .card {
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             border-radius: 12px;
-            background: white;
+            background: var(--bg-card);
             padding: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: var(--shadow-card);
             font-family: var(--font-ui);
         }
 
@@ -507,7 +529,7 @@
         .card a {
             display: block;
             font-size: 13px;
-            color: #444;
+            color: var(--text-body);
             margin-top: 8px;
         }
 
@@ -603,80 +625,70 @@
             <div class="sidebar">
                 <h4>EXPLORE</h4>
                 <div class="sidebar-category" data-category="main-hub">
-                    <button class="category-header">
-                        <span>Main Hub</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software
-                            Engineering</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="autosar-stack">
-                    <button class="category-header">
-                        <span>AUTOSAR Stack</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="autosar-tutorial.html" class="active" data-file="autosar-tutorial.html">AUTOSAR
-                            Tutorial</a>
-                        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="embedded-mastery">
-                    <button class="category-header">
-                        <span>Embedded mastery</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
-                        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
-                        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems
-                            Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="modern-tooling">
-                    <button class="category-header">
-                        <span>Modern Tooling</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="resources">
-                    <button class="category-header">
-                        <span>Resources</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
-                    </div>
-                </div>
+    <button class="category-header">
+        <span>Main Hub</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software Engineering</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="autosar-stack">
+    <button class="category-header">
+        <span>AUTOSAR Stack</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="autosar-tutorial.html" class="active" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
+        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="embedded-mastery">
+    <button class="category-header">
+        <span>Embedded mastery</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
+        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
+        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="modern-tooling">
+    <button class="category-header">
+        <span>Modern Tooling</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="resources">
+    <button class="category-header">
+        <span>Resources</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
+    </div>
+</div>
 
             </div>
 
             <!-- MAIN CONTENT -->
             <main class="content">
                 <h1>AUTOSAR Tutorial</h1>
-                <p>AUTOSAR (Automotive Open System Architecture) is a standardized software architecture for automotive
-                    systems. It enables the development of scalable, maintainable, and reusable automotive software
-                    across multiple vehicle platforms.</p>
-                <ul>
-                    <li><strong>Standardized Architecture</strong> — Promotes consistency and interoperability in
-                        automotive software development.</li>
-                    <li><strong>Scalability</strong> — Supports everything from simple microcontrollers to complex
-                        integrated systems.</li>
-                    <li><strong>Modularity</strong> — Separates application software from underlying hardware through
-                        abstraction layers.</li>
-                    <li><strong>Reusability</strong> — Enables components to be used across different vehicle platforms
-                        and manufacturers.</li>
-                </ul>
-                <hr />
-                <h2>AUTOSAR Overview</h2>
-                <p>AUTOSAR is a global partnership framework that standardizes automotive software architecture.
-                    Understanding its structure is essential for modern automotive embedded development.</p>
-                <pre class="codehilite"><code class="language-c">// AUTOSAR application structure
+<p>AUTOSAR (Automotive Open System Architecture) is a standardized software architecture for automotive systems. It enables the development of scalable, maintainable, and reusable automotive software across multiple vehicle platforms.</p>
+<ul>
+<li><strong>Standardized Architecture</strong> — Promotes consistency and interoperability in automotive software development.</li>
+<li><strong>Scalability</strong> — Supports everything from simple microcontrollers to complex integrated systems.</li>
+<li><strong>Modularity</strong> — Separates application software from underlying hardware through abstraction layers.</li>
+<li><strong>Reusability</strong> — Enables components to be used across different vehicle platforms and manufacturers.</li>
+</ul>
+<hr />
+<h2>AUTOSAR Overview</h2>
+<p>AUTOSAR is a global partnership framework that standardizes automotive software architecture. Understanding its structure is essential for modern automotive embedded development.</p>
+<pre class="codehilite"><code class="language-c">// AUTOSAR application structure
 #include &quot;Std_Types.h&quot;
 #include &quot;Platform_Types.h&quot;
 
@@ -698,18 +710,18 @@ int main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: AUTOSAR OS scheduler starts Motor_RunControl periodically</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">AUTOSAR Architecture Overview</a></li>
-                    <li><a href="#">Classic vs Adaptive AUTOSAR</a></li>
-                    <li><a href="#">AUTOSAR Layering Model</a></li>
-                    <li><a href="#">Software Components</a></li>
-                </ul>
-                <h2>AUTOSAR Layering Architecture</h2>
-                <p>AUTOSAR defines a layered approach dividing automotive software into distinct abstraction levels.</p>
-                <pre class="codehilite"><code class="language-c">// AUTOSAR layer interfaces
+<blockquote>
+<p>Output: AUTOSAR OS scheduler starts Motor_RunControl periodically</p>
+</blockquote>
+<ul>
+<li><a href="#">AUTOSAR Architecture Overview</a></li>
+<li><a href="#">Classic vs Adaptive AUTOSAR</a></li>
+<li><a href="#">AUTOSAR Layering Model</a></li>
+<li><a href="#">Software Components</a></li>
+</ul>
+<h2>AUTOSAR Layering Architecture</h2>
+<p>AUTOSAR defines a layered approach dividing automotive software into distinct abstraction levels.</p>
+<pre class="codehilite"><code class="language-c">// AUTOSAR layer interfaces
 // Application Layer
 void AppSW_ProcessInputs(void) {
     // Application logic here
@@ -731,12 +743,12 @@ void Mcu_WritePin(uint8_t PinId, uint8_t Level) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Multi-layer separation of concerns</p>
-                </blockquote>
-                <h3>Application Layer</h3>
-                <p>The top layer containing vehicle-specific logic and features.</p>
-                <pre class="codehilite"><code class="language-c">// Application software component
+<blockquote>
+<p>Output: Multi-layer separation of concerns</p>
+</blockquote>
+<h3>Application Layer</h3>
+<p>The top layer containing vehicle-specific logic and features.</p>
+<pre class="codehilite"><code class="language-c">// Application software component
 typedef struct {
     uint16_t engine_rpm;
     uint8_t throttle_position;
@@ -751,9 +763,9 @@ void EngineControl_Execute(VehicleState_t *state) {
 }
 </code></pre>
 
-                <h3>Runtime Environment (RTE)</h3>
-                <p>Provides communication between application and basic software layers.</p>
-                <pre class="codehilite"><code class="language-c">// RTE service calls
+<h3>Runtime Environment (RTE)</h3>
+<p>Provides communication between application and basic software layers.</p>
+<pre class="codehilite"><code class="language-c">// RTE service calls
 uint16_t RTE_Read_EngineRPM(void) {
     return Engine_GetRPM();
 }
@@ -765,9 +777,9 @@ void RTE_Write_FuelInjectionTime(uint16_t time_us) {
 // RTE allows components to be independent of ECU hardware
 </code></pre>
 
-                <h3>Basic Software (BSW)</h3>
-                <p>Hardware-independent software services for common automotive functions.</p>
-                <pre class="codehilite"><code class="language-c">// BSW modules
+<h3>Basic Software (BSW)</h3>
+<p>Hardware-independent software services for common automotive functions.</p>
+<pre class="codehilite"><code class="language-c">// BSW modules
 void Com_Init(const Com_ConfigType* ConfigPtr) {
     // Configure communication stack
 }
@@ -781,9 +793,9 @@ void NvM_WriteBlock(NvM_BlockIdType BlockId, const uint8_t* DataPtr) {
 }
 </code></pre>
 
-                <h3>Microcontroller Abstraction Layer (MCAL)</h3>
-                <p>Direct hardware interface for microcontroller-specific operations.</p>
-                <pre class="codehilite"><code class="language-c">// MCAL SPI driver
+<h3>Microcontroller Abstraction Layer (MCAL)</h3>
+<p>Direct hardware interface for microcontroller-specific operations.</p>
+<pre class="codehilite"><code class="language-c">// MCAL SPI driver
 Std_ReturnType Spi_WriteIB(Spi_SequenceType Sequence, const Spi_DataBufferType* TxDataPtr) {
     // SPI transmission
     return E_OK;
@@ -800,10 +812,9 @@ uint16_t Adc_GetGroupConversionResult(Adc_GroupType Group, Adc_ValueGroupType* P
 }
 </code></pre>
 
-                <h2>Classic AUTOSAR</h2>
-                <p>Classic AUTOSAR is designed for traditional automotive embedded systems with dedicated
-                    microcontrollers.</p>
-                <pre class="codehilite"><code class="language-c">// Classic AUTOSAR SWC (Software Component)
+<h2>Classic AUTOSAR</h2>
+<p>Classic AUTOSAR is designed for traditional automotive embedded systems with dedicated microcontrollers.</p>
+<pre class="codehilite"><code class="language-c">// Classic AUTOSAR SWC (Software Component)
 #include &quot;Rte.h&quot;
 
 // Data elements
@@ -830,11 +841,11 @@ void EngineControl_Main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Component-based modular architecture</p>
-                </blockquote>
-                <h3>Task and Interrupt Handling</h3>
-                <pre class="codehilite"><code class="language-c">// AUTOSAR OS Task
+<blockquote>
+<p>Output: Component-based modular architecture</p>
+</blockquote>
+<h3>Task and Interrupt Handling</h3>
+<pre class="codehilite"><code class="language-c">// AUTOSAR OS Task
 TASK(EngineControlTask) {
     EngineControl_Main();
     TerminateTask();
@@ -852,9 +863,9 @@ void Os_ConfigActivation(void) {
 }
 </code></pre>
 
-                <h2>Adaptive AUTOSAR</h2>
-                <p>Adaptive AUTOSAR targets connected and autonomous vehicles with advanced processing capabilities.</p>
-                <pre class="codehilite"><code class="language-cpp">// Adaptive AUTOSAR using C++ and service-oriented architecture
+<h2>Adaptive AUTOSAR</h2>
+<p>Adaptive AUTOSAR targets connected and autonomous vehicles with advanced processing capabilities.</p>
+<pre class="codehilite"><code class="language-cpp">// Adaptive AUTOSAR using C++ and service-oriented architecture
 #include &quot;ara/core/initialization.h&quot;
 #include &quot;ara/com/someip_binding.h&quot;
 
@@ -888,12 +899,12 @@ int main() {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Service-oriented flexible architecture</p>
-                </blockquote>
-                <h2>Software Components in AUTOSAR</h2>
-                <p>Software Components are reusable units of application functionality.</p>
-                <pre class="codehilite"><code class="language-c">// SWC Interface Definition
+<blockquote>
+<p>Output: Service-oriented flexible architecture</p>
+</blockquote>
+<h2>Software Components in AUTOSAR</h2>
+<p>Software Components are reusable units of application functionality.</p>
+<pre class="codehilite"><code class="language-c">// SWC Interface Definition
 typedef struct {
     uint16_t rpm;
     uint8_t throttle;
@@ -917,9 +928,9 @@ void EngineController_Execute(
 }
 </code></pre>
 
-                <h2>Communication in AUTOSAR</h2>
-                <p>AUTOSAR COM (Communication) module handles data exchange between components.</p>
-                <pre class="codehilite"><code class="language-c">// COM signal configuration
+<h2>Communication in AUTOSAR</h2>
+<p>AUTOSAR COM (Communication) module handles data exchange between components.</p>
+<pre class="codehilite"><code class="language-c">// COM signal configuration
 #define SIGNAL_ENGINE_RPM_ID        1
 #define SIGNAL_THROTTLE_POS_ID      2
 #define SIGNAL_FUEL_INJECTION_ID    3
@@ -943,9 +954,9 @@ void Com_TriggerTransmit(Com_IpduId_type IpduId) {
 }
 </code></pre>
 
-                <h2>AUTOSAR Network Protocols</h2>
-                <p>AUTOSAR supports multiple communication protocols for different network architectures.</p>
-                <pre class="codehilite"><code class="language-c">// CAN Communication using AUTOSAR
+<h2>AUTOSAR Network Protocols</h2>
+<p>AUTOSAR supports multiple communication protocols for different network architectures.</p>
+<pre class="codehilite"><code class="language-c">// CAN Communication using AUTOSAR
 #include &quot;Can.h&quot;
 #include &quot;CanIf.h&quot;
 #include &quot;Com.h&quot;
@@ -983,8 +994,8 @@ void SendFlexRay_CriticalData(void) {
 }
 </code></pre>
 
-                <h2>Diagnostic and NVM Management</h2>
-                <pre class="codehilite"><code class="language-c">// Diagnostic communication (UDS - Unified Diagnostic Services)
+<h2>Diagnostic and NVM Management</h2>
+<pre class="codehilite"><code class="language-c">// Diagnostic communication (UDS - Unified Diagnostic Services)
 #include &quot;Dcm.h&quot;
 
 uint8_t Dcm_ReadData_VehicleSpeed(void) {
@@ -1008,9 +1019,9 @@ void Load_EngineCalibration(void) {
 }
 </code></pre>
 
-                <h2>Error Handling and DEM</h2>
-                <p>Diagnostic Event Manager (DEM) handles fault detection and reporting.</p>
-                <pre class="codehilite"><code class="language-c">// DEM Error/Event handling
+<h2>Error Handling and DEM</h2>
+<p>Diagnostic Event Manager (DEM) handles fault detection and reporting.</p>
+<pre class="codehilite"><code class="language-c">// DEM Error/Event handling
 #include &quot;Dem.h&quot;
 
 #define ENGINE_SENSOR_ERROR_ID  1
@@ -1033,9 +1044,9 @@ uint8_t Get_ErrorCodes(uint8_t* ErrorCodeList) {
 }
 </code></pre>
 
-                <h2>Development Tools and Workflow</h2>
-                <p>AUTOSAR development typically uses specialized tools:</p>
-                <pre class="codehilite"><code class="language-c">// AUTOSAR DBC file example (CAN database)
+<h2>Development Tools and Workflow</h2>
+<p>AUTOSAR development typically uses specialized tools:</p>
+<pre class="codehilite"><code class="language-c">// AUTOSAR DBC file example (CAN database)
 // BO_ 256 EngineStatus: 8 EngineController
 //  SG_ EngineRPM : 0|16@1+ (0.25,0) [0|16000] &quot;rpm&quot; EngineController
 //  SG_ Throttle : 16|8@1+ (0.5,0) [0|100] &quot;%&quot; EngineController
@@ -1049,8 +1060,8 @@ uint8_t Get_ErrorCodes(uint8_t* ErrorCodeList) {
 // - Better maintainability
 </code></pre>
 
-                <h2>Integration and Testing</h2>
-                <pre class="codehilite"><code class="language-c">// AUTOSAR component testing
+<h2>Integration and Testing</h2>
+<pre class="codehilite"><code class="language-c">// AUTOSAR component testing
 void Test_EngineControl(void) {
     EngineInputs_t test_inputs = {
         .rpm = 2000,
@@ -1072,28 +1083,28 @@ void Test_EngineControl(void) {
 // Software-in-loop (SIL) testing
 </code></pre>
 
-                <h2>Practice Projects</h2>
-                <p>Test your AUTOSAR knowledge with these projects:</p>
-                <ul>
-                    <li><a href="#">CAN Bus Vehicle Network</a></li>
-                    <li><a href="#">Engine Control Unit (ECU)</a></li>
-                    <li><a href="#">Instrument Cluster Driver</a></li>
-                    <li><a href="#">Infotainment System Integration</a></li>
-                    <li><a href="#">Autonomous Parking Module</a></li>
-                    <li><a href="#">Vehicle Diagnostics System</a></li>
-                    <li><a href="#">Multi-ECU Communication</a></li>
-                </ul>
-                <h2>Advanced Topics</h2>
-                <p>For experienced AUTOSAR developers:</p>
-                <ul>
-                    <li><a href="#">Service-Oriented Architecture (SOA)</a></li>
-                    <li><a href="#">Secure Onboard Communication</a></li>
-                    <li><a href="#">Over-the-Air (OTA) Updates</a></li>
-                    <li><a href="#">Machine Learning in Automotive</a></li>
-                    <li><a href="#">Cybersecurity in Connected Vehicles</a></li>
-                    <li><a href="#">ASIL and Functional Safety</a></li>
-                    <li><a href="#">Cloud Integration</a></li>
-                </ul>
+<h2>Practice Projects</h2>
+<p>Test your AUTOSAR knowledge with these projects:</p>
+<ul>
+<li><a href="#">CAN Bus Vehicle Network</a></li>
+<li><a href="#">Engine Control Unit (ECU)</a></li>
+<li><a href="#">Instrument Cluster Driver</a></li>
+<li><a href="#">Infotainment System Integration</a></li>
+<li><a href="#">Autonomous Parking Module</a></li>
+<li><a href="#">Vehicle Diagnostics System</a></li>
+<li><a href="#">Multi-ECU Communication</a></li>
+</ul>
+<h2>Advanced Topics</h2>
+<p>For experienced AUTOSAR developers:</p>
+<ul>
+<li><a href="#">Service-Oriented Architecture (SOA)</a></li>
+<li><a href="#">Secure Onboard Communication</a></li>
+<li><a href="#">Over-the-Air (OTA) Updates</a></li>
+<li><a href="#">Machine Learning in Automotive</a></li>
+<li><a href="#">Cybersecurity in Connected Vehicles</a></li>
+<li><a href="#">ASIL and Functional Safety</a></li>
+<li><a href="#">Cloud Integration</a></li>
+</ul>
             </main>
 
             <!-- RIGHT SIDEBAR -->
@@ -1186,36 +1197,7 @@ void Test_EngineControl(void) {
     <script src="app.js"></script>
 
     <script>
-        // Exact Logic from index.html Header
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle?.addEventListener('click', () => {
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
-            localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-        });
 
-        // Sync icon on load
-        if (localStorage.getItem('theme') === 'light') {
-            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
-        }
-
-        document.getElementById('search-toggle')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.remove('hidden');
-            document.getElementById('search-input').focus();
-        });
-        document.getElementById('search-close')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.add('hidden');
-        });
-        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
-        });
-
-        const burger = document.querySelector('.burger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        burger?.addEventListener('click', () => {
-            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
-        });
 
         // Accordion Logic (Frozen)
         document.querySelectorAll('.category-header').forEach(header => {

@@ -88,6 +88,28 @@
             --text-body: #4A5568;
             --text-muted: #8A9BB0;
             --text-code: #1A7F4B;
+
+            /* Tutorial Overhaul Tokens - Light Mode */
+            --tutorial-bg: #f8fafc;
+            --tutorial-text: #1e293b;
+            --tutorial-body: #475569;
+            --sidebar-bg: #ffffff;
+            --sidebar-border: #e2e8f0;
+            --sidebar-hover: #e8f5e9;
+            --content-bg: #ffffff;
+            --content-border: #e2e8f0;
+        }
+
+        :root:not([data-theme="light"]) {
+            /* Tutorial Overhaul Tokens - Dark Mode */
+            --tutorial-bg: #080C10;
+            --tutorial-text: #F0F6FF;
+            --tutorial-body: #9BABB8;
+            --sidebar-bg: #0D1117;
+            --sidebar-border: rgba(255, 255, 255, 0.07);
+            --sidebar-hover: rgba(255, 255, 255, 0.05);
+            --content-bg: #0D1117;
+            --content-border: rgba(255, 255, 255, 0.07);
         }
 
         *,
@@ -312,8 +334,8 @@
             top: 64px;
             height: calc(100vh - 64px);
             overflow-y: auto;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
             padding: 24px 0 40px;
         }
 
@@ -322,7 +344,7 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category {
@@ -346,13 +368,13 @@
         }
 
         .category-header:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
         }
 
         .toggle-icon {
             font-size: 10px;
             transition: transform 0.3s;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category.open .toggle-icon {
@@ -375,13 +397,13 @@
             display: block;
             padding: 7px 16px 7px 24px;
             font-size: 13px;
-            color: #444;
+            color: var(--tutorial-body);
             cursor: pointer;
             font-family: var(--font-ui);
         }
 
         .sidebar a:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 30px;
         }
@@ -389,15 +411,15 @@
         .sidebar a.active {
             border-left: 3px solid var(--tutorial-green);
             font-weight: 600;
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 21px;
         }
 
         .content {
             padding: 28px 32px 60px;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--content-bg);
+            border-right: 1px solid var(--content-border);
             font-family: var(--font-ui);
         }
 
@@ -410,7 +432,7 @@
 
         .content .meta {
             font-size: 12.5px;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 24px;
         }
 
@@ -486,11 +508,11 @@
         }
 
         .card {
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             border-radius: 12px;
-            background: white;
+            background: var(--bg-card);
             padding: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: var(--shadow-card);
             font-family: var(--font-ui);
         }
 
@@ -507,7 +529,7 @@
         .card a {
             display: block;
             font-size: 13px;
-            color: #444;
+            color: var(--text-body);
             margin-top: 8px;
         }
 
@@ -603,94 +625,88 @@
             <div class="sidebar">
                 <h4>EXPLORE</h4>
                 <div class="sidebar-category" data-category="main-hub">
-                    <button class="category-header">
-                        <span>Main Hub</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software
-                            Engineering</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="autosar-stack">
-                    <button class="category-header">
-                        <span>AUTOSAR Stack</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
-                        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="embedded-mastery">
-                    <button class="category-header">
-                        <span>Embedded mastery</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
-                        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
-                        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems
-                            Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="modern-tooling">
-                    <button class="category-header">
-                        <span>Modern Tooling</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="python-tutorial.html" class="active" data-file="python-tutorial.html">Python
-                            Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="resources">
-                    <button class="category-header">
-                        <span>Resources</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
-                    </div>
-                </div>
+    <button class="category-header">
+        <span>Main Hub</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software Engineering</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="autosar-stack">
+    <button class="category-header">
+        <span>AUTOSAR Stack</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
+        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="embedded-mastery">
+    <button class="category-header">
+        <span>Embedded mastery</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
+        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
+        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="modern-tooling">
+    <button class="category-header">
+        <span>Modern Tooling</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="python-tutorial.html" class="active" data-file="python-tutorial.html">Python Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="resources">
+    <button class="category-header">
+        <span>Resources</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
+    </div>
+</div>
 
             </div>
 
             <!-- MAIN CONTENT -->
             <main class="content">
                 <h1>Python Tutorial</h1>
-                <p>Python is one of the most popular programming languages in the world. It is simple to use,<br />
-                    packed with features, and supported by a wide range of libraries and frameworks.<br />
-                    Its clean syntax makes it beginner-friendly and highly readable.</p>
-                <ul>
-                    <li>A <strong>high-level language</strong> used in data science, automation, AI, and web
-                        development.</li>
-                    <li>Known for its <strong>readability</strong> — code is easier to write, understand, and maintain.
-                    </li>
-                    <li>Backed by <strong>strong library support</strong> — we don't have to build everything from
-                        scratch.</li>
-                    <li><strong>Cross-platform</strong> — works on Windows, Mac, and Linux without major changes.</li>
-                </ul>
-                <hr />
-                <h2>Getting Started</h2>
-                <p>In this section we cover the basics — installing Python, writing your first program,<br />
-                    and understanding how Python code is structured.</p>
-                <pre class="codehilite"><code class="language-python"># Your first Python program
+<p>Python is one of the most popular programming languages in the world. It is simple to use,<br />
+packed with features, and supported by a wide range of libraries and frameworks.<br />
+Its clean syntax makes it beginner-friendly and highly readable.</p>
+<ul>
+<li>A <strong>high-level language</strong> used in data science, automation, AI, and web development.</li>
+<li>Known for its <strong>readability</strong> — code is easier to write, understand, and maintain.</li>
+<li>Backed by <strong>strong library support</strong> — we don't have to build everything from scratch.</li>
+<li><strong>Cross-platform</strong> — works on Windows, Mac, and Linux without major changes.</li>
+</ul>
+<hr />
+<h2>Getting Started</h2>
+<p>In this section we cover the basics — installing Python, writing your first program,<br />
+and understanding how Python code is structured.</p>
+<pre class="codehilite"><code class="language-python"># Your first Python program
 print(&quot;Hello, World!&quot;)
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Hello, World!</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">Install Python</a></li>
-                    <li><a href="#">Python Introduction</a></li>
-                    <li><a href="#">Input and Output</a></li>
-                    <li><a href="#">Comments in Python</a></li>
-                </ul>
-                <h2>Variables and Data Types</h2>
-                <p>Variables store data values. Python is dynamically typed — no need to declare a type explicitly.</p>
-                <pre class="codehilite"><code class="language-python"># Variable examples
+<blockquote>
+<p>Output: Hello, World!</p>
+</blockquote>
+<ul>
+<li><a href="#">Install Python</a></li>
+<li><a href="#">Python Introduction</a></li>
+<li><a href="#">Input and Output</a></li>
+<li><a href="#">Comments in Python</a></li>
+</ul>
+<h2>Variables and Data Types</h2>
+<p>Variables store data values. Python is dynamically typed — no need to declare a type explicitly.</p>
+<pre class="codehilite"><code class="language-python"># Variable examples
 name = &quot;Alice&quot;
 age = 25
 pi = 3.14159
@@ -699,44 +715,41 @@ is_active = True
 print(name, age, pi, is_active)
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Alice 25 3.14159 True</p>
-                </blockquote>
-                <h3>Numeric Types</h3>
-                <p>Python supports <code>int</code>, <code>float</code>, and <code>complex</code> number types.</p>
-                <pre class="codehilite"><code class="language-python">x = 10        # int
+<blockquote>
+<p>Output: Alice 25 3.14159 True</p>
+</blockquote>
+<h3>Numeric Types</h3>
+<p>Python supports <code>int</code>, <code>float</code>, and <code>complex</code> number types.</p>
+<pre class="codehilite"><code class="language-python">x = 10        # int
 y = 3.14      # float
 z = 2 + 3j    # complex
 
 print(type(x), type(y), type(z))
 </code></pre>
 
-                <blockquote>
-                    <p>Output: <class 'int'>
-                            <class 'float'>
-                                <class 'complex'>
-                    </p>
-                </blockquote>
-                <h3>String Type</h3>
-                <p>Strings are sequences of characters enclosed in single or double quotes.</p>
-                <pre class="codehilite"><code class="language-python">greeting = &quot;Hello, Python!&quot;
+<blockquote>
+<p>Output: <class 'int'> <class 'float'> <class 'complex'></p>
+</blockquote>
+<h3>String Type</h3>
+<p>Strings are sequences of characters enclosed in single or double quotes.</p>
+<pre class="codehilite"><code class="language-python">greeting = &quot;Hello, Python!&quot;
 print(greeting.upper())
 print(len(greeting))
 </code></pre>
 
-                <blockquote>
-                    <p>Output: HELLO, PYTHON!<br />
-                        14</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">Python Variables</a></li>
-                    <li><a href="#">Python Data Types</a></li>
-                    <li><a href="#">Type Casting</a></li>
-                    <li><a href="#">Python Strings</a></li>
-                </ul>
-                <h2>Operators</h2>
-                <p>Python supports arithmetic, comparison, logical, and assignment operators.</p>
-                <pre class="codehilite"><code class="language-python">a = 10
+<blockquote>
+<p>Output: HELLO, PYTHON!<br />
+14</p>
+</blockquote>
+<ul>
+<li><a href="#">Python Variables</a></li>
+<li><a href="#">Python Data Types</a></li>
+<li><a href="#">Type Casting</a></li>
+<li><a href="#">Python Strings</a></li>
+</ul>
+<h2>Operators</h2>
+<p>Python supports arithmetic, comparison, logical, and assignment operators.</p>
+<pre class="codehilite"><code class="language-python">a = 10
 b = 3
 
 print(a + b)   # Addition
@@ -747,19 +760,19 @@ print(a % b)   # Modulus
 print(a ** b)  # Exponentiation
 </code></pre>
 
-                <blockquote>
-                    <p>Output: 13 7 30 3 1 1000</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">Arithmetic Operators</a></li>
-                    <li><a href="#">Comparison Operators</a></li>
-                    <li><a href="#">Logical Operators</a></li>
-                    <li><a href="#">Bitwise Operators</a></li>
-                </ul>
-                <h2>Control Flow</h2>
-                <h3>if / elif / else</h3>
-                <p>Use conditional statements to control the flow of execution.</p>
-                <pre class="codehilite"><code class="language-python">score = 85
+<blockquote>
+<p>Output: 13 7 30 3 1 1000</p>
+</blockquote>
+<ul>
+<li><a href="#">Arithmetic Operators</a></li>
+<li><a href="#">Comparison Operators</a></li>
+<li><a href="#">Logical Operators</a></li>
+<li><a href="#">Bitwise Operators</a></li>
+</ul>
+<h2>Control Flow</h2>
+<h3>if / elif / else</h3>
+<p>Use conditional statements to control the flow of execution.</p>
+<pre class="codehilite"><code class="language-python">score = 85
 
 if score &gt;= 90:
     print(&quot;Grade: A&quot;)
@@ -769,127 +782,125 @@ else:
     print(&quot;Grade: C&quot;)
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Grade: B</p>
-                </blockquote>
-                <h3>Loops</h3>
-                <p>Python has <code>for</code> and <code>while</code> loops for iteration.</p>
-                <pre class="codehilite"><code class="language-python"># for loop
+<blockquote>
+<p>Output: Grade: B</p>
+</blockquote>
+<h3>Loops</h3>
+<p>Python has <code>for</code> and <code>while</code> loops for iteration.</p>
+<pre class="codehilite"><code class="language-python"># for loop
 for i in range(1, 6):
     print(i, end=&quot; &quot;)
 </code></pre>
 
-                <blockquote>
-                    <p>Output: 1 2 3 4 5</p>
-                </blockquote>
-                <pre class="codehilite"><code class="language-python"># while loop
+<blockquote>
+<p>Output: 1 2 3 4 5</p>
+</blockquote>
+<pre class="codehilite"><code class="language-python"># while loop
 count = 0
 while count &lt; 3:
     print(&quot;Count:&quot;, count)
     count += 1
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Count: 0<br />
-                        Count: 1<br />
-                        Count: 2</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">Conditional Statements</a></li>
-                    <li><a href="#">for Loop</a></li>
-                    <li><a href="#">while Loop</a></li>
-                    <li><a href="#">break and continue</a></li>
-                    <li><a href="#">List Comprehension</a></li>
-                </ul>
-                <h2>Functions</h2>
-                <p>Functions let you group reusable code under a name. Use <code>def</code> to define a function.</p>
-                <pre class="codehilite"><code class="language-python">def greet(name, msg=&quot;Hello&quot;):
+<blockquote>
+<p>Output: Count: 0<br />
+Count: 1<br />
+Count: 2</p>
+</blockquote>
+<ul>
+<li><a href="#">Conditional Statements</a></li>
+<li><a href="#">for Loop</a></li>
+<li><a href="#">while Loop</a></li>
+<li><a href="#">break and continue</a></li>
+<li><a href="#">List Comprehension</a></li>
+</ul>
+<h2>Functions</h2>
+<p>Functions let you group reusable code under a name. Use <code>def</code> to define a function.</p>
+<pre class="codehilite"><code class="language-python">def greet(name, msg=&quot;Hello&quot;):
     return f&quot;{msg}, {name}!&quot;
 
 print(greet(&quot;Alice&quot;))
 print(greet(&quot;Bob&quot;, &quot;Hi&quot;))
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Hello, Alice!<br />
-                        Hi, Bob!</p>
-                </blockquote>
-                <h3>Lambda Functions</h3>
-                <p>A <strong>lambda</strong> is an anonymous, one-line function.</p>
-                <pre class="codehilite"><code class="language-python">square = lambda x: x ** 2
+<blockquote>
+<p>Output: Hello, Alice!<br />
+Hi, Bob!</p>
+</blockquote>
+<h3>Lambda Functions</h3>
+<p>A <strong>lambda</strong> is an anonymous, one-line function.</p>
+<pre class="codehilite"><code class="language-python">square = lambda x: x ** 2
 numbers = [1, 2, 3, 4, 5]
 result = list(map(square, numbers))
 print(result)
 </code></pre>
 
-                <blockquote>
-                    <p>Output: [1, 4, 9, 16, 25]</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">Defining Functions</a></li>
-                    <li><a href="#"><em>args and </em>*kwargs</a></li>
-                    <li><a href="#">Lambda Functions</a></li>
-                    <li><a href="#">Map, Filter, Reduce</a></li>
-                    <li><a href="#">Decorators</a></li>
-                    <li><a href="#">Recursion</a></li>
-                </ul>
-                <h2>Data Structures</h2>
-                <p>Python provides powerful built-in data structures out of the box.</p>
-                <h3>Lists</h3>
-                <p>Lists are <strong>ordered</strong> and <strong>mutable</strong> collections. They can hold mixed data
-                    types.</p>
-                <pre class="codehilite"><code class="language-python">fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]
+<blockquote>
+<p>Output: [1, 4, 9, 16, 25]</p>
+</blockquote>
+<ul>
+<li><a href="#">Defining Functions</a></li>
+<li><a href="#"><em>args and </em>*kwargs</a></li>
+<li><a href="#">Lambda Functions</a></li>
+<li><a href="#">Map, Filter, Reduce</a></li>
+<li><a href="#">Decorators</a></li>
+<li><a href="#">Recursion</a></li>
+</ul>
+<h2>Data Structures</h2>
+<p>Python provides powerful built-in data structures out of the box.</p>
+<h3>Lists</h3>
+<p>Lists are <strong>ordered</strong> and <strong>mutable</strong> collections. They can hold mixed data types.</p>
+<pre class="codehilite"><code class="language-python">fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]
 fruits.append(&quot;mango&quot;)
 print(fruits)
 print(fruits[1])
 </code></pre>
 
-                <blockquote>
-                    <p>Output: ['apple', 'banana', 'cherry', 'mango']<br />
-                        banana</p>
-                </blockquote>
-                <h3>Tuples</h3>
-                <p>Tuples are <strong>ordered</strong> and <strong>immutable</strong> — they cannot be changed after
-                    creation.</p>
-                <pre class="codehilite"><code class="language-python">point = (10, 20)
+<blockquote>
+<p>Output: ['apple', 'banana', 'cherry', 'mango']<br />
+banana</p>
+</blockquote>
+<h3>Tuples</h3>
+<p>Tuples are <strong>ordered</strong> and <strong>immutable</strong> — they cannot be changed after creation.</p>
+<pre class="codehilite"><code class="language-python">point = (10, 20)
 print(point[0], point[1])
 </code></pre>
 
-                <blockquote>
-                    <p>Output: 10 20</p>
-                </blockquote>
-                <h3>Dictionaries</h3>
-                <p>Dictionaries store <strong>key-value pairs</strong> for fast lookups.</p>
-                <pre class="codehilite"><code class="language-python">student = {&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 22, &quot;grade&quot;: &quot;A&quot;}
+<blockquote>
+<p>Output: 10 20</p>
+</blockquote>
+<h3>Dictionaries</h3>
+<p>Dictionaries store <strong>key-value pairs</strong> for fast lookups.</p>
+<pre class="codehilite"><code class="language-python">student = {&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 22, &quot;grade&quot;: &quot;A&quot;}
 print(student[&quot;name&quot;])
 student[&quot;age&quot;] = 23
 print(student)
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Alice<br />
-                        {'name': 'Alice', 'age': 23, 'grade': 'A'}</p>
-                </blockquote>
-                <h3>Sets</h3>
-                <p>Sets are <strong>unordered</strong> collections of <strong>unique</strong> elements.</p>
-                <pre class="codehilite"><code class="language-python">s = {1, 2, 3, 2, 1}
+<blockquote>
+<p>Output: Alice<br />
+{'name': 'Alice', 'age': 23, 'grade': 'A'}</p>
+</blockquote>
+<h3>Sets</h3>
+<p>Sets are <strong>unordered</strong> collections of <strong>unique</strong> elements.</p>
+<pre class="codehilite"><code class="language-python">s = {1, 2, 3, 2, 1}
 print(s)
 </code></pre>
 
-                <blockquote>
-                    <p>Output: {1, 2, 3}</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">Lists</a></li>
-                    <li><a href="#">Tuples</a></li>
-                    <li><a href="#">Dictionaries</a></li>
-                    <li><a href="#">Sets</a></li>
-                    <li><a href="#">Arrays</a></li>
-                    <li><a href="#">List Comprehension</a></li>
-                </ul>
-                <h2>OOP Concepts</h2>
-                <p>Python is a fully object-oriented language. Everything in Python is an object.</p>
-                <pre class="codehilite"><code class="language-python">class Animal:
+<blockquote>
+<p>Output: {1, 2, 3}</p>
+</blockquote>
+<ul>
+<li><a href="#">Lists</a></li>
+<li><a href="#">Tuples</a></li>
+<li><a href="#">Dictionaries</a></li>
+<li><a href="#">Sets</a></li>
+<li><a href="#">Arrays</a></li>
+<li><a href="#">List Comprehension</a></li>
+</ul>
+<h2>OOP Concepts</h2>
+<p>Python is a fully object-oriented language. Everything in Python is an object.</p>
+<pre class="codehilite"><code class="language-python">class Animal:
     def __init__(self, name):
         self.name = name
 
@@ -904,24 +915,21 @@ dog = Dog(&quot;Rex&quot;)
 print(dog.speak())
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Rex says: Woof!</p>
-                    <p>Refer <a href="#">Python OOP Guide</a> for the complete tutorial on classes, inheritance, and
-                        polymorphism.</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">Classes and Objects</a></li>
-                    <li><a href="#">Inheritance</a></li>
-                    <li><a href="#">Polymorphism</a></li>
-                    <li><a href="#">Encapsulation</a></li>
-                    <li><a href="#">Abstraction</a></li>
-                    <li><a href="#">Iterators</a></li>
-                </ul>
-                <h2>Exception Handling</h2>
-                <p>Exceptions are runtime errors. Python lets you handle them gracefully using
-                    <code>try / except</code>.
-                </p>
-                <pre class="codehilite"><code class="language-python">try:
+<blockquote>
+<p>Output: Rex says: Woof!</p>
+<p>Refer <a href="#">Python OOP Guide</a> for the complete tutorial on classes, inheritance, and polymorphism.</p>
+</blockquote>
+<ul>
+<li><a href="#">Classes and Objects</a></li>
+<li><a href="#">Inheritance</a></li>
+<li><a href="#">Polymorphism</a></li>
+<li><a href="#">Encapsulation</a></li>
+<li><a href="#">Abstraction</a></li>
+<li><a href="#">Iterators</a></li>
+</ul>
+<h2>Exception Handling</h2>
+<p>Exceptions are runtime errors. Python lets you handle them gracefully using <code>try / except</code>.</p>
+<pre class="codehilite"><code class="language-python">try:
     result = 10 / 0
 except ZeroDivisionError as e:
     print(f&quot;Error: {e}&quot;)
@@ -929,19 +937,19 @@ finally:
     print(&quot;Execution complete.&quot;)
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Error: division by zero<br />
-                        Execution complete.</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">Exception Handling</a></li>
-                    <li><a href="#">Built-in Exceptions</a></li>
-                    <li><a href="#">Custom Exceptions</a></li>
-                    <li><a href="#">try / except / finally</a></li>
-                </ul>
-                <h2>File Handling</h2>
-                <p>Python can read from and write to files using the built-in <code>open()</code> function.</p>
-                <pre class="codehilite"><code class="language-python"># Write to a file
+<blockquote>
+<p>Output: Error: division by zero<br />
+Execution complete.</p>
+</blockquote>
+<ul>
+<li><a href="#">Exception Handling</a></li>
+<li><a href="#">Built-in Exceptions</a></li>
+<li><a href="#">Custom Exceptions</a></li>
+<li><a href="#">try / except / finally</a></li>
+</ul>
+<h2>File Handling</h2>
+<p>Python can read from and write to files using the built-in <code>open()</code> function.</p>
+<pre class="codehilite"><code class="language-python"># Write to a file
 with open(&quot;hello.txt&quot;, &quot;w&quot;) as f:
     f.write(&quot;Hello, File!&quot;)
 
@@ -950,63 +958,63 @@ with open(&quot;hello.txt&quot;, &quot;r&quot;) as f:
     print(f.read())
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Hello, File!</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">File Handling</a></li>
-                    <li><a href="#">Read Files</a></li>
-                    <li><a href="#">Write / Create Files</a></li>
-                    <li><a href="#">OS Module</a></li>
-                    <li><a href="#">pathlib Module</a></li>
-                </ul>
-                <h2>Data Science</h2>
-                <p>Python is the go-to language for data science and machine learning.</p>
-                <h3>Foundational Libraries</h3>
-                <p>These libraries form the base for all data science work.</p>
-                <ul>
-                    <li><a href="#">NumPy</a></li>
-                    <li><a href="#">Pandas</a></li>
-                    <li><a href="#">Matplotlib</a></li>
-                </ul>
-                <h3>Machine Learning Libraries</h3>
-                <ul>
-                    <li><a href="#">Scikit-learn</a></li>
-                    <li><a href="#">XGBoost / LightGBM</a></li>
-                </ul>
-                <h3>Deep Learning Frameworks</h3>
-                <ul>
-                    <li><a href="#">TensorFlow and Keras</a></li>
-                    <li><a href="#">PyTorch</a></li>
-                </ul>
-                <blockquote>
-                    <p>Refer <a href="#">Python for Data Science</a> for the complete tutorial.</p>
-                </blockquote>
-                <h2>Web Development</h2>
-                <p>Python has excellent frameworks for building web applications and REST APIs.</p>
-                <h3>Core Frameworks</h3>
-                <ul>
-                    <li><a href="#">Flask</a></li>
-                    <li><a href="#">Django</a></li>
-                </ul>
-                <h3>API Development</h3>
-                <ul>
-                    <li><a href="#">Flask-RESTful</a></li>
-                    <li><a href="#">Django REST Framework (DRF)</a></li>
-                </ul>
-                <blockquote>
-                    <p>Refer <a href="#">Python for Web Development</a> for the complete tutorial.</p>
-                </blockquote>
-                <h2>Practice</h2>
-                <p>Test your Python skills with quizzes and hands-on coding exercises.</p>
-                <ul>
-                    <li><a href="#">Python Quizzes</a></li>
-                    <li><a href="#">Coding Practice Problems</a></li>
-                    <li><a href="#">Interview Questions</a></li>
-                </ul>
-                <blockquote>
-                    <p>This tutorial is updated based on the latest <strong>Python 3.13.1</strong> version.</p>
-                </blockquote>
+<blockquote>
+<p>Output: Hello, File!</p>
+</blockquote>
+<ul>
+<li><a href="#">File Handling</a></li>
+<li><a href="#">Read Files</a></li>
+<li><a href="#">Write / Create Files</a></li>
+<li><a href="#">OS Module</a></li>
+<li><a href="#">pathlib Module</a></li>
+</ul>
+<h2>Data Science</h2>
+<p>Python is the go-to language for data science and machine learning.</p>
+<h3>Foundational Libraries</h3>
+<p>These libraries form the base for all data science work.</p>
+<ul>
+<li><a href="#">NumPy</a></li>
+<li><a href="#">Pandas</a></li>
+<li><a href="#">Matplotlib</a></li>
+</ul>
+<h3>Machine Learning Libraries</h3>
+<ul>
+<li><a href="#">Scikit-learn</a></li>
+<li><a href="#">XGBoost / LightGBM</a></li>
+</ul>
+<h3>Deep Learning Frameworks</h3>
+<ul>
+<li><a href="#">TensorFlow and Keras</a></li>
+<li><a href="#">PyTorch</a></li>
+</ul>
+<blockquote>
+<p>Refer <a href="#">Python for Data Science</a> for the complete tutorial.</p>
+</blockquote>
+<h2>Web Development</h2>
+<p>Python has excellent frameworks for building web applications and REST APIs.</p>
+<h3>Core Frameworks</h3>
+<ul>
+<li><a href="#">Flask</a></li>
+<li><a href="#">Django</a></li>
+</ul>
+<h3>API Development</h3>
+<ul>
+<li><a href="#">Flask-RESTful</a></li>
+<li><a href="#">Django REST Framework (DRF)</a></li>
+</ul>
+<blockquote>
+<p>Refer <a href="#">Python for Web Development</a> for the complete tutorial.</p>
+</blockquote>
+<h2>Practice</h2>
+<p>Test your Python skills with quizzes and hands-on coding exercises.</p>
+<ul>
+<li><a href="#">Python Quizzes</a></li>
+<li><a href="#">Coding Practice Problems</a></li>
+<li><a href="#">Interview Questions</a></li>
+</ul>
+<blockquote>
+<p>This tutorial is updated based on the latest <strong>Python 3.13.1</strong> version.</p>
+</blockquote>
             </main>
 
             <!-- RIGHT SIDEBAR -->
@@ -1099,36 +1107,7 @@ with open(&quot;hello.txt&quot;, &quot;r&quot;) as f:
     <script src="app.js"></script>
 
     <script>
-        // Exact Logic from index.html Header
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle?.addEventListener('click', () => {
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
-            localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-        });
 
-        // Sync icon on load
-        if (localStorage.getItem('theme') === 'light') {
-            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
-        }
-
-        document.getElementById('search-toggle')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.remove('hidden');
-            document.getElementById('search-input').focus();
-        });
-        document.getElementById('search-close')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.add('hidden');
-        });
-        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
-        });
-
-        const burger = document.querySelector('.burger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        burger?.addEventListener('click', () => {
-            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
-        });
 
         // Accordion Logic (Frozen)
         document.querySelectorAll('.category-header').forEach(header => {

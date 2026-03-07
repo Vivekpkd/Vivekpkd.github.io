@@ -85,70 +85,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Theme Toggle ---
     const themeToggle = document.getElementById('theme-toggle');
-    const searchToggle = document.getElementById('search-toggle');
-    const searchClose = document.getElementById('search-close');
-    const searchOverlay = document.getElementById('search-overlay');
-    const searchInput = document.getElementById('search-input');
-    const searchResults = document.getElementById('search-results');
 
     if (themeToggle) {
         // Initial sync of icon based on current theme (set by head script)
-        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
         updateThemeIcon(currentTheme);
 
         themeToggle.addEventListener('click', () => {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            if (isLight) {
-                document.documentElement.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'dark');
-                updateThemeIcon('dark');
-            } else {
+            const newTheme = isLight ? 'dark' : 'light';
+
+            if (newTheme === 'light') {
                 document.documentElement.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-                updateThemeIcon('light');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
             }
+
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
         });
     }
 
     function updateThemeIcon(theme) {
-        const icon = themeToggle.querySelector('i');
+        const icon = themeToggle?.querySelector('i');
         if (!icon) return;
         if (theme === 'light') {
-            icon.className = 'fa-solid fa-sun';
-        } else {
             icon.className = 'fa-solid fa-moon';
+        } else {
+            icon.className = 'fa-solid fa-sun';
         }
     }
 
-    // --- Search Logic (Using Optimized Search Engine) ---
-    if (searchToggle && searchOverlay) {
-        searchToggle.addEventListener('click', () => {
-            searchOverlay.classList.add('active');
-            searchInput.focus();
+    // --- Search Logic (Universal) ---
+    const searchElements = {
+        toggle: document.getElementById('search-toggle'),
+        close: document.getElementById('search-close'),
+        overlay: document.getElementById('search-overlay'),
+        input: document.getElementById('search-input'),
+        results: document.getElementById('search-results')
+    };
+
+    if (searchElements.toggle && searchElements.overlay) {
+        searchElements.toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            searchElements.overlay.classList.remove('hidden', 'active');
+            searchElements.overlay.classList.add('active');
+            searchElements.input?.focus();
         });
 
-        searchClose.addEventListener('click', () => {
-            searchOverlay.classList.remove('active');
+        const closeSearch = () => {
+            searchElements.overlay.classList.remove('active');
+            searchElements.overlay.classList.add('hidden');
+        };
+
+        searchElements.close?.addEventListener('click', closeSearch);
+
+        searchElements.overlay.addEventListener('click', (e) => {
+            if (e.target === searchElements.overlay) closeSearch();
         });
 
-        searchInput.addEventListener('input', async (e) => {
+        searchElements.input?.addEventListener('input', async (e) => {
             const term = e.target.value.toLowerCase().trim();
             if (term.length < 2) {
-                searchResults.innerHTML = '';
+                if (searchElements.results) searchElements.results.innerHTML = '';
                 return;
             }
 
-            // Use the optimized search engine for faster lookups
-            if (typeof searchEngine !== 'undefined') {
+            if (typeof searchEngine !== 'undefined' && searchElements.results) {
                 try {
                     const matches = await searchEngine.advancedSearch(term);
-
                     if (matches.length === 0) {
-                        searchResults.innerHTML = '<p style="padding:10px; color:var(--text-muted)">No articles found matching "<strong>' + term + '</strong>"</p>';
+                        searchElements.results.innerHTML = `<p style="padding:10px; color:var(--text-muted)">No articles found matching "<strong>${term}</strong>"</p>`;
                         return;
                     }
-
-                    searchResults.innerHTML = matches.slice(0, 10).map(match => `
+                    searchElements.results.innerHTML = matches.slice(0, 10).map(match => `
                         <a href="${match.link}" class="search-item">
                             <h4>${match.title}</h4>
                             <p>${match.excerpt}</p>
@@ -159,24 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         </a>
                     `).join('');
                 } catch (error) {
-                    console.error('Search error:', error);
-                    searchResults.innerHTML = '<p style="padding:10px; color:var(--text-muted)">Search temporarily unavailable</p>';
+                    searchElements.results.innerHTML = '<p style="padding:10px; color:var(--text-muted)">Search temporarily unavailable</p>';
                 }
-            } else if (typeof articlesData !== 'undefined') {
-                // Fallback to inline articles data if search engine not available
-                const matches = articlesData.filter(a =>
-                    a.title.toLowerCase().includes(term) ||
-                    a.excerpt.toLowerCase().includes(term) ||
-                    (a.tags && a.tags.some(t => t.toLowerCase().includes(term)))
-                );
-
-                searchResults.innerHTML = matches.map(match => `
-                    <a href="${match.link}" class="search-item">
-                        <h4>${match.title}</h4>
-                        <p>${match.excerpt}</p>
-                        <small style="color:var(--primary)">${match.category}</small>
-                    </a>
-                `).join('');
             }
         });
     }
@@ -214,9 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
             blogContainer.innerHTML = '';
             const toShow = articles.slice(0, count);
 
-            // check if we are on home page by looking for the specific class
-            const isHome = blogContainer.classList.contains('home-latest-cards');
-
             toShow.forEach(article => {
                 const style = categoryStyles[article.category] || categoryStyles['General'];
 
@@ -224,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.className = 'blog-card fade-in';
 
                 if (isHome) {
-                    // GeeksforGeeks Inspired Card Layout
                     const headerBg = article.image
                         ? `background-image: url('${article.image}'); background-size: cover; background-position: center;`
                         : `background: linear-gradient(135deg, ${style.gradient.split(',')[1].trim()}, ${style.gradient.split(',')[2].trim().replace(')', '')});`;
@@ -247,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
                 } else if (blogContainer.classList.contains('gfg-courses-grid')) {
-                    // Explore Page (Tutorial Roadmap) Layout - Enhanced Professional List
                     card.className = 'explore-roadmap-item fade-in';
                     card.innerHTML = `
                         <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--border);">
@@ -269,9 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </a>
                         </div>
                     `;
-                    // Extra CSS for hover effect would be nice but handled inline for now
                 } else {
-                    // Standard Blog List Layout
                     card.innerHTML = `
                         <div class="card-img-small" style="background: ${style.gradient}; height: 6px; width: 100%;"></div>
                         <div class="card-content" style="padding: 15px; display: flex; flex-direction: column; justify-content: center;">
@@ -297,12 +284,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 blogContainer.appendChild(card);
             });
 
-            // Re-apply Intersection Observer for new elements
             if (window.observer) {
                 document.querySelectorAll('.fade-in').forEach(el => window.observer.observe(el));
             }
 
-            // Toggle button visibility
             const btn = document.getElementById('show-more-blog');
             if (btn) {
                 if (visibleCount >= articles.length) {
@@ -313,10 +298,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Create "More Articles" button for home page or "View All" for loadMore functionality
         if (isHome || (articles.length > INITIAL_COUNT && !isHome)) {
             const placeholder = document.getElementById('blog-view-all-placeholder');
-
             if (placeholder) {
                 const viewAllBtn = document.createElement('a');
                 viewAllBtn.className = 'btn-more-articles';
@@ -329,25 +312,24 @@ document.addEventListener('DOMContentLoaded', () => {
         renderArticles(visibleCount);
     }
 
-    // Mobile Menu
-    const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelectorAll('.mobile-menu a');
+    // Universal Mobile Menu
+    const burger = document.querySelector('.burger') || document.getElementById('burger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-    if (burger && nav) {
+    if (burger && mobileMenu) {
         burger.addEventListener('click', () => {
-            nav.classList.toggle('active');
+            const isFlex = window.getComputedStyle(mobileMenu).display === 'flex';
+            mobileMenu.style.display = isFlex ? 'none' : 'flex';
             burger.classList.toggle('toggle');
         });
 
-        navLinks.forEach(link => {
+        mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                nav.classList.remove('active');
+                mobileMenu.style.display = 'none';
+                burger.classList.remove('toggle');
             });
         });
     }
-
-    // Theme Toggle Logic
 
     // Intersection Observer for Animation
     window.observer = new IntersectionObserver((entries) => {

@@ -730,33 +730,6 @@
     <script src="app.js"></script>
 
     <script>
-        // Sync header logic with index.html
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle?.addEventListener('click', () => {
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
-            localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-        });
-
-        if (localStorage.getItem('theme') === 'light') {
-            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
-        }
-
-        const burger = document.getElementById('burger-btn');
-        burger?.addEventListener('click', () => {
-            const menu = document.getElementById('mobile-menu');
-            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-        });
-
-        document.getElementById('search-toggle')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.remove('hidden');
-            document.getElementById('search-input').focus();
-        });
-        document.getElementById('search-close')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.add('hidden');
-        });
-
         // Form handling
         document.getElementById('contact-form').addEventListener('submit', (e) => {
             e.preventDefault();

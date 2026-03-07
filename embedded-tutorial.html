@@ -88,6 +88,28 @@
             --text-body: #4A5568;
             --text-muted: #8A9BB0;
             --text-code: #1A7F4B;
+
+            /* Tutorial Overhaul Tokens - Light Mode */
+            --tutorial-bg: #f8fafc;
+            --tutorial-text: #1e293b;
+            --tutorial-body: #475569;
+            --sidebar-bg: #ffffff;
+            --sidebar-border: #e2e8f0;
+            --sidebar-hover: #e8f5e9;
+            --content-bg: #ffffff;
+            --content-border: #e2e8f0;
+        }
+
+        :root:not([data-theme="light"]) {
+            /* Tutorial Overhaul Tokens - Dark Mode */
+            --tutorial-bg: #080C10;
+            --tutorial-text: #F0F6FF;
+            --tutorial-body: #9BABB8;
+            --sidebar-bg: #0D1117;
+            --sidebar-border: rgba(255, 255, 255, 0.07);
+            --sidebar-hover: rgba(255, 255, 255, 0.05);
+            --content-bg: #0D1117;
+            --content-border: rgba(255, 255, 255, 0.07);
         }
 
         *,
@@ -312,8 +334,8 @@
             top: 64px;
             height: calc(100vh - 64px);
             overflow-y: auto;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
             padding: 24px 0 40px;
         }
 
@@ -322,7 +344,7 @@
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category {
@@ -346,13 +368,13 @@
         }
 
         .category-header:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
         }
 
         .toggle-icon {
             font-size: 10px;
             transition: transform 0.3s;
-            color: #666;
+            color: var(--text-muted);
         }
 
         .sidebar-category.open .toggle-icon {
@@ -375,13 +397,13 @@
             display: block;
             padding: 7px 16px 7px 24px;
             font-size: 13px;
-            color: #444;
+            color: var(--tutorial-body);
             cursor: pointer;
             font-family: var(--font-ui);
         }
 
         .sidebar a:hover {
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 30px;
         }
@@ -389,15 +411,15 @@
         .sidebar a.active {
             border-left: 3px solid var(--tutorial-green);
             font-weight: 600;
-            background: #e8f5e9;
+            background: var(--sidebar-hover);
             color: var(--tutorial-green);
             padding-left: 21px;
         }
 
         .content {
             padding: 28px 32px 60px;
-            background: white;
-            border-right: 1px solid #e0e0e0;
+            background: var(--content-bg);
+            border-right: 1px solid var(--content-border);
             font-family: var(--font-ui);
         }
 
@@ -410,7 +432,7 @@
 
         .content .meta {
             font-size: 12.5px;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 24px;
         }
 
@@ -486,11 +508,11 @@
         }
 
         .card {
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
             border-radius: 12px;
-            background: white;
+            background: var(--bg-card);
             padding: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: var(--shadow-card);
             font-family: var(--font-ui);
         }
 
@@ -507,7 +529,7 @@
         .card a {
             display: block;
             font-size: 13px;
-            color: #444;
+            color: var(--text-body);
             margin-top: 8px;
         }
 
@@ -603,79 +625,70 @@
             <div class="sidebar">
                 <h4>EXPLORE</h4>
                 <div class="sidebar-category" data-category="main-hub">
-                    <button class="category-header">
-                        <span>Main Hub</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software
-                            Engineering</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="autosar-stack">
-                    <button class="category-header">
-                        <span>AUTOSAR Stack</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
-                        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="embedded-mastery">
-                    <button class="category-header">
-                        <span>Embedded mastery</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
-                        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
-                        <a href="embedded-tutorial.html" class="active" data-file="embedded-tutorial.html">Embedded
-                            Systems Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="modern-tooling">
-                    <button class="category-header">
-                        <span>Modern Tooling</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
-                    </div>
-                </div>
-                <div class="sidebar-category" data-category="resources">
-                    <button class="category-header">
-                        <span>Resources</span>
-                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-                    </button>
-                    <div class="category-content">
-                        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
-                    </div>
-                </div>
+    <button class="category-header">
+        <span>Main Hub</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software Engineering</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="autosar-stack">
+    <button class="category-header">
+        <span>AUTOSAR Stack</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
+        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="embedded-mastery">
+    <button class="category-header">
+        <span>Embedded mastery</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
+        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
+        <a href="embedded-tutorial.html" class="active" data-file="embedded-tutorial.html">Embedded Systems Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="modern-tooling">
+    <button class="category-header">
+        <span>Modern Tooling</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="resources">
+    <button class="category-header">
+        <span>Resources</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
+    </div>
+</div>
 
             </div>
 
             <!-- MAIN CONTENT -->
             <main class="content">
                 <h1>Embedded Systems Tutorial</h1>
-                <p>Embedded systems are specialized computing systems that perform dedicated functions within larger
-                    mechanical or electrical systems. They are the brains behind everything from microcontrollers in
-                    appliances to real-time systems in automotive applications.</p>
-                <ul>
-                    <li><strong>Ubiquitous</strong> — Found in smartphones, IoT devices, automobiles, medical equipment,
-                        and industrial systems.</li>
-                    <li><strong>Real-time Processing</strong> — Must meet strict timing constraints and reliability
-                        requirements.</li>
-                    <li><strong>Resource-Constrained</strong> — Limited memory, power, and processing capabilities
-                        compared to general-purpose computers.</li>
-                    <li><strong>Physical Interaction</strong> — Directly interface with hardware through sensors,
-                        actuators, and communication protocols.</li>
-                </ul>
-                <hr />
-                <h2>Getting Started with Embedded Systems</h2>
-                <p>Embedded systems form the foundation of modern electronics. This section covers the basics of
-                    embedded computing, hardware interaction, and development environments.</p>
-                <pre class="codehilite"><code class="language-c">// Your first embedded program - LED blink
+<p>Embedded systems are specialized computing systems that perform dedicated functions within larger mechanical or electrical systems. They are the brains behind everything from microcontrollers in appliances to real-time systems in automotive applications.</p>
+<ul>
+<li><strong>Ubiquitous</strong> — Found in smartphones, IoT devices, automobiles, medical equipment, and industrial systems.</li>
+<li><strong>Real-time Processing</strong> — Must meet strict timing constraints and reliability requirements.</li>
+<li><strong>Resource-Constrained</strong> — Limited memory, power, and processing capabilities compared to general-purpose computers.</li>
+<li><strong>Physical Interaction</strong> — Directly interface with hardware through sensors, actuators, and communication protocols.</li>
+</ul>
+<hr />
+<h2>Getting Started with Embedded Systems</h2>
+<p>Embedded systems form the foundation of modern electronics. This section covers the basics of embedded computing, hardware interaction, and development environments.</p>
+<pre class="codehilite"><code class="language-c">// Your first embedded program - LED blink
 #include &lt;avr/io.h&gt;
 #include &lt;util/delay.h&gt;
 
@@ -691,19 +704,18 @@ int main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: LED blinks every 1 second</p>
-                </blockquote>
-                <ul>
-                    <li><a href="#">Microcontroller Basics</a></li>
-                    <li><a href="#">AVR vs ARM vs STM32</a></li>
-                    <li><a href="#">Development Tools Setup</a></li>
-                    <li><a href="#">First Program Walkthrough</a></li>
-                </ul>
-                <h2>Microcontroller Architecture</h2>
-                <p>Microcontrollers (MCUs) are the heart of embedded systems. Understanding their architecture is
-                    crucial for effective embedded programming.</p>
-                <pre class="codehilite"><code class="language-c">// Reading analog sensor value
+<blockquote>
+<p>Output: LED blinks every 1 second</p>
+</blockquote>
+<ul>
+<li><a href="#">Microcontroller Basics</a></li>
+<li><a href="#">AVR vs ARM vs STM32</a></li>
+<li><a href="#">Development Tools Setup</a></li>
+<li><a href="#">First Program Walkthrough</a></li>
+</ul>
+<h2>Microcontroller Architecture</h2>
+<p>Microcontrollers (MCUs) are the heart of embedded systems. Understanding their architecture is crucial for effective embedded programming.</p>
+<pre class="codehilite"><code class="language-c">// Reading analog sensor value
 #include &lt;avr/io.h&gt;
 
 uint16_t read_adc(uint8_t channel) {
@@ -725,12 +737,12 @@ int main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: ADC value read from channel 0</p>
-                </blockquote>
-                <h3>CPU Core</h3>
-                <p>The CPU executes instructions from memory and performs calculations. Most embedded systems use:</p>
-                <pre class="codehilite"><code class="language-c">// Memory organization example
+<blockquote>
+<p>Output: ADC value read from channel 0</p>
+</blockquote>
+<h3>CPU Core</h3>
+<p>The CPU executes instructions from memory and performs calculations. Most embedded systems use:</p>
+<pre class="codehilite"><code class="language-c">// Memory organization example
 volatile uint8_t register_a;      // SRAM
 const int rom_value = 1024;       // Flash/ROM
 static int static_var = 0;        // SRAM (initialized)
@@ -741,9 +753,9 @@ void cpu_operation() {
 }
 </code></pre>
 
-                <h3>Memory Hierarchy</h3>
-                <p>Embedded systems typically have three types of memory:</p>
-                <pre class="codehilite"><code class="language-c">// Memory types and usage
+<h3>Memory Hierarchy</h3>
+<p>Embedded systems typically have three types of memory:</p>
+<pre class="codehilite"><code class="language-c">// Memory types and usage
 int global_array[100];            // SRAM - global storage
 const char* strings[] = {         // Flash - constant strings
     &quot;Hello&quot;,
@@ -757,15 +769,14 @@ void memory_demo() {
 }
 </code></pre>
 
-                <ul>
-                    <li>Flash Memory (Program Storage)</li>
-                    <li>SRAM (Runtime Variables)</li>
-                    <li>EEPROM (Non-volatile Data Storage)</li>
-                </ul>
-                <h2>GPIO and Digital I/O</h2>
-                <p>General Purpose Input/Output (GPIO) pins are how microcontrollers interact with the physical world.
-                    They can be configured as inputs or outputs.</p>
-                <pre class="codehilite"><code class="language-c">// GPIO configuration and control
+<ul>
+<li>Flash Memory (Program Storage)</li>
+<li>SRAM (Runtime Variables)</li>
+<li>EEPROM (Non-volatile Data Storage)</li>
+</ul>
+<h2>GPIO and Digital I/O</h2>
+<p>General Purpose Input/Output (GPIO) pins are how microcontrollers interact with the physical world. They can be configured as inputs or outputs.</p>
+<pre class="codehilite"><code class="language-c">// GPIO configuration and control
 #include &lt;avr/io.h&gt;
 
 #define LED_PIN     5
@@ -793,11 +804,11 @@ int main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: LED responds to button press</p>
-                </blockquote>
-                <h3>Digital Outputs</h3>
-                <pre class="codehilite"><code class="language-c">// Multiple output control
+<blockquote>
+<p>Output: LED responds to button press</p>
+</blockquote>
+<h3>Digital Outputs</h3>
+<pre class="codehilite"><code class="language-c">// Multiple output control
 void control_outputs() {
     DDRB = 0xFF;        // All PORTB pins as outputs
     PORTB = 0x0F;       // Set lower 4 bits HIGH
@@ -805,8 +816,8 @@ void control_outputs() {
 }
 </code></pre>
 
-                <h3>Digital Inputs</h3>
-                <pre class="codehilite"><code class="language-c">// Reading digital inputs with debouncing
+<h3>Digital Inputs</h3>
+<pre class="codehilite"><code class="language-c">// Reading digital inputs with debouncing
 uint8_t debounce_read(volatile uint8_t *port, uint8_t pin) {
     uint8_t state_count = 0;
 
@@ -821,10 +832,9 @@ uint8_t debounce_read(volatile uint8_t *port, uint8_t pin) {
 }
 </code></pre>
 
-                <h2>Interrupts and External Events</h2>
-                <p>Interrupts allow microcontrollers to respond to events without continuously polling. They're
-                    essential for real-time embedded systems.</p>
-                <pre class="codehilite"><code class="language-c">// External interrupt handling
+<h2>Interrupts and External Events</h2>
+<p>Interrupts allow microcontrollers to respond to events without continuously polling. They're essential for real-time embedded systems.</p>
+<pre class="codehilite"><code class="language-c">// External interrupt handling
 #include &lt;avr/interrupt.h&gt;
 
 volatile uint8_t button_pressed = 0;
@@ -851,12 +861,12 @@ int main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Interrupt triggered on external event</p>
-                </blockquote>
-                <h2>Timers and PWM</h2>
-                <p>Timers are used for precise timing, pulse generation, and PWM (Pulse Width Modulation) control.</p>
-                <pre class="codehilite"><code class="language-c">// Timer0 setup for PWM
+<blockquote>
+<p>Output: Interrupt triggered on external event</p>
+</blockquote>
+<h2>Timers and PWM</h2>
+<p>Timers are used for precise timing, pulse generation, and PWM (Pulse Width Modulation) control.</p>
+<pre class="codehilite"><code class="language-c">// Timer0 setup for PWM
 #include &lt;avr/io.h&gt;
 
 void pwm_init() {
@@ -882,11 +892,11 @@ int main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: PWM signal with varying duty cycle</p>
-                </blockquote>
-                <h3>Timer Interrupts</h3>
-                <pre class="codehilite"><code class="language-c">// Timer overflow interrupt
+<blockquote>
+<p>Output: PWM signal with varying duty cycle</p>
+</blockquote>
+<h3>Timer Interrupts</h3>
+<pre class="codehilite"><code class="language-c">// Timer overflow interrupt
 ISR(TIMER0_OVF_vect) {
     // Executed every timer overflow
     static uint8_t counter = 0;
@@ -900,10 +910,9 @@ void timer_overflow_init() {
 }
 </code></pre>
 
-                <h2>Serial Communication (UART)</h2>
-                <p>UART (Universal Asynchronous Receiver-Transmitter) is one of the most common communication protocols
-                    in embedded systems.</p>
-                <pre class="codehilite"><code class="language-c">// UART initialization and communication
+<h2>Serial Communication (UART)</h2>
+<p>UART (Universal Asynchronous Receiver-Transmitter) is one of the most common communication protocols in embedded systems.</p>
+<pre class="codehilite"><code class="language-c">// UART initialization and communication
 #include &lt;avr/io.h&gt;
 
 #define BAUD 9600
@@ -937,13 +946,12 @@ int main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Data echoed back through UART</p>
-                </blockquote>
-                <h2>Analog-to-Digital Conversion (ADC)</h2>
-                <p>ADC converts analog signals from sensors into digital values that the microcontroller can process.
-                </p>
-                <pre class="codehilite"><code class="language-c">// ADC configuration for temperature sensor
+<blockquote>
+<p>Output: Data echoed back through UART</p>
+</blockquote>
+<h2>Analog-to-Digital Conversion (ADC)</h2>
+<p>ADC converts analog signals from sensors into digital values that the microcontroller can process.</p>
+<pre class="codehilite"><code class="language-c">// ADC configuration for temperature sensor
 #include &lt;avr/io.h&gt;
 
 void adc_init() {
@@ -968,12 +976,12 @@ int main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Temperature value in digital format</p>
-                </blockquote>
-                <h2>Memory Management</h2>
-                <p>Efficient memory management is critical in resource-constrained embedded systems.</p>
-                <pre class="codehilite"><code class="language-c">// Static vs Dynamic memory
+<blockquote>
+<p>Output: Temperature value in digital format</p>
+</blockquote>
+<h2>Memory Management</h2>
+<p>Efficient memory management is critical in resource-constrained embedded systems.</p>
+<pre class="codehilite"><code class="language-c">// Static vs Dynamic memory
 #include &lt;stdlib.h&gt;
 
 // Static allocation - fixed at compile time
@@ -993,9 +1001,9 @@ void init_system() {
 }
 </code></pre>
 
-                <h2>Real-Time Operating Systems (RTOS)</h2>
-                <p>Many embedded systems use RTOS for multitasking and scheduling.</p>
-                <pre class="codehilite"><code class="language-c">// FreeRTOS example
+<h2>Real-Time Operating Systems (RTOS)</h2>
+<p>Many embedded systems use RTOS for multitasking and scheduling.</p>
+<pre class="codehilite"><code class="language-c">// FreeRTOS example
 #include &lt;FreeRTOS.h&gt;
 #include &lt;task.h&gt;
 
@@ -1022,12 +1030,12 @@ int main(void) {
 }
 </code></pre>
 
-                <blockquote>
-                    <p>Output: Multiple tasks running concurrently</p>
-                </blockquote>
-                <h2>Debugging Embedded Systems</h2>
-                <p>Debugging embedded systems requires specialized tools and techniques.</p>
-                <pre class="codehilite"><code class="language-c">// Debug macro for logging
+<blockquote>
+<p>Output: Multiple tasks running concurrently</p>
+</blockquote>
+<h2>Debugging Embedded Systems</h2>
+<p>Debugging embedded systems requires specialized tools and techniques.</p>
+<pre class="codehilite"><code class="language-c">// Debug macro for logging
 #define DEBUG_PRINT(fmt, ...) \
     uart_printf(&quot;DEBUG: &quot; fmt &quot;\r\n&quot;, ##__VA_ARGS__)
 
@@ -1044,9 +1052,9 @@ void uart_printf(const char *fmt, ...) {
 }
 </code></pre>
 
-                <h2>Power Management</h2>
-                <p>Embedded systems often run on batteries, making power efficiency crucial.</p>
-                <pre class="codehilite"><code class="language-c">// Sleep mode implementation
+<h2>Power Management</h2>
+<p>Embedded systems often run on batteries, making power efficiency crucial.</p>
+<pre class="codehilite"><code class="language-c">// Sleep mode implementation
 #include &lt;avr/sleep.h&gt;
 
 void enter_sleep_mode() {
@@ -1066,8 +1074,8 @@ void power_efficient_loop() {
 }
 </code></pre>
 
-                <h2>Performance Optimization</h2>
-                <pre class="codehilite"><code class="language-c">// Inline functions for performance-critical code
+<h2>Performance Optimization</h2>
+<pre class="codehilite"><code class="language-c">// Inline functions for performance-critical code
 static inline void fast_operation() {
     // Critical operation - avoid function call overhead
 }
@@ -1082,16 +1090,16 @@ void optimized_routine() {
 }
 </code></pre>
 
-                <h2>Common Pitfalls and Best Practices</h2>
-                <p>Common mistakes in embedded development:</p>
-                <ul>
-                    <li>Not using <code>volatile</code> for hardware registers</li>
-                    <li>Ignoring interrupt priorities</li>
-                    <li>Buffer overflows in limited memory</li>
-                    <li>Not planning for scalability</li>
-                    <li>Poor code documentation</li>
-                </ul>
-                <pre class="codehilite"><code class="language-c">// Best practice examples
+<h2>Common Pitfalls and Best Practices</h2>
+<p>Common mistakes in embedded development:</p>
+<ul>
+<li>Not using <code>volatile</code> for hardware registers</li>
+<li>Ignoring interrupt priorities</li>
+<li>Buffer overflows in limited memory</li>
+<li>Not planning for scalability</li>
+<li>Poor code documentation</li>
+</ul>
+<pre class="codehilite"><code class="language-c">// Best practice examples
 volatile uint8_t sensor_flag = 0;  // Hardware register
 
 ISR(INT0_vect) __attribute__((interrupt)) {
@@ -1107,29 +1115,29 @@ void safe_buffer_operation(const char *data, size_t max_len) {
 }
 </code></pre>
 
-                <h2>Practice Projects</h2>
-                <p>Test your embedded systems knowledge with these projects:</p>
-                <ul>
-                    <li><a href="#">LED Blink Tutorial</a></li>
-                    <li><a href="#">Button Debouncing</a></li>
-                    <li><a href="#">Temperature Sensor Reading</a></li>
-                    <li><a href="#">PWM LED Control</a></li>
-                    <li><a href="#">Multi-tasking with RTOS</a></li>
-                    <li><a href="#">Simple Robot Controller</a></li>
-                    <li><a href="#">Embedded Data Logging</a></li>
-                    <li><a href="#">IoT Sensor Node</a></li>
-                </ul>
-                <h2>Advanced Topics</h2>
-                <p>For experienced developers, explore:</p>
-                <ul>
-                    <li><a href="#">Device Drivers</a></li>
-                    <li><a href="#">Hardware Abstraction Layers (HAL)</a></li>
-                    <li><a href="#">Bootloaders</a></li>
-                    <li><a href="#">Firmware Updates</a></li>
-                    <li><a href="#">Security in Embedded Systems</a></li>
-                    <li><a href="#">Real-time Constraints</a></li>
-                    <li><a href="#">Low-Power Design</a></li>
-                </ul>
+<h2>Practice Projects</h2>
+<p>Test your embedded systems knowledge with these projects:</p>
+<ul>
+<li><a href="#">LED Blink Tutorial</a></li>
+<li><a href="#">Button Debouncing</a></li>
+<li><a href="#">Temperature Sensor Reading</a></li>
+<li><a href="#">PWM LED Control</a></li>
+<li><a href="#">Multi-tasking with RTOS</a></li>
+<li><a href="#">Simple Robot Controller</a></li>
+<li><a href="#">Embedded Data Logging</a></li>
+<li><a href="#">IoT Sensor Node</a></li>
+</ul>
+<h2>Advanced Topics</h2>
+<p>For experienced developers, explore:</p>
+<ul>
+<li><a href="#">Device Drivers</a></li>
+<li><a href="#">Hardware Abstraction Layers (HAL)</a></li>
+<li><a href="#">Bootloaders</a></li>
+<li><a href="#">Firmware Updates</a></li>
+<li><a href="#">Security in Embedded Systems</a></li>
+<li><a href="#">Real-time Constraints</a></li>
+<li><a href="#">Low-Power Design</a></li>
+</ul>
             </main>
 
             <!-- RIGHT SIDEBAR -->
@@ -1222,36 +1230,7 @@ void safe_buffer_operation(const char *data, size_t max_len) {
     <script src="app.js"></script>
 
     <script>
-        // Exact Logic from index.html Header
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle?.addEventListener('click', () => {
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
-            localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-        });
 
-        // Sync icon on load
-        if (localStorage.getItem('theme') === 'light') {
-            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
-        }
-
-        document.getElementById('search-toggle')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.remove('hidden');
-            document.getElementById('search-input').focus();
-        });
-        document.getElementById('search-close')?.addEventListener('click', () => {
-            document.getElementById('search-overlay').classList.add('hidden');
-        });
-        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
-        });
-
-        const burger = document.querySelector('.burger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        burger?.addEventListener('click', () => {
-            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
-        });
 
         // Accordion Logic (Frozen)
         document.querySelectorAll('.category-header').forEach(header => {
