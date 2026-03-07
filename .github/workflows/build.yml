@@ -22,8 +22,10 @@ jobs:
         with:
           python-version: "3.11"
   
-      - name: Install dependencies
-        run: pip install markdown
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install markdown
 
       - name: Build Site
         run: python build.py
