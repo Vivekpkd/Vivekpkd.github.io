@@ -209,39 +209,6 @@
             background: var(--bg-card);
         }
 
-        .burger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .burger div {
-            width: 22px;
-            height: 2px;
-            background: var(--text-body);
-            border-radius: 2px;
-        }
-
-        /* ── MOBILE MENU ── */
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 24px;
-            gap: 4px;
-        }
-
-        .mobile-menu a {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-body);
-            padding: 10px 12px;
-            text-decoration: none;
-            border-radius: var(--radius-sm);
-            transition: var(--transition);
-        }
 
         /* ── SEARCH OVERLAY ── */
         .search-overlay {
@@ -501,6 +468,93 @@
             font-size: 15px;
             color: var(--text-main);
             font-weight: 500;
+        }
+
+        /* ============================================
+           RESPONSIVE (Mobile-first fixes)
+        ============================================ */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none !important;
+            }
+
+            .burger {
+                display: flex !important;
+            }
+
+            /* Burger animation (Synced with Global) */
+            .burger.toggle .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .burger.toggle .line2 {
+                opacity: 0;
+            }
+
+            .burger.toggle .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .contact-hero {
+                padding: 60px 0 30px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+                letter-spacing: -1px;
+            }
+
+            .hero-desc {
+                font-size: 16px;
+                padding: 0 16px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 16px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 20px;
+                margin-bottom: 24px;
+            }
+
+            .btn-submit {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .sidebar {
+                gap: 20px;
+            }
+
+            .info-card {
+                padding: 20px;
+            }
+
+            .profile-card {
+                padding: 24px;
+            }
+
+            .profile-img-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
         }
     </style>
 </head>
