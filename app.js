@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (themeToggle) {
         // Initial sync of icon based on current theme (set by head script)
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
         updateThemeIcon(currentTheme);
 
         themeToggle.addEventListener('click', () => {
