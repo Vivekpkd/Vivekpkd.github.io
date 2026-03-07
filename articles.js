@@ -1,12 +1,12 @@
 const articlesData = [
     {
-        "title": "Embedded Systems Tutorial",
+        "title": "Introduction to AUTOSAR",
         "date": "Mar 07, 2026",
-        "excerpt": "Embedded systems are specialized computing systems that perform dedicated functions within larger mechanical or electrical systems. They are the brain...",
-        "link": "embedded-tutorial.html",
-        "category": "Embedded C",
+        "excerpt": "---\ntitle: \"AUTOSAR Basics: A Beginner's Guide\"\ncategory: \"AUTOSAR\"\ndate: \"Mar 07, 2026\"\ntags: \"AUTOSAR\", \"Automotive\", \"Architecture\"\n---\n\n\n\nAUTOSAR...",
+        "link": "autosar-basics.html",
+        "category": "AUTOSAR",
         "tags": [
-            "Embedded C",
+            "AUTOSAR",
             "Automotive"
         ],
         "image": ""
@@ -24,25 +24,25 @@ const articlesData = [
         "image": ""
     },
     {
-        "title": "Introduction to AUTOSAR",
+        "title": "Embedded Systems Tutorial",
         "date": "Mar 07, 2026",
-        "excerpt": "---\ntitle: \"AUTOSAR Basics: A Beginner's Guide\"\ncategory: \"AUTOSAR\"\ndate: \"Mar 07, 2026\"\ntags: \"AUTOSAR\", \"Automotive\", \"Architecture\"\n---\n\n\n\nAUTOSAR...",
-        "link": "autosar-basics.html",
-        "category": "AUTOSAR",
+        "excerpt": "Embedded systems are specialized computing systems that perform dedicated functions within larger mechanical or electrical systems. They are the brain...",
+        "link": "embedded-tutorial.html",
+        "category": "Embedded C",
         "tags": [
-            "AUTOSAR",
+            "Embedded C",
             "Automotive"
         ],
         "image": ""
     },
     {
-        "title": "Python Tutorial",
+        "title": "Introduction to STM32",
         "date": "Mar 07, 2026",
-        "excerpt": "Python is one of the most popular programming languages in the world. It is simple to use,\npacked with features, and supported by a wide range of libr...",
-        "link": "python-tutorial.html",
-        "category": "Python",
+        "excerpt": "---\ntitle: \"STM32 Microcontroller: Beginner Introduction\"\ncategory: \"Embedded Systems\"\ndate: \"Mar 07, 2026\"\ntags: \"STM32\", \"Microcontroller\", \"Embedde...",
+        "link": "stm32intro.html",
+        "category": "General",
         "tags": [
-            "Python",
+            "General",
             "Automotive"
         ],
         "image": ""
@@ -67,6 +67,18 @@ const articlesData = [
         "category": "AUTOSAR",
         "tags": [
             "AUTOSAR",
+            "Automotive"
+        ],
+        "image": ""
+    },
+    {
+        "title": "Python Tutorial",
+        "date": "Mar 07, 2026",
+        "excerpt": "Python is one of the most popular programming languages in the world. It is simple to use,\npacked with features, and supported by a wide range of libr...",
+        "link": "python-tutorial.html",
+        "category": "Python",
+        "tags": [
+            "Python",
             "Automotive"
         ],
         "image": ""

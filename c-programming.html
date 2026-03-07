@@ -715,6 +715,15 @@
         <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
     </div>
 </div>
+<div class="sidebar-category" data-category="other-topics">
+    <button class="category-header">
+        <span>Other Topics</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
+    </div>
+</div>
 
         </div>
     </div>
@@ -772,6 +781,15 @@
         <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
     </div>
 </div>
+<div class="sidebar-category" data-category="other-topics">
+    <button class="category-header">
+        <span>Other Topics</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
+    </div>
+</div>
 
             </div>
 
@@ -792,35 +810,35 @@ The <code>volatile</code> and <code>static</code> keywords are crucial concepts 
 <h2>Bit Manipulation</h2>
 <p>Microcontrollers operate heavily via registers. Each bit in a register typically controls a specific hardware function (like turning an LED on, or enabling a timer).</p>
 <p>We use bitwise operators to modify specific bits without affecting others.</p>
-<pre class="codehilite"><code class="language-c">#define LED_PIN (1 &lt;&lt; 5) // Pin 5
+<div class="codehilite"><pre><span></span><code><span class="cp">#define LED_PIN (1 &lt;&lt; 5) </span><span class="c1">// Pin 5</span>
 
-// Setting a bit (Turning LED ON)
-PORTA |= LED_PIN;
+<span class="c1">// Setting a bit (Turning LED ON)</span>
+<span class="n">PORTA</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">LED_PIN</span><span class="p">;</span>
 
-// Clearing a bit (Turning LED OFF)
-PORTA &amp;= ~LED_PIN;
+<span class="c1">// Clearing a bit (Turning LED OFF)</span>
+<span class="n">PORTA</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="n">LED_PIN</span><span class="p">;</span>
 
-// Toggling a bit
-PORTA ^= LED_PIN;
+<span class="c1">// Toggling a bit</span>
+<span class="n">PORTA</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="n">LED_PIN</span><span class="p">;</span>
 
-// Checking if a bit is set
-if (PORTA &amp; LED_PIN) {
-    // LED is currently ON
-}
-</code></pre>
+<span class="c1">// Checking if a bit is set</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PORTA</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">LED_PIN</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// LED is currently ON</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>The Volatile Keyword</h2>
 <p>The <code>volatile</code> keyword tells the compiler that a variable's value can change unexpectedly at any time, independently of the normal program flow.</p>
-<pre class="codehilite"><code class="language-c">// A hardware register that changes based on external inputs
-volatile uint8_t* const PORTA_IN = (uint8_t*)0x40004000;
+<div class="codehilite"><pre><span></span><code><span class="c1">// A hardware register that changes based on external inputs</span>
+<span class="k">volatile</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">PORTA_IN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="mh">0x40004000</span><span class="p">;</span>
 
-void wait_for_button() {
-    // If PORTA_IN wasn't volatile, the compiler might optimize this loop away!
-    while((*PORTA_IN &amp; 0x01) == 0) {
-        // Wait for button press on pin 0
-    }
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">wait_for_button</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// If PORTA_IN wasn&#39;t volatile, the compiler might optimize this loop away!</span>
+<span class="w">    </span><span class="k">while</span><span class="p">((</span><span class="o">*</span><span class="n">PORTA_IN</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x01</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Wait for button press on pin 0</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3>When to use <code>volatile</code>:</h3>
 <ol>
@@ -831,12 +849,12 @@ void wait_for_button() {
 <h2>Structures and Packing</h2>
 <p>Embedded systems often need to transmit data packets or configure hardware registers. Standard structures might be padded by the compiler for memory alignment, which breaks strict data layouts.</p>
 <p>We use packing directives (compiler-specific) to prevent this padding.</p>
-<pre class="codehilite"><code class="language-c">// GCC attribute to pack the struct
-typedef struct __attribute__((__packed__)) {
-    uint8_t id;      // 1 byte
-    uint32_t data;   // 4 bytes
-} CanPacket;         // Total size: 5 bytes (without packing, it might be 8 bytes)
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1">// GCC attribute to pack the struct</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">__attribute__</span><span class="p">((</span><span class="n">__packed__</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">      </span><span class="c1">// 1 byte</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">data</span><span class="p">;</span><span class="w">   </span><span class="c1">// 4 bytes</span>
+<span class="p">}</span><span class="w"> </span><span class="n">CanPacket</span><span class="p">;</span><span class="w">         </span><span class="c1">// Total size: 5 bytes (without packing, it might be 8 bytes)</span>
+</code></pre></div>
 
 <h2>Using Pointers Safely</h2>
 <p>Pointers are incredibly powerful, especially for memory-mapped I/O, but they must be managed carefully to avoid null pointer dereferences and memory leaks.</p>

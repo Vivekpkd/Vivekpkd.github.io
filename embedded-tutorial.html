@@ -715,6 +715,15 @@
         <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
     </div>
 </div>
+<div class="sidebar-category" data-category="other-topics">
+    <button class="category-header">
+        <span>Other Topics</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
+    </div>
+</div>
 
         </div>
     </div>
@@ -772,6 +781,15 @@
         <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
     </div>
 </div>
+<div class="sidebar-category" data-category="other-topics">
+    <button class="category-header">
+        <span>Other Topics</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
+    </div>
+</div>
 
             </div>
 
@@ -788,21 +806,21 @@
 <hr />
 <h2>Getting Started with Embedded Systems</h2>
 <p>Embedded systems form the foundation of modern electronics. This section covers the basics of embedded computing, hardware interaction, and development environments.</p>
-<pre class="codehilite"><code class="language-c">// Your first embedded program - LED blink
-#include &lt;avr/io.h&gt;
-#include &lt;util/delay.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Your first embedded program - LED blink</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/io.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;util/delay.h&gt;</span>
 
-int main(void) {
-    DDRB = 0b00100000;  // Set PB5 as output
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DDRB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b00100000</span><span class="p">;</span><span class="w">  </span><span class="c1">// Set PB5 as output</span>
 
-    while(1) {
-        PORTB ^= 0b00100000;  // Toggle PB5
-        _delay_ms(1000);       // Wait 1 second
-    }
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">PORTB</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="mb">0b00100000</span><span class="p">;</span><span class="w">  </span><span class="c1">// Toggle PB5</span>
+<span class="w">        </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w">       </span><span class="c1">// Wait 1 second</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return 0;
-}
-</code></pre>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: LED blinks every 1 second</p>
@@ -815,59 +833,59 @@ int main(void) {
 </ul>
 <h2>Microcontroller Architecture</h2>
 <p>Microcontrollers (MCUs) are the heart of embedded systems. Understanding their architecture is crucial for effective embedded programming.</p>
-<pre class="codehilite"><code class="language-c">// Reading analog sensor value
-#include &lt;avr/io.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Reading analog sensor value</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/io.h&gt;</span>
 
-uint16_t read_adc(uint8_t channel) {
-    ADMUX = (ADMUX &amp; 0xF0) | (channel &amp; 0x0F);
-    ADCSRA |= (1 &lt;&lt; ADSC);
+<span class="kt">uint16_t</span><span class="w"> </span><span class="nf">read_adc</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">channel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ADMUX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ADMUX</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xF0</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">channel</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x0F</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ADCSRA</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADSC</span><span class="p">);</span>
 
-    while(ADCSRA &amp; (1 &lt;&lt; ADSC));
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">ADCSRA</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADSC</span><span class="p">));</span>
 
-    return ADC;
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ADC</span><span class="p">;</span>
+<span class="p">}</span>
 
-int main(void) {
-    DDRC = 0x00;  // PORTC as input for ADC
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DDRC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x00</span><span class="p">;</span><span class="w">  </span><span class="c1">// PORTC as input for ADC</span>
 
-    while(1) {
-        uint16_t sensor_value = read_adc(0);
-        // Process sensor_value
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">sensor_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_adc</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// Process sensor_value</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: ADC value read from channel 0</p>
 </blockquote>
 <h3>CPU Core</h3>
 <p>The CPU executes instructions from memory and performs calculations. Most embedded systems use:</p>
-<pre class="codehilite"><code class="language-c">// Memory organization example
-volatile uint8_t register_a;      // SRAM
-const int rom_value = 1024;       // Flash/ROM
-static int static_var = 0;        // SRAM (initialized)
+<div class="codehilite"><pre><span></span><code><span class="c1">// Memory organization example</span>
+<span class="k">volatile</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">register_a</span><span class="p">;</span><span class="w">      </span><span class="c1">// SRAM</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">rom_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span><span class="w">       </span><span class="c1">// Flash/ROM</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">static_var</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">        </span><span class="c1">// SRAM (initialized)</span>
 
-void cpu_operation() {
-    register_a = rom_value;       // Copy from ROM to SRAM
-    static_var++;                 // Increment in SRAM
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">cpu_operation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">register_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rom_value</span><span class="p">;</span><span class="w">       </span><span class="c1">// Copy from ROM to SRAM</span>
+<span class="w">    </span><span class="n">static_var</span><span class="o">++</span><span class="p">;</span><span class="w">                 </span><span class="c1">// Increment in SRAM</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3>Memory Hierarchy</h3>
 <p>Embedded systems typically have three types of memory:</p>
-<pre class="codehilite"><code class="language-c">// Memory types and usage
-int global_array[100];            // SRAM - global storage
-const char* strings[] = {         // Flash - constant strings
-    &quot;Hello&quot;,
-    &quot;Embedded&quot;,
-    &quot;World&quot;
-};
+<div class="codehilite"><pre><span></span><code><span class="c1">// Memory types and usage</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">global_array</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span><span class="w">            </span><span class="c1">// SRAM - global storage</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">strings</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">         </span><span class="c1">// Flash - constant strings</span>
+<span class="w">    </span><span class="s">&quot;Hello&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Embedded&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;World&quot;</span>
+<span class="p">};</span>
 
-void memory_demo() {
-    static int counter = 0;       // Flash-initialized SRAM
-    counter++;
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">memory_demo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">       </span><span class="c1">// Flash-initialized SRAM</span>
+<span class="w">    </span><span class="n">counter</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <ul>
 <li>Flash Memory (Program Storage)</li>
@@ -876,319 +894,319 @@ void memory_demo() {
 </ul>
 <h2>GPIO and Digital I/O</h2>
 <p>General Purpose Input/Output (GPIO) pins are how microcontrollers interact with the physical world. They can be configured as inputs or outputs.</p>
-<pre class="codehilite"><code class="language-c">// GPIO configuration and control
-#include &lt;avr/io.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// GPIO configuration and control</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/io.h&gt;</span>
 
-#define LED_PIN     5
-#define BUTTON_PIN  2
+<span class="cp">#define LED_PIN     5</span>
+<span class="cp">#define BUTTON_PIN  2</span>
 
-void gpio_init() {
-    DDRB |= (1 &lt;&lt; LED_PIN);      // LED as output
-    DDRD &amp;= ~(1 &lt;&lt; BUTTON_PIN);  // Button as input
-    PORTD |= (1 &lt;&lt; BUTTON_PIN);  // Enable pull-up
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">gpio_init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DDRB</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">LED_PIN</span><span class="p">);</span><span class="w">      </span><span class="c1">// LED as output</span>
+<span class="w">    </span><span class="n">DDRD</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">BUTTON_PIN</span><span class="p">);</span><span class="w">  </span><span class="c1">// Button as input</span>
+<span class="w">    </span><span class="n">PORTD</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">BUTTON_PIN</span><span class="p">);</span><span class="w">  </span><span class="c1">// Enable pull-up</span>
+<span class="p">}</span>
 
-void check_button() {
-    if((PIND &amp; (1 &lt;&lt; BUTTON_PIN)) == 0) {
-        PORTB |= (1 &lt;&lt; LED_PIN);  // Turn LED ON
-    } else {
-        PORTB &amp;= ~(1 &lt;&lt; LED_PIN); // Turn LED OFF
-    }
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">check_button</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="p">((</span><span class="n">PIND</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">BUTTON_PIN</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">PORTB</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">LED_PIN</span><span class="p">);</span><span class="w">  </span><span class="c1">// Turn LED ON</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">PORTB</span><span class="w"> </span><span class="o">&amp;=</span><span class="w"> </span><span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">LED_PIN</span><span class="p">);</span><span class="w"> </span><span class="c1">// Turn LED OFF</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-int main(void) {
-    gpio_init();
-    while(1) {
-        check_button();
-    }
-}
-</code></pre>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">gpio_init</span><span class="p">();</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">check_button</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: LED responds to button press</p>
 </blockquote>
 <h3>Digital Outputs</h3>
-<pre class="codehilite"><code class="language-c">// Multiple output control
-void control_outputs() {
-    DDRB = 0xFF;        // All PORTB pins as outputs
-    PORTB = 0x0F;       // Set lower 4 bits HIGH
-    PORTB ^= 0xFF;      // Toggle all bits
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Multiple output control</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">control_outputs</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DDRB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span><span class="w">        </span><span class="c1">// All PORTB pins as outputs</span>
+<span class="w">    </span><span class="n">PORTB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0F</span><span class="p">;</span><span class="w">       </span><span class="c1">// Set lower 4 bits HIGH</span>
+<span class="w">    </span><span class="n">PORTB</span><span class="w"> </span><span class="o">^=</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span><span class="w">      </span><span class="c1">// Toggle all bits</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3>Digital Inputs</h3>
-<pre class="codehilite"><code class="language-c">// Reading digital inputs with debouncing
-uint8_t debounce_read(volatile uint8_t *port, uint8_t pin) {
-    uint8_t state_count = 0;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Reading digital inputs with debouncing</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="nf">debounce_read</span><span class="p">(</span><span class="k">volatile</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">port</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">pin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">state_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-    for(int i = 0; i &lt; 3; i++) {
-        if((*port &amp; (1 &lt;&lt; pin)) == 0) {
-            state_count++;
-        }
-        _delay_ms(5);
-    }
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">((</span><span class="o">*</span><span class="n">port</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pin</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">state_count</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return (state_count &gt;= 2) ? 1 : 0;
-}
-</code></pre>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">state_count</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Interrupts and External Events</h2>
 <p>Interrupts allow microcontrollers to respond to events without continuously polling. They're essential for real-time embedded systems.</p>
-<pre class="codehilite"><code class="language-c">// External interrupt handling
-#include &lt;avr/interrupt.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// External interrupt handling</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/interrupt.h&gt;</span>
 
-volatile uint8_t button_pressed = 0;
+<span class="k">volatile</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">button_pressed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-ISR(INT0_vect) {
-    button_pressed = 1;
-}
+<span class="n">ISR</span><span class="p">(</span><span class="n">INT0_vect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">button_pressed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-void interrupt_init() {
-    EICRA |= (1 &lt;&lt; ISC01);  // Falling edge trigger
-    EIMSK |= (1 &lt;&lt; INT0);   // Enable INT0
-    sei();                   // Enable global interrupts
-}
+<span class="kt">void</span><span class="w"> </span><span class="n">interrupt_init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">EICRA</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ISC01</span><span class="p">);</span><span class="w">  </span><span class="c1">// Falling edge trigger</span>
+<span class="w">    </span><span class="n">EIMSK</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">INT0</span><span class="p">);</span><span class="w">   </span><span class="c1">// Enable INT0</span>
+<span class="w">    </span><span class="n">sei</span><span class="p">();</span><span class="w">                   </span><span class="c1">// Enable global interrupts</span>
+<span class="p">}</span>
 
-int main(void) {
-    interrupt_init();
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">interrupt_init</span><span class="p">();</span>
 
-    while(1) {
-        if(button_pressed) {
-            // Handle button event
-            button_pressed = 0;
-        }
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">button_pressed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Handle button event</span>
+<span class="w">            </span><span class="n">button_pressed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: Interrupt triggered on external event</p>
 </blockquote>
 <h2>Timers and PWM</h2>
 <p>Timers are used for precise timing, pulse generation, and PWM (Pulse Width Modulation) control.</p>
-<pre class="codehilite"><code class="language-c">// Timer0 setup for PWM
-#include &lt;avr/io.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Timer0 setup for PWM</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/io.h&gt;</span>
 
-void pwm_init() {
-    DDRD |= (1 &lt;&lt; PD6);       // OC0A as output
-    TCCR0A = 0b11000011;      // PWM mode, set on compare
-    TCCR0B = 0b00000001;      // Prescaler 1
-    OCR0A = 127;              // 50% duty cycle
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">pwm_init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DDRD</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">PD6</span><span class="p">);</span><span class="w">       </span><span class="c1">// OC0A as output</span>
+<span class="w">    </span><span class="n">TCCR0A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b11000011</span><span class="p">;</span><span class="w">      </span><span class="c1">// PWM mode, set on compare</span>
+<span class="w">    </span><span class="n">TCCR0B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b00000001</span><span class="p">;</span><span class="w">      </span><span class="c1">// Prescaler 1</span>
+<span class="w">    </span><span class="n">OCR0A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">127</span><span class="p">;</span><span class="w">              </span><span class="c1">// 50% duty cycle</span>
+<span class="p">}</span>
 
-void set_pwm_duty(uint8_t duty) {
-    OCR0A = duty;  // 0-255 maps to 0-100%
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">set_pwm_duty</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">duty</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">OCR0A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">duty</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0-255 maps to 0-100%</span>
+<span class="p">}</span>
 
-int main(void) {
-    pwm_init();
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pwm_init</span><span class="p">();</span>
 
-    while(1) {
-        for(uint8_t i = 0; i &lt; 255; i++) {
-            set_pwm_duty(i);
-            _delay_ms(10);
-        }
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">255</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">set_pwm_duty</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="w">            </span><span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: PWM signal with varying duty cycle</p>
 </blockquote>
 <h3>Timer Interrupts</h3>
-<pre class="codehilite"><code class="language-c">// Timer overflow interrupt
-ISR(TIMER0_OVF_vect) {
-    // Executed every timer overflow
-    static uint8_t counter = 0;
-    counter++;
-}
+<div class="codehilite"><pre><span></span><code><span class="c1">// Timer overflow interrupt</span>
+<span class="n">ISR</span><span class="p">(</span><span class="n">TIMER0_OVF_vect</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Executed every timer overflow</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">counter</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
 
-void timer_overflow_init() {
-    TCCR0B = 0b00000101;      // Prescaler 1024
-    TIMSK0 |= (1 &lt;&lt; TOIE0);   // Enable overflow interrupt
-    sei();
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="n">timer_overflow_init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">TCCR0B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b00000101</span><span class="p">;</span><span class="w">      </span><span class="c1">// Prescaler 1024</span>
+<span class="w">    </span><span class="n">TIMSK0</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">TOIE0</span><span class="p">);</span><span class="w">   </span><span class="c1">// Enable overflow interrupt</span>
+<span class="w">    </span><span class="n">sei</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Serial Communication (UART)</h2>
 <p>UART (Universal Asynchronous Receiver-Transmitter) is one of the most common communication protocols in embedded systems.</p>
-<pre class="codehilite"><code class="language-c">// UART initialization and communication
-#include &lt;avr/io.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// UART initialization and communication</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/io.h&gt;</span>
 
-#define BAUD 9600
-#define F_CPU 16000000UL
-#define UBRR_VALUE ((F_CPU / (16UL * BAUD)) - 1)
+<span class="cp">#define BAUD 9600</span>
+<span class="cp">#define F_CPU 16000000UL</span>
+<span class="cp">#define UBRR_VALUE ((F_CPU / (16UL * BAUD)) - 1)</span>
 
-void uart_init() {
-    UBRR0H = (UBRR_VALUE &gt;&gt; 8);
-    UBRR0L = (UBRR_VALUE &amp; 0xFF);
-    UCSR0B = (1 &lt;&lt; RXEN0) | (1 &lt;&lt; TXEN0);
-    UCSR0C = (1 &lt;&lt; UCSZ01) | (1 &lt;&lt; UCSZ00);
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">uart_init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UBRR0H</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">UBRR_VALUE</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="w">    </span><span class="n">UBRR0L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">UBRR_VALUE</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">);</span>
+<span class="w">    </span><span class="n">UCSR0B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">RXEN0</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">TXEN0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">UCSR0C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">UCSZ01</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">UCSZ00</span><span class="p">);</span>
+<span class="p">}</span>
 
-void uart_transmit(uint8_t data) {
-    while(!(UCSR0A &amp; (1 &lt;&lt; UDRE0)));
-    UDR0 = data;
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">uart_transmit</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">UCSR0A</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">UDRE0</span><span class="p">)));</span>
+<span class="w">    </span><span class="n">UDR0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
 
-uint8_t uart_receive() {
-    while(!(UCSR0A &amp; (1 &lt;&lt; RXC0)));
-    return UDR0;
-}
+<span class="kt">uint8_t</span><span class="w"> </span><span class="nf">uart_receive</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">UCSR0A</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">RXC0</span><span class="p">)));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">UDR0</span><span class="p">;</span>
+<span class="p">}</span>
 
-int main(void) {
-    uart_init();
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">uart_init</span><span class="p">();</span>
 
-    while(1) {
-        uint8_t received = uart_receive();
-        uart_transmit(received);  // Echo received data
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">received</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">uart_receive</span><span class="p">();</span>
+<span class="w">        </span><span class="n">uart_transmit</span><span class="p">(</span><span class="n">received</span><span class="p">);</span><span class="w">  </span><span class="c1">// Echo received data</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: Data echoed back through UART</p>
 </blockquote>
 <h2>Analog-to-Digital Conversion (ADC)</h2>
 <p>ADC converts analog signals from sensors into digital values that the microcontroller can process.</p>
-<pre class="codehilite"><code class="language-c">// ADC configuration for temperature sensor
-#include &lt;avr/io.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// ADC configuration for temperature sensor</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/io.h&gt;</span>
 
-void adc_init() {
-    ADMUX = 0b01000000;        // AVCC reference, ADC0 channel
-    ADCSRA = 0b10000110;       // Enable ADC, prescaler 64
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">adc_init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ADMUX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b01000000</span><span class="p">;</span><span class="w">        </span><span class="c1">// AVCC reference, ADC0 channel</span>
+<span class="w">    </span><span class="n">ADCSRA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b10000110</span><span class="p">;</span><span class="w">       </span><span class="c1">// Enable ADC, prescaler 64</span>
+<span class="p">}</span>
 
-uint16_t adc_read() {
-    ADCSRA |= (1 &lt;&lt; ADSC);     // Start conversion
-    while(ADCSRA &amp; (1 &lt;&lt; ADSC));
-    return ADC;
-}
+<span class="kt">uint16_t</span><span class="w"> </span><span class="nf">adc_read</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ADCSRA</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADSC</span><span class="p">);</span><span class="w">     </span><span class="c1">// Start conversion</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">ADCSRA</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ADSC</span><span class="p">));</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ADC</span><span class="p">;</span>
+<span class="p">}</span>
 
-int main(void) {
-    adc_init();
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">adc_init</span><span class="p">();</span>
 
-    while(1) {
-        uint16_t analog_val = adc_read();
-        int temperature = (analog_val * 5 / 1024);
-        // Process temperature reading
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">analog_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adc_read</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">analog_val</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1024</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// Process temperature reading</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: Temperature value in digital format</p>
 </blockquote>
 <h2>Memory Management</h2>
 <p>Efficient memory management is critical in resource-constrained embedded systems.</p>
-<pre class="codehilite"><code class="language-c">// Static vs Dynamic memory
-#include &lt;stdlib.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Static vs Dynamic memory</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span>
 
-// Static allocation - fixed at compile time
-uint8_t buffer[256];
+<span class="c1">// Static allocation - fixed at compile time</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
 
-// Dynamic allocation - runtime flexibility
-void* allocate_buffer(size_t size) {
-    return malloc(size);
-}
+<span class="c1">// Dynamic allocation - runtime flexibility</span>
+<span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">allocate_buffer</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+<span class="p">}</span>
 
-void init_system() {
-    // Prefer static allocation when possible
-    static int system_state = 0;
+<span class="kt">void</span><span class="w"> </span><span class="nf">init_system</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Prefer static allocation when possible</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">system_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-    // Use dynamic allocation sparingly
-    uint8_t* temp_buffer = malloc(128);
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// Use dynamic allocation sparingly</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">temp_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="mi">128</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Real-Time Operating Systems (RTOS)</h2>
 <p>Many embedded systems use RTOS for multitasking and scheduling.</p>
-<pre class="codehilite"><code class="language-c">// FreeRTOS example
-#include &lt;FreeRTOS.h&gt;
-#include &lt;task.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// FreeRTOS example</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;FreeRTOS.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;task.h&gt;</span>
 
-void task_led(void *pvParameters) {
-    while(1) {
-        toggle_led();
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-    }
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">task_led</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pvParameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">toggle_led</span><span class="p">();</span>
+<span class="w">        </span><span class="n">vTaskDelay</span><span class="p">(</span><span class="mi">500</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">portTICK_PERIOD_MS</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-void task_sensor(void *pvParameters) {
-    while(1) {
-        read_sensor();
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">task_sensor</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pvParameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">read_sensor</span><span class="p">();</span>
+<span class="w">        </span><span class="n">vTaskDelay</span><span class="p">(</span><span class="mi">1000</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">portTICK_PERIOD_MS</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-int main(void) {
-    xTaskCreate(task_led, &quot;LED&quot;, 256, NULL, 1, NULL);
-    xTaskCreate(task_sensor, &quot;Sensor&quot;, 256, NULL, 1, NULL);
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">xTaskCreate</span><span class="p">(</span><span class="n">task_led</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;LED&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">xTaskCreate</span><span class="p">(</span><span class="n">task_sensor</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sensor&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
 
-    vTaskStartScheduler();
-    return 0;
-}
-</code></pre>
+<span class="w">    </span><span class="n">vTaskStartScheduler</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: Multiple tasks running concurrently</p>
 </blockquote>
 <h2>Debugging Embedded Systems</h2>
 <p>Debugging embedded systems requires specialized tools and techniques.</p>
-<pre class="codehilite"><code class="language-c">// Debug macro for logging
-#define DEBUG_PRINT(fmt, ...) \
-    uart_printf(&quot;DEBUG: &quot; fmt &quot;\r\n&quot;, ##__VA_ARGS__)
+<div class="codehilite"><pre><span></span><code><span class="c1">// Debug macro for logging</span>
+<span class="cp">#define DEBUG_PRINT(fmt, ...) \</span>
+<span class="cp">    uart_printf(&quot;DEBUG: &quot; fmt &quot;\r\n&quot;, ##__VA_ARGS__)</span>
 
-void debug_system_state() {
-    static uint16_t debug_counter = 0;
+<span class="kt">void</span><span class="w"> </span><span class="nf">debug_system_state</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">debug_counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-    if(debug_counter++ % 1000 == 0) {
-        DEBUG_PRINT(&quot;System uptime: %lu ms&quot;, get_uptime());
-    }
-}
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">debug_counter</span><span class="o">++</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">DEBUG_PRINT</span><span class="p">(</span><span class="s">&quot;System uptime: %lu ms&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">get_uptime</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-void uart_printf(const char *fmt, ...) {
-    // Implementation for formatted UART output
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">uart_printf</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">fmt</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implementation for formatted UART output</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Power Management</h2>
 <p>Embedded systems often run on batteries, making power efficiency crucial.</p>
-<pre class="codehilite"><code class="language-c">// Sleep mode implementation
-#include &lt;avr/sleep.h&gt;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Sleep mode implementation</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;avr/sleep.h&gt;</span>
 
-void enter_sleep_mode() {
-    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-    sleep_enable();
-    sei();
-    sleep_cpu();
-    sleep_disable();
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">enter_sleep_mode</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">set_sleep_mode</span><span class="p">(</span><span class="n">SLEEP_MODE_PWR_DOWN</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sleep_enable</span><span class="p">();</span>
+<span class="w">    </span><span class="n">sei</span><span class="p">();</span>
+<span class="w">    </span><span class="n">sleep_cpu</span><span class="p">();</span>
+<span class="w">    </span><span class="n">sleep_disable</span><span class="p">();</span>
+<span class="p">}</span>
 
-void power_efficient_loop() {
-    while(1) {
-        if(no_work_to_do()) {
-            enter_sleep_mode();
-        }
-    }
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">power_efficient_loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">no_work_to_do</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">enter_sleep_mode</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Performance Optimization</h2>
-<pre class="codehilite"><code class="language-c">// Inline functions for performance-critical code
-static inline void fast_operation() {
-    // Critical operation - avoid function call overhead
-}
+<div class="codehilite"><pre><span></span><code><span class="c1">// Inline functions for performance-critical code</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">fast_operation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Critical operation - avoid function call overhead</span>
+<span class="p">}</span>
 
-// Bit manipulation for efficiency
-#define SET_BIT(port, bit)   ((port) |= (1 &lt;&lt; (bit)))
-#define CLR_BIT(port, bit)   ((port) &amp;= ~(1 &lt;&lt; (bit)))
-#define TOG_BIT(port, bit)   ((port) ^= (1 &lt;&lt; (bit)))
+<span class="c1">// Bit manipulation for efficiency</span>
+<span class="cp">#define SET_BIT(port, bit)   ((port) |= (1 &lt;&lt; (bit)))</span>
+<span class="cp">#define CLR_BIT(port, bit)   ((port) &amp;= ~(1 &lt;&lt; (bit)))</span>
+<span class="cp">#define TOG_BIT(port, bit)   ((port) ^= (1 &lt;&lt; (bit)))</span>
 
-void optimized_routine() {
-    SET_BIT(PORTB, 5);  // More efficient than PORTB |= (1 &lt;&lt; 5)
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">optimized_routine</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">SET_BIT</span><span class="p">(</span><span class="n">PORTB</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">  </span><span class="c1">// More efficient than PORTB |= (1 &lt;&lt; 5)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Common Pitfalls and Best Practices</h2>
 <p>Common mistakes in embedded development:</p>
@@ -1199,21 +1217,21 @@ void optimized_routine() {
 <li>Not planning for scalability</li>
 <li>Poor code documentation</li>
 </ul>
-<pre class="codehilite"><code class="language-c">// Best practice examples
-volatile uint8_t sensor_flag = 0;  // Hardware register
+<div class="codehilite"><pre><span></span><code><span class="c1">// Best practice examples</span>
+<span class="k">volatile</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">sensor_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// Hardware register</span>
 
-ISR(INT0_vect) __attribute__((interrupt)) {
-    sensor_flag = 1;
-}
+<span class="n">ISR</span><span class="p">(</span><span class="n">INT0_vect</span><span class="p">)</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">interrupt</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">sensor_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
-void safe_buffer_operation(const char *data, size_t max_len) {
-    // Boundary checking
-    if(strlen(data) &gt;= max_len) {
-        // Handle error
-        return;
-    }
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="n">safe_buffer_operation</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">max_len</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Boundary checking</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">max_len</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Handle error</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Practice Projects</h2>
 <p>Test your embedded systems knowledge with these projects:</p>

@@ -715,6 +715,15 @@
         <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
     </div>
 </div>
+<div class="sidebar-category" data-category="other-topics">
+    <button class="category-header">
+        <span>Other Topics</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
+    </div>
+</div>
 
         </div>
     </div>
@@ -772,6 +781,15 @@
         <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
     </div>
 </div>
+<div class="sidebar-category" data-category="other-topics">
+    <button class="category-header">
+        <span>Other Topics</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
+    </div>
+</div>
 
             </div>
 
@@ -812,17 +830,17 @@ The primary goal of AUTOSAR is to manage the growing complexity of electrical an
 - <strong>Services Layer:</strong> Provides operating system, vehicle network communication, memory services, etc.<br />
 - <strong>ECU Abstraction Layer:</strong> Interacts with the drivers to provide a hardware-independent API.<br />
 - <strong>Microcontroller Abstraction Layer (MCAL):</strong> The lowest layer, containing drivers that directly interact with the microcontroller registers.</p>
-<pre class="codehilite"><code class="language-c">// Example MCAL Initialization Structure
-typedef struct {
-    uint32_t BaudRate;
-    uint8_t  Parity;
-    uint8_t  StopBits;
-} Uart_ConfigType;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Example MCAL Initialization Structure</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">BaudRate</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w">  </span><span class="n">Parity</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w">  </span><span class="n">StopBits</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">Uart_ConfigType</span><span class="p">;</span>
 
-void Uart_Init(const Uart_ConfigType* ConfigPtr) {
-    // Hardware-specific register configuration goes here
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Uart_Init</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Uart_ConfigType</span><span class="o">*</span><span class="w"> </span><span class="n">ConfigPtr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Hardware-specific register configuration goes here</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Summary</h2>
 <p>By separating the application from the hardware, AUTOSAR enables:<br />
