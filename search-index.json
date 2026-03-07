@@ -1,0 +1,182 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-03-01T00:00:00Z",
+  "articles": [
+    {
+      "id": "automotive-bootloader",
+      "title": "Automotive Bootloader",
+      "date": "Jan 17, 2026",
+      "year": 2026,
+      "excerpt": "How to update firmware in the field. Dual-bank updates and memory jumping.",
+      "link": "article-automotive-bootloader.html",
+      "category": "General",
+      "tags": [],
+      "keywords": ["bootloader", "firmware", "update", "dual-bank", "memory"]
+    },
+    {
+      "id": "autosar-masterclass-1",
+      "title": "AUTOSAR Masterclass: Part 1 - The Foundation",
+      "date": "Feb 09, 2026",
+      "year": 2026,
+      "excerpt": "What is AUTOSAR? Why does the automotive industry depend on it? Learn the philosophy and the massive layered architecture behind modern vehicles.",
+      "link": "article-autosar-masterclass-1.html",
+      "category": "AUTOSAR",
+      "tags": ["AUTOSAR", "Architecture", "Automotive", "BSW", "RTE"],
+      "keywords": ["autosar", "architecture", "automotive", "bsw", "rte", "foundation"]
+    },
+    {
+      "id": "autosar-masterclass-2",
+      "title": "AUTOSAR Masterclass: Part 2 - ASW & VFB",
+      "date": "Feb 09, 2026",
+      "year": 2026,
+      "excerpt": "Software Components (SWCs), Ports, and the Virtual Functional Bus. Learn how AUTOSAR enables hardware-independent software design.",
+      "link": "article-autosar-masterclass-2.html",
+      "category": "AUTOSAR",
+      "tags": ["AUTOSAR", "ASW", "VFB", "SWC", "Ports"],
+      "keywords": ["autosar", "asw", "vfb", "swc", "ports", "software", "components"]
+    },
+    {
+      "id": "autosar-masterclass-3",
+      "title": "AUTOSAR Masterclass: Part 3 - The Glue (RTE)",
+      "date": "Feb 09, 2026",
+      "year": 2026,
+      "excerpt": "Master the Runtime Environment (RTE). The vital middleware that transforms virtual connections into real C code and handles task scheduling.",
+      "link": "article-autosar-masterclass-3.html",
+      "category": "AUTOSAR",
+      "tags": ["AUTOSAR", "RTE", "Middleware", "Code Generation", "Scheduling"],
+      "keywords": ["autosar", "rte", "runtime", "environment", "middleware", "scheduling"]
+    },
+    {
+      "id": "autosar-masterclass-4",
+      "title": "AUTOSAR Masterclass: Part 4 - ARXML Deep Dive",
+      "date": "Feb 09, 2026",
+      "year": 2026,
+      "excerpt": "Decode ARXML files. Learn the XML structure behind AUTOSAR configurations and see how tools parse them into executable code.",
+      "link": "article-autosar-masterclass-4.html",
+      "category": "AUTOSAR",
+      "tags": ["AUTOSAR", "ARXML", "XML", "Configuration", "Toolchain"],
+      "keywords": ["autosar", "arxml", "xml", "configuration", "toolchain"]
+    },
+    {
+      "id": "autosar-masterclass-5",
+      "title": "AUTOSAR Masterclass: Part 5 - Generators & Tools",
+      "date": "Feb 09, 2026",
+      "year": 2026,
+      "excerpt": "How AUTOSAR tools convert configurations into production code. Code generation, compilation, and linking in the AUTOSAR toolchain.",
+      "link": "article-autosar-masterclass-5.html",
+      "category": "AUTOSAR",
+      "tags": ["AUTOSAR", "Code Generation", "Toolchain", "Build", "Deployment"],
+      "keywords": ["autosar", "code generation", "toolchain", "build"]
+    },
+    {
+      "id": "autosar-masterclass-6",
+      "title": "AUTOSAR Masterclass: Part 6 - Real-World Integration",
+      "date": "Feb 09, 2026",
+      "year": 2026,
+      "excerpt": "Hands-on: Integrating AUTOSAR into existing ECU firmware. Best practices, debugging, and deployment to real vehicles.",
+      "link": "article-autosar-masterclass-6.html",
+      "category": "AUTOSAR",
+      "tags": ["AUTOSAR", "Integration", "Debugging", "Deployment", "ECU"],
+      "keywords": ["autosar", "integration", "debugging", "ecu", "deployment"]
+    },
+    {
+      "id": "autosar-stacks",
+      "title": "AUTOSAR Stacks: The Complete Layered Architecture",
+      "date": "Feb 04, 2026",
+      "year": 2026,
+      "excerpt": "Dive deep into AUTOSAR stack organization. Application, BSW, RTE, and Hardware. Understand how layers communicate.",
+      "link": "article-autosar_stacks.html",
+      "category": "AUTOSAR",
+      "tags": ["AUTOSAR", "Stacks", "Architecture", "ISA", "Layers"],
+      "keywords": ["autosar", "stacks", "architecture", "layers"]
+    },
+    {
+      "id": "embedded-c-basics-1",
+      "title": "Embedded C Basics: Part 1 - Registers and Memory",
+      "date": "Jan 20, 2026",
+      "year": 2026,
+      "excerpt": "Start your embedded journey. Learn how to read hardware registers, manage memory directly, and understand the CPU architecture.",
+      "link": "article-embedded-c-basics-1.html",
+      "category": "Embedded C",
+      "tags": ["Embedded C", "Registers", "Memory", "Hardware", "CPU"],
+      "keywords": ["embedded", "c", "registers", "memory", "hardware"]
+    },
+    {
+      "id": "embedded-c-basics-2",
+      "title": "Embedded C Basics: Part 2 - GPIO and Bitwise Operations",
+      "date": "Jan 22, 2026",
+      "year": 2026,
+      "excerpt": "Master GPIO programming and bitwise operations. Control pins, read sensors, and work with hardware masks in embedded systems.",
+      "link": "article-embedded-c-basics-2.html",
+      "category": "Embedded C",
+      "tags": ["Embedded C", "GPIO", "Bitwise", "Sensors", "Hardware Control"],
+      "keywords": ["embedded", "gpio", "bitwise", "sensors", "hardware"]
+    },
+    {
+      "id": "embedded-c-basics-3",
+      "title": "Embedded C Basics: Part 3 - Interrupts and ISRs",
+      "date": "Jan 24, 2026",
+      "year": 2026,
+      "excerpt": "Understand interrupts: how to write ISRs, avoid context switches, and design interrupt-driven systems safely.",
+      "link": "article-embedded-c-basics-3.html",
+      "category": "Embedded C",
+      "tags": ["Embedded C", "Interrupts", "ISR", "Context Switching", "Real-time"],
+      "keywords": ["embedded", "interrupts", "isr", "real-time"]
+    },
+    {
+      "id": "embedded-c-basics-4",
+      "title": "Embedded C Basics: Part 4 - Timers and PWM",
+      "date": "Jan 26, 2026",
+      "year": 2026,
+      "excerpt": "Work with timers and PWM to create precise timing, control motors, and generate signals at exact frequencies.",
+      "link": "article-embedded-c-basics-4.html",
+      "category": "Embedded C",
+      "tags": ["Embedded C", "Timers", "PWM", "Motor Control", "Signals"],
+      "keywords": ["embedded", "timers", "pwm", "motor", "control"]
+    },
+    {
+      "id": "embedded-c-basics-5",
+      "title": "Embedded C Basics: Part 5 - Serial Communication (UART/SPI)",
+      "date": "Jan 28, 2026",
+      "year": 2026,
+      "excerpt": "Communicate with the outside world using UART, SPI, and I2C. Learn data transmission, framing, and synchronization.",
+      "link": "article-embedded-c-basics-5.html",
+      "category": "Embedded C",
+      "tags": ["Embedded C", "UART", "SPI", "I2C", "Communication"],
+      "keywords": ["embedded", "uart", "spi", "i2c", "communication", "serial"]
+    },
+    {
+      "id": "embedded-c-basics-6",
+      "title": "Embedded C Basics: Part 6 - Building a Real Firmware Project",
+      "date": "Feb 01, 2026",
+      "year": 2026,
+      "excerpt": "Hands-on: Build a complete firmware project from scratch. Linker scripts, memory layout, makefiles, and debugging techniques.",
+      "link": "article-embedded-c-basics-6.html",
+      "category": "Embedded C",
+      "tags": ["Embedded C", "Build System", "Linker", "Debugging", "Firmware"],
+      "keywords": ["embedded", "build", "linker", "debugging", "firmware"]
+    },
+    {
+      "id": "fee-autosar",
+      "title": "Flash EEPROM Emulation in AUTOSAR (FEE Overview)",
+      "date": "Feb 06, 2026",
+      "year": 2026,
+      "excerpt": "How AUTOSAR manages persistent data. Deep dive into FEE (Flash EEPROM Emulation), wear leveling, and data integrity.",
+      "link": "article-fee-autosar.html",
+      "category": "AUTOSAR",
+      "tags": ["AUTOSAR", "FEE", "Flash", "EEPROM", "Data Management"],
+      "keywords": ["autosar", "fee", "flash", "eeprom", "data", "persistent"]
+    },
+    {
+      "id": "hardware-security-module-hsm",
+      "title": "Hardware Security Module (HSM) in Automotive",
+      "date": "Feb 02, 2026",
+      "year": 2026,
+      "excerpt": "Secure your ECU. Learn how Hardware Security Modules protect cryptographic keys, verify firmware signatures, and prevent tampering.",
+      "link": "article-hardware-security-module-hsm.html",
+      "category": "General",
+      "tags": ["Security", "HSM", "Cryptography", "Firmware Protection", "Tampering"],
+      "keywords": ["security", "hsm", "cryptography", "firmware", "protection"]
+    }
+  ]
+}

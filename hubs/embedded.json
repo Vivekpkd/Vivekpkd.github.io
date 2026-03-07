@@ -1,0 +1,173 @@
+{
+    "id": "embedded",
+    "filename": "explore-embedded.html",
+    "title": "Embedded C Tutorial",
+    "meta_title": "Embedded C Tutorial | Learn Embedded Systems Programming - Autodevv",
+    "category": "Embedded C",
+    "tags": [
+        "🔌 Embedded Systems",
+        "🛠️ Hardware"
+    ],
+    "last_updated": "02 Mar, 2026",
+    "intro": "Embedded C is an extension of the C programming language that is used to develop software for microcontrollers and embedded devices. Unlike standard C, it requires an understanding of hardware registers, memory mapping, and real-time constraints.",
+    "sections": [
+        {
+            "title": "The \"Hello World\" of Embedded: LED Blink",
+            "text": "In embedded systems, the first program is usually toggling a GPIO pin to blink an LED. Below is a generic register-level example.",
+            "code": {
+                "lang": "Embedded C",
+                "content": "// Example: Toggling a Pin on Port B (Pin 5)\n#include <stdint.h>\n\n#define PORTB_REG  (*((volatile uint32_t *)0x40020414))\n#define PIN5       (1 << 5)\n\nint main(void) {\n    // Configure hardware here...\n    \n    while(1) {\n        PORTB_REG ^= PIN5; // Toggle Pin 5 using XOR\n        for(volatile int i = 0; i < 100000; i++); // Software Delay\n    }\n    return 0;\n}"
+            },
+            "info": "The volatile keyword is crucial in Embedded C to prevent the compiler from optimizing out loops or variables that represent hardware registers."
+        },
+        {
+            "title": "Embedded C vs. Standard C",
+            "list": [
+                "Hardware Dependency: Embedded C interacts directly with I/O ports and registers.",
+                "Resources: Embedded systems have limited RAM and Flash (ROM).",
+                "No OS: Often runs \"Bare Metal\" without an operating system.",
+                "Infinite Loops: Embedded programs typically never exit (`while(1)`)."
+            ]
+        }
+    ],
+    "syllabus": [
+        {
+            "title": "Structure of an Embedded Program",
+            "link": "#"
+        },
+        {
+            "title": "Fixed-point Arithmetic",
+            "link": "#",
+            "badge": "QUIZ"
+        },
+        {
+            "title": "Inline Assembly in C",
+            "link": "#"
+        },
+        {
+            "title": "Memory Management (Stack vs Heap)",
+            "link": "#"
+        },
+        {
+            "title": "DMA (Direct Memory Access)",
+            "link": "#",
+            "badge": "NEW"
+        },
+        {
+            "title": "Watchdog Timers",
+            "link": "#"
+        }
+    ],
+    "left_sidebar": [
+        {
+            "title": "🔌 Getting Started",
+            "links": [
+                {
+                    "title": "What is Embedded C?",
+                    "link": "#",
+                    "active": true
+                },
+                {
+                    "title": "C vs Embedded C",
+                    "link": "#",
+                    "time": "5 min"
+                },
+                {
+                    "title": "Embedded Software Architecture",
+                    "link": "#",
+                    "time": "8 min"
+                }
+            ]
+        },
+        {
+            "title": "⚙️ Core Concepts",
+            "links": [
+                {
+                    "title": "Bitwise Operators",
+                    "link": "#",
+                    "time": "10 min"
+                },
+                {
+                    "title": "The volatile Keyword",
+                    "link": "#",
+                    "time": "4 min"
+                },
+                {
+                    "title": "Pointers in Embedded Systems",
+                    "link": "#",
+                    "time": "12 min"
+                },
+                {
+                    "title": "Interrupt Service Routines (ISR)",
+                    "link": "#",
+                    "time": "7 min"
+                }
+            ]
+        },
+        {
+            "title": "📟 Hardware Interfacing",
+            "links": [
+                {
+                    "title": "GPIO Programming",
+                    "link": "#",
+                    "time": "6 min"
+                },
+                {
+                    "title": "UART Communication",
+                    "link": "#",
+                    "time": "9 min"
+                },
+                {
+                    "title": "I2C and SPI Protocols",
+                    "link": "#",
+                    "time": "15 min"
+                },
+                {
+                    "title": "Timers and Counters",
+                    "link": "#",
+                    "time": "8 min"
+                }
+            ]
+        }
+    ],
+    "right_sidebar": [
+        {
+            "title": "📌 Popular Microcontrollers",
+            "links": [
+                {
+                    "title": "STM32 (ARM Cortex-M) →",
+                    "link": "#"
+                },
+                {
+                    "title": "Arduino (AVR) →",
+                    "link": "#"
+                },
+                {
+                    "title": "ESP32 (Wi-Fi/BT) →",
+                    "link": "#"
+                },
+                {
+                    "title": "PIC Microcontrollers →",
+                    "link": "#"
+                }
+            ]
+        },
+        {
+            "title": "🔥 Trending Topics",
+            "links": [
+                {
+                    "title": "FreeRTOS Scheduling",
+                    "link": "#"
+                },
+                {
+                    "title": "CAN Bus Protocol",
+                    "link": "#"
+                },
+                {
+                    "title": "Low Power Optimization",
+                    "link": "#"
+                }
+            ]
+        }
+    ]
+}

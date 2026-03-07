@@ -1,0 +1,167 @@
+{
+    "id": "autosar",
+    "filename": "explore-autosar.html",
+    "title": "AUTOSAR Mastery",
+    "meta_title": "AUTOSAR Tutorial | Master Automotive Software Architecture - Autodevv",
+    "category": "AUTOSAR",
+    "tags": [
+        "🚗 Automotive",
+        "🏗️ Architecture"
+    ],
+    "last_updated": "02 Mar, 2026",
+    "intro": "AUTOSAR (AUTomotive Open System ARchitecture) is a worldwide development partnership of automotive interested parties that has established an open and standardized software architecture for automotive electronic control units (ECUs). It provides a scalable and flexible framework for managing the growing complexity of automotive software.",
+    "sections": [
+        {
+            "title": "The SWC Runnable: Heart of App Logic",
+            "text": "In AUTOSAR, the actual logic resides in Software Components (SWCs). Runnables are the periodic or event-driven functions that execute this logic, triggered by the Runtime Environment (RTE).",
+            "code": {
+                "lang": "C (AUTOSAR Runnable)",
+                "content": "// Example: Periodic Runnable for a Headlight Controller\n#include \"Rte_HeadlightControl.h\"\n\nvoid Runnable_HeadlightControl_10ms(void) {\n    uint8 lightStatus;\n    uint8 switchInput;\n\n    // Read input data from RTE Port\n    (void)Rte_Read_rpLightSwitch_Element(&switchInput);\n\n    if(switchInput == 1) {\n        lightStatus = 1; // ON\n    } else {\n        lightStatus = 0; // OFF\n    }\n\n    // Write output data to RTE Port\n    (void)Rte_Write_ppLightStatus_Element(lightStatus);\n}"
+            },
+            "info": "The RTE (Runtime Environment) is the glue that connects SWCs to the BSW and each other, ensuring hardware independence for the application software."
+        },
+        {
+            "title": "Classic vs. Adaptive Platform",
+            "list": [
+                "Classic Platform: For deeply embedded ECUs with real-time and safety constraints (OSEK/VDX based).",
+                "Adaptive Platform: For high-performance computing units (HPCUs) like ADAS and Infotainment (POSIX/C++ based).",
+                "Interoperability: Both platforms can coexist in a vehicle through Signal-based and Service-oriented communication."
+            ]
+        }
+    ],
+    "syllabus": [
+        {
+            "title": "Service Oriented Architecture (SOA)",
+            "link": "#"
+        },
+        {
+            "title": "SOME/IP Protocol",
+            "link": "#",
+            "badge": "QUIZ"
+        },
+        {
+            "title": "Security in AUTOSAR (SecOC)",
+            "link": "#"
+        },
+        {
+            "title": "Diagnostic Stack (Dem, Dcm)",
+            "link": "#"
+        },
+        {
+            "title": "Communication Stack (Can, Eth, Lin)",
+            "link": "#",
+            "badge": "NEW"
+        },
+        {
+            "title": "Operating System (OS) and Scheduler",
+            "link": "#"
+        }
+    ],
+    "left_sidebar": [
+        {
+            "title": "🧱 Core Architecture",
+            "links": [
+                {
+                    "title": "What is AUTOSAR?",
+                    "link": "#",
+                    "active": true
+                },
+                {
+                    "title": "Layered Architecture",
+                    "link": "#",
+                    "time": "8 min"
+                },
+                {
+                    "title": "Adaptive vs Classic",
+                    "link": "#",
+                    "time": "12 min"
+                }
+            ]
+        },
+        {
+            "title": "🛠️ Software Layers",
+            "links": [
+                {
+                    "title": "BSW (Basic Software)",
+                    "link": "#",
+                    "time": "15 min"
+                },
+                {
+                    "title": "MCAL Layer",
+                    "link": "#",
+                    "time": "10 min"
+                },
+                {
+                    "title": "RTE Configuration",
+                    "link": "#",
+                    "time": "14 min"
+                },
+                {
+                    "title": "Application Layer (SWC)",
+                    "link": "#",
+                    "time": "9 min"
+                }
+            ]
+        },
+        {
+            "title": "📊 Methodology",
+            "links": [
+                {
+                    "title": "V-Model in AUTOSAR",
+                    "link": "#",
+                    "time": "6 min"
+                },
+                {
+                    "title": "ARXML Modeling",
+                    "link": "#",
+                    "time": "11 min"
+                },
+                {
+                    "title": "Configuration Tools",
+                    "link": "#",
+                    "time": "20 min"
+                }
+            ]
+        }
+    ],
+    "right_sidebar": [
+        {
+            "title": "📌 Industry Standards",
+            "links": [
+                {
+                    "title": "ISO 26262 (Functional Safety) →",
+                    "link": "#"
+                },
+                {
+                    "title": "ASPICE (Software Process) →",
+                    "link": "#"
+                },
+                {
+                    "title": "ISO 21434 (CyberSecurity) →",
+                    "link": "#"
+                },
+                {
+                    "title": "MISRA C Coding Standards →",
+                    "link": "#"
+                }
+            ]
+        },
+        {
+            "title": "🔥 Trending in Automotive",
+            "links": [
+                {
+                    "title": "Over-the-Air (OTA) Updates",
+                    "link": "#"
+                },
+                {
+                    "title": "Zonal Architecture",
+                    "link": "#"
+                },
+                {
+                    "title": "Machine Learning in ECUs",
+                    "link": "#"
+                }
+            ]
+        }
+    ]
+}

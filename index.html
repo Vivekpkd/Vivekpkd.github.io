@@ -7,61 +7,1441 @@
     <title>Autodevv - Automotive Software Engineer Portfolio</title>
     <meta name="description"
         content="Professional portfolio of Autodevv, a Senior Automotive Software Engineer specializing in Embedded Systems, RTOS, and ISO 26262.">
-    <meta name="keywords" content="Web Developer, React, Portfolio, Adsense Approval, Technical Writing, JavaScript">
+    <meta name="keywords" content="Automotive Software, AUTOSAR, Embedded C, RTOS, ISO 26262, Safety Critical">
     <meta name="author" content="Autodevv">
+    <!-- AdSense / SEO required -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://autodevv.com/index.html">
 
-    <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="Vivek | Creative Developer & Writer">
+    <meta property="og:title" content="Autodevv | Automotive Software Engineer">
     <meta property="og:description"
-        content="Building Future-Ready Digital Experiences. Check out my projects and technical articles.">
+        content="Architecting Safe & Reliable Automotive Systems. Explore technical articles and project portfolio.">
     <meta property="og:image" content="images/profile.jpg">
     <meta property="og:type" content="website">
 
-    <!-- Google Adsense (Placeholder) -->
-    <!-- Replace 'ca-pub-XXXXXXXXXXXXXXXX' with your actual Publisher ID -->
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Sedan+SC&display=swap"
         rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=2.0">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0A84FF">
+
+    <!-- ✅ AdSense: Replace with your publisher ID when approved -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+    <!-- Main Stylesheet (kept reference) -->
+    <link rel="stylesheet" href="styles.css?v=2.4">
+
     <script>
         (function () {
-            const theme = localStorage.getItem('theme');
+            const theme = localStorage.getItem('theme') || 'dark';
             if (theme === 'light') {
                 document.documentElement.setAttribute('data-theme', 'light');
-            } else {
-                document.documentElement.removeAttribute('data-theme');
             }
         })();
     </script>
+
+    <style>
+        /* ============================================
+           DESIGN TOKENS & RESET
+        ============================================ */
+        :root {
+            --primary: #0A84FF;
+            --primary-dim: rgba(10, 132, 255, 0.12);
+            --primary-glow: rgba(10, 132, 255, 0.35);
+            --accent: #30D158;
+            --accent-orange: #FF9F0A;
+            --accent-red: #FF453A;
+            --accent-purple: #BF5AF2;
+
+            --bg-base: #080C10;
+            --bg-surface: #0D1117;
+            --bg-card: #111820;
+            --bg-card-hover: #161E28;
+            --bg-elevated: #1C2433;
+
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.12);
+
+            --text-main: #F0F6FF;
+            --text-body: #9BABB8;
+            --text-muted: #5C6E7A;
+            --text-code: #58D68D;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+
+            --font-display: 'Neue Haas Grotesk Display Pro', 'NeueHaasGroteskDisplayPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-body: 'Neue Haas Grotesk Text Pro', 'NeueHaasGroteskTextPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
+            --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-base: #F5F7FA;
+            --bg-surface: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #F0F4FA;
+            --bg-elevated: #E8EDF5;
+            --border: rgba(0, 0, 0, 0.07);
+            --border-strong: rgba(0, 0, 0, 0.12);
+            --text-main: #0D1117;
+            --text-body: #4A5568;
+            --text-muted: #8A9BB0;
+            --text-code: #1A7F4B;
+            --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.08);
+            --shadow-card-hover: 0 6px 32px rgba(0, 0, 0, 0.14);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-base);
+            color: var(--text-body);
+            line-height: 1.75;
+            font-size: 15px;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================
+           NAVBAR
+        ============================================ */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 12, 16, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        [data-theme="light"] .navbar {
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            gap: 32px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--text-main);
+            letter-spacing: -0.8px;
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+            border-radius: var(--radius-sm);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            font-size: 13.5px;
+            font-weight: 500;
+            font-family: var(--font-body);
+            color: var(--text-body);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-main);
+            background: var(--border);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--border-strong);
+            color: var(--text-body);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .theme-btn:hover {
+            color: var(--text-main);
+            background: var(--bg-card);
+            border-color: var(--border-strong);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .burger .line1,
+        .burger .line2,
+        .burger .line3 {
+            width: 22px;
+            height: 2px;
+            background: var(--text-body);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* ============================================
+           MOBILE MENU
+        ============================================ */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            gap: 4px;
+        }
+
+        .mobile-menu a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-body);
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--text-main);
+            background: var(--bg-card);
+        }
+
+        /* ============================================
+           SEARCH OVERLAY
+        ============================================ */
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .search-overlay.hidden {
+            display: none;
+        }
+
+        .search-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 600px;
+            margin: 0 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        #search-input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            font-family: var(--font-body);
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        #search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        #search-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+            transition: var(--transition);
+        }
+
+        #search-close:hover {
+            color: var(--text-main);
+        }
+
+        .search-results {
+            padding: 12px;
+            min-height: 40px;
+        }
+
+        /* ============================================
+           HERO
+        ============================================ */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 72px 0 60px;
+            background: var(--bg-base);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 600px;
+            background: radial-gradient(ellipse at center, rgba(10, 132, 255, 0.13) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--primary-dim);
+            border: 1px solid rgba(10, 132, 255, 0.25);
+            padding: 5px 14px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        .subtitle::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        .title {
+            font-family: var(--font-display);
+            font-size: clamp(42px, 6vw, 68px);
+            font-weight: 800;
+            font-style: normal;
+            color: var(--text-main);
+            line-height: 1.08;
+            letter-spacing: -2.5px;
+            margin-bottom: 16px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, #4FC3F7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .description {
+            font-size: 16px;
+            color: var(--text-body);
+            line-height: 1.7;
+            margin-bottom: 28px;
+            max-width: 460px;
+            font-weight: 400;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 11px 24px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0070E0;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px var(--primary-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-strong);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-card);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+            border-radius: var(--radius-xl);
+        }
+
+        .hero-orbit {
+            position: relative;
+            width: 260px;
+            height: 260px;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px dashed var(--border-strong);
+            animation: spin 18s linear infinite;
+        }
+
+        .orbit-ring-2 {
+            inset: 32px;
+            border-color: rgba(10, 132, 255, 0.2);
+            animation: spin 12s linear infinite reverse;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .orbit-center {
+            position: absolute;
+            inset: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--primary);
+            box-shadow: 0 0 40px var(--primary-glow);
+        }
+
+        .orbit-dot {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .orbit-dot-1 {
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent);
+        }
+
+        .orbit-dot-2 {
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-orange);
+        }
+
+        .orbit-dot-3 {
+            left: -18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-purple);
+        }
+
+        .orbit-dot-4 {
+            right: -18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+
+        .float-badge {
+            position: absolute;
+            background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-md);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
+            white-space: nowrap;
+            box-shadow: var(--shadow-card);
+        }
+
+        .float-badge i {
+            color: var(--primary);
+            font-size: 15px;
+        }
+
+        .float-badge-1 {
+            top: 20px;
+            left: 0;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .float-badge-2 {
+            bottom: 40px;
+            right: 0;
+            animation: float 4s ease-in-out infinite 2s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* ============================================
+           AD SLOTS — ADSENSE COMPLIANT
+           Rules: clearly labeled, proper min-height,
+           no more than 3 per page, overflow hidden,
+           must not blend into content
+        ============================================ */
+        .ad-slot-container {
+            padding: 20px 24px;
+            background: var(--bg-base);
+            overflow: hidden;
+            /* prevent AdSense layout shift */
+        }
+
+        .ad-unit-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* "Advertisement" label — required by AdSense policy */
+        .ad-unit-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            align-self: center;
+        }
+
+        /* Placeholder shown before real AdSense code is dropped in */
+        .ad-placeholder-box {
+            width: 100%;
+            max-width: 728px;
+            /* Leaderboard width */
+            min-height: 90px;
+            /* Leaderboard height — standard IAB unit */
+            background: var(--bg-surface);
+            border: 1px dashed var(--border-strong);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-family: var(--font-mono);
+        }
+
+        /* Mid-page rectangle — 336×280 or 300×250 */
+        .ad-unit-wrap.ad-rect .ad-placeholder-box {
+            max-width: 336px;
+            min-height: 280px;
+        }
+
+        @media (max-width: 768px) {
+
+            /* Responsive/auto ad unit on mobile */
+            .ad-placeholder-box {
+                max-width: 100%;
+                min-height: 100px;
+            }
+
+            .ad-unit-wrap.ad-rect .ad-placeholder-box {
+                max-width: 100%;
+                min-height: 200px;
+            }
+
+            .ad-slot-container {
+                padding: 16px 16px;
+            }
+        }
+
+        /* ============================================
+           SECTION COMMONS
+        ============================================ */
+        .section {
+            padding: 52px 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.8px;
+            line-height: 1.2;
+        }
+
+        .view-all {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .view-all:hover {
+            opacity: 0.75;
+        }
+
+        /* ============================================
+           EXPLORE TOPICS GRID
+        ============================================ */
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .explore-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            transition: var(--transition);
+            cursor: pointer;
+            color: inherit;
+        }
+
+        .explore-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .explore-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        .ec-1 {
+            background: rgba(10, 132, 255, 0.12);
+            color: var(--primary);
+        }
+
+        .ec-2 {
+            background: rgba(48, 209, 88, 0.12);
+            color: var(--accent);
+        }
+
+        .ec-3 {
+            background: rgba(255, 159, 10, 0.12);
+            color: var(--accent-orange);
+        }
+
+        .ec-4 {
+            background: rgba(191, 90, 242, 0.12);
+            color: var(--accent-purple);
+        }
+
+        .explore-card-text h3 {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .explore-card-text p {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           BLOG / ARTICLE CARDS
+        ============================================ */
+        /* Refined Card Styling */
+        .gfg-course-card {
+            width: 240px;
+            height: 300px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        .gfg-course-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .gfg-course-thumb {
+            height: 140px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            background: var(--bg-elevated);
+        }
+
+        .gfg-course-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .gfg-course-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .gfg-course-level {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .gfg-course-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .gfg-btn-explore {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .home-latest-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .article-card-thumb {
+            height: 130px;
+            background: var(--bg-elevated);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .article-card-body {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .article-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-dim);
+            padding: 3px 10px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-card-body h3 {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.4;
+            letter-spacing: -0.3px;
+        }
+
+        .article-card-body p {
+            font-size: 13.5px;
+            color: var(--text-body);
+            line-height: 1.75;
+            flex: 1;
+            font-family: var(--font-body);
+            font-weight: 400;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .article-meta-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .read-more {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* ============================================
+           PORTFOLIO / WORKS LIST
+        ============================================ */
+        .works-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .work-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 24px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .work-item:last-child {
+            border-bottom: none;
+        }
+
+        .work-item:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .work-number {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-muted);
+            width: 28px;
+        }
+
+        .work-info {
+            min-width: 0;
+        }
+
+        .work-title {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 3px;
+            line-height: 1.3;
+        }
+
+        .work-desc {
+            font-size: 13px;
+            color: var(--text-body);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.6;
+        }
+
+        .work-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: nowrap;
+        }
+
+        .work-tag {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 3px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        /* Demo work items */
+        .work-item-demo {
+            cursor: default;
+        }
+
+        /* ============================================
+           STATS SECTION
+        ============================================ */
+        .stats-section {
+            padding: 0;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 36px 24px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+            position: relative;
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .stat-item:hover::after {
+            width: 60%;
+        }
+
+        .stat-item h2 {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -2px;
+            line-height: 1.0;
+            margin-bottom: 6px;
+        }
+
+        .stat-item p {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.5;
+        }
+
+
+        /* ============================================
+           PLACEHOLDER CARDS (until JS injects real ones)
+        ============================================ */
+        .loading-placeholder {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-elevated) 25%, var(--bg-card-hover) 50%, var(--bg-elevated) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 6px;
+        }
+
+        @keyframes shimmer {
+            to {
+                background-position: -200% 0;
+            }
+        }
+
+        /* ============================================
+           RESPONSIVE
+        ============================================ */
+        /* ============================================
+           RESPONSIVE — COMPREHENSIVE
+        ============================================ */
+
+        /* Tablet landscape: 1024px */
+        @media (max-width: 1024px) {
+            .explore-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gfg-courses-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .hero-visual {
+                height: 260px;
+            }
+
+            .footer-nav-group {
+                gap: 40px;
+            }
+        }
+
+        /* Tablet portrait: 768px */
+        @media (max-width: 768px) {
+
+            /* Nav */
+            .nav-links {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .nav-content {
+                height: 56px;
+            }
+
+            /* Hero */
+            .hero {
+                padding: 48px 0 36px;
+            }
+
+            .title {
+                font-size: clamp(34px, 9vw, 48px);
+                letter-spacing: -1.5px;
+            }
+
+            .hero-visual {
+                display: none;
+            }
+
+            /* hide orbit on mobile — saves space */
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .description {
+                font-size: 15px;
+                max-width: 100%;
+            }
+
+            /* Sections */
+            .section {
+                padding: 40px 0;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            /* Explore */
+            .explore-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            /* Articles */
+            .gfg-courses-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            /* Stats */
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 28px 16px;
+            }
+
+            .stat-item:nth-child(odd) {
+                border-right: 1px solid var(--border);
+            }
+
+            .stat-item:nth-child(3),
+            .stat-item:nth-child(4) {
+                border-bottom: none;
+            }
+
+            .stat-item h2 {
+                font-size: 34px;
+            }
+
+        }
+
+        /* Mobile: 480px */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            /* Explore single column */
+            .explore-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .explore-card {
+                padding: 14px 16px;
+            }
+
+            /* Works list */
+            .work-item {
+                grid-template-columns: 1fr auto;
+                gap: 10px;
+                padding: 14px 16px;
+            }
+
+            .work-number {
+                display: none;
+            }
+
+            .work-tags {
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .work-tag {
+                font-size: 9px;
+                padding: 2px 6px;
+            }
+
+            /* CTA */
+            .cta-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                justify-content: center;
+                width: 100%;
+            }
+
+            /* Title */
+            .title {
+                font-size: clamp(30px, 10vw, 40px);
+                letter-spacing: -1px;
+            }
+
+            .subtitle {
+                font-size: 10px;
+            }
+
+            /* Section header */
+            .section-header {
+                padding: 0 16px;
+            }
+
+            /* Article skeleton */
+            .loading-placeholder {
+                padding: 16px;
+            }
+
+            /* Works */
+            .works-list {
+                border-radius: var(--radius-md);
+            }
+
+            /* Stats */
+            .stat-item h2 {
+                font-size: 30px;
+            }
+
+            /* Footer */
+            .footer-logo {
+                font-size: 18px;
+            }
+
+            .footer-tagline {
+                font-size: 12px;
+            }
+
+            .footer-nav-group {
+                gap: 24px;
+            }
+
+            .footer-nav-col h5 {
+                font-size: 10px;
+            }
+
+            .footer-nav-col li a {
+                font-size: 13px;
+            }
+        }
+
+        /* Very small: 360px */
+        @media (max-width: 360px) {
+            .explore-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .nav-content {
+                padding: 0 16px;
+            }
+        }
+
+        /* Touch: ensure tap targets are 44px min (Apple HIG / WCAG) */
+        @media (hover: none) and (pointer: coarse) {
+
+            .nav-links a,
+            .mobile-menu a,
+            .btn,
+            .explore-card,
+            .footer-nav-col li a,
+            .footer-social-link,
+            .theme-btn {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+
+            .explore-card {
+                min-height: 60px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="#" class="logo">Autodevv<span style="color:var(--primary)">.</span></a>
+            <a href="index.html" class="logo">
+                <img src="images/site.jpg" alt="Autodevv Brand">
+                Autodevv<span>.</span>
+            </a>
             <ul class="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#portfolio">Work</a></li>
-                <li><a href="#blog">Blog</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#explore">Explore</a></li>
+                <li><a href="tutorial.html">Tutorials</a></li>
+                <li><a href="download.html">Downloads</a></li>
+                <li><a href="#site-footer">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                <button id="search-toggle" class="theme-btn" title="Search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-                <button id="theme-toggle" class="theme-btn" title="Toggle Theme">
-                    <i class="fa-solid fa-sun"></i>
-                </button>
+                <button id="search-toggle" class="theme-btn" title="Search"><i
+                        class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn" title="Toggle Theme"><i
+                        class="fa-solid fa-sun"></i></button>
             </div>
             <div class="burger">
                 <div class="line1"></div>
@@ -70,6 +1450,16 @@
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#explore">Explore Topics</a>
+        <a href="tutorial.html">Tutorials</a>
+        <a href="download.html">Downloads</a>
+        <a href="index.html#site-footer">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
 
     <!-- Search Overlay -->
     <div id="search-overlay" class="search-overlay hidden">
@@ -82,133 +1472,299 @@
         </div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#portfolio">Work</a>
-        <a href="#blog">Blog</a>
-        <a href="contact.html">Contact</a>
-    </div>
-
-    <!-- Hero Section -->
+    <!-- ============ HERO ============ -->
     <section id="home" class="hero">
         <div class="container hero-content">
             <div class="hero-text">
-                <h2 class="subtitle">AUTOMOTIVE SOFTWARE Learning</h2>
+                <p class="subtitle">Automotive Software Learning</p>
                 <h1 class="title">Architecting <span class="gradient-text">Safe & Reliable</span><br>Automotive Systems.
                 </h1>
-                <p class="description">
-                    Embedded Systems and Automotive Software,high-integrity firmware, AUTOSAR, and safety-critical
-                    controls.
-                </p>
+                <p class="description">Mastering Embedded Systems, AUTOSAR, and Safety-Critical Automotive Software for
+                    the next generation of SDVs.</p>
                 <div class="cta-group">
-                    <a href="#portfolio" class="btn btn-primary">View Work</a>
-                    <a href="#blog" class="btn btn-outline">Read Technical Blog</a>
+                    <a href="#explore" class="btn btn-primary"><i class="fa-solid fa-bolt"></i> Start Learning</a>
+                    <a href="#portfolio" class="btn btn-outline">Project Portfolio</a>
                 </div>
             </div>
+
             <div class="hero-visual">
-                <!-- CSS Animated Shapes -->
-                <div class="blob blob-1"></div>
-                <div class="blob blob-2"></div>
-                <div class="glass-card">
-                    <i class="fa-solid fa-microchip"></i>
-                    <span>Clean Code /-</span>
+                <div class="hero-grid-bg"></div>
+                <div class="hero-orbit">
+                    <div class="orbit-ring">
+                        <div class="orbit-dot orbit-dot-1"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="orbit-dot orbit-dot-2"><i class="fa-solid fa-gauge-high"></i></div>
+                        <div class="orbit-dot orbit-dot-3"><i class="fa-solid fa-code"></i></div>
+                        <div class="orbit-dot orbit-dot-4"><i class="fa-solid fa-car"></i></div>
+                    </div>
+                    <div class="orbit-ring orbit-ring-2"></div>
+                    <div class="orbit-center">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
                 </div>
-                <div class="glass-card card-2">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <span>ISO 26262 Certified</span>
+                <div class="float-badge float-badge-1">
+                    <i class="fa-solid fa-circle-check"></i> ISO 26262 Compliant
+                </div>
+                <div class="float-badge float-badge-2">
+                    <i class="fa-solid fa-clock"></i> Real-Time Systems
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Ad Placeholder (Top) -->
-    <div class="container ad-slot-container">
-        <div class="ad-placeholder">
-            <small>Advertisement Space (Google Adsense)</small>
+    <!-- AD SLOT 1 — Leaderboard (728×90 desktop / responsive mobile) -->
+    <!-- Replace .ad-placeholder-box with your <ins class="adsbygoogle"> tag -->
+    <div class="ad-slot-container">
+        <div class="ad-unit-wrap">
+            <span class="ad-unit-label">Advertisement</span>
+            <div class="ad-placeholder-box">
+                <!-- AdSense: 728×90 Leaderboard or Responsive Auto -->
+                <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+                728×90 — Leaderboard Ad Unit
+            </div>
         </div>
     </div>
 
-    <!-- About Section -->
-    <section id="about" class="section about">
+    <!-- ============ EXPLORE TOPICS ============ -->
+    <section id="explore" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Explore Topics</h2>
+            <a class="view-all" href="blog.html">View All Topics →</a>
+        </div>
         <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-grid">
-                <div class="about-photo">
-                    <img src="images/profile.jpg" alt="Vivek A - Automotive Engineer">
-                </div>
-                <div class="about-text">
-                    <p>I am a Senior Automotive Software Engineer with over 5 years of experience.</p>
-                    <br>
-                    <ul class="skills-list">
-                        <li><i class="fa-solid fa-code"></i> Embedded C/C++ & python</li>
-                        <li><i class="fa-solid fa-diagram-project"></i> AUTOSAR , RTOS & Bare-metal Development</li>
-                        <li><i class="fa-solid fa-car"></i> CAN, LIN, & Automotive Ethernet</li>
-                        <li><i class="fa-solid fa-shield-halved"></i> MISRA C & ISO 26262 Compliance</li>
-                    </ul>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-card">
-                        <h3>5+</h3>
-                        <p>Years of Automotive Experience</p>
+            <div class="explore-grid">
+                <a href="explore-autosar.html" class="explore-card">
+                    <div class="explore-icon ec-2"><i class="fa-solid fa-microchip"></i></div>
+                    <div class="explore-card-text">
+                        <h3>AUTOSAR Architecture</h3>
+                        <p>Detailed Guide →</p>
                     </div>
-                    <div class="stat-card">
-                        <h3>14+</h3>
-                        <p>Technical Publications</p>
+                </a>
+                <a href="explore-embedded.html" class="explore-card">
+                    <div class="explore-icon ec-3"><i class="fa-solid fa-code"></i></div>
+                    <div class="explore-card-text">
+                        <h3>Embedded C Mastery</h3>
+                        <p>Complete Tutorial →</p>
                     </div>
-                </div>
+                </a>
+                <a href="explore-security.html" class="explore-card">
+                    <div class="explore-icon ec-4"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="explore-card-text">
+                        <h3>Cybersecurity & HSM</h3>
+                        <p>Security Hub →</p>
+                    </div>
+                </a>
+                <a href="blog.html?category=General" class="explore-card">
+                    <div class="explore-icon ec-1"><i class="fa-solid fa-car"></i></div>
+                    <div class="explore-card-text">
+                        <h3>Bootloaders & Updates</h3>
+                        <p>More Topics →</p>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="section portfolio">
-        <div class="container">
-            <h2 class="section-title">Selected Works</h2>
-            <div class="projects-grid" id="projects-container">
-                <!-- Projects injected via JS -->
-            </div>
-        </div>
-    </section>
 
-    <!-- Ad Placeholder (Middle) -->
-    <div class="container ad-slot-container">
-        <div class="ad-placeholder">
-            <small>Advertisement Space (Google Adsense)</small>
-        </div>
-    </div>
 
-    <!-- Blog Section -->
-    <section id="blog" class="section blog">
-        <div class="container">
+    <!-- ============ LATEST ARTICLES ============ -->
+    <section id="blog" class="section">
+        <div class="section-header">
             <h2 class="section-title">Latest Articles</h2>
-            <p class="section-desc">Technical deep-dives and tutorials. This content is the core for learning and
-                growth.</p>
-            <div class="blog-grid home-latest-cards" id="blog-container">
-                <!-- Blog Posts injected via JS -->
+            <a class="view-all" href="blog.html">View All Articles →</a>
+        </div>
+        <div class="container">
+            <div class="gfg-courses-grid home-latest-cards" id="blog-container">
+                <!-- Blog cards injected via app.js -->
+                <!-- Skeleton placeholders while JS loads -->
+                <div class="loading-placeholder">
+                    <div class="skeleton" style="height:160px; border-radius: 8px;"></div>
+                    <div class="skeleton" style="height:12px; width:60px;"></div>
+                    <div class="skeleton" style="height:18px;"></div>
+                    <div class="skeleton" style="height:14px;"></div>
+                    <div class="skeleton" style="height:14px; width:70%;"></div>
+                </div>
+                <div class="loading-placeholder">
+                    <div class="skeleton" style="height:160px; border-radius: 8px;"></div>
+                    <div class="skeleton" style="height:12px; width:60px;"></div>
+                    <div class="skeleton" style="height:18px;"></div>
+                    <div class="skeleton" style="height:14px;"></div>
+                    <div class="skeleton" style="height:14px; width:70%;"></div>
+                </div>
+                <div class="loading-placeholder">
+                    <div class="skeleton" style="height:160px; border-radius: 8px;"></div>
+                    <div class="skeleton" style="height:12px; width:60px;"></div>
+                    <div class="skeleton" style="height:18px;"></div>
+                    <div class="skeleton" style="height:14px;"></div>
+                    <div class="skeleton" style="height:14px; width:70%;"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Blog Modal Removed (Using separate pages for SEO) -->
-
-
-
-    <footer>
+    <!-- ============ SELECTED WORKS ============ -->
+    <section id="portfolio" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Selected Works</h2>
+            <a class="view-all" href="portfolio.html">View All Works →</a>
+        </div>
         <div class="container">
-            <p>&copy; 2026 Autodevv. All rights reserved.</p>
-            <div class="footer-bottom">
-                <div style="margin-top: 10px; font-size: 0.9em;">
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
+            <div class="works-list" id="works-list-container">
+                <!-- Portfolio items injected via app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2>5+</h2>
+                <p>Years Exp</p>
+            </div>
+            <div class="stat-item">
+                <h2>14+</h2>
+                <p>Articles</p>
+            </div>
+            <div class="stat-item">
+                <h2>100k+</h2>
+                <p>Reading Hours</p>
+            </div>
+            <div class="stat-item">
+                <h2>100%</h2>
+                <p>Safety Critical</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AD SLOT 3 — Leaderboard (728×90 desktop / responsive mobile) -->
+    <div class="ad-slot-container">
+        <div class="ad-unit-wrap">
+            <span class="ad-unit-label">Advertisement</span>
+            <div class="ad-placeholder-box">
+                <!-- AdSense: 728×90 Leaderboard or Responsive Auto -->
+                <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+                728×90 — Leaderboard Ad Unit
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer id="site-footer">
+        <div class="footer-inner">
+
+            <div class="footer-top">
+                <!-- Brand -->
+                <div class="footer-brand-block">
+
+
+                    <div class="footer-about-hero">
+                        <a href="index.html">
+                            <img src="images/site.jpg" alt="About Autodevv">
+                        </a>
+                        <div class="footer-about-text">
+                            <a href="index.html" class="footer-logo">Autodevv<span>.</span></a>
+                            <p>
+                                Autodevv is an online learning platform dedicated to Automotive Software Development. We
+                                provide tutorials, guides, and resources for AUTOSAR, Embedded C, CAN, Diagnostics, and
+                                Automotive Embedded Systems.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer-socials">
+                        <a href="https://linkedin.com" target="_blank" class="footer-social-link" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/Vivekpkd" target="_blank" class="footer-social-link" title="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Nav columns -->
+                <div class="footer-nav-group">
+                    <div class="footer-nav-col">
+                        <h5>Pages</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="tutorial.html">Tutorials</a></li>
+                            <li><a href="download.html">Downloads</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-col">
+                        <h5>Topics</h5>
+                        <ul>
+                            <li><a href="blog.html?category=AUTOSAR">AUTOSAR</a></li>
+                            <li><a href="blog.html?category=Embedded Systems">Embedded C</a></li>
+                            <li><a href="blog.html?category=Automotive Security">Cybersecurity</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
+            <!-- Bottom bar -->
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 Autodevv. Engineered for Safety & Reliability.</p>
+                <div class="footer-bottom-links">
+                    <a href="privacy.html" style="color:var(--text-body);">Privacy Policy</a>
+                    <a href="terms.html">Terms</a>
+                </div>
+            </div>
+
         </div>
     </footer>
 
+    <!-- Core Logic (unchanged) -->
     <script src="articles.js"></script>
+    <script src="search-engine.js"></script>
     <script src="app.js"></script>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle?.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            themeToggle.innerHTML = isLight
+                ? '<i class="fa-solid fa-sun"></i>'
+                : '<i class="fa-solid fa-moon"></i>';
+        });
+
+        // Sync icon on load
+        if (localStorage.getItem('theme') === 'light') {
+            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
+        }
+
+        // Search overlay
+        document.getElementById('search-toggle')?.addEventListener('click', () => {
+            document.getElementById('search-overlay').classList.remove('hidden');
+            document.getElementById('search-input').focus();
+        });
+        document.getElementById('search-close')?.addEventListener('click', () => {
+            document.getElementById('search-overlay').classList.add('hidden');
+        });
+        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
+        });
+
+        // Mobile menu
+        const burger = document.querySelector('.burger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        burger?.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Remove skeleton placeholders if app.js populates #blog-container
+        const observer = new MutationObserver(() => {
+            const container = document.getElementById('blog-container');
+            if (container && container.children.length > 0 && !container.querySelector('.loading-placeholder')) {
+                observer.disconnect();
+            }
+        });
+        const blogContainer = document.getElementById('blog-container');
+        if (blogContainer) observer.observe(blogContainer, { childList: true });
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Tutorial - Autodevv</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=2.4">
+
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme') || 'dark';
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
+    <style>
+        /* ============================================
+           DESIGN TOKENS & RESET (From index.html)
+        ============================================ */
+        :root {
+            --primary: #0A84FF;
+            --primary-dim: rgba(10, 132, 255, 0.12);
+            --primary-glow: rgba(10, 132, 255, 0.35);
+            --accent: #30D158;
+            --accent-orange: #FF9F0A;
+            --accent-red: #FF453A;
+            --accent-purple: #BF5AF2;
+
+            --bg-base: #080C10;
+            --bg-surface: #0D1117;
+            --bg-card: #111820;
+            --bg-card-hover: #161E28;
+            --bg-elevated: #1C2433;
+
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.12);
+
+            --text-main: #F0F6FF;
+            --text-body: #9BABB8;
+            --text-muted: #5C6E7A;
+            --text-code: #58D68D;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+
+            --font-display: 'Neue Haas Grotesk Display Pro', 'NeueHaasGroteskDisplayPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-body: 'Neue Haas Grotesk Text Pro', 'NeueHaasGroteskTextPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+            /* Tutorial Overhaul Tokens */
+            --tutorial-green: #2f8d46;
+            --tutorial-bg: #f9f9f9;
+            --tutorial-text: #1a1a2e;
+            --tutorial-body: #444444;
+            --font-ui: 'Source Sans 3', sans-serif;
+            --font-code: 'Source Code Pro', monospace;
+
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
+            --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-base: #F5F7FA;
+            --bg-surface: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #F0F4FA;
+            --bg-elevated: #E8EDF5;
+            --border: rgba(0, 0, 0, 0.07);
+            --border-strong: rgba(0, 0, 0, 0.12);
+            --text-main: #0D1117;
+            --text-body: #4A5568;
+            --text-muted: #8A9BB0;
+            --text-code: #1A7F4B;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-base);
+            color: var(--text-body);
+            line-height: 1.75;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        /* ============================================
+           NAVBAR (EXACT FROM index.html)
+        ============================================ */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 12, 16, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        [data-theme="light"] .navbar {
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            gap: 32px;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--text-main);
+            letter-spacing: -0.8px;
+            flex-shrink: 0;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-body);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-main);
+            background: var(--border);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--border-strong);
+            color: var(--text-body);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .theme-btn:hover {
+            color: var(--text-main);
+            background: var(--bg-card);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .burger div {
+            width: 22px;
+            height: 2px;
+            background: var(--text-body);
+            border-radius: 2px;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            gap: 4px;
+        }
+
+        .mobile-menu a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-body);
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+        }
+
+        /* SEARCH OVERLAY (EXACT) */
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .search-overlay.hidden {
+            display: none;
+        }
+
+        .search-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 600px;
+            margin: 0 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        #search-input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            font-family: var(--font-body);
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        #search-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+        }
+
+        /* ============================================
+           FROZEN CONTENT LAYOUT (FROZEN)
+        ============================================ */
+        .page-wrapper {
+            background: var(--tutorial-bg);
+            color: var(--tutorial-body);
+        }
+
+        .page {
+            display: grid;
+            grid-template-columns: 260px 1fr 280px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            padding: 24px 0 40px;
+        }
+
+        .sidebar h4 {
+            padding: 0 16px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        .sidebar-category {
+            margin-bottom: 4px;
+        }
+
+        .category-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--tutorial-text);
+            text-align: left;
+        }
+
+        .category-header:hover {
+            background: #e8f5e9;
+        }
+
+        .toggle-icon {
+            font-size: 10px;
+            transition: transform 0.3s;
+            color: #666;
+        }
+
+        .sidebar-category.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-category.open .category-content {
+            max-height: 1000px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 7px 16px 7px 24px;
+            font-size: 13px;
+            color: #444;
+            cursor: pointer;
+            font-family: var(--font-ui);
+        }
+
+        .sidebar a:hover {
+            background: #e8f5e9;
+            color: var(--tutorial-green);
+            padding-left: 30px;
+        }
+
+        .sidebar a.active {
+            border-left: 3px solid var(--tutorial-green);
+            font-weight: 600;
+            background: #e8f5e9;
+            color: var(--tutorial-green);
+            padding-left: 21px;
+        }
+
+        .content {
+            padding: 28px 32px 60px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            font-family: var(--font-ui);
+        }
+
+        .content h1 {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--tutorial-text);
+            margin-bottom: 8px;
+        }
+
+        .content .meta {
+            font-size: 12.5px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .content h2 {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--tutorial-text);
+            margin: 32px 0 16px;
+        }
+
+        .content h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--tutorial-text);
+            margin: 24px 0 12px;
+        }
+
+        .content p {
+            font-size: 15px;
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            margin: 24px 0;
+        }
+
+        .code-header {
+            background: #2d2d2d;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .code-body {
+            padding: 18px 20px;
+            font-family: var(--font-code);
+            font-size: 13.5px;
+            color: #d4d4d4;
+            overflow-x: auto;
+        }
+
+        .code-body pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .code-body code {
+            font-family: inherit !important;
+            font-size: inherit !important;
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        .rightbar {
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            font-family: var(--font-ui);
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 20px rgba(47, 141, 70, 0.12);
+        }
+
+        .card h4 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: var(--tutorial-text);
+        }
+
+        .card a {
+            display: block;
+            font-size: 13px;
+            color: #444;
+            margin-top: 8px;
+        }
+
+        .card a:hover {
+            color: var(--tutorial-green);
+        }
+
+        @media (max-width: 1200px) {
+            .page {
+                grid-template-columns: 240px 1fr;
+            }
+
+            .rightbar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar (Exact from index.html) -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#explore">Explore</a></li>
+                <li><a href="tutorial.html" class="active">Tutorials</a></li>
+                <li><a href="download.html">Downloads</a></li>
+                <li><a href="index.html#site-footer">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn" title="Search"><i
+                        class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn" title="Toggle Theme"><i
+                        class="fa-solid fa-moon"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#explore">Explore Topics</a>
+        <a href="tutorial.html">Tutorials</a>
+        <a href="download.html">Downloads</a>
+        <a href="index.html#site-footer">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="page">
+            <!-- LEFT SIDEBAR -->
+            <div class="sidebar">
+                <h4>EXPLORE</h4>
+                <div class="sidebar-category" data-category="main-hub">
+                    <button class="category-header">
+                        <span>Main Hub</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software
+                            Engineering</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="autosar-stack">
+                    <button class="category-header">
+                        <span>AUTOSAR Stack</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
+                        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="embedded-mastery">
+                    <button class="category-header">
+                        <span>Embedded mastery</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
+                        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
+                        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems
+                            Tutorial</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="modern-tooling">
+                    <button class="category-header">
+                        <span>Modern Tooling</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="python-tutorial.html" class="active" data-file="python-tutorial.html">Python
+                            Tutorial</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="resources">
+                    <button class="category-header">
+                        <span>Resources</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <main class="content">
+                <h1>Python Tutorial</h1>
+                <p>Python is one of the most popular programming languages in the world. It is simple to use,<br />
+                    packed with features, and supported by a wide range of libraries and frameworks.<br />
+                    Its clean syntax makes it beginner-friendly and highly readable.</p>
+                <ul>
+                    <li>A <strong>high-level language</strong> used in data science, automation, AI, and web
+                        development.</li>
+                    <li>Known for its <strong>readability</strong> — code is easier to write, understand, and maintain.
+                    </li>
+                    <li>Backed by <strong>strong library support</strong> — we don't have to build everything from
+                        scratch.</li>
+                    <li><strong>Cross-platform</strong> — works on Windows, Mac, and Linux without major changes.</li>
+                </ul>
+                <hr />
+                <h2>Getting Started</h2>
+                <p>In this section we cover the basics — installing Python, writing your first program,<br />
+                    and understanding how Python code is structured.</p>
+                <pre class="codehilite"><code class="language-python"># Your first Python program
+print(&quot;Hello, World!&quot;)
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Hello, World!</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">Install Python</a></li>
+                    <li><a href="#">Python Introduction</a></li>
+                    <li><a href="#">Input and Output</a></li>
+                    <li><a href="#">Comments in Python</a></li>
+                </ul>
+                <h2>Variables and Data Types</h2>
+                <p>Variables store data values. Python is dynamically typed — no need to declare a type explicitly.</p>
+                <pre class="codehilite"><code class="language-python"># Variable examples
+name = &quot;Alice&quot;
+age = 25
+pi = 3.14159
+is_active = True
+
+print(name, age, pi, is_active)
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Alice 25 3.14159 True</p>
+                </blockquote>
+                <h3>Numeric Types</h3>
+                <p>Python supports <code>int</code>, <code>float</code>, and <code>complex</code> number types.</p>
+                <pre class="codehilite"><code class="language-python">x = 10        # int
+y = 3.14      # float
+z = 2 + 3j    # complex
+
+print(type(x), type(y), type(z))
+</code></pre>
+
+                <blockquote>
+                    <p>Output: <class 'int'>
+                            <class 'float'>
+                                <class 'complex'>
+                    </p>
+                </blockquote>
+                <h3>String Type</h3>
+                <p>Strings are sequences of characters enclosed in single or double quotes.</p>
+                <pre class="codehilite"><code class="language-python">greeting = &quot;Hello, Python!&quot;
+print(greeting.upper())
+print(len(greeting))
+</code></pre>
+
+                <blockquote>
+                    <p>Output: HELLO, PYTHON!<br />
+                        14</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">Python Variables</a></li>
+                    <li><a href="#">Python Data Types</a></li>
+                    <li><a href="#">Type Casting</a></li>
+                    <li><a href="#">Python Strings</a></li>
+                </ul>
+                <h2>Operators</h2>
+                <p>Python supports arithmetic, comparison, logical, and assignment operators.</p>
+                <pre class="codehilite"><code class="language-python">a = 10
+b = 3
+
+print(a + b)   # Addition
+print(a - b)   # Subtraction
+print(a * b)   # Multiplication
+print(a // b)  # Floor Division
+print(a % b)   # Modulus
+print(a ** b)  # Exponentiation
+</code></pre>
+
+                <blockquote>
+                    <p>Output: 13 7 30 3 1 1000</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">Arithmetic Operators</a></li>
+                    <li><a href="#">Comparison Operators</a></li>
+                    <li><a href="#">Logical Operators</a></li>
+                    <li><a href="#">Bitwise Operators</a></li>
+                </ul>
+                <h2>Control Flow</h2>
+                <h3>if / elif / else</h3>
+                <p>Use conditional statements to control the flow of execution.</p>
+                <pre class="codehilite"><code class="language-python">score = 85
+
+if score &gt;= 90:
+    print(&quot;Grade: A&quot;)
+elif score &gt;= 75:
+    print(&quot;Grade: B&quot;)
+else:
+    print(&quot;Grade: C&quot;)
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Grade: B</p>
+                </blockquote>
+                <h3>Loops</h3>
+                <p>Python has <code>for</code> and <code>while</code> loops for iteration.</p>
+                <pre class="codehilite"><code class="language-python"># for loop
+for i in range(1, 6):
+    print(i, end=&quot; &quot;)
+</code></pre>
+
+                <blockquote>
+                    <p>Output: 1 2 3 4 5</p>
+                </blockquote>
+                <pre class="codehilite"><code class="language-python"># while loop
+count = 0
+while count &lt; 3:
+    print(&quot;Count:&quot;, count)
+    count += 1
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Count: 0<br />
+                        Count: 1<br />
+                        Count: 2</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">Conditional Statements</a></li>
+                    <li><a href="#">for Loop</a></li>
+                    <li><a href="#">while Loop</a></li>
+                    <li><a href="#">break and continue</a></li>
+                    <li><a href="#">List Comprehension</a></li>
+                </ul>
+                <h2>Functions</h2>
+                <p>Functions let you group reusable code under a name. Use <code>def</code> to define a function.</p>
+                <pre class="codehilite"><code class="language-python">def greet(name, msg=&quot;Hello&quot;):
+    return f&quot;{msg}, {name}!&quot;
+
+print(greet(&quot;Alice&quot;))
+print(greet(&quot;Bob&quot;, &quot;Hi&quot;))
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Hello, Alice!<br />
+                        Hi, Bob!</p>
+                </blockquote>
+                <h3>Lambda Functions</h3>
+                <p>A <strong>lambda</strong> is an anonymous, one-line function.</p>
+                <pre class="codehilite"><code class="language-python">square = lambda x: x ** 2
+numbers = [1, 2, 3, 4, 5]
+result = list(map(square, numbers))
+print(result)
+</code></pre>
+
+                <blockquote>
+                    <p>Output: [1, 4, 9, 16, 25]</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">Defining Functions</a></li>
+                    <li><a href="#"><em>args and </em>*kwargs</a></li>
+                    <li><a href="#">Lambda Functions</a></li>
+                    <li><a href="#">Map, Filter, Reduce</a></li>
+                    <li><a href="#">Decorators</a></li>
+                    <li><a href="#">Recursion</a></li>
+                </ul>
+                <h2>Data Structures</h2>
+                <p>Python provides powerful built-in data structures out of the box.</p>
+                <h3>Lists</h3>
+                <p>Lists are <strong>ordered</strong> and <strong>mutable</strong> collections. They can hold mixed data
+                    types.</p>
+                <pre class="codehilite"><code class="language-python">fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]
+fruits.append(&quot;mango&quot;)
+print(fruits)
+print(fruits[1])
+</code></pre>
+
+                <blockquote>
+                    <p>Output: ['apple', 'banana', 'cherry', 'mango']<br />
+                        banana</p>
+                </blockquote>
+                <h3>Tuples</h3>
+                <p>Tuples are <strong>ordered</strong> and <strong>immutable</strong> — they cannot be changed after
+                    creation.</p>
+                <pre class="codehilite"><code class="language-python">point = (10, 20)
+print(point[0], point[1])
+</code></pre>
+
+                <blockquote>
+                    <p>Output: 10 20</p>
+                </blockquote>
+                <h3>Dictionaries</h3>
+                <p>Dictionaries store <strong>key-value pairs</strong> for fast lookups.</p>
+                <pre class="codehilite"><code class="language-python">student = {&quot;name&quot;: &quot;Alice&quot;, &quot;age&quot;: 22, &quot;grade&quot;: &quot;A&quot;}
+print(student[&quot;name&quot;])
+student[&quot;age&quot;] = 23
+print(student)
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Alice<br />
+                        {'name': 'Alice', 'age': 23, 'grade': 'A'}</p>
+                </blockquote>
+                <h3>Sets</h3>
+                <p>Sets are <strong>unordered</strong> collections of <strong>unique</strong> elements.</p>
+                <pre class="codehilite"><code class="language-python">s = {1, 2, 3, 2, 1}
+print(s)
+</code></pre>
+
+                <blockquote>
+                    <p>Output: {1, 2, 3}</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">Lists</a></li>
+                    <li><a href="#">Tuples</a></li>
+                    <li><a href="#">Dictionaries</a></li>
+                    <li><a href="#">Sets</a></li>
+                    <li><a href="#">Arrays</a></li>
+                    <li><a href="#">List Comprehension</a></li>
+                </ul>
+                <h2>OOP Concepts</h2>
+                <p>Python is a fully object-oriented language. Everything in Python is an object.</p>
+                <pre class="codehilite"><code class="language-python">class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return f&quot;{self.name} makes a sound.&quot;
+
+class Dog(Animal):
+    def speak(self):
+        return f&quot;{self.name} says: Woof!&quot;
+
+dog = Dog(&quot;Rex&quot;)
+print(dog.speak())
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Rex says: Woof!</p>
+                    <p>Refer <a href="#">Python OOP Guide</a> for the complete tutorial on classes, inheritance, and
+                        polymorphism.</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">Classes and Objects</a></li>
+                    <li><a href="#">Inheritance</a></li>
+                    <li><a href="#">Polymorphism</a></li>
+                    <li><a href="#">Encapsulation</a></li>
+                    <li><a href="#">Abstraction</a></li>
+                    <li><a href="#">Iterators</a></li>
+                </ul>
+                <h2>Exception Handling</h2>
+                <p>Exceptions are runtime errors. Python lets you handle them gracefully using
+                    <code>try / except</code>.
+                </p>
+                <pre class="codehilite"><code class="language-python">try:
+    result = 10 / 0
+except ZeroDivisionError as e:
+    print(f&quot;Error: {e}&quot;)
+finally:
+    print(&quot;Execution complete.&quot;)
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Error: division by zero<br />
+                        Execution complete.</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">Exception Handling</a></li>
+                    <li><a href="#">Built-in Exceptions</a></li>
+                    <li><a href="#">Custom Exceptions</a></li>
+                    <li><a href="#">try / except / finally</a></li>
+                </ul>
+                <h2>File Handling</h2>
+                <p>Python can read from and write to files using the built-in <code>open()</code> function.</p>
+                <pre class="codehilite"><code class="language-python"># Write to a file
+with open(&quot;hello.txt&quot;, &quot;w&quot;) as f:
+    f.write(&quot;Hello, File!&quot;)
+
+# Read from a file
+with open(&quot;hello.txt&quot;, &quot;r&quot;) as f:
+    print(f.read())
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Hello, File!</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">File Handling</a></li>
+                    <li><a href="#">Read Files</a></li>
+                    <li><a href="#">Write / Create Files</a></li>
+                    <li><a href="#">OS Module</a></li>
+                    <li><a href="#">pathlib Module</a></li>
+                </ul>
+                <h2>Data Science</h2>
+                <p>Python is the go-to language for data science and machine learning.</p>
+                <h3>Foundational Libraries</h3>
+                <p>These libraries form the base for all data science work.</p>
+                <ul>
+                    <li><a href="#">NumPy</a></li>
+                    <li><a href="#">Pandas</a></li>
+                    <li><a href="#">Matplotlib</a></li>
+                </ul>
+                <h3>Machine Learning Libraries</h3>
+                <ul>
+                    <li><a href="#">Scikit-learn</a></li>
+                    <li><a href="#">XGBoost / LightGBM</a></li>
+                </ul>
+                <h3>Deep Learning Frameworks</h3>
+                <ul>
+                    <li><a href="#">TensorFlow and Keras</a></li>
+                    <li><a href="#">PyTorch</a></li>
+                </ul>
+                <blockquote>
+                    <p>Refer <a href="#">Python for Data Science</a> for the complete tutorial.</p>
+                </blockquote>
+                <h2>Web Development</h2>
+                <p>Python has excellent frameworks for building web applications and REST APIs.</p>
+                <h3>Core Frameworks</h3>
+                <ul>
+                    <li><a href="#">Flask</a></li>
+                    <li><a href="#">Django</a></li>
+                </ul>
+                <h3>API Development</h3>
+                <ul>
+                    <li><a href="#">Flask-RESTful</a></li>
+                    <li><a href="#">Django REST Framework (DRF)</a></li>
+                </ul>
+                <blockquote>
+                    <p>Refer <a href="#">Python for Web Development</a> for the complete tutorial.</p>
+                </blockquote>
+                <h2>Practice</h2>
+                <p>Test your Python skills with quizzes and hands-on coding exercises.</p>
+                <ul>
+                    <li><a href="#">Python Quizzes</a></li>
+                    <li><a href="#">Coding Practice Problems</a></li>
+                    <li><a href="#">Interview Questions</a></li>
+                </ul>
+                <blockquote>
+                    <p>This tutorial is updated based on the latest <strong>Python 3.13.1</strong> version.</p>
+                </blockquote>
+            </main>
+
+            <!-- RIGHT SIDEBAR -->
+            <aside class="rightbar">
+                <div class="card">
+                    <h4>Related Tutorials</h4>
+                    <a href="#">RTE Explained</a>
+                    <a href="#">COM Stack Deep Dive</a>
+                    <a href="#">CAN Communication</a>
+                </div>
+                <div class="card">
+                    <h4>Trending Topics</h4>
+                    <a href="#">ASIL Safety</a>
+                    <a href="#">Bootloader Design</a>
+                    <a href="#">UDS Diagnostics</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer id="site-footer">
+        <div class="footer-inner">
+
+            <div class="footer-top">
+                <!-- Brand -->
+                <div class="footer-brand-block">
+
+
+                    <div class="footer-about-hero">
+                        <a href="index.html">
+                            <img src="images/site.jpg" alt="About Autodevv">
+                        </a>
+                        <div class="footer-about-text">
+                            <a href="index.html" class="footer-logo">Autodevv<span>.</span></a>
+                            <p>
+                                Autodevv is an online learning platform dedicated to Automotive Software Development. We
+                                provide tutorials, guides, and resources for AUTOSAR, Embedded C, CAN, Diagnostics, and
+                                Automotive Embedded Systems.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer-socials">
+                        <a href="https://linkedin.com" target="_blank" class="footer-social-link" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/Vivekpkd" target="_blank" class="footer-social-link" title="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Nav columns -->
+                <div class="footer-nav-group">
+                    <div class="footer-nav-col">
+                        <h5>Pages</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="tutorial.html">Tutorials</a></li>
+                            <li><a href="download.html">Downloads</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-col">
+                        <h5>Topics</h5>
+                        <ul>
+                            <li><a href="blog.html?category=AUTOSAR">AUTOSAR</a></li>
+                            <li><a href="blog.html?category=Embedded Systems">Embedded C</a></li>
+                            <li><a href="blog.html?category=Automotive Security">Cybersecurity</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 Autodevv. Engineered for Safety & Reliability.</p>
+                <div class="footer-bottom-links">
+                    <a href="privacy.html" style="color:var(--text-body);">Privacy Policy</a>
+                    <a href="terms.html">Terms</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Scripts from index.html / app -->
+    <script src="articles.js"></script>
+    <script src="search-engine.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+        // Exact Logic from index.html Header
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle?.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        });
+
+        // Sync icon on load
+        if (localStorage.getItem('theme') === 'light') {
+            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
+        }
+
+        document.getElementById('search-toggle')?.addEventListener('click', () => {
+            document.getElementById('search-overlay').classList.remove('hidden');
+            document.getElementById('search-input').focus();
+        });
+        document.getElementById('search-close')?.addEventListener('click', () => {
+            document.getElementById('search-overlay').classList.add('hidden');
+        });
+        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
+        });
+
+        const burger = document.querySelector('.burger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        burger?.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Accordion Logic (Frozen)
+        document.querySelectorAll('.category-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const category = header.parentElement;
+                category.classList.toggle('open');
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Auto-expand category
+            const activeLink = document.querySelector('.sidebar a.active');
+            if (activeLink) { activeLink.closest('.sidebar-category')?.classList.add('open'); }
+
+            // Wrap Code Blocks
+            document.querySelectorAll('pre.codehilite, .codehilite pre').forEach(pre => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'code-block';
+                const header = document.createElement('div');
+                header.className = 'code-header';
+                const code = pre.querySelector('code');
+                let lang = 'Code';
+                if (code) {
+                    const langMatch = code.className.match(/language-(\w+)/);
+                    if (langMatch) lang = langMatch[1].toUpperCase();
+                }
+                header.innerHTML = `<span>${lang}</span><i class="fa-regular fa-copy" style="cursor:pointer;" title="Copy Code"></i>`;
+                const body = document.createElement('div');
+                body.className = 'code-body';
+                pre.parentNode.insertBefore(wrapper, pre);
+                body.appendChild(pre);
+                wrapper.appendChild(header);
+                wrapper.appendChild(body);
+                header.querySelector('.fa-copy').addEventListener('click', function () {
+                    navigator.clipboard.writeText(pre.innerText).then(() => {
+                        this.classList.replace('fa-regular', 'fa-solid');
+                        this.classList.replace('fa-copy', 'fa-check');
+                        setTimeout(() => {
+                            this.classList.replace('fa-solid', 'fa-regular');
+                            this.classList.replace('fa-check', 'fa-copy');
+                        }, 2000);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

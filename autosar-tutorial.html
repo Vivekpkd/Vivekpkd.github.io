@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOSAR Tutorial - Autodevv</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=2.4">
+
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme') || 'dark';
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
+    <style>
+        /* ============================================
+           DESIGN TOKENS & RESET (From index.html)
+        ============================================ */
+        :root {
+            --primary: #0A84FF;
+            --primary-dim: rgba(10, 132, 255, 0.12);
+            --primary-glow: rgba(10, 132, 255, 0.35);
+            --accent: #30D158;
+            --accent-orange: #FF9F0A;
+            --accent-red: #FF453A;
+            --accent-purple: #BF5AF2;
+
+            --bg-base: #080C10;
+            --bg-surface: #0D1117;
+            --bg-card: #111820;
+            --bg-card-hover: #161E28;
+            --bg-elevated: #1C2433;
+
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.12);
+
+            --text-main: #F0F6FF;
+            --text-body: #9BABB8;
+            --text-muted: #5C6E7A;
+            --text-code: #58D68D;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+
+            --font-display: 'Neue Haas Grotesk Display Pro', 'NeueHaasGroteskDisplayPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-body: 'Neue Haas Grotesk Text Pro', 'NeueHaasGroteskTextPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+            /* Tutorial Overhaul Tokens */
+            --tutorial-green: #2f8d46;
+            --tutorial-bg: #f9f9f9;
+            --tutorial-text: #1a1a2e;
+            --tutorial-body: #444444;
+            --font-ui: 'Source Sans 3', sans-serif;
+            --font-code: 'Source Code Pro', monospace;
+
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
+            --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-base: #F5F7FA;
+            --bg-surface: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #F0F4FA;
+            --bg-elevated: #E8EDF5;
+            --border: rgba(0, 0, 0, 0.07);
+            --border-strong: rgba(0, 0, 0, 0.12);
+            --text-main: #0D1117;
+            --text-body: #4A5568;
+            --text-muted: #8A9BB0;
+            --text-code: #1A7F4B;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-base);
+            color: var(--text-body);
+            line-height: 1.75;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        /* ============================================
+           NAVBAR (EXACT FROM index.html)
+        ============================================ */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 12, 16, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        [data-theme="light"] .navbar {
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            gap: 32px;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--text-main);
+            letter-spacing: -0.8px;
+            flex-shrink: 0;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-body);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-main);
+            background: var(--border);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--border-strong);
+            color: var(--text-body);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .theme-btn:hover {
+            color: var(--text-main);
+            background: var(--bg-card);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .burger div {
+            width: 22px;
+            height: 2px;
+            background: var(--text-body);
+            border-radius: 2px;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            gap: 4px;
+        }
+
+        .mobile-menu a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-body);
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+        }
+
+        /* SEARCH OVERLAY (EXACT) */
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .search-overlay.hidden {
+            display: none;
+        }
+
+        .search-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 600px;
+            margin: 0 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        #search-input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            font-family: var(--font-body);
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        #search-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+        }
+
+        /* ============================================
+           FROZEN CONTENT LAYOUT (FROZEN)
+        ============================================ */
+        .page-wrapper {
+            background: var(--tutorial-bg);
+            color: var(--tutorial-body);
+        }
+
+        .page {
+            display: grid;
+            grid-template-columns: 260px 1fr 280px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            padding: 24px 0 40px;
+        }
+
+        .sidebar h4 {
+            padding: 0 16px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        .sidebar-category {
+            margin-bottom: 4px;
+        }
+
+        .category-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--tutorial-text);
+            text-align: left;
+        }
+
+        .category-header:hover {
+            background: #e8f5e9;
+        }
+
+        .toggle-icon {
+            font-size: 10px;
+            transition: transform 0.3s;
+            color: #666;
+        }
+
+        .sidebar-category.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-category.open .category-content {
+            max-height: 1000px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 7px 16px 7px 24px;
+            font-size: 13px;
+            color: #444;
+            cursor: pointer;
+            font-family: var(--font-ui);
+        }
+
+        .sidebar a:hover {
+            background: #e8f5e9;
+            color: var(--tutorial-green);
+            padding-left: 30px;
+        }
+
+        .sidebar a.active {
+            border-left: 3px solid var(--tutorial-green);
+            font-weight: 600;
+            background: #e8f5e9;
+            color: var(--tutorial-green);
+            padding-left: 21px;
+        }
+
+        .content {
+            padding: 28px 32px 60px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            font-family: var(--font-ui);
+        }
+
+        .content h1 {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--tutorial-text);
+            margin-bottom: 8px;
+        }
+
+        .content .meta {
+            font-size: 12.5px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .content h2 {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--tutorial-text);
+            margin: 32px 0 16px;
+        }
+
+        .content h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--tutorial-text);
+            margin: 24px 0 12px;
+        }
+
+        .content p {
+            font-size: 15px;
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            margin: 24px 0;
+        }
+
+        .code-header {
+            background: #2d2d2d;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .code-body {
+            padding: 18px 20px;
+            font-family: var(--font-code);
+            font-size: 13.5px;
+            color: #d4d4d4;
+            overflow-x: auto;
+        }
+
+        .code-body pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .code-body code {
+            font-family: inherit !important;
+            font-size: inherit !important;
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        .rightbar {
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            font-family: var(--font-ui);
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 20px rgba(47, 141, 70, 0.12);
+        }
+
+        .card h4 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: var(--tutorial-text);
+        }
+
+        .card a {
+            display: block;
+            font-size: 13px;
+            color: #444;
+            margin-top: 8px;
+        }
+
+        .card a:hover {
+            color: var(--tutorial-green);
+        }
+
+        @media (max-width: 1200px) {
+            .page {
+                grid-template-columns: 240px 1fr;
+            }
+
+            .rightbar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar (Exact from index.html) -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#explore">Explore</a></li>
+                <li><a href="tutorial.html" class="active">Tutorials</a></li>
+                <li><a href="download.html">Downloads</a></li>
+                <li><a href="index.html#site-footer">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn" title="Search"><i
+                        class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn" title="Toggle Theme"><i
+                        class="fa-solid fa-moon"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#explore">Explore Topics</a>
+        <a href="tutorial.html">Tutorials</a>
+        <a href="download.html">Downloads</a>
+        <a href="index.html#site-footer">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="page">
+            <!-- LEFT SIDEBAR -->
+            <div class="sidebar">
+                <h4>EXPLORE</h4>
+                <div class="sidebar-category" data-category="main-hub">
+                    <button class="category-header">
+                        <span>Main Hub</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software
+                            Engineering</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="autosar-stack">
+                    <button class="category-header">
+                        <span>AUTOSAR Stack</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="autosar-tutorial.html" class="active" data-file="autosar-tutorial.html">AUTOSAR
+                            Tutorial</a>
+                        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="embedded-mastery">
+                    <button class="category-header">
+                        <span>Embedded mastery</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
+                        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
+                        <a href="embedded-tutorial.html" data-file="embedded-tutorial.html">Embedded Systems
+                            Tutorial</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="modern-tooling">
+                    <button class="category-header">
+                        <span>Modern Tooling</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="resources">
+                    <button class="category-header">
+                        <span>Resources</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <main class="content">
+                <h1>AUTOSAR Tutorial</h1>
+                <p>AUTOSAR (Automotive Open System Architecture) is a standardized software architecture for automotive
+                    systems. It enables the development of scalable, maintainable, and reusable automotive software
+                    across multiple vehicle platforms.</p>
+                <ul>
+                    <li><strong>Standardized Architecture</strong> — Promotes consistency and interoperability in
+                        automotive software development.</li>
+                    <li><strong>Scalability</strong> — Supports everything from simple microcontrollers to complex
+                        integrated systems.</li>
+                    <li><strong>Modularity</strong> — Separates application software from underlying hardware through
+                        abstraction layers.</li>
+                    <li><strong>Reusability</strong> — Enables components to be used across different vehicle platforms
+                        and manufacturers.</li>
+                </ul>
+                <hr />
+                <h2>AUTOSAR Overview</h2>
+                <p>AUTOSAR is a global partnership framework that standardizes automotive software architecture.
+                    Understanding its structure is essential for modern automotive embedded development.</p>
+                <pre class="codehilite"><code class="language-c">// AUTOSAR application structure
+#include &quot;Std_Types.h&quot;
+#include &quot;Platform_Types.h&quot;
+
+// Application runnable
+void Motor_RunControl(void) {
+    uint16_t motor_speed = Motor_GetSpeed();
+    Motor_SetDutyCycle(motor_speed);
+}
+
+int main(void) {
+    // AUTOSAR initialization
+    Mcu_Init(NULL_PTR);
+    Mcu_InitClock(McuClockSettingConfig);
+
+    // Start AUTOSAR OS scheduler
+    Os_Start();
+
+    return 0;
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: AUTOSAR OS scheduler starts Motor_RunControl periodically</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">AUTOSAR Architecture Overview</a></li>
+                    <li><a href="#">Classic vs Adaptive AUTOSAR</a></li>
+                    <li><a href="#">AUTOSAR Layering Model</a></li>
+                    <li><a href="#">Software Components</a></li>
+                </ul>
+                <h2>AUTOSAR Layering Architecture</h2>
+                <p>AUTOSAR defines a layered approach dividing automotive software into distinct abstraction levels.</p>
+                <pre class="codehilite"><code class="language-c">// AUTOSAR layer interfaces
+// Application Layer
+void AppSW_ProcessInputs(void) {
+    // Application logic here
+}
+
+// RTE (Runtime Environment) - abstraction layer
+void RTE_SendData(uint32_t data) {
+    // Calls BSW services
+}
+
+// BSW (Basic Software) Layer
+void Com_SendSignal(uint32_t SignalId, const uint8_t* Data) {
+    // CAN communication handling
+}
+
+// Microcontroller Layer (HAL)
+void Mcu_WritePin(uint8_t PinId, uint8_t Level) {
+    // Direct register access
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Multi-layer separation of concerns</p>
+                </blockquote>
+                <h3>Application Layer</h3>
+                <p>The top layer containing vehicle-specific logic and features.</p>
+                <pre class="codehilite"><code class="language-c">// Application software component
+typedef struct {
+    uint16_t engine_rpm;
+    uint8_t throttle_position;
+    uint8_t gear_state;
+} VehicleState_t;
+
+void EngineControl_Execute(VehicleState_t *state) {
+    if(state-&gt;engine_rpm &gt; 5000) {
+        // Fuel cut-off logic
+        Fuel_CutOff();
+    }
+}
+</code></pre>
+
+                <h3>Runtime Environment (RTE)</h3>
+                <p>Provides communication between application and basic software layers.</p>
+                <pre class="codehilite"><code class="language-c">// RTE service calls
+uint16_t RTE_Read_EngineRPM(void) {
+    return Engine_GetRPM();
+}
+
+void RTE_Write_FuelInjectionTime(uint16_t time_us) {
+    Fuel_SetInjectionTime(time_us);
+}
+
+// RTE allows components to be independent of ECU hardware
+</code></pre>
+
+                <h3>Basic Software (BSW)</h3>
+                <p>Hardware-independent software services for common automotive functions.</p>
+                <pre class="codehilite"><code class="language-c">// BSW modules
+void Com_Init(const Com_ConfigType* ConfigPtr) {
+    // Configure communication stack
+}
+
+void Dem_ReportErrorStatus(Dem_EventIdType EventId, Dem_EventStatusType EventStatus) {
+    // Error and diagnostic handling
+}
+
+void NvM_WriteBlock(NvM_BlockIdType BlockId, const uint8_t* DataPtr) {
+    // Non-volatile memory management
+}
+</code></pre>
+
+                <h3>Microcontroller Abstraction Layer (MCAL)</h3>
+                <p>Direct hardware interface for microcontroller-specific operations.</p>
+                <pre class="codehilite"><code class="language-c">// MCAL SPI driver
+Std_ReturnType Spi_WriteIB(Spi_SequenceType Sequence, const Spi_DataBufferType* TxDataPtr) {
+    // SPI transmission
+    return E_OK;
+}
+
+// MCAL ADC driver
+void Adc_StartGroupConversion(Adc_GroupType Group) {
+    // Start ADC conversion
+}
+
+uint16_t Adc_GetGroupConversionResult(Adc_GroupType Group, Adc_ValueGroupType* PResultBufferPtr) {
+    // Get ADC result
+    return E_OK;
+}
+</code></pre>
+
+                <h2>Classic AUTOSAR</h2>
+                <p>Classic AUTOSAR is designed for traditional automotive embedded systems with dedicated
+                    microcontrollers.</p>
+                <pre class="codehilite"><code class="language-c">// Classic AUTOSAR SWC (Software Component)
+#include &quot;Rte.h&quot;
+
+// Data elements
+RTE_Implement_DataElement_READ(EngineSpeed_u16);
+RTE_Implement_DataElement_WRITE(InjectionTime_u16);
+
+// Runnable entity (periodic function)
+void EngineControl_Main(void) {
+    uint16_t engine_speed;
+    uint16_t injection_time;
+
+    // RTE read from communication
+    Rte_Read_EngineSpeed(&amp;engine_speed);
+
+    // Application logic
+    if(engine_speed &gt; 3000) {
+        injection_time = 5000;  // microseconds
+    } else {
+        injection_time = 2000;
+    }
+
+    // RTE write output
+    Rte_Write_InjectionTime(&amp;injection_time);
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Component-based modular architecture</p>
+                </blockquote>
+                <h3>Task and Interrupt Handling</h3>
+                <pre class="codehilite"><code class="language-c">// AUTOSAR OS Task
+TASK(EngineControlTask) {
+    EngineControl_Main();
+    TerminateTask();
+}
+
+// AUTOSAR ISR
+ISR(CAN_Rx_Interrupt) {
+    Can_MainFunction_Read();
+    Can_MainFunction_Write();
+}
+
+void Os_ConfigActivation(void) {
+    // EngineControlTask runs every 10ms
+    SetRelAlarm(EngineAlarm, 10, 10);
+}
+</code></pre>
+
+                <h2>Adaptive AUTOSAR</h2>
+                <p>Adaptive AUTOSAR targets connected and autonomous vehicles with advanced processing capabilities.</p>
+                <pre class="codehilite"><code class="language-cpp">// Adaptive AUTOSAR using C++ and service-oriented architecture
+#include &quot;ara/core/initialization.h&quot;
+#include &quot;ara/com/someip_binding.h&quot;
+
+class VehicleSpeedService {
+public:
+    void SetSpeed(int speed) {
+        current_speed_ = speed;
+    }
+
+    int GetSpeed() const {
+        return current_speed_;
+    }
+
+private:
+    int current_speed_ = 0;
+};
+
+// Service discovery and registration
+int main() {
+    ara::core::Initialize();
+
+    VehicleSpeedService speed_service;
+
+    // Register service for inter-process communication
+    ara::com::ServiceRegistry::RegisterService(&amp;speed_service);
+
+    // Process events
+    while(true) {
+        speed_service.SetSpeed(100);
+    }
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Service-oriented flexible architecture</p>
+                </blockquote>
+                <h2>Software Components in AUTOSAR</h2>
+                <p>Software Components are reusable units of application functionality.</p>
+                <pre class="codehilite"><code class="language-c">// SWC Interface Definition
+typedef struct {
+    uint16_t rpm;
+    uint8_t throttle;
+    uint8_t gear;
+} EngineInputs_t;
+
+typedef struct {
+    uint16_t fuel_injection_us;
+    uint16_t ignition_angle;
+    uint8_t cylinder_count;
+} EngineOutputs_t;
+
+// SWC Implementation
+void EngineController_Execute(
+    const EngineInputs_t* inputs,
+    EngineOutputs_t* outputs
+) {
+    // Calculate fuel injection based on inputs
+    outputs-&gt;fuel_injection_us = Calculate_FuelInjection(inputs-&gt;rpm, inputs-&gt;throttle);
+    outputs-&gt;ignition_angle = Calculate_IgnitionTiming(inputs-&gt;rpm);
+}
+</code></pre>
+
+                <h2>Communication in AUTOSAR</h2>
+                <p>AUTOSAR COM (Communication) module handles data exchange between components.</p>
+                <pre class="codehilite"><code class="language-c">// COM signal configuration
+#define SIGNAL_ENGINE_RPM_ID        1
+#define SIGNAL_THROTTLE_POS_ID      2
+#define SIGNAL_FUEL_INJECTION_ID    3
+
+// Send signal through stack
+void Send_EngineRPM(uint16_t rpm) {
+    Com_SendSignal(SIGNAL_ENGINE_RPM_ID, (uint8_t*)&amp;rpm);
+}
+
+// Receive signal with I-PDU (Interactive PDU)
+void ProcessReceivedData(void) {
+    uint8_t throttle_data[2];
+    Com_ReceiveSignal(SIGNAL_THROTTLE_POS_ID, throttle_data);
+
+    uint16_t throttle = (throttle_data[0] &lt;&lt; 8) | throttle_data[1];
+}
+
+// COM I-PDU sending
+void Com_TriggerTransmit(Com_IpduId_type IpduId) {
+    // Send I-PDU on CAN network
+}
+</code></pre>
+
+                <h2>AUTOSAR Network Protocols</h2>
+                <p>AUTOSAR supports multiple communication protocols for different network architectures.</p>
+                <pre class="codehilite"><code class="language-c">// CAN Communication using AUTOSAR
+#include &quot;Can.h&quot;
+#include &quot;CanIf.h&quot;
+#include &quot;Com.h&quot;
+
+typedef struct {
+    uint32_t can_id;
+    uint8_t dlc;
+    uint8_t data[8];
+} Can_Frame_t;
+
+// CAN frame transmission
+void SendEngineSensorData(void) {
+    Can_Frame_t frame;
+    frame.can_id = 0x123;
+    frame.dlc = 8;
+
+    // Pack data
+    frame.data[0] = (engine_rpm &gt;&gt; 8) &amp; 0xFF;
+    frame.data[1] = engine_rpm &amp; 0xFF;
+    frame.data[2] = throttle_position;
+
+    // Send through COM stack
+    Com_SendSignal(ENGINE_SENSOR_SIGNAL, frame.data);
+}
+
+// LIN Communication (Low-speed networks)
+void SendLIN_MotorControlData(void) {
+    uint8_t lin_frame[8];
+    Lin_SendFrame(LIN_MOTOR_FRAME_ID, lin_frame);
+}
+
+// FlexRay for safety-critical systems
+void SendFlexRay_CriticalData(void) {
+    FlexRay_SendFrame(FLEXRAY_SAFETY_FRAME, safety_data);
+}
+</code></pre>
+
+                <h2>Diagnostic and NVM Management</h2>
+                <pre class="codehilite"><code class="language-c">// Diagnostic communication (UDS - Unified Diagnostic Services)
+#include &quot;Dcm.h&quot;
+
+uint8_t Dcm_ReadData_VehicleSpeed(void) {
+    return Get_Current_Speed();
+}
+
+void Dcm_WriteData_Parameter(uint8_t* data) {
+    // Write calibration parameter
+}
+
+// Non-Volatile Memory management
+#include &quot;NvM.h&quot;
+
+void Store_EngineCalibration(void) {
+    NvM_SetRamBlockStatus(CALIBRATION_BLOCK, TRUE);
+    NvM_WriteBlock(CALIBRATION_BLOCK, calibration_data);
+}
+
+void Load_EngineCalibration(void) {
+    NvM_ReadBlock(CALIBRATION_BLOCK, calibration_buffer);
+}
+</code></pre>
+
+                <h2>Error Handling and DEM</h2>
+                <p>Diagnostic Event Manager (DEM) handles fault detection and reporting.</p>
+                <pre class="codehilite"><code class="language-c">// DEM Error/Event handling
+#include &quot;Dem.h&quot;
+
+#define ENGINE_SENSOR_ERROR_ID  1
+#define CAN_BUS_OFF_EVENT_ID    2
+
+void Monitor_EngineHealth(void) {
+    if(SensorValue &gt; MAX_THRESHOLD) {
+        // Report error
+        Dem_ReportErrorStatus(ENGINE_SENSOR_ERROR_ID, DEM_EVENT_STATUS_PREFAILED);
+    }
+
+    if(CAN_BusStatus == CAN_ERROR_PASSIVE) {
+        Dem_ReportErrorStatus(CAN_BUS_OFF_EVENT_ID, DEM_EVENT_STATUS_FAILED);
+    }
+}
+
+// Retrieve error codes
+uint8_t Get_ErrorCodes(uint8_t* ErrorCodeList) {
+    return Dem_GetNumberOfEventMemoryEntries(ErrorCodeList);
+}
+</code></pre>
+
+                <h2>Development Tools and Workflow</h2>
+                <p>AUTOSAR development typically uses specialized tools:</p>
+                <pre class="codehilite"><code class="language-c">// AUTOSAR DBC file example (CAN database)
+// BO_ 256 EngineStatus: 8 EngineController
+//  SG_ EngineRPM : 0|16@1+ (0.25,0) [0|16000] &quot;rpm&quot; EngineController
+//  SG_ Throttle : 16|8@1+ (0.5,0) [0|100] &quot;%&quot; EngineController
+
+// Vector tools (CANoe, CANalyzer)
+// Artisan (NEOCAR by dSpace)
+// AUTOSAR development enables:
+// - Cross-platform compatibility
+// - Reduced development time
+// - Improved software quality
+// - Better maintainability
+</code></pre>
+
+                <h2>Integration and Testing</h2>
+                <pre class="codehilite"><code class="language-c">// AUTOSAR component testing
+void Test_EngineControl(void) {
+    EngineInputs_t test_inputs = {
+        .rpm = 2000,
+        .throttle = 50,
+        .gear = 3
+    };
+
+    EngineOutputs_t results;
+
+    EngineController_Execute(&amp;test_inputs, &amp;results);
+
+    // Verify output
+    assert(results.fuel_injection_us &gt; 0);
+    assert(results.ignition_angle &gt;= 0);
+}
+
+// Hardware-in-loop (HIL) testing
+// Model-in-loop (MIL) testing
+// Software-in-loop (SIL) testing
+</code></pre>
+
+                <h2>Practice Projects</h2>
+                <p>Test your AUTOSAR knowledge with these projects:</p>
+                <ul>
+                    <li><a href="#">CAN Bus Vehicle Network</a></li>
+                    <li><a href="#">Engine Control Unit (ECU)</a></li>
+                    <li><a href="#">Instrument Cluster Driver</a></li>
+                    <li><a href="#">Infotainment System Integration</a></li>
+                    <li><a href="#">Autonomous Parking Module</a></li>
+                    <li><a href="#">Vehicle Diagnostics System</a></li>
+                    <li><a href="#">Multi-ECU Communication</a></li>
+                </ul>
+                <h2>Advanced Topics</h2>
+                <p>For experienced AUTOSAR developers:</p>
+                <ul>
+                    <li><a href="#">Service-Oriented Architecture (SOA)</a></li>
+                    <li><a href="#">Secure Onboard Communication</a></li>
+                    <li><a href="#">Over-the-Air (OTA) Updates</a></li>
+                    <li><a href="#">Machine Learning in Automotive</a></li>
+                    <li><a href="#">Cybersecurity in Connected Vehicles</a></li>
+                    <li><a href="#">ASIL and Functional Safety</a></li>
+                    <li><a href="#">Cloud Integration</a></li>
+                </ul>
+            </main>
+
+            <!-- RIGHT SIDEBAR -->
+            <aside class="rightbar">
+                <div class="card">
+                    <h4>Related Tutorials</h4>
+                    <a href="#">RTE Explained</a>
+                    <a href="#">COM Stack Deep Dive</a>
+                    <a href="#">CAN Communication</a>
+                </div>
+                <div class="card">
+                    <h4>Trending Topics</h4>
+                    <a href="#">ASIL Safety</a>
+                    <a href="#">Bootloader Design</a>
+                    <a href="#">UDS Diagnostics</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer id="site-footer">
+        <div class="footer-inner">
+
+            <div class="footer-top">
+                <!-- Brand -->
+                <div class="footer-brand-block">
+
+
+                    <div class="footer-about-hero">
+                        <a href="index.html">
+                            <img src="images/site.jpg" alt="About Autodevv">
+                        </a>
+                        <div class="footer-about-text">
+                            <a href="index.html" class="footer-logo">Autodevv<span>.</span></a>
+                            <p>
+                                Autodevv is an online learning platform dedicated to Automotive Software Development. We
+                                provide tutorials, guides, and resources for AUTOSAR, Embedded C, CAN, Diagnostics, and
+                                Automotive Embedded Systems.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer-socials">
+                        <a href="https://linkedin.com" target="_blank" class="footer-social-link" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/Vivekpkd" target="_blank" class="footer-social-link" title="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Nav columns -->
+                <div class="footer-nav-group">
+                    <div class="footer-nav-col">
+                        <h5>Pages</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="tutorial.html">Tutorials</a></li>
+                            <li><a href="download.html">Downloads</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-col">
+                        <h5>Topics</h5>
+                        <ul>
+                            <li><a href="blog.html?category=AUTOSAR">AUTOSAR</a></li>
+                            <li><a href="blog.html?category=Embedded Systems">Embedded C</a></li>
+                            <li><a href="blog.html?category=Automotive Security">Cybersecurity</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 Autodevv. Engineered for Safety & Reliability.</p>
+                <div class="footer-bottom-links">
+                    <a href="privacy.html" style="color:var(--text-body);">Privacy Policy</a>
+                    <a href="terms.html">Terms</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Scripts from index.html / app -->
+    <script src="articles.js"></script>
+    <script src="search-engine.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+        // Exact Logic from index.html Header
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle?.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        });
+
+        // Sync icon on load
+        if (localStorage.getItem('theme') === 'light') {
+            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
+        }
+
+        document.getElementById('search-toggle')?.addEventListener('click', () => {
+            document.getElementById('search-overlay').classList.remove('hidden');
+            document.getElementById('search-input').focus();
+        });
+        document.getElementById('search-close')?.addEventListener('click', () => {
+            document.getElementById('search-overlay').classList.add('hidden');
+        });
+        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
+        });
+
+        const burger = document.querySelector('.burger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        burger?.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Accordion Logic (Frozen)
+        document.querySelectorAll('.category-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const category = header.parentElement;
+                category.classList.toggle('open');
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Auto-expand category
+            const activeLink = document.querySelector('.sidebar a.active');
+            if (activeLink) { activeLink.closest('.sidebar-category')?.classList.add('open'); }
+
+            // Wrap Code Blocks
+            document.querySelectorAll('pre.codehilite, .codehilite pre').forEach(pre => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'code-block';
+                const header = document.createElement('div');
+                header.className = 'code-header';
+                const code = pre.querySelector('code');
+                let lang = 'Code';
+                if (code) {
+                    const langMatch = code.className.match(/language-(\w+)/);
+                    if (langMatch) lang = langMatch[1].toUpperCase();
+                }
+                header.innerHTML = `<span>${lang}</span><i class="fa-regular fa-copy" style="cursor:pointer;" title="Copy Code"></i>`;
+                const body = document.createElement('div');
+                body.className = 'code-body';
+                pre.parentNode.insertBefore(wrapper, pre);
+                body.appendChild(pre);
+                wrapper.appendChild(header);
+                wrapper.appendChild(body);
+                header.querySelector('.fa-copy').addEventListener('click', function () {
+                    navigator.clipboard.writeText(pre.innerText).then(() => {
+                        this.classList.replace('fa-regular', 'fa-solid');
+                        this.classList.replace('fa-copy', 'fa-check');
+                        setTimeout(() => {
+                            this.classList.replace('fa-solid', 'fa-regular');
+                            this.classList.replace('fa-check', 'fa-copy');
+                        }, 2000);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

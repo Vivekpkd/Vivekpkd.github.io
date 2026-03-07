@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Systems Tutorial - Autodevv</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=2.4">
+
+    <script>
+        (function () {
+            const theme = localStorage.getItem('theme') || 'dark';
+            if (theme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
+    <style>
+        /* ============================================
+           DESIGN TOKENS & RESET (From index.html)
+        ============================================ */
+        :root {
+            --primary: #0A84FF;
+            --primary-dim: rgba(10, 132, 255, 0.12);
+            --primary-glow: rgba(10, 132, 255, 0.35);
+            --accent: #30D158;
+            --accent-orange: #FF9F0A;
+            --accent-red: #FF453A;
+            --accent-purple: #BF5AF2;
+
+            --bg-base: #080C10;
+            --bg-surface: #0D1117;
+            --bg-card: #111820;
+            --bg-card-hover: #161E28;
+            --bg-elevated: #1C2433;
+
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.12);
+
+            --text-main: #F0F6FF;
+            --text-body: #9BABB8;
+            --text-muted: #5C6E7A;
+            --text-code: #58D68D;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+
+            --font-display: 'Neue Haas Grotesk Display Pro', 'NeueHaasGroteskDisplayPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-body: 'Neue Haas Grotesk Text Pro', 'NeueHaasGroteskTextPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+            /* Tutorial Overhaul Tokens */
+            --tutorial-green: #2f8d46;
+            --tutorial-bg: #f9f9f9;
+            --tutorial-text: #1a1a2e;
+            --tutorial-body: #444444;
+            --font-ui: 'Source Sans 3', sans-serif;
+            --font-code: 'Source Code Pro', monospace;
+
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
+            --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-base: #F5F7FA;
+            --bg-surface: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #F0F4FA;
+            --bg-elevated: #E8EDF5;
+            --border: rgba(0, 0, 0, 0.07);
+            --border-strong: rgba(0, 0, 0, 0.12);
+            --text-main: #0D1117;
+            --text-body: #4A5568;
+            --text-muted: #8A9BB0;
+            --text-code: #1A7F4B;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-base);
+            color: var(--text-body);
+            line-height: 1.75;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        /* ============================================
+           NAVBAR (EXACT FROM index.html)
+        ============================================ */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(8, 12, 16, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        [data-theme="light"] .navbar {
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            gap: 32px;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--text-main);
+            letter-spacing: -0.8px;
+            flex-shrink: 0;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-body);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-main);
+            background: var(--border);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--border-strong);
+            color: var(--text-body);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .theme-btn:hover {
+            color: var(--text-main);
+            background: var(--bg-card);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .burger div {
+            width: 22px;
+            height: 2px;
+            background: var(--text-body);
+            border-radius: 2px;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            gap: 4px;
+        }
+
+        .mobile-menu a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-body);
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+        }
+
+        /* SEARCH OVERLAY (EXACT) */
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .search-overlay.hidden {
+            display: none;
+        }
+
+        .search-container {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 600px;
+            margin: 0 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        #search-input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            font-family: var(--font-body);
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        #search-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+        }
+
+        /* ============================================
+           FROZEN CONTENT LAYOUT (FROZEN)
+        ============================================ */
+        .page-wrapper {
+            background: var(--tutorial-bg);
+            color: var(--tutorial-body);
+        }
+
+        .page {
+            display: grid;
+            grid-template-columns: 260px 1fr 280px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            padding: 24px 0 40px;
+        }
+
+        .sidebar h4 {
+            padding: 0 16px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        .sidebar-category {
+            margin-bottom: 4px;
+        }
+
+        .category-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--tutorial-text);
+            text-align: left;
+        }
+
+        .category-header:hover {
+            background: #e8f5e9;
+        }
+
+        .toggle-icon {
+            font-size: 10px;
+            transition: transform 0.3s;
+            color: #666;
+        }
+
+        .sidebar-category.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-category.open .category-content {
+            max-height: 1000px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 7px 16px 7px 24px;
+            font-size: 13px;
+            color: #444;
+            cursor: pointer;
+            font-family: var(--font-ui);
+        }
+
+        .sidebar a:hover {
+            background: #e8f5e9;
+            color: var(--tutorial-green);
+            padding-left: 30px;
+        }
+
+        .sidebar a.active {
+            border-left: 3px solid var(--tutorial-green);
+            font-weight: 600;
+            background: #e8f5e9;
+            color: var(--tutorial-green);
+            padding-left: 21px;
+        }
+
+        .content {
+            padding: 28px 32px 60px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            font-family: var(--font-ui);
+        }
+
+        .content h1 {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--tutorial-text);
+            margin-bottom: 8px;
+        }
+
+        .content .meta {
+            font-size: 12.5px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .content h2 {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--tutorial-text);
+            margin: 32px 0 16px;
+        }
+
+        .content h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--tutorial-text);
+            margin: 24px 0 12px;
+        }
+
+        .content p {
+            font-size: 15px;
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            margin: 24px 0;
+        }
+
+        .code-header {
+            background: #2d2d2d;
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .code-body {
+            padding: 18px 20px;
+            font-family: var(--font-code);
+            font-size: 13.5px;
+            color: #d4d4d4;
+            overflow-x: auto;
+        }
+
+        .code-body pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .code-body code {
+            font-family: inherit !important;
+            font-size: inherit !important;
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        .rightbar {
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            font-family: var(--font-ui);
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 20px rgba(47, 141, 70, 0.12);
+        }
+
+        .card h4 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: var(--tutorial-text);
+        }
+
+        .card a {
+            display: block;
+            font-size: 13px;
+            color: #444;
+            margin-top: 8px;
+        }
+
+        .card a:hover {
+            color: var(--tutorial-green);
+        }
+
+        @media (max-width: 1200px) {
+            .page {
+                grid-template-columns: 240px 1fr;
+            }
+
+            .rightbar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .burger {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar (Exact from index.html) -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Autodevv<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#explore">Explore</a></li>
+                <li><a href="tutorial.html" class="active">Tutorials</a></li>
+                <li><a href="download.html">Downloads</a></li>
+                <li><a href="index.html#site-footer">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="search-toggle" class="theme-btn" title="Search"><i
+                        class="fa-solid fa-magnifying-glass"></i></button>
+                <button id="theme-toggle" class="theme-btn" title="Toggle Theme"><i
+                        class="fa-solid fa-moon"></i></button>
+            </div>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="index.html#explore">Explore Topics</a>
+        <a href="tutorial.html">Tutorials</a>
+        <a href="download.html">Downloads</a>
+        <a href="index.html#site-footer">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="search-overlay hidden">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="page">
+            <!-- LEFT SIDEBAR -->
+            <div class="sidebar">
+                <h4>EXPLORE</h4>
+                <div class="sidebar-category" data-category="main-hub">
+                    <button class="category-header">
+                        <span>Main Hub</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="tutorial.html" data-file="tutorial.html">Tutorials - Automotive Software
+                            Engineering</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="autosar-stack">
+                    <button class="category-header">
+                        <span>AUTOSAR Stack</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="autosar-tutorial.html" data-file="autosar-tutorial.html">AUTOSAR Tutorial</a>
+                        <a href="autosar-basics.html" data-file="autosar-basics.html">Introduction to AUTOSAR</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="embedded-mastery">
+                    <button class="category-header">
+                        <span>Embedded mastery</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="c-programming.html" data-file="c-programming.html">Embedded C Programming</a>
+                        <a href="embedded-systems.html" data-file="embedded-systems.html">Embedded Systems Tutorial</a>
+                        <a href="embedded-tutorial.html" class="active" data-file="embedded-tutorial.html">Embedded
+                            Systems Tutorial</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="modern-tooling">
+                    <button class="category-header">
+                        <span>Modern Tooling</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
+                    </div>
+                </div>
+                <div class="sidebar-category" data-category="resources">
+                    <button class="category-header">
+                        <span>Resources</span>
+                        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+                    </button>
+                    <div class="category-content">
+                        <a href="download.html" data-file="download.html">Free Downloads & Resources</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <main class="content">
+                <h1>Embedded Systems Tutorial</h1>
+                <p>Embedded systems are specialized computing systems that perform dedicated functions within larger
+                    mechanical or electrical systems. They are the brains behind everything from microcontrollers in
+                    appliances to real-time systems in automotive applications.</p>
+                <ul>
+                    <li><strong>Ubiquitous</strong> — Found in smartphones, IoT devices, automobiles, medical equipment,
+                        and industrial systems.</li>
+                    <li><strong>Real-time Processing</strong> — Must meet strict timing constraints and reliability
+                        requirements.</li>
+                    <li><strong>Resource-Constrained</strong> — Limited memory, power, and processing capabilities
+                        compared to general-purpose computers.</li>
+                    <li><strong>Physical Interaction</strong> — Directly interface with hardware through sensors,
+                        actuators, and communication protocols.</li>
+                </ul>
+                <hr />
+                <h2>Getting Started with Embedded Systems</h2>
+                <p>Embedded systems form the foundation of modern electronics. This section covers the basics of
+                    embedded computing, hardware interaction, and development environments.</p>
+                <pre class="codehilite"><code class="language-c">// Your first embedded program - LED blink
+#include &lt;avr/io.h&gt;
+#include &lt;util/delay.h&gt;
+
+int main(void) {
+    DDRB = 0b00100000;  // Set PB5 as output
+
+    while(1) {
+        PORTB ^= 0b00100000;  // Toggle PB5
+        _delay_ms(1000);       // Wait 1 second
+    }
+
+    return 0;
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: LED blinks every 1 second</p>
+                </blockquote>
+                <ul>
+                    <li><a href="#">Microcontroller Basics</a></li>
+                    <li><a href="#">AVR vs ARM vs STM32</a></li>
+                    <li><a href="#">Development Tools Setup</a></li>
+                    <li><a href="#">First Program Walkthrough</a></li>
+                </ul>
+                <h2>Microcontroller Architecture</h2>
+                <p>Microcontrollers (MCUs) are the heart of embedded systems. Understanding their architecture is
+                    crucial for effective embedded programming.</p>
+                <pre class="codehilite"><code class="language-c">// Reading analog sensor value
+#include &lt;avr/io.h&gt;
+
+uint16_t read_adc(uint8_t channel) {
+    ADMUX = (ADMUX &amp; 0xF0) | (channel &amp; 0x0F);
+    ADCSRA |= (1 &lt;&lt; ADSC);
+
+    while(ADCSRA &amp; (1 &lt;&lt; ADSC));
+
+    return ADC;
+}
+
+int main(void) {
+    DDRC = 0x00;  // PORTC as input for ADC
+
+    while(1) {
+        uint16_t sensor_value = read_adc(0);
+        // Process sensor_value
+    }
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: ADC value read from channel 0</p>
+                </blockquote>
+                <h3>CPU Core</h3>
+                <p>The CPU executes instructions from memory and performs calculations. Most embedded systems use:</p>
+                <pre class="codehilite"><code class="language-c">// Memory organization example
+volatile uint8_t register_a;      // SRAM
+const int rom_value = 1024;       // Flash/ROM
+static int static_var = 0;        // SRAM (initialized)
+
+void cpu_operation() {
+    register_a = rom_value;       // Copy from ROM to SRAM
+    static_var++;                 // Increment in SRAM
+}
+</code></pre>
+
+                <h3>Memory Hierarchy</h3>
+                <p>Embedded systems typically have three types of memory:</p>
+                <pre class="codehilite"><code class="language-c">// Memory types and usage
+int global_array[100];            // SRAM - global storage
+const char* strings[] = {         // Flash - constant strings
+    &quot;Hello&quot;,
+    &quot;Embedded&quot;,
+    &quot;World&quot;
+};
+
+void memory_demo() {
+    static int counter = 0;       // Flash-initialized SRAM
+    counter++;
+}
+</code></pre>
+
+                <ul>
+                    <li>Flash Memory (Program Storage)</li>
+                    <li>SRAM (Runtime Variables)</li>
+                    <li>EEPROM (Non-volatile Data Storage)</li>
+                </ul>
+                <h2>GPIO and Digital I/O</h2>
+                <p>General Purpose Input/Output (GPIO) pins are how microcontrollers interact with the physical world.
+                    They can be configured as inputs or outputs.</p>
+                <pre class="codehilite"><code class="language-c">// GPIO configuration and control
+#include &lt;avr/io.h&gt;
+
+#define LED_PIN     5
+#define BUTTON_PIN  2
+
+void gpio_init() {
+    DDRB |= (1 &lt;&lt; LED_PIN);      // LED as output
+    DDRD &amp;= ~(1 &lt;&lt; BUTTON_PIN);  // Button as input
+    PORTD |= (1 &lt;&lt; BUTTON_PIN);  // Enable pull-up
+}
+
+void check_button() {
+    if((PIND &amp; (1 &lt;&lt; BUTTON_PIN)) == 0) {
+        PORTB |= (1 &lt;&lt; LED_PIN);  // Turn LED ON
+    } else {
+        PORTB &amp;= ~(1 &lt;&lt; LED_PIN); // Turn LED OFF
+    }
+}
+
+int main(void) {
+    gpio_init();
+    while(1) {
+        check_button();
+    }
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: LED responds to button press</p>
+                </blockquote>
+                <h3>Digital Outputs</h3>
+                <pre class="codehilite"><code class="language-c">// Multiple output control
+void control_outputs() {
+    DDRB = 0xFF;        // All PORTB pins as outputs
+    PORTB = 0x0F;       // Set lower 4 bits HIGH
+    PORTB ^= 0xFF;      // Toggle all bits
+}
+</code></pre>
+
+                <h3>Digital Inputs</h3>
+                <pre class="codehilite"><code class="language-c">// Reading digital inputs with debouncing
+uint8_t debounce_read(volatile uint8_t *port, uint8_t pin) {
+    uint8_t state_count = 0;
+
+    for(int i = 0; i &lt; 3; i++) {
+        if((*port &amp; (1 &lt;&lt; pin)) == 0) {
+            state_count++;
+        }
+        _delay_ms(5);
+    }
+
+    return (state_count &gt;= 2) ? 1 : 0;
+}
+</code></pre>
+
+                <h2>Interrupts and External Events</h2>
+                <p>Interrupts allow microcontrollers to respond to events without continuously polling. They're
+                    essential for real-time embedded systems.</p>
+                <pre class="codehilite"><code class="language-c">// External interrupt handling
+#include &lt;avr/interrupt.h&gt;
+
+volatile uint8_t button_pressed = 0;
+
+ISR(INT0_vect) {
+    button_pressed = 1;
+}
+
+void interrupt_init() {
+    EICRA |= (1 &lt;&lt; ISC01);  // Falling edge trigger
+    EIMSK |= (1 &lt;&lt; INT0);   // Enable INT0
+    sei();                   // Enable global interrupts
+}
+
+int main(void) {
+    interrupt_init();
+
+    while(1) {
+        if(button_pressed) {
+            // Handle button event
+            button_pressed = 0;
+        }
+    }
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Interrupt triggered on external event</p>
+                </blockquote>
+                <h2>Timers and PWM</h2>
+                <p>Timers are used for precise timing, pulse generation, and PWM (Pulse Width Modulation) control.</p>
+                <pre class="codehilite"><code class="language-c">// Timer0 setup for PWM
+#include &lt;avr/io.h&gt;
+
+void pwm_init() {
+    DDRD |= (1 &lt;&lt; PD6);       // OC0A as output
+    TCCR0A = 0b11000011;      // PWM mode, set on compare
+    TCCR0B = 0b00000001;      // Prescaler 1
+    OCR0A = 127;              // 50% duty cycle
+}
+
+void set_pwm_duty(uint8_t duty) {
+    OCR0A = duty;  // 0-255 maps to 0-100%
+}
+
+int main(void) {
+    pwm_init();
+
+    while(1) {
+        for(uint8_t i = 0; i &lt; 255; i++) {
+            set_pwm_duty(i);
+            _delay_ms(10);
+        }
+    }
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: PWM signal with varying duty cycle</p>
+                </blockquote>
+                <h3>Timer Interrupts</h3>
+                <pre class="codehilite"><code class="language-c">// Timer overflow interrupt
+ISR(TIMER0_OVF_vect) {
+    // Executed every timer overflow
+    static uint8_t counter = 0;
+    counter++;
+}
+
+void timer_overflow_init() {
+    TCCR0B = 0b00000101;      // Prescaler 1024
+    TIMSK0 |= (1 &lt;&lt; TOIE0);   // Enable overflow interrupt
+    sei();
+}
+</code></pre>
+
+                <h2>Serial Communication (UART)</h2>
+                <p>UART (Universal Asynchronous Receiver-Transmitter) is one of the most common communication protocols
+                    in embedded systems.</p>
+                <pre class="codehilite"><code class="language-c">// UART initialization and communication
+#include &lt;avr/io.h&gt;
+
+#define BAUD 9600
+#define F_CPU 16000000UL
+#define UBRR_VALUE ((F_CPU / (16UL * BAUD)) - 1)
+
+void uart_init() {
+    UBRR0H = (UBRR_VALUE &gt;&gt; 8);
+    UBRR0L = (UBRR_VALUE &amp; 0xFF);
+    UCSR0B = (1 &lt;&lt; RXEN0) | (1 &lt;&lt; TXEN0);
+    UCSR0C = (1 &lt;&lt; UCSZ01) | (1 &lt;&lt; UCSZ00);
+}
+
+void uart_transmit(uint8_t data) {
+    while(!(UCSR0A &amp; (1 &lt;&lt; UDRE0)));
+    UDR0 = data;
+}
+
+uint8_t uart_receive() {
+    while(!(UCSR0A &amp; (1 &lt;&lt; RXC0)));
+    return UDR0;
+}
+
+int main(void) {
+    uart_init();
+
+    while(1) {
+        uint8_t received = uart_receive();
+        uart_transmit(received);  // Echo received data
+    }
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Data echoed back through UART</p>
+                </blockquote>
+                <h2>Analog-to-Digital Conversion (ADC)</h2>
+                <p>ADC converts analog signals from sensors into digital values that the microcontroller can process.
+                </p>
+                <pre class="codehilite"><code class="language-c">// ADC configuration for temperature sensor
+#include &lt;avr/io.h&gt;
+
+void adc_init() {
+    ADMUX = 0b01000000;        // AVCC reference, ADC0 channel
+    ADCSRA = 0b10000110;       // Enable ADC, prescaler 64
+}
+
+uint16_t adc_read() {
+    ADCSRA |= (1 &lt;&lt; ADSC);     // Start conversion
+    while(ADCSRA &amp; (1 &lt;&lt; ADSC));
+    return ADC;
+}
+
+int main(void) {
+    adc_init();
+
+    while(1) {
+        uint16_t analog_val = adc_read();
+        int temperature = (analog_val * 5 / 1024);
+        // Process temperature reading
+    }
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Temperature value in digital format</p>
+                </blockquote>
+                <h2>Memory Management</h2>
+                <p>Efficient memory management is critical in resource-constrained embedded systems.</p>
+                <pre class="codehilite"><code class="language-c">// Static vs Dynamic memory
+#include &lt;stdlib.h&gt;
+
+// Static allocation - fixed at compile time
+uint8_t buffer[256];
+
+// Dynamic allocation - runtime flexibility
+void* allocate_buffer(size_t size) {
+    return malloc(size);
+}
+
+void init_system() {
+    // Prefer static allocation when possible
+    static int system_state = 0;
+
+    // Use dynamic allocation sparingly
+    uint8_t* temp_buffer = malloc(128);
+}
+</code></pre>
+
+                <h2>Real-Time Operating Systems (RTOS)</h2>
+                <p>Many embedded systems use RTOS for multitasking and scheduling.</p>
+                <pre class="codehilite"><code class="language-c">// FreeRTOS example
+#include &lt;FreeRTOS.h&gt;
+#include &lt;task.h&gt;
+
+void task_led(void *pvParameters) {
+    while(1) {
+        toggle_led();
+        vTaskDelay(500 / portTICK_PERIOD_MS);
+    }
+}
+
+void task_sensor(void *pvParameters) {
+    while(1) {
+        read_sensor();
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
+
+int main(void) {
+    xTaskCreate(task_led, &quot;LED&quot;, 256, NULL, 1, NULL);
+    xTaskCreate(task_sensor, &quot;Sensor&quot;, 256, NULL, 1, NULL);
+
+    vTaskStartScheduler();
+    return 0;
+}
+</code></pre>
+
+                <blockquote>
+                    <p>Output: Multiple tasks running concurrently</p>
+                </blockquote>
+                <h2>Debugging Embedded Systems</h2>
+                <p>Debugging embedded systems requires specialized tools and techniques.</p>
+                <pre class="codehilite"><code class="language-c">// Debug macro for logging
+#define DEBUG_PRINT(fmt, ...) \
+    uart_printf(&quot;DEBUG: &quot; fmt &quot;\r\n&quot;, ##__VA_ARGS__)
+
+void debug_system_state() {
+    static uint16_t debug_counter = 0;
+
+    if(debug_counter++ % 1000 == 0) {
+        DEBUG_PRINT(&quot;System uptime: %lu ms&quot;, get_uptime());
+    }
+}
+
+void uart_printf(const char *fmt, ...) {
+    // Implementation for formatted UART output
+}
+</code></pre>
+
+                <h2>Power Management</h2>
+                <p>Embedded systems often run on batteries, making power efficiency crucial.</p>
+                <pre class="codehilite"><code class="language-c">// Sleep mode implementation
+#include &lt;avr/sleep.h&gt;
+
+void enter_sleep_mode() {
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    sleep_enable();
+    sei();
+    sleep_cpu();
+    sleep_disable();
+}
+
+void power_efficient_loop() {
+    while(1) {
+        if(no_work_to_do()) {
+            enter_sleep_mode();
+        }
+    }
+}
+</code></pre>
+
+                <h2>Performance Optimization</h2>
+                <pre class="codehilite"><code class="language-c">// Inline functions for performance-critical code
+static inline void fast_operation() {
+    // Critical operation - avoid function call overhead
+}
+
+// Bit manipulation for efficiency
+#define SET_BIT(port, bit)   ((port) |= (1 &lt;&lt; (bit)))
+#define CLR_BIT(port, bit)   ((port) &amp;= ~(1 &lt;&lt; (bit)))
+#define TOG_BIT(port, bit)   ((port) ^= (1 &lt;&lt; (bit)))
+
+void optimized_routine() {
+    SET_BIT(PORTB, 5);  // More efficient than PORTB |= (1 &lt;&lt; 5)
+}
+</code></pre>
+
+                <h2>Common Pitfalls and Best Practices</h2>
+                <p>Common mistakes in embedded development:</p>
+                <ul>
+                    <li>Not using <code>volatile</code> for hardware registers</li>
+                    <li>Ignoring interrupt priorities</li>
+                    <li>Buffer overflows in limited memory</li>
+                    <li>Not planning for scalability</li>
+                    <li>Poor code documentation</li>
+                </ul>
+                <pre class="codehilite"><code class="language-c">// Best practice examples
+volatile uint8_t sensor_flag = 0;  // Hardware register
+
+ISR(INT0_vect) __attribute__((interrupt)) {
+    sensor_flag = 1;
+}
+
+void safe_buffer_operation(const char *data, size_t max_len) {
+    // Boundary checking
+    if(strlen(data) &gt;= max_len) {
+        // Handle error
+        return;
+    }
+}
+</code></pre>
+
+                <h2>Practice Projects</h2>
+                <p>Test your embedded systems knowledge with these projects:</p>
+                <ul>
+                    <li><a href="#">LED Blink Tutorial</a></li>
+                    <li><a href="#">Button Debouncing</a></li>
+                    <li><a href="#">Temperature Sensor Reading</a></li>
+                    <li><a href="#">PWM LED Control</a></li>
+                    <li><a href="#">Multi-tasking with RTOS</a></li>
+                    <li><a href="#">Simple Robot Controller</a></li>
+                    <li><a href="#">Embedded Data Logging</a></li>
+                    <li><a href="#">IoT Sensor Node</a></li>
+                </ul>
+                <h2>Advanced Topics</h2>
+                <p>For experienced developers, explore:</p>
+                <ul>
+                    <li><a href="#">Device Drivers</a></li>
+                    <li><a href="#">Hardware Abstraction Layers (HAL)</a></li>
+                    <li><a href="#">Bootloaders</a></li>
+                    <li><a href="#">Firmware Updates</a></li>
+                    <li><a href="#">Security in Embedded Systems</a></li>
+                    <li><a href="#">Real-time Constraints</a></li>
+                    <li><a href="#">Low-Power Design</a></li>
+                </ul>
+            </main>
+
+            <!-- RIGHT SIDEBAR -->
+            <aside class="rightbar">
+                <div class="card">
+                    <h4>Related Tutorials</h4>
+                    <a href="#">RTE Explained</a>
+                    <a href="#">COM Stack Deep Dive</a>
+                    <a href="#">CAN Communication</a>
+                </div>
+                <div class="card">
+                    <h4>Trending Topics</h4>
+                    <a href="#">ASIL Safety</a>
+                    <a href="#">Bootloader Design</a>
+                    <a href="#">UDS Diagnostics</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer id="site-footer">
+        <div class="footer-inner">
+
+            <div class="footer-top">
+                <!-- Brand -->
+                <div class="footer-brand-block">
+
+
+                    <div class="footer-about-hero">
+                        <a href="index.html">
+                            <img src="images/site.jpg" alt="About Autodevv">
+                        </a>
+                        <div class="footer-about-text">
+                            <a href="index.html" class="footer-logo">Autodevv<span>.</span></a>
+                            <p>
+                                Autodevv is an online learning platform dedicated to Automotive Software Development. We
+                                provide tutorials, guides, and resources for AUTOSAR, Embedded C, CAN, Diagnostics, and
+                                Automotive Embedded Systems.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer-socials">
+                        <a href="https://linkedin.com" target="_blank" class="footer-social-link" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/Vivekpkd" target="_blank" class="footer-social-link" title="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Nav columns -->
+                <div class="footer-nav-group">
+                    <div class="footer-nav-col">
+                        <h5>Pages</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="tutorial.html">Tutorials</a></li>
+                            <li><a href="download.html">Downloads</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-col">
+                        <h5>Topics</h5>
+                        <ul>
+                            <li><a href="blog.html?category=AUTOSAR">AUTOSAR</a></li>
+                            <li><a href="blog.html?category=Embedded Systems">Embedded C</a></li>
+                            <li><a href="blog.html?category=Automotive Security">Cybersecurity</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 Autodevv. Engineered for Safety & Reliability.</p>
+                <div class="footer-bottom-links">
+                    <a href="privacy.html" style="color:var(--text-body);">Privacy Policy</a>
+                    <a href="terms.html">Terms</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Scripts from index.html / app -->
+    <script src="articles.js"></script>
+    <script src="search-engine.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+        // Exact Logic from index.html Header
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle?.addEventListener('click', () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        });
+
+        // Sync icon on load
+        if (localStorage.getItem('theme') === 'light') {
+            themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
+        }
+
+        document.getElementById('search-toggle')?.addEventListener('click', () => {
+            document.getElementById('search-overlay').classList.remove('hidden');
+            document.getElementById('search-input').focus();
+        });
+        document.getElementById('search-close')?.addEventListener('click', () => {
+            document.getElementById('search-overlay').classList.add('hidden');
+        });
+        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
+        });
+
+        const burger = document.querySelector('.burger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        burger?.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Accordion Logic (Frozen)
+        document.querySelectorAll('.category-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const category = header.parentElement;
+                category.classList.toggle('open');
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Auto-expand category
+            const activeLink = document.querySelector('.sidebar a.active');
+            if (activeLink) { activeLink.closest('.sidebar-category')?.classList.add('open'); }
+
+            // Wrap Code Blocks
+            document.querySelectorAll('pre.codehilite, .codehilite pre').forEach(pre => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'code-block';
+                const header = document.createElement('div');
+                header.className = 'code-header';
+                const code = pre.querySelector('code');
+                let lang = 'Code';
+                if (code) {
+                    const langMatch = code.className.match(/language-(\w+)/);
+                    if (langMatch) lang = langMatch[1].toUpperCase();
+                }
+                header.innerHTML = `<span>${lang}</span><i class="fa-regular fa-copy" style="cursor:pointer;" title="Copy Code"></i>`;
+                const body = document.createElement('div');
+                body.className = 'code-body';
+                pre.parentNode.insertBefore(wrapper, pre);
+                body.appendChild(pre);
+                wrapper.appendChild(header);
+                wrapper.appendChild(body);
+                header.querySelector('.fa-copy').addEventListener('click', function () {
+                    navigator.clipboard.writeText(pre.innerText).then(() => {
+                        this.classList.replace('fa-regular', 'fa-solid');
+                        this.classList.replace('fa-copy', 'fa-check');
+                        setTimeout(() => {
+                            this.classList.replace('fa-solid', 'fa-regular');
+                            this.classList.replace('fa-check', 'fa-copy');
+                        }, 2000);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

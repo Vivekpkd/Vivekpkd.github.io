@@ -30,7 +30,7 @@ const projects = [
 // App Logic
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Render Projects
+    // Render Projects (Carousel - top section)
     const projectsContainer = document.getElementById('projects-container');
     if (projectsContainer) {
         projects.forEach(project => {
@@ -44,15 +44,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card-img" style="background: ${project.background}; display: flex; align-items: center; justify-content: center;">
                     <i class="fa-solid ${project.icon}" style="font-size: 3.5rem; color: rgba(255,255,255,0.2);"></i>
                 </div>
-                <div class="card-content">
+                <div class="card-body">
                     <div class="card-tags">
                         ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                     </div>
-                    <h3>${project.title}</h3>
-                    <p style="margin-top: 10px; font-size: 0.9rem;">${project.desc}</p>
+                    <h3 class="card-title">${project.title}</h3>
                 </div>
             `;
             projectsContainer.appendChild(card);
+        });
+    }
+
+    // Render Projects (Modern List - below articles)
+    const worksListContainer = document.getElementById('works-list-container');
+    if (worksListContainer) {
+        projects.forEach((project, index) => {
+            const item = document.createElement('a');
+            item.href = project.link;
+            item.target = "_blank";
+            item.className = 'work-list-item fade-in';
+            item.innerHTML = `
+                <div class="work-list-num">${String(index + 1).padStart(2, '0')}</div>
+                <div class="work-list-icon" style="background: ${project.background};">
+                    <i class="fa-solid ${project.icon}"></i>
+                </div>
+                <div class="work-list-info">
+                    <h3 class="work-list-title">${project.title}</h3>
+                    <p class="work-list-desc">${project.desc}</p>
+                    <div class="work-list-tags">
+                        ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="work-list-arrow">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </div>
+            `;
+            worksListContainer.appendChild(item);
         });
     }
 
@@ -93,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Search Logic ---
+    // --- Search Logic (Using Optimized Search Engine) ---
     if (searchToggle && searchOverlay) {
         searchToggle.addEventListener('click', () => {
             searchOverlay.classList.add('active');
@@ -104,31 +131,53 @@ document.addEventListener('DOMContentLoaded', () => {
             searchOverlay.classList.remove('active');
         });
 
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
+        searchInput.addEventListener('input', async (e) => {
+            const term = e.target.value.toLowerCase().trim();
             if (term.length < 2) {
                 searchResults.innerHTML = '';
                 return;
             }
 
-            if (typeof articlesData === 'undefined') {
-                searchResults.innerHTML = '<p style="padding:10px; color:var(--text-muted)">Search data loading...</p>';
-                return;
+            // Use the optimized search engine for faster lookups
+            if (typeof searchEngine !== 'undefined') {
+                try {
+                    const matches = await searchEngine.advancedSearch(term);
+
+                    if (matches.length === 0) {
+                        searchResults.innerHTML = '<p style="padding:10px; color:var(--text-muted)">No articles found matching "<strong>' + term + '</strong>"</p>';
+                        return;
+                    }
+
+                    searchResults.innerHTML = matches.slice(0, 10).map(match => `
+                        <a href="${match.link}" class="search-item">
+                            <h4>${match.title}</h4>
+                            <p>${match.excerpt}</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                                <small style="color:var(--primary); font-weight: 600;">${match.category}</small>
+                                <small style="color:var(--text-muted);">${match.date}</small>
+                            </div>
+                        </a>
+                    `).join('');
+                } catch (error) {
+                    console.error('Search error:', error);
+                    searchResults.innerHTML = '<p style="padding:10px; color:var(--text-muted)">Search temporarily unavailable</p>';
+                }
+            } else if (typeof articlesData !== 'undefined') {
+                // Fallback to inline articles data if search engine not available
+                const matches = articlesData.filter(a =>
+                    a.title.toLowerCase().includes(term) ||
+                    a.excerpt.toLowerCase().includes(term) ||
+                    (a.tags && a.tags.some(t => t.toLowerCase().includes(term)))
+                );
+
+                searchResults.innerHTML = matches.map(match => `
+                    <a href="${match.link}" class="search-item">
+                        <h4>${match.title}</h4>
+                        <p>${match.excerpt}</p>
+                        <small style="color:var(--primary)">${match.category}</small>
+                    </a>
+                `).join('');
             }
-
-            const matches = articlesData.filter(a =>
-                a.title.toLowerCase().includes(term) ||
-                a.excerpt.toLowerCase().includes(term) ||
-                (a.tags && a.tags.some(t => t.toLowerCase().includes(term)))
-            );
-
-            searchResults.innerHTML = matches.map(match => `
-                <a href="${match.link}" class="search-item">
-                    <h4>${match.title}</h4>
-                    <p>${match.excerpt}</p>
-                    <small style="color:var(--primary)">${match.category}</small>
-                </a>
-            `).join('');
         });
     }
 
@@ -136,18 +185,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const blogContainer = document.getElementById('blog-container');
 
     if (blogContainer) {
-        const articles = (typeof articlesData !== 'undefined') ? articlesData : [];
-        const INITIAL_COUNT = 8;
+        const isHome = blogContainer.classList.contains('home-latest-cards');
+        const targetCategory = blogContainer.dataset.category;
+
+        const articles = (typeof articlesData !== 'undefined')
+            ? (targetCategory
+                ? articlesData.filter(a => a.category === targetCategory)
+                : articlesData)
+            : [];
+
+        const INITIAL_COUNT = isHome ? 6 : (targetCategory ? 20 : 8);
         const INCREMENT = 4;
         let visibleCount = INITIAL_COUNT;
 
         // Category Styles
         const categoryStyles = {
-            'AUTOSAR': { gradient: 'linear-gradient(135deg, #f59e0b 0%, #b45309 100%)', icon: 'fa-microchip' },
-            'Embedded C': { gradient: 'linear-gradient(135deg, #10b981 0%, #047857 100%)', icon: 'fa-code' },
-            'C++': { gradient: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)', icon: 'fa-c' },
-            'Python': { gradient: 'linear-gradient(135deg, #eab308 0%, #a16207 100%)', icon: 'fa-python' },
-            'General': { gradient: 'linear-gradient(135deg, #6366f1 0%, #4338ca 100%)', icon: 'fa-file-lines' }
+            'AUTOSAR': { gradient: 'linear-gradient(135deg, #f59e0b 0%, #b45309 100%)', icon: 'fa-microchip', color: '#f59e0b' },
+            'Embedded C': { gradient: 'linear-gradient(135deg, #10b981 0%, #047857 100%)', icon: 'fa-code', color: '#10b981' },
+            'Automotive Security': { gradient: 'linear-gradient(135deg, #ef4444 0%, #991b1b 100%)', icon: 'fa-shield-halved', color: '#ef4444' },
+            'C++': { gradient: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)', icon: 'fa-c', color: '#3b82f6' },
+            'Python': { gradient: 'linear-gradient(135deg, #eab308 0%, #a16207 100%)', icon: 'fa-python', color: '#eab308' },
+            'General': { gradient: 'linear-gradient(135deg, #6366f1 0%, #4338ca 100%)', icon: 'fa-file-lines', color: '#6366f1' },
+            'Experience': { gradient: 'linear-gradient(135deg, #8b5cf6 0%, #5b21b6 100%)', icon: 'fa-user-tie', color: '#8b5cf6' },
+            'Update': { gradient: 'linear-gradient(135deg, #06b6d4 0%, #0e7490 100%)', icon: 'fa-bullhorn', color: '#06b6d4' }
         };
 
         function renderArticles(count) {
@@ -164,35 +224,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.className = 'blog-card fade-in';
 
                 if (isHome) {
-                    // Premium Layout for Home: 140px Header, Icon, Title, Tags
+                    // GeeksforGeeks Inspired Card Layout
+                    const headerBg = article.image
+                        ? `background-image: url('${article.image}'); background-size: cover; background-position: center;`
+                        : `background: linear-gradient(135deg, ${style.gradient.split(',')[1].trim()}, ${style.gradient.split(',')[2].trim().replace(')', '')});`;
+
                     card.innerHTML = `
-                        <div class="card-img-small" style="background: ${style.gradient}; height: 140px; width: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-                            <i class="fa-solid ${style.icon}" style="font-size: 3.5rem; color: rgba(255,255,255,0.15); transform: rotate(-10deg);"></i>
-                            <div style="position: absolute; bottom: 10px; left: 15px;">
-                                <span class="tag" style="font-size: 0.7rem; padding: 4px 10px; background: rgba(0,0,0,0.2); backdrop-filter: blur(4px); color: white; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">${article.category}</span>
+                        <div class="gfg-course-card">
+                            <div class="gfg-course-thumb" style="${headerBg}">
+                                ${!article.image ? `<i class="fa-solid ${style.icon}"></i>` : ''}
+                                <div class="gfg-rating">⭐ 4.9</div>
+                                <div class="gfg-badge">LATEST</div>
                             </div>
-                        </div>
-                        <div class="card-content" style="padding: 20px; min-height: 120px; display: flex; flex-direction: column;">
-                            <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 8px;">${article.date}</span>
-                            <h3 style="font-size: 1.15rem; margin: 0 0 12px; line-height: 1.35; font-weight: 700;">
-                                <a href="${article.link}" style="color: inherit; text-decoration: none;">${article.title}</a>
-                            </h3>
-                            
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border);">
-                                <div class="card-tags" style="font-size:0.7rem; color:var(--text-muted); opacity: 0.8;">
-                                    ${article.tags.slice(0, 2).map(tag => `#${tag}`).join(' ')}
+                            <div class="gfg-course-body">
+                                <h3 class="gfg-course-title">${article.title}</h3>
+                                <div class="gfg-course-level"><span>${article.category}</span> &nbsp;•&nbsp; Beginner to Advanced</div>
+                                <div class="gfg-course-meta">
+                                    <div class="gfg-interested"><b>${Math.floor(Math.random() * 50) + 10}k+</b> interested</div>
+                                    <a href="${article.link}" class="gfg-btn-explore">Read now</a>
                                 </div>
-                                <a href="${article.link}" style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">Read Article <i class="fa-solid fa-arrow-right" style="font-size: 0.75rem; margin-left: 5px;"></i></a>
                             </div>
                         </div>
                     `;
+                } else if (blogContainer.classList.contains('gfg-courses-grid')) {
+                    // Explore Page (Tutorial Roadmap) Layout - Enhanced Professional List
+                    card.className = 'explore-roadmap-item fade-in';
+                    card.innerHTML = `
+                        <div style="display: flex; align-items: flex-start; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--border);">
+                            <div style="width: 40px; height: 40px; border-radius: 8px; background: var(--primary-glow); display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0;">
+                                <i class="fa-solid ${style.icon}"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h3 style="font-size: 1.1rem; margin: 0 0 5px; font-weight: 600;">
+                                    <a href="${article.link}" style="color: inherit; text-decoration: none; transition: 0.2s;">${article.title}</a>
+                                </h3>
+                                <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 8px;">${article.excerpt || 'Comprehensive guide on ' + article.title + ' for automotive engineers.'}</p>
+                                <div style="display: flex; gap: 15px; align-items: center; font-size: 0.8rem; color: var(--text-muted);">
+                                    <span><i class="fa-regular fa-clock" style="margin-right: 5px;"></i> ${article.readingTime || '10 min'}</span>
+                                    <span style="color: var(--primary); font-weight: 600;">#${article.category}</span>
+                                </div>
+                            </div>
+                            <a href="${article.link}" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: 0.3s; margin-top: 5px;">
+                                <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem;"></i>
+                            </a>
+                        </div>
+                    `;
+                    // Extra CSS for hover effect would be nice but handled inline for now
                 } else {
-                    // Standard/Compact Layout for Blog/Category Pages
+                    // Standard Blog List Layout
                     card.innerHTML = `
                         <div class="card-img-small" style="background: ${style.gradient}; height: 6px; width: 100%;"></div>
                         <div class="card-content" style="padding: 15px; display: flex; flex-direction: column; justify-content: center;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-                                <span class="tag" style="font-size: 0.7rem; padding: 3px 8px; background: rgba(255,255,255,0.05); margin:0;">${article.category}</span>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <span class="tag" style="font-size: 0.7rem; padding: 3px 8px; background: var(--primary-glow); color: var(--primary); margin:0;">${article.category}</span>
                                 <span style="font-size: 0.75rem; color: var(--text-muted);">${article.date}</span>
                             </div>
                             <h3 style="font-size: 1.1rem; margin: 5px 0 10px; line-height: 1.4; font-weight: 600;">
@@ -201,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
                                 <div class="card-tags" style="font-size:0.75rem; color:var(--text-muted);">
-                                    <i class="fa-solid ${style.icon}" style="margin-right: 5px; color: ${style.gradient.match(/#[0-9a-f]{6}/i)[0]}"></i>
+                                    <i class="fa-solid ${style.icon}" style="margin-right: 5px; color: ${style.color}"></i>
                                     ${article.tags.slice(0, 3).map(tag => `#${tag}`).join(' ')}
                                 </div>
                                 <a href="${article.link}" style="font-size: 0.8rem; color: var(--primary); font-weight: 500;">Read <i class="fa-solid fa-arrow-right" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
@@ -229,33 +313,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Create View all button and AdSense placeholder if needed
-        if (articles.length > INITIAL_COUNT) {
-            const btnContainer = document.createElement('div');
-            btnContainer.id = 'blog-btn-container';
-            btnContainer.className = 'container';
-            btnContainer.style.textAlign = 'center';
-            btnContainer.style.marginTop = '40px';
-            btnContainer.style.width = '100%';
+        // Create "More Articles" button for home page or "View All" for loadMore functionality
+        if (isHome || (articles.length > INITIAL_COUNT && !isHome)) {
+            const placeholder = document.getElementById('blog-view-all-placeholder');
 
-            // Add AdSense Placeholder near the button
-            const adPlace = document.createElement('div');
-            adPlace.className = 'ad-slot-container';
-            adPlace.innerHTML = `
-                <div class="ad-placeholder" style="margin-bottom: 20px;">
-                    <small>Advertisement Space (Google Adsense - High CTR Slot)</small>
-                </div>
-            `;
-            btnContainer.appendChild(adPlace);
-
-            const viewAllBtn = document.createElement('a');
-            viewAllBtn.className = 'btn btn-primary';
-            viewAllBtn.id = 'view-all-blog';
-            viewAllBtn.href = 'blog.html';
-            viewAllBtn.textContent = 'View all Articles';
-
-            btnContainer.appendChild(viewAllBtn);
-            blogContainer.after(btnContainer);
+            if (placeholder) {
+                const viewAllBtn = document.createElement('a');
+                viewAllBtn.className = 'btn-more-articles';
+                viewAllBtn.href = 'blog.html';
+                viewAllBtn.textContent = isHome ? 'View all' : 'View more Articles';
+                placeholder.appendChild(viewAllBtn);
+            }
         }
 
         renderArticles(visibleCount);

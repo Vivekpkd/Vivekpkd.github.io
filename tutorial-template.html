@@ -4,15 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact — Autodevv</title>
-    <meta name="description"
-        content="Contact Vivek A, Senior Automotive Software Engineer specializing in SDV and AUTOSAR.">
-
+    <title>{{TITLE}} - Autodevv</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;600;700;800&display=swap"
         rel="stylesheet">
 
     <!-- Font Awesome -->
@@ -32,7 +29,7 @@
 
     <style>
         /* ============================================
-           DESIGN TOKENS & RESET (Synced from Index)
+           DESIGN TOKENS & RESET (From index.html)
         ============================================ */
         :root {
             --primary: #0A84FF;
@@ -62,9 +59,17 @@
             --radius-lg: 16px;
             --radius-xl: 24px;
 
-            --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
-            --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-display: 'Neue Haas Grotesk Display Pro', 'NeueHaasGroteskDisplayPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --font-body: 'Neue Haas Grotesk Text Pro', 'NeueHaasGroteskTextPro', 'Neue Haas Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
             --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+            /* Tutorial Overhaul Tokens */
+            --tutorial-green: #2f8d46;
+            --tutorial-bg: #f9f9f9;
+            --tutorial-text: #1a1a2e;
+            --tutorial-body: #444444;
+            --font-ui: 'Source Sans 3', sans-serif;
+            --font-code: 'Source Code Pro', monospace;
 
             --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
             --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
@@ -83,8 +88,6 @@
             --text-body: #4A5568;
             --text-muted: #8A9BB0;
             --text-code: #1A7F4B;
-            --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.08);
-            --shadow-card-hover: 0 6px 32px rgba(0, 0, 0, 0.14);
         }
 
         *,
@@ -105,17 +108,18 @@
             color: var(--text-body);
             line-height: 1.75;
             font-size: 15px;
-            font-weight: 400;
             -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
         }
 
-        /* ── NAVBAR (Exact Index Styles) ── */
+        /* ============================================
+           NAVBAR (EXACT FROM index.html)
+        ============================================ */
         .navbar {
             position: sticky;
             top: 0;
@@ -135,25 +139,19 @@
             align-items: center;
             justify-content: space-between;
             height: 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
             gap: 32px;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
             font-family: var(--font-display);
             font-weight: 800;
             font-size: 20px;
             color: var(--text-main);
             letter-spacing: -0.8px;
-            text-decoration: none;
-        }
-
-        .logo img {
-            height: 32px;
-            width: auto;
-            border-radius: var(--radius-sm);
+            flex-shrink: 0;
         }
 
         .logo span {
@@ -164,7 +162,6 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            list-style: none;
         }
 
         .nav-links a {
@@ -173,8 +170,6 @@
             color: var(--text-body);
             padding: 6px 14px;
             border-radius: var(--radius-sm);
-            transition: var(--transition);
-            text-decoration: none;
         }
 
         .nav-links a:hover,
@@ -187,6 +182,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-shrink: 0;
         }
 
         .theme-btn {
@@ -201,7 +197,6 @@
             align-items: center;
             justify-content: center;
             font-size: 14px;
-            transition: var(--transition);
         }
 
         .theme-btn:hover {
@@ -214,6 +209,7 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
+            padding: 4px;
         }
 
         .burger div {
@@ -223,7 +219,6 @@
             border-radius: 2px;
         }
 
-        /* ── MOBILE MENU ── */
         .mobile-menu {
             display: none;
             flex-direction: column;
@@ -238,12 +233,10 @@
             font-weight: 500;
             color: var(--text-body);
             padding: 10px 12px;
-            text-decoration: none;
             border-radius: var(--radius-sm);
-            transition: var(--transition);
         }
 
-        /* ── SEARCH OVERLAY ── */
+        /* SEARCH OVERLAY (EXACT) */
         .search-overlay {
             position: fixed;
             inset: 0;
@@ -262,287 +255,320 @@
 
         .search-container {
             background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-xl);
             width: 100%;
             max-width: 600px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-strong);
+            margin: 0 24px;
             overflow: hidden;
             box-shadow: var(--shadow-card-hover);
         }
 
         .search-header {
             display: flex;
-            padding: 16px;
+            align-items: center;
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border);
             gap: 12px;
         }
 
-        .search-header input {
+        #search-input {
             flex: 1;
             background: none;
             border: none;
-            color: var(--text-main);
-            font-size: 16px;
             outline: none;
-        }
-
-        .search-results {
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 8px;
-        }
-
-        /* ── CONTACT SPECIFIC STYLES (Cleaned up) ── */
-        .contact-hero {
-            padding: 80px 0 40px;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: 42px;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 12px;
-            letter-spacing: -1.5px;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary), #30D158);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: 18px;
-            color: var(--text-body);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-section {
-            padding: 40px 0 100px;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 40px;
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-        }
-
-        .card-title {
-            font-family: var(--font-display);
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            color: var(--text-main);
             font-family: var(--font-body);
             font-size: 15px;
-            outline: none;
-            transition: var(--transition);
+            color: var(--text-main);
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px var(--primary-dim);
-        }
-
-        .form-group textarea {
-            height: 160px;
-            resize: vertical;
-        }
-
-        .btn-submit {
-            background: var(--primary);
-            color: white;
+        #search-close {
+            background: none;
             border: none;
-            padding: 16px 32px;
-            border-radius: var(--radius-md);
-            font-weight: 700;
+            color: var(--text-muted);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-size: 16px;
-            transition: var(--transition);
+            padding: 4px;
         }
 
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px var(--primary-glow);
+        /* ============================================
+           FROZEN CONTENT LAYOUT (FROZEN)
+        ============================================ */
+        .page-wrapper {
+            background: var(--tutorial-bg);
+            color: var(--tutorial-body);
+        }
+
+        .page {
+            display: grid;
+            grid-template-columns: 260px 1fr 280px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
         }
 
         .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            padding: 24px 0 40px;
         }
 
-        .info-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 30px;
+        .sidebar h4 {
+            padding: 0 16px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
         }
 
-        /* ── PROFILE CARD ── */
-        .profile-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 32px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-img-container {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--primary);
-            box-shadow: 0 8px 24px var(--primary-glow);
-        }
-
-        .profile-name {
-            font-family: var(--font-display);
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-main);
+        .sidebar-category {
             margin-bottom: 4px;
         }
 
-        .profile-title {
-            font-size: 13px;
-            color: var(--primary);
+        .category-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-size: 14px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--tutorial-text);
+            text-align: left;
+        }
+
+        .category-header:hover {
+            background: #e8f5e9;
+        }
+
+        .toggle-icon {
+            font-size: 10px;
+            transition: transform 0.3s;
+            color: #666;
+        }
+
+        .sidebar-category.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-category.open .category-content {
+            max-height: 1000px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 7px 16px 7px 24px;
+            font-size: 13px;
+            color: #444;
+            cursor: pointer;
+            font-family: var(--font-ui);
+        }
+
+        .sidebar a:hover {
+            background: #e8f5e9;
+            color: var(--tutorial-green);
+            padding-left: 30px;
+        }
+
+        .sidebar a.active {
+            border-left: 3px solid var(--tutorial-green);
+            font-weight: 600;
+            background: #e8f5e9;
+            color: var(--tutorial-green);
+            padding-left: 21px;
+        }
+
+        .content {
+            padding: 28px 32px 60px;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            font-family: var(--font-ui);
+        }
+
+        .content h1 {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--tutorial-text);
+            margin-bottom: 8px;
+        }
+
+        .content .meta {
+            font-size: 12.5px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .content h2 {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--tutorial-text);
+            margin: 32px 0 16px;
+        }
+
+        .content h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--tutorial-text);
+            margin: 24px 0 12px;
+        }
+
+        .content p {
+            font-size: 15px;
+            line-height: 1.75;
             margin-bottom: 16px;
         }
 
-        .profile-bio {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-body);
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            margin: 24px 0;
         }
 
-        .info-item {
+        .code-header {
+            background: #2d2d2d;
+            padding: 8px 16px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .info-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--bg-elevated);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 18px;
-        }
-
-        .info-label {
             font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
+            color: #aaa;
         }
 
-        .info-val {
+        .code-body {
+            padding: 18px 20px;
+            font-family: var(--font-code);
+            font-size: 13.5px;
+            color: #d4d4d4;
+            overflow-x: auto;
+        }
+
+        .code-body pre {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .code-body code {
+            font-family: inherit !important;
+            font-size: inherit !important;
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        .rightbar {
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            font-family: var(--font-ui);
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 20px rgba(47, 141, 70, 0.12);
+        }
+
+        .card h4 {
             font-size: 15px;
-            color: var(--text-main);
-            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--tutorial-text);
         }
 
+        .card a {
+            display: block;
+            font-size: 13px;
+            color: #444;
+            margin-top: 8px;
+        }
+
+        .card a:hover {
+            color: var(--tutorial-green);
+        }
+
+        @media (max-width: 1200px) {
+            .page {
+                grid-template-columns: 240px 1fr;
+            }
+
+            .rightbar {
+                display: none;
+            }
+        }
 
         @media (max-width: 768px) {
-            .contact-grid {
+            .page {
                 grid-template-columns: 1fr;
             }
 
-            .burger {
-                display: flex;
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                padding: 20px;
             }
 
             .nav-links {
                 display: none;
+            }
+
+            .burger {
+                display: flex;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Navigation (Synced) -->
+    <!-- Navbar (Exact from index.html) -->
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="index.html" class="logo">
-                <img src="images/site.jpg" alt="Autodevv Brand">
-                Autodevv<span>.</span>
-            </a>
+            <a href="index.html" class="logo">Autodevv<span>.</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#explore">Explore</a></li>
-                <li><a href="tutorial.html">Tutorials</a></li>
+                <li><a href="tutorial.html" class="active">Tutorials</a></li>
                 <li><a href="download.html">Downloads</a></li>
                 <li><a href="index.html#site-footer">About</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
                 <button id="search-toggle" class="theme-btn" title="Search"><i
                         class="fa-solid fa-magnifying-glass"></i></button>
                 <button id="theme-toggle" class="theme-btn" title="Toggle Theme"><i
-                        class="fa-solid fa-sun"></i></button>
+                        class="fa-solid fa-moon"></i></button>
             </div>
-            <div class="burger" id="burger-btn">
+            <div class="burger">
                 <div class="line1"></div>
                 <div class="line2"></div>
                 <div class="line3"></div>
@@ -565,99 +591,42 @@
         <div class="search-container">
             <div class="search-header">
                 <input type="text" id="search-input" placeholder="Search technical articles..." autocomplete="off">
-                <button id="search-close"
-                    style="background:none; border:none; color:var(--text-muted); cursor:pointer;"><i
-                        class="fa-solid fa-xmark"></i></button>
+                <button id="search-close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="search-results" class="search-results"></div>
         </div>
     </div>
 
-    <section class="contact-hero">
-        <div class="container">
-            <h1 class="hero-title">Get in <span class="gradient-text">Touch</span></h1>
-            <p class="hero-desc">Have a question about AUTOSAR or Embedded Systems? Or want to discuss a project? Drop a
-                message below.</p>
-        </div>
-    </section>
-
-    <section class="contact-section">
-        <div class="container contact-grid">
-            <div class="card">
-                <h2 class="card-title">Send a Message</h2>
-                <form id="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" required placeholder="Your Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" required placeholder="your@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" required placeholder="How can I help?"></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">
-                        Send Message <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </form>
-                <div id="success-msg" style="display:none; color:var(--accent); margin-top:20px; font-weight:600;">
-                    Message sent successfully! I'll get back to you soon.
-                </div>
-            </div>
-
+    <div class="page-wrapper">
+        <div class="page">
+            <!-- LEFT SIDEBAR -->
             <div class="sidebar">
-                <div class="profile-card">
-                    <div class="profile-img-container">
-                        <img src="images/vivek.png" alt="Vivek" class="profile-img">
-                    </div>
-                    <div class="profile-name">Vivek</div>
-                    <div class="profile-title">Lead Engineer @ Autodevv</div>
-                    <p class="profile-bio">
-                        Automotive Software Engineer specializing in AUTOSAR, Safety-Critical Systems, and Embedded
-                        Development.
-                    </p>
-                </div>
-
-                <div class="info-card">
-                    <div class="info-item">
-                        <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
-                        <div>
-                            <div class="info-label">Email</div>
-                            <div class="info-val">vivek@autodevv.com</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
-                        <div>
-                            <div class="info-label">Location</div>
-                            <div class="info-val">Global (Remote)</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
-                        <div>
-                            <div class="info-label">Response Time</div>
-                            <div class="info-val">Within 24 Hours</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-card">
-                    <h3
-                        style="font-size: 14px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;">
-                        Socials</h3>
-                    <div style="display: flex; gap: 12px;">
-                        <a href="https://linkedin.com" target="_blank" class="info-icon"><i
-                                class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="https://github.com/Vivekpkd" target="_blank" class="info-icon"><i
-                                class="fa-brands fa-github"></i></a>
-                    </div>
-                </div>
+                <h4>EXPLORE</h4>
+                {{SIDEBAR}}
             </div>
+
+            <!-- MAIN CONTENT -->
+            <main class="content">
+                {{CONTENT}}
+            </main>
+
+            <!-- RIGHT SIDEBAR -->
+            <aside class="rightbar">
+                <div class="card">
+                    <h4>Related Tutorials</h4>
+                    <a href="#">RTE Explained</a>
+                    <a href="#">COM Stack Deep Dive</a>
+                    <a href="#">CAN Communication</a>
+                </div>
+                <div class="card">
+                    <h4>Trending Topics</h4>
+                    <a href="#">ASIL Safety</a>
+                    <a href="#">Bootloader Design</a>
+                    <a href="#">UDS Diagnostics</a>
+                </div>
+            </aside>
         </div>
-    </section>
+    </div>
 
     <!-- ============ FOOTER ============ -->
     <footer id="site-footer">
@@ -725,29 +694,25 @@
         </div>
     </footer>
 
+    <!-- Scripts from index.html / app -->
     <script src="articles.js"></script>
     <script src="search-engine.js"></script>
     <script src="app.js"></script>
 
     <script>
-        // Sync header logic with index.html
+        // Exact Logic from index.html Header
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle?.addEventListener('click', () => {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
             localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            themeToggle.innerHTML = isLight ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
         });
 
+        // Sync icon on load
         if (localStorage.getItem('theme') === 'light') {
             themeToggle && (themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>');
         }
-
-        const burger = document.getElementById('burger-btn');
-        burger?.addEventListener('click', () => {
-            const menu = document.getElementById('mobile-menu');
-            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-        });
 
         document.getElementById('search-toggle')?.addEventListener('click', () => {
             document.getElementById('search-overlay').classList.remove('hidden');
@@ -756,12 +721,59 @@
         document.getElementById('search-close')?.addEventListener('click', () => {
             document.getElementById('search-overlay').classList.add('hidden');
         });
+        document.getElementById('search-overlay')?.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
+        });
 
-        // Form handling
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            document.getElementById('contact-form').style.display = 'none';
-            document.getElementById('success-msg').style.display = 'block';
+        const burger = document.querySelector('.burger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        burger?.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Accordion Logic (Frozen)
+        document.querySelectorAll('.category-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const category = header.parentElement;
+                category.classList.toggle('open');
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Auto-expand category
+            const activeLink = document.querySelector('.sidebar a.active');
+            if (activeLink) { activeLink.closest('.sidebar-category')?.classList.add('open'); }
+
+            // Wrap Code Blocks
+            document.querySelectorAll('pre.codehilite, .codehilite pre').forEach(pre => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'code-block';
+                const header = document.createElement('div');
+                header.className = 'code-header';
+                const code = pre.querySelector('code');
+                let lang = 'Code';
+                if (code) {
+                    const langMatch = code.className.match(/language-(\w+)/);
+                    if (langMatch) lang = langMatch[1].toUpperCase();
+                }
+                header.innerHTML = `<span>${lang}</span><i class="fa-regular fa-copy" style="cursor:pointer;" title="Copy Code"></i>`;
+                const body = document.createElement('div');
+                body.className = 'code-body';
+                pre.parentNode.insertBefore(wrapper, pre);
+                body.appendChild(pre);
+                wrapper.appendChild(header);
+                wrapper.appendChild(body);
+                header.querySelector('.fa-copy').addEventListener('click', function () {
+                    navigator.clipboard.writeText(pre.innerText).then(() => {
+                        this.classList.replace('fa-regular', 'fa-solid');
+                        this.classList.replace('fa-copy', 'fa-check');
+                        setTimeout(() => {
+                            this.classList.replace('fa-solid', 'fa-regular');
+                            this.classList.replace('fa-check', 'fa-copy');
+                        }, 2000);
+                    });
+                });
+            });
         });
     </script>
 </body>

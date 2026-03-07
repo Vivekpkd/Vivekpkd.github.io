@@ -1,0 +1,159 @@
+{
+    "id": "security",
+    "filename": "explore-security.html",
+    "title": "Automotive CyberSecurity",
+    "meta_title": "Automotive CyberSecurity | HSM, Secure Boot & IDS - Autodevv",
+    "category": "Automotive Security",
+    "tags": [
+        "🔐 Security",
+        "🛡️ Hardening"
+    ],
+    "last_updated": "02 Mar, 2026",
+    "intro": "Automotive CyberSecurity is a critical domain ensuring the safety and reliability of modern connected vehicles. It encompasses protection against unauthorized access to vehicle networks (CAN, Ethernet), ensuring data integrity (SecOC), and implementing secure lifecycle management from manufacturing to decommissioning.",
+    "sections": [
+        {
+            "title": "SecOC: Secure On-board Communication",
+            "text": "SecOC (Secure On-board Communication) is an AUTOSAR module that adds a Message Authentication Code (MAC) and a Freshness Value to PDUs, preventing spoofing and replay attacks on vehicle buses like CAN.",
+            "code": {
+                "lang": "SecOC Concept (C)",
+                "content": "// Conceptual MAC Verification Logic\n#include \"Csm.h\" // Crypto Service Manager\n\nStd_ReturnType VerifyMessageIntegrity(uint8* data, uint32 len, uint8* receivedMac) {\n    uint8 calculatedMac[8];\n    Std_ReturnType status;\n\n    // Use HSM to calculate MAC for verification\n    status = Csm_MacVerify(KEY_ID_CAN_SEC, data, len, receivedMac, 8);\n\n    if(status == E_OK) {\n        return INTEGRITY_SUCCESS;\n    } else {\n        return INTEGRITY_FAILED;\n    }\n}"
+            },
+            "info": "The HSM (Hardware Security Module) provides a secure \"Enclave\" where cryptographic keys are stored and operations are performed, isolated from the main ECU cores."
+        }
+    ],
+    "syllabus": [
+        {
+            "title": "Hardware Security Module (HSM)",
+            "link": "#"
+        },
+        {
+            "title": "Secure Diagnostics (UDS + Seed/Key)",
+            "link": "#",
+            "badge": "QUIZ"
+        },
+        {
+            "title": "Vulnerability Management",
+            "link": "#"
+        },
+        {
+            "title": "Penetration Testing ECUs",
+            "link": "#"
+        },
+        {
+            "title": "Public Key Infrastructure (PKI)",
+            "link": "#",
+            "badge": "NEW"
+        },
+        {
+            "title": "Automotive Software Updates (OTA)",
+            "link": "#"
+        }
+    ],
+    "left_sidebar": [
+        {
+            "title": "🛡️ Fundamentals",
+            "links": [
+                {
+                    "title": "Automotive Security Intro",
+                    "link": "#",
+                    "active": true
+                },
+                {
+                    "title": "ISO/SAE 21434 Standard",
+                    "link": "#",
+                    "time": "10 min"
+                },
+                {
+                    "title": "Threat Analysis (TARA)",
+                    "link": "#",
+                    "time": "15 min"
+                }
+            ]
+        },
+        {
+            "title": "🔒 Hardware Security",
+            "links": [
+                {
+                    "title": "HSM Architecture",
+                    "link": "#",
+                    "time": "12 min"
+                },
+                {
+                    "title": "Secure Boot Process",
+                    "link": "#",
+                    "time": "9 min"
+                },
+                {
+                    "title": "Crypto Stack in AUTOSAR",
+                    "link": "#",
+                    "time": "14 min"
+                },
+                {
+                    "title": "Key Management",
+                    "link": "#",
+                    "time": "11 min"
+                }
+            ]
+        },
+        {
+            "title": "📡 Network Security",
+            "links": [
+                {
+                    "title": "SecOC Protocol",
+                    "link": "#",
+                    "time": "13 min"
+                },
+                {
+                    "title": "Intrusion Detection (IDS)",
+                    "link": "#",
+                    "time": "8 min"
+                },
+                {
+                    "title": "TLS/DTLS in Ethernet",
+                    "link": "#",
+                    "time": "16 min"
+                }
+            ]
+        }
+    ],
+    "right_sidebar": [
+        {
+            "title": "📌 Regulatory Compliance",
+            "links": [
+                {
+                    "title": "UN Regulation No. 155 (CSMS) →",
+                    "link": "#"
+                },
+                {
+                    "title": "UN Regulation No. 156 (SUMS) →",
+                    "link": "#"
+                },
+                {
+                    "title": "NIST CyberSecurity Framework →",
+                    "link": "#"
+                },
+                {
+                    "title": "GDPR in Automotive →",
+                    "link": "#"
+                }
+            ]
+        },
+        {
+            "title": "🔥 Trending in Security",
+            "links": [
+                {
+                    "title": "Post-Quantum Cryptography",
+                    "link": "#"
+                },
+                {
+                    "title": "Zero Trust Architecture",
+                    "link": "#"
+                },
+                {
+                    "title": "Cyber Resilience in SDV",
+                    "link": "#"
+                }
+            ]
+        }
+    ]
+}
