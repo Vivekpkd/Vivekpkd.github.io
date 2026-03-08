@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Tutorial - Autodevv</title>
+    <title>Markdown Image Sample - Autodevv</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -710,7 +710,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="python-tutorial.html" class="active" data-file="python-tutorial.html">Python Tutorial</a>
+        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
     </div>
 </div>
 <div class="sidebar-category" data-category="autosar">
@@ -728,7 +728,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
+        <a href="image-sample.html" class="active" data-file="image-sample.html">Markdown Image Sample</a>
     </div>
 </div>
 <div class="sidebar-category" data-category="embedded-c">
@@ -747,16 +747,6 @@
     </button>
     <div class="category-content">
         <a href="stm32intro.html" data-file="stm32intro.html">STM32 Microcontroller</a>
-    </div>
-</div>
-<div class="sidebar-category" data-category="other-topics">
-    <button class="category-header">
-        <span>Other Topics</span>
-        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-    </button>
-    <div class="category-content">
-        <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
-        <a href="test.html" data-file="test.html">Introduction to STM32</a>
     </div>
 </div>
 
@@ -802,7 +792,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="python-tutorial.html" class="active" data-file="python-tutorial.html">Python Tutorial</a>
+        <a href="python-tutorial.html" data-file="python-tutorial.html">Python Tutorial</a>
     </div>
 </div>
 <div class="sidebar-category" data-category="autosar">
@@ -820,7 +810,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
+        <a href="image-sample.html" class="active" data-file="image-sample.html">Markdown Image Sample</a>
     </div>
 </div>
 <div class="sidebar-category" data-category="embedded-c">
@@ -841,358 +831,27 @@
         <a href="stm32intro.html" data-file="stm32intro.html">STM32 Microcontroller</a>
     </div>
 </div>
-<div class="sidebar-category" data-category="other-topics">
-    <button class="category-header">
-        <span>Other Topics</span>
-        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-    </button>
-    <div class="category-content">
-        <a href="stm32intro.html" data-file="stm32intro.html">Introduction to STM32</a>
-        <a href="test.html" data-file="test.html">Introduction to STM32</a>
-    </div>
-</div>
 
             </div>
 
             <!-- MAIN CONTENT -->
             <main class="content">
-                <h1>Python Tutorial</h1>
-<p>Python is one of the most popular programming languages in the world. It is simple to use,<br />
-packed with features, and supported by a wide range of libraries and frameworks.<br />
-Its clean syntax makes it beginner-friendly and highly readable.</p>
+                <h1>How to use Images in Markdown</h1>
+<p>To add an image with a specific size, use this syntax:</p>
+<p><img alt="Sample Image" height="200px" src="images/site.jpg" width="300px" /></p>
+<h3>Breakdown:</h3>
+<ol>
+<li><code>!</code>: Starts the image tag.</li>
+<li><code>[Sample Image]</code>: Alt text.</li>
+<li><code>(images/site.jpg)</code>: Path to the image file.</li>
+<li><code>{: width="300px" height="200px" }</code>: <strong>Custom attributes</strong> where you can set width, height, or CSS classes.</li>
+</ol>
+<h3>Other Options:</h3>
 <ul>
-<li>A <strong>high-level language</strong> used in data science, automation, AI, and web development.</li>
-<li>Known for its <strong>readability</strong> — code is easier to write, understand, and maintain.</li>
-<li>Backed by <strong>strong library support</strong> — we don't have to build everything from scratch.</li>
-<li><strong>Cross-platform</strong> — works on Windows, Mac, and Linux without major changes.</li>
+<li><strong>Only Width</strong>: <code>![Alt](url){: width="50%" }</code></li>
+<li><strong>Only Height</strong>: <code>![Alt](url){: height="100px" }</code></li>
+<li><strong>Using CSS classes</strong>: <code>![Alt](url){: .my-custom-class }</code></li>
 </ul>
-<hr />
-<h2>Getting Started</h2>
-<p>In this section we cover the basics — installing Python, writing your first program,<br />
-and understanding how Python code is structured.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Your first Python program</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: Hello, World!</p>
-</blockquote>
-<ul>
-<li><a href="#">Install Python</a></li>
-<li><a href="#">Python Introduction</a></li>
-<li><a href="#">Input and Output</a></li>
-<li><a href="#">Comments in Python</a></li>
-</ul>
-<h2>Variables and Data Types</h2>
-<p>Variables store data values. Python is dynamically typed — no need to declare a type explicitly.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Variable examples</span>
-<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Alice&quot;</span>
-<span class="n">age</span> <span class="o">=</span> <span class="mi">25</span>
-<span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14159</span>
-<span class="n">is_active</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">is_active</span><span class="p">)</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: Alice 25 3.14159 True</p>
-</blockquote>
-<h3>Numeric Types</h3>
-<p>Python supports <code>int</code>, <code>float</code>, and <code>complex</code> number types.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>        <span class="c1"># int</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mf">3.14</span>      <span class="c1"># float</span>
-<span class="n">z</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="n">j</span>    <span class="c1"># complex</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: <class 'int'> <class 'float'> <class 'complex'></p>
-</blockquote>
-<h3>String Type</h3>
-<p>Strings are sequences of characters enclosed in single or double quotes.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello, Python!&quot;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">greeting</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">greeting</span><span class="p">))</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: HELLO, PYTHON!<br />
-14</p>
-</blockquote>
-<ul>
-<li><a href="#">Python Variables</a></li>
-<li><a href="#">Python Data Types</a></li>
-<li><a href="#">Type Casting</a></li>
-<li><a href="#">Python Strings</a></li>
-</ul>
-<h2>Operators</h2>
-<p>Python supports arithmetic, comparison, logical, and assignment operators.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">b</span> <span class="o">=</span> <span class="mi">3</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>   <span class="c1"># Addition</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>   <span class="c1"># Subtraction</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>   <span class="c1"># Multiplication</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">//</span> <span class="n">b</span><span class="p">)</span>  <span class="c1"># Floor Division</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>   <span class="c1"># Modulus</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">**</span> <span class="n">b</span><span class="p">)</span>  <span class="c1"># Exponentiation</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: 13 7 30 3 1 1000</p>
-</blockquote>
-<ul>
-<li><a href="#">Arithmetic Operators</a></li>
-<li><a href="#">Comparison Operators</a></li>
-<li><a href="#">Logical Operators</a></li>
-<li><a href="#">Bitwise Operators</a></li>
-</ul>
-<h2>Control Flow</h2>
-<h3>if / elif / else</h3>
-<p>Use conditional statements to control the flow of execution.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">score</span> <span class="o">=</span> <span class="mi">85</span>
-
-<span class="k">if</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">90</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Grade: A&quot;</span><span class="p">)</span>
-<span class="k">elif</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">75</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Grade: B&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Grade: C&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: Grade: B</p>
-</blockquote>
-<h3>Loops</h3>
-<p>Python has <code>for</code> and <code>while</code> loops for iteration.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># for loop</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: 1 2 3 4 5</p>
-</blockquote>
-<div class="codehilite"><pre><span></span><code><span class="c1"># while loop</span>
-<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Count:&quot;</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: Count: 0<br />
-Count: 1<br />
-Count: 2</p>
-</blockquote>
-<ul>
-<li><a href="#">Conditional Statements</a></li>
-<li><a href="#">for Loop</a></li>
-<li><a href="#">while Loop</a></li>
-<li><a href="#">break and continue</a></li>
-<li><a href="#">List Comprehension</a></li>
-</ul>
-<h2>Functions</h2>
-<p>Functions let you group reusable code under a name. Use <code>def</code> to define a function.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">):</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&quot;</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">greet</span><span class="p">(</span><span class="s2">&quot;Alice&quot;</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">greet</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;Hi&quot;</span><span class="p">))</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: Hello, Alice!<br />
-Hi, Bob!</p>
-</blockquote>
-<h3>Lambda Functions</h3>
-<p>A <strong>lambda</strong> is an anonymous, one-line function.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">square</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
-<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">numbers</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: [1, 4, 9, 16, 25]</p>
-</blockquote>
-<ul>
-<li><a href="#">Defining Functions</a></li>
-<li><a href="#"><em>args and </em>*kwargs</a></li>
-<li><a href="#">Lambda Functions</a></li>
-<li><a href="#">Map, Filter, Reduce</a></li>
-<li><a href="#">Decorators</a></li>
-<li><a href="#">Recursion</a></li>
-</ul>
-<h2>Data Structures</h2>
-<p>Python provides powerful built-in data structures out of the box.</p>
-<h3>Lists</h3>
-<p>Lists are <strong>ordered</strong> and <strong>mutable</strong> collections. They can hold mixed data types.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">]</span>
-<span class="n">fruits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;mango&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fruits</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: ['apple', 'banana', 'cherry', 'mango']<br />
-banana</p>
-</blockquote>
-<h3>Tuples</h3>
-<p>Tuples are <strong>ordered</strong> and <strong>immutable</strong> — they cannot be changed after creation.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">point</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: 10 20</p>
-</blockquote>
-<h3>Dictionaries</h3>
-<p>Dictionaries store <strong>key-value pairs</strong> for fast lookups.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">student</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s2">&quot;grade&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
-<span class="n">student</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">23</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="p">)</span>
-</code></pre></div>
-
-<blockquote>
-<p 23_="23," _A_="'A'" _Alice_="'Alice'," _age_:="'age':" _grade_:="'grade':" _name_:="'name':">Output: Alice<br /></p>
-</blockquote>
-<h3>Sets</h3>
-<p>Sets are <strong>unordered</strong> collections of <strong>unique</strong> elements.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: {1, 2, 3}</p>
-</blockquote>
-<ul>
-<li><a href="#">Lists</a></li>
-<li><a href="#">Tuples</a></li>
-<li><a href="#">Dictionaries</a></li>
-<li><a href="#">Sets</a></li>
-<li><a href="#">Arrays</a></li>
-<li><a href="#">List Comprehension</a></li>
-</ul>
-<h2>OOP Concepts</h2>
-<p>Python is a fully object-oriented language. Everything in Python is an object.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Animal</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> makes a sound.&quot;</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">Dog</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> says: Woof!&quot;</span>
-
-<span class="n">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="s2">&quot;Rex&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">dog</span><span class="o">.</span><span class="n">speak</span><span class="p">())</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: Rex says: Woof!</p>
-<p>Refer <a href="#">Python OOP Guide</a> for the complete tutorial on classes, inheritance, and polymorphism.</p>
-</blockquote>
-<ul>
-<li><a href="#">Classes and Objects</a></li>
-<li><a href="#">Inheritance</a></li>
-<li><a href="#">Polymorphism</a></li>
-<li><a href="#">Encapsulation</a></li>
-<li><a href="#">Abstraction</a></li>
-<li><a href="#">Iterators</a></li>
-</ul>
-<h2>Exception Handling</h2>
-<p>Exceptions are runtime errors. Python lets you handle them gracefully using <code>try / except</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">0</span>
-<span class="k">except</span> <span class="ne">ZeroDivisionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="k">finally</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Execution complete.&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: Error: division by zero<br />
-Execution complete.</p>
-</blockquote>
-<ul>
-<li><a href="#">Exception Handling</a></li>
-<li><a href="#">Built-in Exceptions</a></li>
-<li><a href="#">Custom Exceptions</a></li>
-<li><a href="#">try / except / finally</a></li>
-</ul>
-<h2>File Handling</h2>
-<p>Python can read from and write to files using the built-in <code>open()</code> function.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Write to a file</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;hello.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Hello, File!&quot;</span><span class="p">)</span>
-
-<span class="c1"># Read from a file</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;hello.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-</code></pre></div>
-
-<blockquote>
-<p>Output: Hello, File!</p>
-</blockquote>
-<ul>
-<li><a href="#">File Handling</a></li>
-<li><a href="#">Read Files</a></li>
-<li><a href="#">Write / Create Files</a></li>
-<li><a href="#">OS Module</a></li>
-<li><a href="#">pathlib Module</a></li>
-</ul>
-<h2>Data Science</h2>
-<p>Python is the go-to language for data science and machine learning.</p>
-<h3>Foundational Libraries</h3>
-<p>These libraries form the base for all data science work.</p>
-<ul>
-<li><a href="#">NumPy</a></li>
-<li><a href="#">Pandas</a></li>
-<li><a href="#">Matplotlib</a></li>
-</ul>
-<h3>Machine Learning Libraries</h3>
-<ul>
-<li><a href="#">Scikit-learn</a></li>
-<li><a href="#">XGBoost / LightGBM</a></li>
-</ul>
-<h3>Deep Learning Frameworks</h3>
-<ul>
-<li><a href="#">TensorFlow and Keras</a></li>
-<li><a href="#">PyTorch</a></li>
-</ul>
-<blockquote>
-<p>Refer <a href="#">Python for Data Science</a> for the complete tutorial.</p>
-</blockquote>
-<h2>Web Development</h2>
-<p>Python has excellent frameworks for building web applications and REST APIs.</p>
-<h3>Core Frameworks</h3>
-<ul>
-<li><a href="#">Flask</a></li>
-<li><a href="#">Django</a></li>
-</ul>
-<h3>API Development</h3>
-<ul>
-<li><a href="#">Flask-RESTful</a></li>
-<li><a href="#">Django REST Framework (DRF)</a></li>
-</ul>
-<blockquote>
-<p>Refer <a href="#">Python for Web Development</a> for the complete tutorial.</p>
-</blockquote>
-<h2>Practice</h2>
-<p>Test your Python skills with quizzes and hands-on coding exercises.</p>
-<ul>
-<li><a href="#">Python Quizzes</a></li>
-<li><a href="#">Coding Practice Problems</a></li>
-<li><a href="#">Interview Questions</a></li>
-</ul>
-<blockquote>
-<p>This tutorial is updated based on the latest <strong>Python 3.13.1</strong> version.</p>
-</blockquote>
             </main>
 
             <!-- RIGHT SIDEBAR -->

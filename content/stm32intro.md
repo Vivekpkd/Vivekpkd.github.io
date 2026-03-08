@@ -1,5 +1,5 @@
 ---
-title: "STM32 Microcontroller: Beginner Introduction"
+title: "STM32 Microcontroller"
 category: "Embedded Systems"
 date: "Mar 07, 2026"
 tags: ["STM32", "Microcontroller", "Embedded C"]
@@ -89,3 +89,4 @@ void LED_On(void)
 {
     GPIOA_ODR |= (1 << 5);
 }
+```

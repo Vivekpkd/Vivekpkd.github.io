@@ -1126,6 +1126,14 @@ h3 {
     margin-bottom: 8px;
     line-height: 1.4;
     color: var(--text-main);
+    /* Restrict to exactly 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 2.8em;
+    /* 1.4 * 2 lines */
 }
 
 .gfg-course-level {
@@ -3432,6 +3440,31 @@ body {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
+        justify-content: center !important;
+        gap: 24px !important;
+        padding: 0 16px !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .home-latest-cards>*,
+    .gfg-courses-grid>* {
+        width: 92% !important;
+        max-width: 380px !important;
+        margin: 0 auto !important;
+        float: none !important;
+        display: block !important;
+        text-align: center !important;
+        /* center content inside card */
+    }
+
+    /*
+    .home-latest-cards,
+    .gfg-courses-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
         gap: 32px;
         padding: 0 !important;
         margin: 0 auto !important;
@@ -3444,7 +3477,7 @@ body {
         max-width: 380px;
         margin: 0 auto !important;
         float: none !important;
-    }
+    } */
 
     .about-grid {
         grid-template-columns: 1fr;
