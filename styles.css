@@ -989,21 +989,15 @@ h3 {
 
 /* PREMIUM BLOG CARDS */
 .blog-card {
-    min-height: 300px !important;
-    /* Force 300px height */
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--border);
     transition: 0.3s;
 }
 
-.blog-card .card-content {
-    padding: 20px !important;
-    min-height: 120px !important;
-    /* Reduced to fit 300px total */
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+.home-latest-cards .blog-card {
+    border: none !important;
+    background: none !important;
+    min-height: 0 !important;
 }
 
 .blog-card h3 {
@@ -3440,9 +3434,8 @@ body {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        justify-content: center !important;
-        gap: 24px !important;
-        padding: 0 16px !important;
+        gap: 32px !important;
+        padding: 0 20px !important;
         margin: 0 auto !important;
         width: 100% !important;
         box-sizing: border-box;
@@ -3450,13 +3443,14 @@ body {
 
     .home-latest-cards>*,
     .gfg-courses-grid>* {
-        width: 92% !important;
-        max-width: 380px !important;
+        width: 100% !important;
+        max-width: 400px !important;
         margin: 0 auto !important;
-        float: none !important;
         display: block !important;
-        text-align: center !important;
-        /* center content inside card */
+    }
+
+    .gfg-course-card {
+        width: 100% !important;
     }
 
     /*
