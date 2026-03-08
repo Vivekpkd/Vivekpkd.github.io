@@ -781,23 +781,23 @@ STM32 microcontrollers provide high performance, low power consumption, and a ri
 <li><strong>EEPROM / Emulated EEPROM:</strong> Used for storing non-volatile data.</li>
 </ul>
 <p>This memory structure enables efficient execution of embedded applications.</p>
-<pre class="codehilite"><code class="language-c">// Example STM32 GPIO Initialization (Bare Metal)
+<div class="codehilite"><pre><span></span><code><span class="c1">// Example STM32 GPIO Initialization (Bare Metal)</span>
 
-#define GPIOA_BASE 0x48000000
-#define GPIOA_MODER (*(volatile unsigned int*)(GPIOA_BASE + 0x00))
-#define GPIOA_ODR   (*(volatile unsigned int*)(GPIOA_BASE + 0x14))
+<span class="cp">#define GPIOA_BASE 0x48000000</span>
+<span class="cp">#define GPIOA_MODER (*(volatile unsigned int*)(GPIOA_BASE + 0x00))</span>
+<span class="cp">#define GPIOA_ODR   (*(volatile unsigned int*)(GPIOA_BASE + 0x14))</span>
 
-void GPIO_Init(void)
-{
-    // Configure PA5 as output
-    GPIOA_MODER |= (1 &lt;&lt; 10);
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">GPIO_Init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Configure PA5 as output</span>
+<span class="w">    </span><span class="n">GPIOA_MODER</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
 
-void LED_On(void)
-{
-    GPIOA_ODR |= (1 &lt;&lt; 5);
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">LED_On</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GPIOA_ODR</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
             </main>
 
             <!-- RIGHT SIDEBAR -->
