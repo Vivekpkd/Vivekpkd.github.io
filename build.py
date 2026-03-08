@@ -13,24 +13,16 @@ ARTICLES_JS_PATH = 'articles.js'
 
 # Category Mapping (File basename -> Category Name)
 CATEGORY_MAPPING = {
-    'autosar-tutorial.md': 'AUTOSAR',
-    'autosar-basics.md': 'AUTOSAR',
-    'c-programming.md': 'Embedded C',
-    'embedded-systems.md': 'Embedded C',
-    'embedded-tutorial.md': 'Embedded C',
-    'python-tutorial.md': 'Python',
+    'stm32intro.md': 'Embedded Systems',
+    'image-sample.md': 'Basics',
     'download.md': 'Resources',
     'tutorial.md': 'General'
 }
 
 # Sidebar Category Mapping (for the accordion)
 SIDEBAR_CATEGORY_MAPPING = {
-    'autosar-tutorial.md': 'AUTOSAR Stack',
-    'autosar-basics.md': 'AUTOSAR Stack',
-    'c-programming.md': 'Embedded mastery',
-    'embedded-systems.md': 'Embedded mastery',
-    'embedded-tutorial.md': 'Embedded mastery',
-    'python-tutorial.md': 'Modern Tooling',
+    'stm32intro.md': 'Embedded Systems',
+    'image-sample.md': 'Basics',
     'download.md': 'Resources',
     'tutorial.md': 'Main Hub'
 }
