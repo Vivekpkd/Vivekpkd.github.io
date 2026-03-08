@@ -849,27 +849,27 @@
 <hr />
 <h2>AUTOSAR Overview</h2>
 <p>AUTOSAR is a global partnership framework that standardizes automotive software architecture. Understanding its structure is essential for modern automotive embedded development.</p>
-<pre class="codehilite"><code class="language-c">// AUTOSAR application structure
-#include &quot;Std_Types.h&quot;
-#include &quot;Platform_Types.h&quot;
+<div class="codehilite"><pre><span></span><code><span class="c1">// AUTOSAR application structure</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Std_Types.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Platform_Types.h&quot;</span>
 
-// Application runnable
-void Motor_RunControl(void) {
-    uint16_t motor_speed = Motor_GetSpeed();
-    Motor_SetDutyCycle(motor_speed);
-}
+<span class="c1">// Application runnable</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Motor_RunControl</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">motor_speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Motor_GetSpeed</span><span class="p">();</span>
+<span class="w">    </span><span class="n">Motor_SetDutyCycle</span><span class="p">(</span><span class="n">motor_speed</span><span class="p">);</span>
+<span class="p">}</span>
 
-int main(void) {
-    // AUTOSAR initialization
-    Mcu_Init(NULL_PTR);
-    Mcu_InitClock(McuClockSettingConfig);
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// AUTOSAR initialization</span>
+<span class="w">    </span><span class="n">Mcu_Init</span><span class="p">(</span><span class="n">NULL_PTR</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Mcu_InitClock</span><span class="p">(</span><span class="n">McuClockSettingConfig</span><span class="p">);</span>
 
-    // Start AUTOSAR OS scheduler
-    Os_Start();
+<span class="w">    </span><span class="c1">// Start AUTOSAR OS scheduler</span>
+<span class="w">    </span><span class="n">Os_Start</span><span class="p">();</span>
 
-    return 0;
-}
-</code></pre>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: AUTOSAR OS scheduler starts Motor_RunControl periodically</p>
@@ -882,367 +882,367 @@ int main(void) {
 </ul>
 <h2>AUTOSAR Layering Architecture</h2>
 <p>AUTOSAR defines a layered approach dividing automotive software into distinct abstraction levels.</p>
-<pre class="codehilite"><code class="language-c">// AUTOSAR layer interfaces
-// Application Layer
-void AppSW_ProcessInputs(void) {
-    // Application logic here
-}
+<div class="codehilite"><pre><span></span><code><span class="c1">// AUTOSAR layer interfaces</span>
+<span class="c1">// Application Layer</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">AppSW_ProcessInputs</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Application logic here</span>
+<span class="p">}</span>
 
-// RTE (Runtime Environment) - abstraction layer
-void RTE_SendData(uint32_t data) {
-    // Calls BSW services
-}
+<span class="c1">// RTE (Runtime Environment) - abstraction layer</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">RTE_SendData</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Calls BSW services</span>
+<span class="p">}</span>
 
-// BSW (Basic Software) Layer
-void Com_SendSignal(uint32_t SignalId, const uint8_t* Data) {
-    // CAN communication handling
-}
+<span class="c1">// BSW (Basic Software) Layer</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Com_SendSignal</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">SignalId</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">Data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// CAN communication handling</span>
+<span class="p">}</span>
 
-// Microcontroller Layer (HAL)
-void Mcu_WritePin(uint8_t PinId, uint8_t Level) {
-    // Direct register access
-}
-</code></pre>
+<span class="c1">// Microcontroller Layer (HAL)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Mcu_WritePin</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">PinId</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">Level</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Direct register access</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: Multi-layer separation of concerns</p>
 </blockquote>
 <h3>Application Layer</h3>
 <p>The top layer containing vehicle-specific logic and features.</p>
-<pre class="codehilite"><code class="language-c">// Application software component
-typedef struct {
-    uint16_t engine_rpm;
-    uint8_t throttle_position;
-    uint8_t gear_state;
-} VehicleState_t;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Application software component</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">engine_rpm</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">throttle_position</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">gear_state</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">VehicleState_t</span><span class="p">;</span>
 
-void EngineControl_Execute(VehicleState_t *state) {
-    if(state-&gt;engine_rpm &gt; 5000) {
-        // Fuel cut-off logic
-        Fuel_CutOff();
-    }
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">EngineControl_Execute</span><span class="p">(</span><span class="n">VehicleState_t</span><span class="w"> </span><span class="o">*</span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">state</span><span class="o">-&gt;</span><span class="n">engine_rpm</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Fuel cut-off logic</span>
+<span class="w">        </span><span class="n">Fuel_CutOff</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3>Runtime Environment (RTE)</h3>
 <p>Provides communication between application and basic software layers.</p>
-<pre class="codehilite"><code class="language-c">// RTE service calls
-uint16_t RTE_Read_EngineRPM(void) {
-    return Engine_GetRPM();
-}
+<div class="codehilite"><pre><span></span><code><span class="c1">// RTE service calls</span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="nf">RTE_Read_EngineRPM</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Engine_GetRPM</span><span class="p">();</span>
+<span class="p">}</span>
 
-void RTE_Write_FuelInjectionTime(uint16_t time_us) {
-    Fuel_SetInjectionTime(time_us);
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">RTE_Write_FuelInjectionTime</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">time_us</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Fuel_SetInjectionTime</span><span class="p">(</span><span class="n">time_us</span><span class="p">);</span>
+<span class="p">}</span>
 
-// RTE allows components to be independent of ECU hardware
-</code></pre>
+<span class="c1">// RTE allows components to be independent of ECU hardware</span>
+</code></pre></div>
 
 <h3>Basic Software (BSW)</h3>
 <p>Hardware-independent software services for common automotive functions.</p>
-<pre class="codehilite"><code class="language-c">// BSW modules
-void Com_Init(const Com_ConfigType* ConfigPtr) {
-    // Configure communication stack
-}
+<div class="codehilite"><pre><span></span><code><span class="c1">// BSW modules</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Com_Init</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Com_ConfigType</span><span class="o">*</span><span class="w"> </span><span class="n">ConfigPtr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Configure communication stack</span>
+<span class="p">}</span>
 
-void Dem_ReportErrorStatus(Dem_EventIdType EventId, Dem_EventStatusType EventStatus) {
-    // Error and diagnostic handling
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">Dem_ReportErrorStatus</span><span class="p">(</span><span class="n">Dem_EventIdType</span><span class="w"> </span><span class="n">EventId</span><span class="p">,</span><span class="w"> </span><span class="n">Dem_EventStatusType</span><span class="w"> </span><span class="n">EventStatus</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Error and diagnostic handling</span>
+<span class="p">}</span>
 
-void NvM_WriteBlock(NvM_BlockIdType BlockId, const uint8_t* DataPtr) {
-    // Non-volatile memory management
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">NvM_WriteBlock</span><span class="p">(</span><span class="n">NvM_BlockIdType</span><span class="w"> </span><span class="n">BlockId</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">DataPtr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Non-volatile memory management</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3>Microcontroller Abstraction Layer (MCAL)</h3>
 <p>Direct hardware interface for microcontroller-specific operations.</p>
-<pre class="codehilite"><code class="language-c">// MCAL SPI driver
-Std_ReturnType Spi_WriteIB(Spi_SequenceType Sequence, const Spi_DataBufferType* TxDataPtr) {
-    // SPI transmission
-    return E_OK;
-}
+<div class="codehilite"><pre><span></span><code><span class="c1">// MCAL SPI driver</span>
+<span class="n">Std_ReturnType</span><span class="w"> </span><span class="nf">Spi_WriteIB</span><span class="p">(</span><span class="n">Spi_SequenceType</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Spi_DataBufferType</span><span class="o">*</span><span class="w"> </span><span class="n">TxDataPtr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// SPI transmission</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">E_OK</span><span class="p">;</span>
+<span class="p">}</span>
 
-// MCAL ADC driver
-void Adc_StartGroupConversion(Adc_GroupType Group) {
-    // Start ADC conversion
-}
+<span class="c1">// MCAL ADC driver</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Adc_StartGroupConversion</span><span class="p">(</span><span class="n">Adc_GroupType</span><span class="w"> </span><span class="n">Group</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Start ADC conversion</span>
+<span class="p">}</span>
 
-uint16_t Adc_GetGroupConversionResult(Adc_GroupType Group, Adc_ValueGroupType* PResultBufferPtr) {
-    // Get ADC result
-    return E_OK;
-}
-</code></pre>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="nf">Adc_GetGroupConversionResult</span><span class="p">(</span><span class="n">Adc_GroupType</span><span class="w"> </span><span class="n">Group</span><span class="p">,</span><span class="w"> </span><span class="n">Adc_ValueGroupType</span><span class="o">*</span><span class="w"> </span><span class="n">PResultBufferPtr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Get ADC result</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">E_OK</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Classic AUTOSAR</h2>
 <p>Classic AUTOSAR is designed for traditional automotive embedded systems with dedicated microcontrollers.</p>
-<pre class="codehilite"><code class="language-c">// Classic AUTOSAR SWC (Software Component)
-#include &quot;Rte.h&quot;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Classic AUTOSAR SWC (Software Component)</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Rte.h&quot;</span>
 
-// Data elements
-RTE_Implement_DataElement_READ(EngineSpeed_u16);
-RTE_Implement_DataElement_WRITE(InjectionTime_u16);
+<span class="c1">// Data elements</span>
+<span class="n">RTE_Implement_DataElement_READ</span><span class="p">(</span><span class="n">EngineSpeed_u16</span><span class="p">);</span>
+<span class="n">RTE_Implement_DataElement_WRITE</span><span class="p">(</span><span class="n">InjectionTime_u16</span><span class="p">);</span>
 
-// Runnable entity (periodic function)
-void EngineControl_Main(void) {
-    uint16_t engine_speed;
-    uint16_t injection_time;
+<span class="c1">// Runnable entity (periodic function)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">EngineControl_Main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">engine_speed</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">injection_time</span><span class="p">;</span>
 
-    // RTE read from communication
-    Rte_Read_EngineSpeed(&amp;engine_speed);
+<span class="w">    </span><span class="c1">// RTE read from communication</span>
+<span class="w">    </span><span class="n">Rte_Read_EngineSpeed</span><span class="p">(</span><span class="o">&amp;</span><span class="n">engine_speed</span><span class="p">);</span>
 
-    // Application logic
-    if(engine_speed &gt; 3000) {
-        injection_time = 5000;  // microseconds
-    } else {
-        injection_time = 2000;
-    }
+<span class="w">    </span><span class="c1">// Application logic</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">engine_speed</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">3000</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">injection_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5000</span><span class="p">;</span><span class="w">  </span><span class="c1">// microseconds</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">injection_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2000</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // RTE write output
-    Rte_Write_InjectionTime(&amp;injection_time);
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// RTE write output</span>
+<span class="w">    </span><span class="n">Rte_Write_InjectionTime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">injection_time</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: Component-based modular architecture</p>
 </blockquote>
 <h3>Task and Interrupt Handling</h3>
-<pre class="codehilite"><code class="language-c">// AUTOSAR OS Task
-TASK(EngineControlTask) {
-    EngineControl_Main();
-    TerminateTask();
-}
+<div class="codehilite"><pre><span></span><code><span class="c1">// AUTOSAR OS Task</span>
+<span class="n">TASK</span><span class="p">(</span><span class="n">EngineControlTask</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">EngineControl_Main</span><span class="p">();</span>
+<span class="w">    </span><span class="n">TerminateTask</span><span class="p">();</span>
+<span class="p">}</span>
 
-// AUTOSAR ISR
-ISR(CAN_Rx_Interrupt) {
-    Can_MainFunction_Read();
-    Can_MainFunction_Write();
-}
+<span class="c1">// AUTOSAR ISR</span>
+<span class="n">ISR</span><span class="p">(</span><span class="n">CAN_Rx_Interrupt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Can_MainFunction_Read</span><span class="p">();</span>
+<span class="w">    </span><span class="n">Can_MainFunction_Write</span><span class="p">();</span>
+<span class="p">}</span>
 
-void Os_ConfigActivation(void) {
-    // EngineControlTask runs every 10ms
-    SetRelAlarm(EngineAlarm, 10, 10);
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="n">Os_ConfigActivation</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// EngineControlTask runs every 10ms</span>
+<span class="w">    </span><span class="n">SetRelAlarm</span><span class="p">(</span><span class="n">EngineAlarm</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Adaptive AUTOSAR</h2>
 <p>Adaptive AUTOSAR targets connected and autonomous vehicles with advanced processing capabilities.</p>
-<pre class="codehilite"><code class="language-cpp">// Adaptive AUTOSAR using C++ and service-oriented architecture
-#include &quot;ara/core/initialization.h&quot;
-#include &quot;ara/com/someip_binding.h&quot;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Adaptive AUTOSAR using C++ and service-oriented architecture</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;ara/core/initialization.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;ara/com/someip_binding.h&quot;</span>
 
-class VehicleSpeedService {
-public:
-    void SetSpeed(int speed) {
-        current_speed_ = speed;
-    }
+<span class="k">class</span><span class="w"> </span><span class="nc">VehicleSpeedService</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">SetSpeed</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">speed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">current_speed_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">speed</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    int GetSpeed() const {
-        return current_speed_;
-    }
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">GetSpeed</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">current_speed_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-private:
-    int current_speed_ = 0;
-};
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">current_speed_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
 
-// Service discovery and registration
-int main() {
-    ara::core::Initialize();
+<span class="c1">// Service discovery and registration</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ara</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">Initialize</span><span class="p">();</span>
 
-    VehicleSpeedService speed_service;
+<span class="w">    </span><span class="n">VehicleSpeedService</span><span class="w"> </span><span class="n">speed_service</span><span class="p">;</span>
 
-    // Register service for inter-process communication
-    ara::com::ServiceRegistry::RegisterService(&amp;speed_service);
+<span class="w">    </span><span class="c1">// Register service for inter-process communication</span>
+<span class="w">    </span><span class="n">ara</span><span class="o">::</span><span class="n">com</span><span class="o">::</span><span class="n">ServiceRegistry</span><span class="o">::</span><span class="n">RegisterService</span><span class="p">(</span><span class="o">&amp;</span><span class="n">speed_service</span><span class="p">);</span>
 
-    // Process events
-    while(true) {
-        speed_service.SetSpeed(100);
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// Process events</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">speed_service</span><span class="p">.</span><span class="n">SetSpeed</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>Output: Service-oriented flexible architecture</p>
 </blockquote>
 <h2>Software Components in AUTOSAR</h2>
 <p>Software Components are reusable units of application functionality.</p>
-<pre class="codehilite"><code class="language-c">// SWC Interface Definition
-typedef struct {
-    uint16_t rpm;
-    uint8_t throttle;
-    uint8_t gear;
-} EngineInputs_t;
+<div class="codehilite"><pre><span></span><code><span class="c1">// SWC Interface Definition</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rpm</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">throttle</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">gear</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">EngineInputs_t</span><span class="p">;</span>
 
-typedef struct {
-    uint16_t fuel_injection_us;
-    uint16_t ignition_angle;
-    uint8_t cylinder_count;
-} EngineOutputs_t;
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">fuel_injection_us</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ignition_angle</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cylinder_count</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">EngineOutputs_t</span><span class="p">;</span>
 
-// SWC Implementation
-void EngineController_Execute(
-    const EngineInputs_t* inputs,
-    EngineOutputs_t* outputs
-) {
-    // Calculate fuel injection based on inputs
-    outputs-&gt;fuel_injection_us = Calculate_FuelInjection(inputs-&gt;rpm, inputs-&gt;throttle);
-    outputs-&gt;ignition_angle = Calculate_IgnitionTiming(inputs-&gt;rpm);
-}
-</code></pre>
+<span class="c1">// SWC Implementation</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">EngineController_Execute</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">EngineInputs_t</span><span class="o">*</span><span class="w"> </span><span class="n">inputs</span><span class="p">,</span>
+<span class="w">    </span><span class="n">EngineOutputs_t</span><span class="o">*</span><span class="w"> </span><span class="n">outputs</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Calculate fuel injection based on inputs</span>
+<span class="w">    </span><span class="n">outputs</span><span class="o">-&gt;</span><span class="n">fuel_injection_us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculate_FuelInjection</span><span class="p">(</span><span class="n">inputs</span><span class="o">-&gt;</span><span class="n">rpm</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="o">-&gt;</span><span class="n">throttle</span><span class="p">);</span>
+<span class="w">    </span><span class="n">outputs</span><span class="o">-&gt;</span><span class="n">ignition_angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculate_IgnitionTiming</span><span class="p">(</span><span class="n">inputs</span><span class="o">-&gt;</span><span class="n">rpm</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Communication in AUTOSAR</h2>
 <p>AUTOSAR COM (Communication) module handles data exchange between components.</p>
-<pre class="codehilite"><code class="language-c">// COM signal configuration
-#define SIGNAL_ENGINE_RPM_ID        1
-#define SIGNAL_THROTTLE_POS_ID      2
-#define SIGNAL_FUEL_INJECTION_ID    3
+<div class="codehilite"><pre><span></span><code><span class="c1">// COM signal configuration</span>
+<span class="cp">#define SIGNAL_ENGINE_RPM_ID        1</span>
+<span class="cp">#define SIGNAL_THROTTLE_POS_ID      2</span>
+<span class="cp">#define SIGNAL_FUEL_INJECTION_ID    3</span>
 
-// Send signal through stack
-void Send_EngineRPM(uint16_t rpm) {
-    Com_SendSignal(SIGNAL_ENGINE_RPM_ID, (uint8_t*)&amp;rpm);
-}
+<span class="c1">// Send signal through stack</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Send_EngineRPM</span><span class="p">(</span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rpm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Com_SendSignal</span><span class="p">(</span><span class="n">SIGNAL_ENGINE_RPM_ID</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">rpm</span><span class="p">);</span>
+<span class="p">}</span>
 
-// Receive signal with I-PDU (Interactive PDU)
-void ProcessReceivedData(void) {
-    uint8_t throttle_data[2];
-    Com_ReceiveSignal(SIGNAL_THROTTLE_POS_ID, throttle_data);
+<span class="c1">// Receive signal with I-PDU (Interactive PDU)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ProcessReceivedData</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">throttle_data</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="w">    </span><span class="n">Com_ReceiveSignal</span><span class="p">(</span><span class="n">SIGNAL_THROTTLE_POS_ID</span><span class="p">,</span><span class="w"> </span><span class="n">throttle_data</span><span class="p">);</span>
 
-    uint16_t throttle = (throttle_data[0] &lt;&lt; 8) | throttle_data[1];
-}
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">throttle_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">throttle_data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span>
 
-// COM I-PDU sending
-void Com_TriggerTransmit(Com_IpduId_type IpduId) {
-    // Send I-PDU on CAN network
-}
-</code></pre>
+<span class="c1">// COM I-PDU sending</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Com_TriggerTransmit</span><span class="p">(</span><span class="n">Com_IpduId_type</span><span class="w"> </span><span class="n">IpduId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Send I-PDU on CAN network</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>AUTOSAR Network Protocols</h2>
 <p>AUTOSAR supports multiple communication protocols for different network architectures.</p>
-<pre class="codehilite"><code class="language-c">// CAN Communication using AUTOSAR
-#include &quot;Can.h&quot;
-#include &quot;CanIf.h&quot;
-#include &quot;Com.h&quot;
+<div class="codehilite"><pre><span></span><code><span class="c1">// CAN Communication using AUTOSAR</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Can.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;CanIf.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Com.h&quot;</span>
 
-typedef struct {
-    uint32_t can_id;
-    uint8_t dlc;
-    uint8_t data[8];
-} Can_Frame_t;
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">can_id</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">dlc</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
+<span class="p">}</span><span class="w"> </span><span class="n">Can_Frame_t</span><span class="p">;</span>
 
-// CAN frame transmission
-void SendEngineSensorData(void) {
-    Can_Frame_t frame;
-    frame.can_id = 0x123;
-    frame.dlc = 8;
+<span class="c1">// CAN frame transmission</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">SendEngineSensorData</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Can_Frame_t</span><span class="w"> </span><span class="n">frame</span><span class="p">;</span>
+<span class="w">    </span><span class="n">frame</span><span class="p">.</span><span class="n">can_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x123</span><span class="p">;</span>
+<span class="w">    </span><span class="n">frame</span><span class="p">.</span><span class="n">dlc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
 
-    // Pack data
-    frame.data[0] = (engine_rpm &gt;&gt; 8) &amp; 0xFF;
-    frame.data[1] = engine_rpm &amp; 0xFF;
-    frame.data[2] = throttle_position;
+<span class="w">    </span><span class="c1">// Pack data</span>
+<span class="w">    </span><span class="n">frame</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">engine_rpm</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span>
+<span class="w">    </span><span class="n">frame</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">engine_rpm</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">;</span>
+<span class="w">    </span><span class="n">frame</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">throttle_position</span><span class="p">;</span>
 
-    // Send through COM stack
-    Com_SendSignal(ENGINE_SENSOR_SIGNAL, frame.data);
-}
+<span class="w">    </span><span class="c1">// Send through COM stack</span>
+<span class="w">    </span><span class="n">Com_SendSignal</span><span class="p">(</span><span class="n">ENGINE_SENSOR_SIGNAL</span><span class="p">,</span><span class="w"> </span><span class="n">frame</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
 
-// LIN Communication (Low-speed networks)
-void SendLIN_MotorControlData(void) {
-    uint8_t lin_frame[8];
-    Lin_SendFrame(LIN_MOTOR_FRAME_ID, lin_frame);
-}
+<span class="c1">// LIN Communication (Low-speed networks)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">SendLIN_MotorControlData</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">lin_frame</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span>
+<span class="w">    </span><span class="n">Lin_SendFrame</span><span class="p">(</span><span class="n">LIN_MOTOR_FRAME_ID</span><span class="p">,</span><span class="w"> </span><span class="n">lin_frame</span><span class="p">);</span>
+<span class="p">}</span>
 
-// FlexRay for safety-critical systems
-void SendFlexRay_CriticalData(void) {
-    FlexRay_SendFrame(FLEXRAY_SAFETY_FRAME, safety_data);
-}
-</code></pre>
+<span class="c1">// FlexRay for safety-critical systems</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">SendFlexRay_CriticalData</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">FlexRay_SendFrame</span><span class="p">(</span><span class="n">FLEXRAY_SAFETY_FRAME</span><span class="p">,</span><span class="w"> </span><span class="n">safety_data</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Diagnostic and NVM Management</h2>
-<pre class="codehilite"><code class="language-c">// Diagnostic communication (UDS - Unified Diagnostic Services)
-#include &quot;Dcm.h&quot;
+<div class="codehilite"><pre><span></span><code><span class="c1">// Diagnostic communication (UDS - Unified Diagnostic Services)</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Dcm.h&quot;</span>
 
-uint8_t Dcm_ReadData_VehicleSpeed(void) {
-    return Get_Current_Speed();
-}
+<span class="kt">uint8_t</span><span class="w"> </span><span class="nf">Dcm_ReadData_VehicleSpeed</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Get_Current_Speed</span><span class="p">();</span>
+<span class="p">}</span>
 
-void Dcm_WriteData_Parameter(uint8_t* data) {
-    // Write calibration parameter
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">Dcm_WriteData_Parameter</span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Write calibration parameter</span>
+<span class="p">}</span>
 
-// Non-Volatile Memory management
-#include &quot;NvM.h&quot;
+<span class="c1">// Non-Volatile Memory management</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;NvM.h&quot;</span>
 
-void Store_EngineCalibration(void) {
-    NvM_SetRamBlockStatus(CALIBRATION_BLOCK, TRUE);
-    NvM_WriteBlock(CALIBRATION_BLOCK, calibration_data);
-}
+<span class="kt">void</span><span class="w"> </span><span class="nf">Store_EngineCalibration</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">NvM_SetRamBlockStatus</span><span class="p">(</span><span class="n">CALIBRATION_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="n">TRUE</span><span class="p">);</span>
+<span class="w">    </span><span class="n">NvM_WriteBlock</span><span class="p">(</span><span class="n">CALIBRATION_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="n">calibration_data</span><span class="p">);</span>
+<span class="p">}</span>
 
-void Load_EngineCalibration(void) {
-    NvM_ReadBlock(CALIBRATION_BLOCK, calibration_buffer);
-}
-</code></pre>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Load_EngineCalibration</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">NvM_ReadBlock</span><span class="p">(</span><span class="n">CALIBRATION_BLOCK</span><span class="p">,</span><span class="w"> </span><span class="n">calibration_buffer</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Error Handling and DEM</h2>
 <p>Diagnostic Event Manager (DEM) handles fault detection and reporting.</p>
-<pre class="codehilite"><code class="language-c">// DEM Error/Event handling
-#include &quot;Dem.h&quot;
+<div class="codehilite"><pre><span></span><code><span class="c1">// DEM Error/Event handling</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Dem.h&quot;</span>
 
-#define ENGINE_SENSOR_ERROR_ID  1
-#define CAN_BUS_OFF_EVENT_ID    2
+<span class="cp">#define ENGINE_SENSOR_ERROR_ID  1</span>
+<span class="cp">#define CAN_BUS_OFF_EVENT_ID    2</span>
 
-void Monitor_EngineHealth(void) {
-    if(SensorValue &gt; MAX_THRESHOLD) {
-        // Report error
-        Dem_ReportErrorStatus(ENGINE_SENSOR_ERROR_ID, DEM_EVENT_STATUS_PREFAILED);
-    }
+<span class="kt">void</span><span class="w"> </span><span class="nf">Monitor_EngineHealth</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">SensorValue</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">MAX_THRESHOLD</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Report error</span>
+<span class="w">        </span><span class="n">Dem_ReportErrorStatus</span><span class="p">(</span><span class="n">ENGINE_SENSOR_ERROR_ID</span><span class="p">,</span><span class="w"> </span><span class="n">DEM_EVENT_STATUS_PREFAILED</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    if(CAN_BusStatus == CAN_ERROR_PASSIVE) {
-        Dem_ReportErrorStatus(CAN_BUS_OFF_EVENT_ID, DEM_EVENT_STATUS_FAILED);
-    }
-}
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">CAN_BusStatus</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CAN_ERROR_PASSIVE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Dem_ReportErrorStatus</span><span class="p">(</span><span class="n">CAN_BUS_OFF_EVENT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">DEM_EVENT_STATUS_FAILED</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-// Retrieve error codes
-uint8_t Get_ErrorCodes(uint8_t* ErrorCodeList) {
-    return Dem_GetNumberOfEventMemoryEntries(ErrorCodeList);
-}
-</code></pre>
+<span class="c1">// Retrieve error codes</span>
+<span class="kt">uint8_t</span><span class="w"> </span><span class="nf">Get_ErrorCodes</span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">ErrorCodeList</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Dem_GetNumberOfEventMemoryEntries</span><span class="p">(</span><span class="n">ErrorCodeList</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2>Development Tools and Workflow</h2>
 <p>AUTOSAR development typically uses specialized tools:</p>
-<pre class="codehilite"><code class="language-c">// AUTOSAR DBC file example (CAN database)
-// BO_ 256 EngineStatus: 8 EngineController
-//  SG_ EngineRPM : 0|16@1+ (0.25,0) [0|16000] &quot;rpm&quot; EngineController
-//  SG_ Throttle : 16|8@1+ (0.5,0) [0|100] &quot;%&quot; EngineController
+<div class="codehilite"><pre><span></span><code><span class="c1">// AUTOSAR DBC file example (CAN database)</span>
+<span class="c1">// BO_ 256 EngineStatus: 8 EngineController</span>
+<span class="c1">//  SG_ EngineRPM : 0|16@1+ (0.25,0) [0|16000] &quot;rpm&quot; EngineController</span>
+<span class="c1">//  SG_ Throttle : 16|8@1+ (0.5,0) [0|100] &quot;%&quot; EngineController</span>
 
-// Vector tools (CANoe, CANalyzer)
-// Artisan (NEOCAR by dSpace)
-// AUTOSAR development enables:
-// - Cross-platform compatibility
-// - Reduced development time
-// - Improved software quality
-// - Better maintainability
-</code></pre>
+<span class="c1">// Vector tools (CANoe, CANalyzer)</span>
+<span class="c1">// Artisan (NEOCAR by dSpace)</span>
+<span class="c1">// AUTOSAR development enables:</span>
+<span class="c1">// - Cross-platform compatibility</span>
+<span class="c1">// - Reduced development time</span>
+<span class="c1">// - Improved software quality</span>
+<span class="c1">// - Better maintainability</span>
+</code></pre></div>
 
 <h2>Integration and Testing</h2>
-<pre class="codehilite"><code class="language-c">// AUTOSAR component testing
-void Test_EngineControl(void) {
-    EngineInputs_t test_inputs = {
-        .rpm = 2000,
-        .throttle = 50,
-        .gear = 3
-    };
+<div class="codehilite"><pre><span></span><code><span class="c1">// AUTOSAR component testing</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Test_EngineControl</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">EngineInputs_t</span><span class="w"> </span><span class="n">test_inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">.</span><span class="n">rpm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">throttle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">        </span><span class="p">.</span><span class="n">gear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">    </span><span class="p">};</span>
 
-    EngineOutputs_t results;
+<span class="w">    </span><span class="n">EngineOutputs_t</span><span class="w"> </span><span class="n">results</span><span class="p">;</span>
 
-    EngineController_Execute(&amp;test_inputs, &amp;results);
+<span class="w">    </span><span class="n">EngineController_Execute</span><span class="p">(</span><span class="o">&amp;</span><span class="n">test_inputs</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">results</span><span class="p">);</span>
 
-    // Verify output
-    assert(results.fuel_injection_us &gt; 0);
-    assert(results.ignition_angle &gt;= 0);
-}
+<span class="w">    </span><span class="c1">// Verify output</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">results</span><span class="p">.</span><span class="n">fuel_injection_us</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">results</span><span class="p">.</span><span class="n">ignition_angle</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
 
-// Hardware-in-loop (HIL) testing
-// Model-in-loop (MIL) testing
-// Software-in-loop (SIL) testing
-</code></pre>
+<span class="c1">// Hardware-in-loop (HIL) testing</span>
+<span class="c1">// Model-in-loop (MIL) testing</span>
+<span class="c1">// Software-in-loop (SIL) testing</span>
+</code></pre></div>
 
 <h2>Practice Projects</h2>
 <p>Test your AUTOSAR knowledge with these projects:</p>
