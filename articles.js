@@ -1,19 +1,12 @@
 const articlesData = [
     {
-<<<<<<< HEAD
-        "title": "Introduction to AUTOSAR",
+        "title": "AUTOSAR Basics: A Beginner's Guide",
         "date": "Mar 07, 2026",
-        "excerpt": "---\ntitle: \"AUTOSAR Basics: A Beginner's Guide\"\ncategory: \"AUTOSAR\"\ndate: \"Mar 07, 2026\"\ntags: \"AUTOSAR\", \"Automotive\", \"Architecture\"\n---\n\n\n\nAUTOSAR...",
+        "excerpt": "AUTOSAR (Automotive Open System Architecture) is a standardized automotive software architecture established by automobile manufacturers, suppliers, a...",
         "link": "autosar-basics.html",
         "category": "AUTOSAR",
-=======
-        "title": "STM32 Microcontroller",
-        "date": "Mar 07, 2026",
-        "excerpt": "STM32 is a family of 32-bit microcontrollers developed by the STMicroelectronics(chatgpt://generic-entity?number=0).  \nThey are based on the ARM Corte...",
-        "link": "stm32intro.html",
-        "category": "Embedded Systems",
         "tags": [
-            "Embedded Systems",
+            "AUTOSAR",
             "Automotive"
         ],
         "image": ""
@@ -31,19 +24,6 @@ const articlesData = [
         "image": "images/site.jpg"
     },
     {
-        "title": "Embedded Systems Tutorial",
-        "date": "Mar 08, 2026",
-        "excerpt": "Embedded systems are specialized computing systems that perform dedicated functions within larger mechanical or electrical systems. They are the brain...",
-        "link": "embedded-tutorial.html",
-        "category": "Embedded C",
->>>>>>> bfaa7c3 (feat: Separate Tutorial/Download templates, fix image layout, and restrict card titles to 2 lines)
-        "tags": [
-            "AUTOSAR",
-            "Automotive"
-        ],
-        "image": ""
-    },
-    {
         "title": "C Programming for Embedded Systems",
         "date": "Mar 07, 2026",
         "excerpt": "When programming microcontrollers, standard C code needs to be adapted to severe memory constraints, specific hardware registers, and real-time requir...",
@@ -56,19 +36,11 @@ const articlesData = [
         "image": ""
     },
     {
-<<<<<<< HEAD
         "title": "Embedded Systems Tutorial",
-        "date": "Mar 07, 2026",
+        "date": "Mar 08, 2026",
         "excerpt": "Embedded systems are specialized computing systems that perform dedicated functions within larger mechanical or electrical systems. They are the brain...",
         "link": "embedded-tutorial.html",
         "category": "Embedded C",
-=======
-        "title": "AUTOSAR Basics: A Beginner's Guide",
-        "date": "Mar 07, 2026",
-        "excerpt": "AUTOSAR (Automotive Open System Architecture) is a standardized automotive software architecture established by automobile manufacturers, suppliers, a...",
-        "link": "autosar-basics.html",
-        "category": "AUTOSAR",
->>>>>>> bfaa7c3 (feat: Separate Tutorial/Download templates, fix image layout, and restrict card titles to 2 lines)
         "tags": [
             "Embedded C",
             "Automotive"
@@ -76,33 +48,25 @@ const articlesData = [
         "image": ""
     },
     {
-<<<<<<< HEAD
-        "title": "Introduction to STM32",
+        "title": "STM32 Microcontroller: Beginner Introduction",
         "date": "Mar 07, 2026",
-        "excerpt": "---\ntitle: \"STM32 Microcontroller: Beginner Introduction\"\ncategory: \"Embedded Systems\"\ndate: \"Mar 07, 2026\"\ntags: \"STM32\", \"Microcontroller\", \"Embedde...",
+        "excerpt": "STM32 is a family of 32-bit microcontrollers developed by the STMicroelectronics(chatgpt://generic-entity?number=0).  \nThey are based on the ARM Corte...",
         "link": "test.html",
-        "category": "General",
-=======
-        "title": "Python Tutorial",
-        "date": "Mar 08, 2026",
-        "excerpt": "Python is one of the most popular programming languages in the world. It is simple to use,\npacked with features, and supported by a wide range of libr...",
-        "link": "python-tutorial.html",
-        "category": "Python",
->>>>>>> bfaa7c3 (feat: Separate Tutorial/Download templates, fix image layout, and restrict card titles to 2 lines)
+        "category": "Embedded Systems",
         "tags": [
-            "General",
+            "Embedded Systems",
             "Automotive"
         ],
         "image": ""
     },
     {
-        "title": "Introduction to STM32",
+        "title": "STM32 Microcontroller",
         "date": "Mar 07, 2026",
-        "excerpt": "---\ntitle: \"STM32 Microcontroller: Beginner Introduction\"\ncategory: \"Embedded Systems\"\ndate: \"Mar 07, 2026\"\ntags: \"STM32\", \"Microcontroller\", \"Embedde...",
+        "excerpt": "STM32 is a family of 32-bit microcontrollers developed by the STMicroelectronics(chatgpt://generic-entity?number=0).  \nThey are based on the ARM Corte...",
         "link": "stm32intro.html",
-        "category": "General",
+        "category": "Embedded Systems",
         "tags": [
-            "General",
+            "Embedded Systems",
             "Automotive"
         ],
         "image": ""
@@ -133,7 +97,7 @@ const articlesData = [
     },
     {
         "title": "Python Tutorial",
-        "date": "Mar 07, 2026",
+        "date": "Mar 08, 2026",
         "excerpt": "Python is one of the most popular programming languages in the world. It is simple to use,\npacked with features, and supported by a wide range of libr...",
         "link": "python-tutorial.html",
         "category": "Python",
