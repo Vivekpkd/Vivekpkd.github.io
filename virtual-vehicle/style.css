@@ -1,0 +1,1195 @@
+/* ============================================================
+   style.css — Virtual Vehicle / SIL Simulation Dashboard
+   Dark professional automotive engineering tool theme.
+   ============================================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #0a0e14;
+    --bg-panel: #10151d;
+    --bg-panel-2: #0d1118;
+    --border: #1f2a3a;
+    --border-strong: #2a3850;
+    --text: #e6edf5;
+    --text-dim: #8fa0b8;
+    --text-muted: #5c6b80;
+    --accent: #2f9bff;
+    --green: #39e27b;
+    --red: #ff453a;
+    --amber: #ffd60a;
+    --orange: #ff9f0a;
+    --purple: #bf5af2;
+    --mono: 'Consolas', 'Courier New', monospace;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    overflow: hidden;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 48px 1fr auto;
+    gap: 6px;
+    padding: 6px;
+    overflow: hidden;
+}
+
+/* ============ TOP BAR ============ */
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 14px;
+    background: linear-gradient(180deg, #151c28, #10151d);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    font-size: 22px;
+    color: var(--accent);
+    text-shadow: 0 0 8px rgba(47, 155, 255, 0.5);
+}
+
+.title {
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: var(--text);
+}
+
+.subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.top-status {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.transport {
+    display: flex;
+    gap: 6px;
+}
+
+.status-chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    color: var(--text-muted);
+    background: var(--bg-panel-2);
+}
+
+.status-chip.running,
+.status-chip.idle {
+    color: var(--green);
+    border-color: rgba(57, 226, 123, 0.4);
+}
+
+.status-chip.braking {
+    color: var(--orange);
+    border-color: rgba(255, 159, 10, 0.4);
+}
+
+.status-chip.reverse {
+    color: var(--purple);
+    border-color: rgba(191, 90, 242, 0.4);
+}
+
+.status-chip.off,
+.status-chip.lock {
+    color: var(--red);
+    border-color: rgba(255, 69, 58, 0.4);
+}
+
+.status-chip.ignition_on,
+.status-chip.accessory {
+    color: var(--amber);
+    border-color: rgba(255, 214, 10, 0.4);
+}
+
+.rec-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--bg-panel-2);
+    border: 1px solid var(--border-strong);
+    color: var(--text-dim);
+}
+
+.rec-pill.active {
+    color: var(--red);
+    border-color: var(--red);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--text);
+    background: #1a2331;
+    border: 1px solid var(--border-strong);
+    transition: all 0.12s;
+}
+
+.btn:hover {
+    background: #243044;
+    border-color: #3a4c6b;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn.btn-sm {
+    font-size: 10px;
+    padding: 3px 6px;
+}
+
+.btn-green {
+    border-color: rgba(57, 226, 123, 0.5);
+    color: var(--green);
+}
+
+.btn-green.active {
+    background: rgba(57, 226, 123, 0.18);
+}
+
+.btn-red {
+    border-color: rgba(255, 69, 58, 0.5);
+    color: var(--red);
+}
+
+.btn-red.active {
+    background: rgba(255, 69, 58, 0.18);
+}
+
+.btn-amber {
+    border-color: rgba(255, 159, 10, 0.5);
+    color: var(--orange);
+}
+
+/* ============ MAIN LAYOUT ============ */
+.layout {
+    display: grid;
+    grid-template-columns: 190px 1fr 320px;
+    gap: 6px;
+    min-height: 0;
+    height: 100%;
+}
+
+.center-col {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 6px;
+    min-height: 0;
+    min-width: 0;
+    height: 100%;
+}
+
+.right-col {
+    display: grid;
+    grid-template-rows: 1fr auto auto auto;
+    gap: 6px;
+    min-height: 0;
+    min-width: 0;
+}
+
+.panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.panel-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ============ INSTRUMENT CLUSTER ============ */
+.cluster-wrap {
+    flex: 0 0 auto;
+}
+
+.single-focus-cluster {
+    display: grid;
+    grid-template-columns: 165px 1.35fr 165px 205px;
+    align-items: center;
+    justify-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    min-height: 252px;
+}
+
+.cluster-subinfo {
+    font-size: 9.5px;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-weight: 600;
+}
+
+.dial-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.gauge-label-badge {
+    font-size: 8.5px;
+    font-family: var(--mono);
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.gauge-label-badge.main {
+    color: var(--accent);
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(47, 155, 255, 0.4);
+}
+
+/* Small RPM Box */
+.dial-box.rpm-box {
+    height: 190px;
+    justify-content: center;
+}
+
+.dial-box.rpm-box canvas {
+    width: 175px;
+    height: 175px;
+    max-width: 180px;
+    max-height: 180px;
+    display: block;
+}
+
+/* 1 Big Speedometer Box (Dominant center) */
+.dial-box.speed-box {
+    height: 252px;
+    justify-content: center;
+    flex: 1;
+}
+
+.dial-box.speed-box canvas {
+    width: 100%;
+    max-width: 320px;
+    height: 250px;
+    display: block;
+    filter: drop-shadow(0 0 14px rgba(47, 155, 255, 0.22));
+}
+
+/* Small HORIZONTAL fuel gauge — same footprint as the RPM gauge */
+.dial-box.fuel-box {
+    width: 155px;
+    justify-content: center;
+    gap: 5px;
+}
+.fuel-hbar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+.fh-end {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+.fh-end.full { color: var(--green); }
+.fh-track {
+    position: relative;
+    flex: 1;
+    height: 14px;
+    background: #0d121a;
+    border: 1px solid var(--border-strong);
+    border-radius: 7px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
+}
+.fh-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 100%;
+    background: linear-gradient(90deg, #ffd60a 0%, #39e27b 35%);
+    border-radius: 6px 0 0 6px;
+    transition: width 0.15s linear;
+}
+.fh-fill.low {
+    background: linear-gradient(90deg, #ff453a, #ff9f0a);
+    animation: fh-blink 0.8s infinite;
+}
+@keyframes fh-blink { 50% { opacity: 0.55; } }
+.fh-marks {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-evenly;
+    pointer-events: none;
+}
+.fh-marks span { width: 1px; background: rgba(10, 14, 20, 0.7); }
+.fh-val {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: 1px;
+}
+.fh-val.low { color: var(--red); }
+.fh-temp {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    margin-top: 2px;
+}
+.fh-temp .fh-track { height: 9px; }
+.fh-fill.temp {
+    background: linear-gradient(90deg, #2f9bff, #ff9f0a 70%, #ff453a);
+    border-radius: 4px 0 0 4px;
+}
+.fh-end.temp-lab { font-size: 8px; letter-spacing: 1px; }
+.fh-end.temp-val { font-size: 9px; color: var(--text-dim); min-width: 34px; text-align: right; }
+
+/* Center HUD & Auxiliary Bars */
+.cluster-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 21, 29, 0.7);
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.gear-cluster {
+    display: grid;
+    grid-template-columns: repeat(5, 28px);
+    grid-template-rows: repeat(2, 28px);
+    gap: 4px;
+    justify-content: center;
+}
+
+.gear-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-weight: 700;
+    color: var(--text-dim);
+    background: var(--bg-panel-2);
+    font-size: 14px;
+}
+
+.gear-slot.active {
+    background: var(--accent);
+    color: #0a0e14;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(47, 155, 255, 0.5);
+}
+
+.cluster-hud {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: space-around;
+    padding: 5px 8px;
+    background: var(--bg-panel-2);
+    border-radius: 5px;
+    border: 1px solid var(--border-strong);
+    box-sizing: border-box;
+}
+
+.hud-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hud-item .lab {
+    font-size: 8px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    font-family: var(--mono);
+}
+
+.hud-item .val {
+    font-family: var(--mono);
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.hud-item .sub {
+    font-size: 8px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+}
+
+/* Aux horizontal mini bars */
+.aux-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+.aux-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 9px;
+}
+
+.aux-lab {
+    color: var(--text-muted);
+    width: 28px;
+}
+
+.aux-track {
+    flex: 1;
+    height: 6.5px;
+    background: #141b27;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #233044;
+}
+
+.aux-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.1s linear;
+}
+
+.aux-fill.fuel {
+    background: linear-gradient(90deg, #ffd60a, #39e27b);
+}
+
+.aux-fill.temp {
+    background: linear-gradient(90deg, #2f9bff, #ff9f0a, #ff453a);
+}
+
+.aux-val {
+    color: var(--text-dim);
+    width: 36px;
+    text-align: right;
+}
+
+/* ============ CONTROLS ============ */
+.controls-wrap {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+}
+.controls-grid {
+    display: grid;
+    grid-template-columns: 112px 215px 160px 1.25fr 1.25fr 1.15fr;
+    gap: 14px;
+    padding: 16px 14px;
+    align-items: start;
+    justify-content: center;
+    min-height: 0;
+}
+.ctrl { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.ctrl-label { font-size: 13px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; text-align: center; font-weight: 700; }
+.pedal-val { font-family: var(--mono); font-size: 14px; font-weight: 800; color: var(--text); }
+
+/* ============ ENGINE START / STOP PUSH BUTTON ============ */
+.engine-start-btn {
+    position: relative;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    border: 2px solid #3a4b66;
+    background: radial-gradient(circle at 35% 30%, #293447, #0e141f 80%);
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.1);
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    margin-bottom: 2px;
+}
+.engine-start-btn:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(47,155,255,0.4);
+}
+.engine-start-btn:active {
+    transform: scale(0.96);
+}
+.ess-outer-ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255,255,255,0.18);
+    pointer-events: none;
+    animation: rotateSlow 20s linear infinite;
+}
+@keyframes rotateSlow { 100% { transform: rotate(360deg); } }
+
+.ess-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.05;
+    pointer-events: none;
+}
+.ess-sub {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #7b8fa8;
+}
+.ess-main {
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(255,255,255,0.4);
+}
+.ess-sub2 {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ff5b5b;
+}
+.ess-indicator {
+    position: absolute;
+    bottom: 7px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #334155;
+    border: 1px solid #475569;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+    transition: all 0.2s;
+}
+
+/* Engine running: bright green ring and glow */
+.engine-start-btn.running {
+    border-color: #39e27b;
+    box-shadow: 0 0 14px rgba(57, 226, 123, 0.6), inset 0 0 6px rgba(57, 226, 123, 0.4);
+}
+.engine-start-btn.running .ess-indicator {
+    background: #39e27b;
+    border-color: #86efac;
+    box-shadow: 0 0 6px #39e27b;
+}
+.engine-start-btn.running .ess-main {
+    color: #ff453a;
+    text-shadow: 0 0 6px rgba(255, 69, 58, 0.7);
+}
+
+/* Ready/Ignition ON: amber pulsing ring */
+.engine-start-btn.ready {
+    border-color: #ffd60a;
+    box-shadow: 0 0 10px rgba(255, 214, 10, 0.5);
+    animation: pulseAmber 1.6s infinite ease-in-out;
+}
+.engine-start-btn.ready .ess-indicator {
+    background: #ffd60a;
+    box-shadow: 0 0 6px #ffd60a;
+}
+@keyframes pulseAmber {
+    50% { box-shadow: 0 0 14px rgba(255, 214, 10, 0.8); }
+}
+
+/* Cranking */
+.engine-start-btn.cranking {
+    border-color: #39e27b;
+    animation: flashCrank 0.2s infinite alternate;
+}
+@keyframes flashCrank {
+    from { opacity: 0.7; }
+    to { opacity: 1; filter: brightness(1.3); }
+}
+
+/* Key switch row */
+.ign-key-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+.rotary {
+    width: 52px;
+    height: 52px;
+    position: relative;
+    cursor: pointer;
+}
+.rotary-knob {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #3a475d, #141b27 75%);
+    border: 1px solid var(--border-strong);
+    position: relative;
+    transition: transform 0.18s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.rotary-knob:hover {
+    border-color: var(--accent);
+}
+.knob-mark {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3.5px;
+    height: 13px;
+    background: var(--red);
+    border-radius: 1px;
+    box-shadow: 0 0 3px var(--red);
+}
+.ign-state-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+}
+.ign-state-badge {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 1px;
+    padding: 3px 7px;
+    background: var(--bg-panel-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 3px;
+    min-width: 62px;
+    text-align: center;
+}
+.ign-stages {
+    display: flex;
+    gap: 3px;
+    margin-top: 2px;
+}
+.ign-stage-btn {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background: var(--bg-panel-2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.12s;
+}
+.ign-stage-btn:hover {
+    color: var(--text);
+    border-color: var(--accent);
+}
+.ign-stage-btn.active {
+    background: var(--accent);
+    color: #0b0f17;
+    font-weight: 800;
+    box-shadow: 0 0 5px rgba(47,155,255,0.6);
+}
+
+/* Battery master switch */
+.switch { position: relative; display: inline-block; width: 64px; height: 30px; }
+.switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+.switch-track {
+    position: absolute; inset: 0; cursor: pointer;
+    background: #1a2331; border: 1px solid var(--border-strong); border-radius: 5px;
+    transition: all 0.15s;
+}
+.switch-track::before {
+    content: ""; position: absolute; width: 22px; height: 22px; left: 3px; top: 3px;
+    background: #5c6b80; border-radius: 4px; transition: all 0.15s;
+}
+.switch input:checked + .switch-track { background: rgba(57,226,123,0.15); border-color: var(--green); }
+.switch input:checked + .switch-track::before {
+    transform: translateX(34px); background: var(--green);
+    box-shadow: 0 0 5px rgba(57,226,123,0.6);
+}
+.battery-state { font-family: var(--mono); font-weight: 800; font-size: 14px; letter-spacing: 1px; }
+.battery-state.on { color: var(--green); }
+.battery-state.off { color: var(--red); }
+
+/* ============ VERTICAL PRND SHIFTER GATE ============ */
+.shifter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 190px;
+}
+.shifter-gate {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 7px;
+    background: #0d121a;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: inset 0 1px 5px rgba(0,0,0,0.65);
+}
+.gate-led {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #2a3850;
+    margin-bottom: 2px;
+    transition: all 0.15s;
+}
+.gate-letter {
+    display: block;
+    font-size: 16px;
+}
+.gear-btn {
+    position: relative;
+    width: 42px;
+    height: 39px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: var(--mono);
+    color: var(--text-dim);
+    background: #141b27;
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.gear-btn:hover { border-color: var(--accent); color: var(--text); }
+.gear-btn.active {
+    background: var(--accent);
+    color: #0a0e14;
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(47,155,255,0.55);
+}
+.gear-btn.active .gate-led {
+    background: #0a0e14;
+    box-shadow: 0 0 4px rgba(10,14,20,0.8);
+}
+.shifter-knob {
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    width: 55px;
+    height: 41px;
+    margin-left: -84px;
+    border-radius: 8px;
+    background: radial-gradient(circle at 35% 30%, #3d4b63, #131a26 75%);
+    border: 2px solid #46587a;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.7);
+    transition: top 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.knob-grip {
+    display: block;
+    width: 31px;
+    height: 4px;
+    border-radius: 2px;
+    background: #6d80a0;
+    box-shadow: 0 6px 0 -1px #6d80a0, 0 -6px 0 -1px #6d80a0;
+}
+/* knob travel: 7 + (39+6)*row  ->  P=7, R=52, N=97, D=142 */
+.shifter[data-active="P"] .shifter-knob { top: 7px; }
+.shifter[data-active="R"] .shifter-knob { top: 52px; }
+.shifter[data-active="N"] .shifter-knob { top: 97px; }
+.shifter[data-active="D"] .shifter-knob { top: 142px; }
+.shifter-readout {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--accent);
+}
+
+/* ============ PEDAL CONTROLS & HIGH VISIBILITY SLIDERS ============ */
+.pedal-assembly {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 165px;
+}
+.pedal-track {
+    position: relative;
+    width: 44px;
+    height: 158px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0d121a;
+    border: 1px solid var(--border-strong);
+    border-radius: 7px;
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.6);
+}
+
+/* Range input cross-browser vertical rotation */
+.vslider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 130px;
+    height: 28px;
+    background: transparent;
+    transform: rotate(-90deg);
+    cursor: pointer;
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+/* Webkit Track */
+.vslider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 11px;
+    background: #16202e;
+    border-radius: 6px;
+    border: 1px solid #2a3b54;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.7);
+}
+/* Firefox Track */
+.vslider::-moz-range-track {
+    width: 100%;
+    height: 11px;
+    background: #16202e;
+    border-radius: 6px;
+    border: 1px solid #2a3b54;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.7);
+}
+
+/* Thumbs */
+.vslider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    margin-top: -8.5px;
+    cursor: grab;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.8);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+.vslider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.12);
+}
+.vslider::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    cursor: grab;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+
+/* Color variations */
+#accel-slider::-webkit-slider-thumb {
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    box-shadow: 0 0 8px rgba(57, 226, 123, 0.7);
+    border-color: #86efac;
+}
+#accel-slider::-moz-range-thumb {
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    box-shadow: 0 0 8px rgba(57, 226, 123, 0.7);
+    border-color: #86efac;
+}
+#brake-slider::-webkit-slider-thumb {
+    background: linear-gradient(135deg, #ff6b6b, #ef4444);
+    box-shadow: 0 0 8px rgba(255, 69, 58, 0.7);
+    border-color: #fca5a5;
+}
+#brake-slider::-moz-range-thumb {
+    background: linear-gradient(135deg, #ff6b6b, #ef4444);
+    box-shadow: 0 0 8px rgba(255, 69, 58, 0.7);
+    border-color: #fca5a5;
+}
+#slope-slider::-webkit-slider-thumb {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    box-shadow: 0 0 8px rgba(255, 159, 10, 0.7);
+    border-color: #fde68a;
+}
+#slope-slider::-moz-range-thumb {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    box-shadow: 0 0 8px rgba(255, 159, 10, 0.7);
+    border-color: #fde68a;
+}
+
+/* Pedal Plates (Visual Automotive Pedals) */
+.pedal-plate {
+    position: relative;
+    width: 36px;
+    height: 158px;
+    background: #141b27;
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 2px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    transition: border-color 0.15s;
+}
+.pedal-plate:hover {
+    border-color: var(--accent);
+}
+.plate-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0%;
+    transition: height 0.08s ease-out;
+    pointer-events: none;
+    z-index: 1;
+}
+.gas-plate .plate-fill {
+    background: linear-gradient(180deg, rgba(57, 226, 123, 0.7), rgba(57, 226, 123, 0.25));
+    border-top: 2px solid #39e27b;
+    box-shadow: 0 0 6px rgba(57, 226, 123, 0.5);
+}
+.brake-plate .plate-fill {
+    background: linear-gradient(180deg, rgba(255, 69, 58, 0.7), rgba(255, 69, 58, 0.25));
+    border-top: 2px solid #ff453a;
+    box-shadow: 0 0 6px rgba(255, 69, 58, 0.5);
+}
+
+.plate-treads {
+    display: flex;
+    gap: 2.5px;
+    z-index: 2;
+    margin-top: 6px;
+}
+.plate-treads span {
+    width: 2.5px;
+    height: 104px;
+    background: #253348;
+    border-radius: 1px;
+}
+.plate-treads.horiz {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 14px;
+}
+.plate-treads.horiz span {
+    width: 22px;
+    height: 3.5px;
+    background: #253348;
+    border-radius: 1px;
+}
+.plate-label {
+    font-size: 9px;
+    font-family: var(--mono);
+    font-weight: 800;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    z-index: 2;
+    background: rgba(10, 14, 20, 0.85);
+    padding: 2px 3px;
+    border-radius: 2px;
+}
+
+/* Quick shortcut buttons */
+.pedal-shortcuts {
+    display: flex;
+    gap: 3px;
+    margin-top: 3px;
+}
+.btn-micro {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 6px;
+    border-radius: 3px;
+    background: var(--bg-panel-2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.12s;
+}
+.btn-micro:hover {
+    color: #ffffff;
+    border-color: var(--accent);
+    background: #1e2838;
+}
+
+.pedal-val { font-family: var(--mono); color: var(--text); }
+.slope-dir { font-family: var(--mono); font-size: 10px; color: var(--orange); letter-spacing: 1px; }
+
+/* ============ CHART ============ */
+.chart-panel { min-height: 0; }
+.chart-box { flex: 1; min-height: 0; padding: 6px; }
+.chart-actions { display: flex; gap: 4px; }
+
+/* ============ MATRIX ============ */
+.matrix, .monitor, .kv { width: 100%; border-collapse: collapse; font-family: var(--mono); }
+.matrix th, .matrix td {
+    border: 1px solid var(--border); padding: 4px 6px;
+    text-align: center; font-size: 12px; color: var(--text-dim);
+}
+.matrix th { background: var(--bg-panel-2); color: var(--text-muted); font-weight: 600; }
+.matrix .gear-label { color: var(--text); font-weight: 700; }
+.matrix td.cell { height: 18px; }
+.matrix td.cur { background: var(--green); box-shadow: inset 0 0 6px rgba(57,226,123,0.4); }
+.matrix td.tgt { background: var(--amber); box-shadow: inset 0 0 6px rgba(255,214,10,0.5); }
+
+/* ============ MONITOR ============ */
+.monitor-panel { max-height: 230px; overflow: auto; }
+.monitor td { border-bottom: 1px solid var(--border); padding: 3px 8px; font-size: 11px; color: var(--text-dim); }
+.monitor td.val { color: var(--text); text-align: right; }
+
+/* ============ GEAR INDICATOR ============ */
+.gear-ind-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+.gi-label { font-size: 9px; color: var(--text-muted); letter-spacing: 1px; text-align: center; margin-bottom: 4px; }
+.gi-box {
+    height: 52px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 30px; font-weight: 800; color: var(--text-dim);
+    background: var(--bg-panel-2); border: 1px solid var(--border-strong); border-radius: 6px;
+}
+.gi-box.isgear { color: var(--green); border-color: var(--green); box-shadow: 0 0 8px rgba(57,226,123,0.3); }
+.gi-box.tgt.isgear { color: var(--amber); border-color: var(--amber); box-shadow: 0 0 8px rgba(255,214,10,0.3); }
+
+/* ============ BOTTOM BAR ============ */
+.bottombar {
+    display: flex; flex-direction: column;
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+}
+.tabs {
+    display: flex; border-bottom: 1px solid var(--border);
+    background: var(--bg-panel-2); overflow-x: auto;
+}
+.tab-btn {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    padding: 6px 14px; background: transparent; border: none;
+    border-right: 1px solid var(--border); color: var(--text-dim); cursor: pointer;
+    white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { background: var(--accent); color: #0a0e14; }
+.toggle-btn { color: var(--amber); font-weight: 700; }
+.toggle-btn:hover { color: var(--amber); }
+.tab-panels { height: 200px; overflow: auto; }
+.bottombar.collapsed .tab-panels { display: none; }
+.tab-panel { display: none; padding: 8px; overflow: auto; }
+.tab-panel.active { display: block; }
+
+.console-log { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+.console-line { padding: 1px 0; }
+.console-line .t { color: var(--text-muted); margin-right: 6px; }
+.console-line .m { color: var(--text-dim); }
+
+.var-list { font-family: var(--mono); font-size: 12px; }
+.var-row { display: flex; justify-content: space-between; padding: 2px 4px; border-bottom: 1px dotted var(--border); }
+.var-row .vk { color: var(--text-dim); }
+.var-row .vv { color: var(--text); }
+
+.module-tree { font-family: var(--mono); font-size: 12px; margin-bottom: 12px; }
+.mj { color: var(--amber); font-weight: 700; }
+.mb { color: var(--text-dim); padding-left: 10px; }
+.mod-state { float: right; color: var(--text-muted); }
+.mod-state.ok { color: var(--green); }
+.scenario-panel { border-top: 1px solid var(--border); padding-top: 8px; }
+.sc-title { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.scenario-panel .btn { display: inline-block; margin: 3px; }
+
+.kv td { border-bottom: 1px solid var(--border); padding: 3px 8px; font-size: 12px; }
+.kv td:first-child { color: var(--text-dim); width: 55%; }
+.kv td.val { color: var(--text); font-family: var(--mono); }
+
+.problems-empty { font-family: var(--mono); font-size: 12px; color: var(--green); padding: 8px; }
+.build-success { font-family: var(--mono); font-size: 12px; color: var(--green); padding: 2px 0; }
+
+/* ============ SCROLLBARS ============ */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-panel-2); }
+::-webkit-scrollbar-thumb { background: #2a3850; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4c6b; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1200px) {
+    .layout { grid-template-columns: 160px 1fr 300px; }
+    .single-focus-cluster { grid-template-columns: 150px 1fr 150px 190px; min-height: 230px; }
+    .dial-box.rpm-box canvas { width: 140px; height: 140px; }
+    .dial-box.speed-box { height: 230px; }
+    .dial-box.speed-box canvas { height: 228px; }
+    .dial-box.fuel-box { width: 140px; }
+}
+@media (max-width: 900px) {
+    body { overflow: auto; }
+    .layout { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+    .right-col, .center-col { grid-template-rows: auto; }
+    .single-focus-cluster { grid-template-columns: 1fr 1fr; }
+    .controls-grid { grid-template-columns: 1fr 1fr; }
+    .subtitle { display: none; }
+}
+@media (max-width: 600px) {
+    .single-focus-cluster { grid-template-columns: 1fr; }
+    .controls-grid { grid-template-columns: 1fr; }
+}

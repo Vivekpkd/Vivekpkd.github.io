@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Vehicle — Automotive SIL Simulation Dashboard</title>
+    <meta name="description" content="Browser-based Virtual Vehicle / Virtual ECU SIL simulation dashboard for automotive software engineering.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for real-time graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- ===================== TOP BAR ===================== -->
+    <header class="topbar">
+        <div class="brand">
+            <span class="logo">◧</span>
+            <span class="title">AUTODEVV — Virtual Vehicle</span>
+            <span class="subtitle">SIL / HIL Environment · Engine &amp; Powertrain Simulation</span>
+        </div>
+        <div class="top-status">
+            <span class="status-chip" id="battery-status">BATT ON</span>
+            <span class="status-chip" id="engine-status">OFF</span>
+            <span class="status-chip" id="vehicle-status">OFF</span>
+            <span class="rec-pill" id="rec-status">STANDBY</span>
+        </div>
+        <div class="transport">
+            <button class="btn btn-green" id="btn-start">▶ START SIMULATION</button>
+            <button class="btn btn-red" id="btn-stop">■ STOP</button>
+            <button class="btn btn-amber" id="btn-reset">↺ RESET</button>
+        </div>
+    </header>
+
+    <!-- ===================== MAIN LAYOUT ===================== -->
+    <main class="layout">
+
+        <!-- LEFT: Project / File explorer -->
+        <aside class="panel explorer">
+            <div class="panel-title">Project Explorer</div>
+            <div class="explorer-tree" id="explorer-tree">
+                <div class="exp-node root open">autodevv-virtual-vehicle
+                    <div class="exp-group open">
+                        <div class="exp-node file">▶ index.html</div>
+                        <div class="exp-node file">▶ style.css</div>
+                        <div class="exp-node file active">▶ app.js</div>
+                        <div class="exp-node file">▶ vehicleModel.js</div>
+                        <div class="exp-node file">▶ engineModel.js</div>
+                        <div class="exp-node file">▶ transmissionModel.js</div>
+                        <div class="exp-node file">▶ dashboard.js</div>
+                        <div class="exp-node file">▶ signalManager.js</div>
+                    </div>
+                    <div class="exp-node root open">ECU Signals (signal bus)
+                        <div class="exp-group open" id="signal-tree"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CENTER COLUMN -->
+        <div class="center-col">
+
+            <!-- Instrument cluster -->
+            <section class="panel cluster-wrap">
+                <div class="panel-title">
+                    <span>Instrument Cluster</span>
+                    <span class="cluster-subinfo">RPM · Speedometer · Fuel/Temp · Gear</span>
+                </div>
+                <div class="cluster-grid single-focus-cluster">
+                    <!-- Small RPM Dial -->
+                    <div class="dial-box rpm-box">
+                        <div class="gauge-label-badge">TACHOMETER</div>
+                        <canvas id="gauge-rpm"></canvas>
+                    </div>
+
+                    <!-- 1 Big Speedometer Dial (Main Focus) -->
+                    <div class="dial-box speed-box">
+                        <div class="gauge-label-badge main">SPEEDOMETER</div>
+                        <canvas id="gauge-speed"></canvas>
+                    </div>
+
+                    <!-- Small HORIZONTAL Fuel Gauge (same size as RPM gauge) -->
+                    <div class="dial-box fuel-box">
+                        <div class="gauge-label-badge">FUEL</div>
+                        <div class="fuel-hbar">
+                            <span class="fh-end">E</span>
+                            <div class="fh-track">
+                                <div class="fh-fill" id="aux-fuel-fill" style="width: 100%;"></div>
+                                <div class="fh-marks"><span></span><span></span><span></span></div>
+                            </div>
+                            <span class="fh-end full">F</span>
+                        </div>
+                        <div class="fh-val" id="aux-fuel-val">100%</div>
+                        <!-- TEMP mini bar (keeps column balanced) -->
+                        <div class="fh-temp">
+                            <span class="fh-end temp-lab">TEMP</span>
+                            <div class="fh-track temp">
+                                <div class="fh-fill temp" id="aux-temp-fill" style="width: 25%;"></div>
+                            </div>
+                            <span class="fh-end temp-val" id="aux-temp-val">25°C</span>
+                        </div>
+                    </div>
+
+                    <!-- Gear cluster panel — RIGHT of the gauges, same line -->
+                    <div class="cluster-center">
+                        <div class="gear-cluster" id="gear-cluster">
+                            <div class="gear-slot" data-gear="P">P</div>
+                            <div class="gear-slot" data-gear="R">R</div>
+                            <div class="gear-slot" data-gear="N">N</div>
+                            <div class="gear-slot" data-gear="D">D</div>
+                            <div class="gear-slot" data-gear="1">1</div>
+                            <div class="gear-slot" data-gear="2">2</div>
+                            <div class="gear-slot" data-gear="3">3</div>
+                            <div class="gear-slot" data-gear="4">4</div>
+                            <div class="gear-slot" data-gear="5">5</div>
+                            <div class="gear-slot" data-gear="6">6</div>
+                        </div>
+                        <div class="cluster-hud">
+                            <div class="hud-item"><span class="lab">SPEED</span><span class="val" id="hud-speed">0.0</span><span class="sub">km/h</span></div>
+                            <div class="hud-item"><span class="lab">ENGINE</span><span class="val" id="hud-rpm">0</span><span class="sub">rpm</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Driver controls -->
+            <section class="panel controls-wrap">
+                <div class="panel-title">Driver Controls</div>
+                <div class="controls-grid">
+                    <!-- Battery master -->
+                    <div class="ctrl battery">
+                        <div class="ctrl-label">BATTERY MASTER</div>
+                        <label class="switch">
+                            <input type="checkbox" id="battery-switch" checked>
+                            <span class="switch-track"></span>
+                        </label>
+                        <div class="battery-state on" id="battery-text">ON</div>
+                    </div>
+
+                    <!-- Ignition -->
+                    <div class="ctrl ig">
+                        <div class="ctrl-label">IGNITION CONTROL</div>
+                        
+                        <!-- Real push-button Engine Start/Stop -->
+                        <button class="engine-start-btn" id="btn-start-stop" type="button" title="Push Engine Start/Stop">
+                            <span class="ess-outer-ring"></span>
+                            <span class="ess-inner">
+                                <span class="ess-sub">ENGINE</span>
+                                <span class="ess-main" id="ess-main-text">START</span>
+                                <span class="ess-sub2" id="ess-sub-text">STOP</span>
+                            </span>
+                            <span class="ess-indicator" id="ess-led"></span>
+                        </button>
+
+                        <div class="ign-key-row">
+                            <div class="rotary" id="rotary-interactive" title="Click knob to cycle ignition key">
+                                <div class="rotary-knob" id="ignition-knob"><span class="knob-mark"></span></div>
+                            </div>
+                            <div class="ign-state-wrap">
+                                <span class="ign-state-badge" id="ignition-text">LOCK</span>
+                                <button class="btn btn-sm" id="btn-ignition">TURN KEY</button>
+                            </div>
+                        </div>
+
+                        <div class="ign-stages" id="ign-stages">
+                            <button type="button" class="ign-stage-btn active" data-state="LOCK" id="ign-btn-lock">LOCK</button>
+                            <button type="button" class="ign-stage-btn" data-state="ACC" id="ign-btn-acc">ACC</button>
+                            <button type="button" class="ign-stage-btn" data-state="ON" id="ign-btn-on">ON</button>
+                            <button type="button" class="ign-stage-btn" data-state="START" id="ign-btn-start">START</button>
+                        </div>
+                    </div>
+
+                    <!-- Gear selector — vertical PRND shifter gate -->
+                    <div class="ctrl gearsel">
+                        <div class="ctrl-label">GEAR SELECTOR</div>
+                        <div class="shifter" id="gear-shifter" data-active="P">
+                            <div class="shifter-gate">
+                                <button class="gear-btn active" id="btn-ga-p" title="Park"><span class="gate-led"></span><span class="gate-letter">P</span></button>
+                                <button class="gear-btn" id="btn-ga-r" title="Reverse"><span class="gate-led"></span><span class="gate-letter">R</span></button>
+                                <button class="gear-btn" id="btn-ga-n" title="Neutral"><span class="gate-led"></span><span class="gate-letter">N</span></button>
+                                <button class="gear-btn" id="btn-ga-d" title="Drive"><span class="gate-led"></span><span class="gate-letter">D</span></button>
+                            </div>
+                            <div class="shifter-knob" id="shifter-knob"><span class="knob-grip"></span></div>
+                        </div>
+                        <div class="shifter-readout" id="shifter-readout">P — PARK</div>
+                    </div>
+
+                    <!-- Accelerator -->
+                    <div class="ctrl pedal accel-ctrl">
+                        <div class="ctrl-label">ACCELERATOR <span class="pedal-val" id="accel-val">0 %</span></div>
+                        <div class="pedal-assembly">
+                            <div class="pedal-track">
+                                <input type="range" class="vslider" id="accel-slider" min="0" max="100" value="0">
+                            </div>
+                            <div class="pedal-plate gas-plate" id="gas-pedal-plate" title="Accelerator Pedal">
+                                <div class="plate-fill" id="accel-fill-bar"></div>
+                                <div class="plate-treads">
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                                <span class="plate-label">GAS</span>
+                            </div>
+                        </div>
+                        <div class="pedal-shortcuts">
+                            <button type="button" class="btn-micro" id="btn-accel-0">0%</button>
+                            <button type="button" class="btn-micro" id="btn-accel-50">50%</button>
+                            <button type="button" class="btn-micro" id="btn-accel-100">100%</button>
+                        </div>
+                    </div>
+
+                    <!-- Brake -->
+                    <div class="ctrl pedal brake-ctrl">
+                        <div class="ctrl-label">BRAKE <span class="pedal-val" id="brake-val">0 %</span></div>
+                        <div class="pedal-assembly">
+                            <div class="pedal-track">
+                                <input type="range" class="vslider" id="brake-slider" min="0" max="100" value="0">
+                            </div>
+                            <div class="pedal-plate brake-plate" id="brake-pedal-plate" title="Brake Pedal">
+                                <div class="plate-fill" id="brake-fill-bar"></div>
+                                <div class="plate-treads horiz">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <span class="plate-label">BRAKE</span>
+                            </div>
+                        </div>
+                        <div class="pedal-shortcuts">
+                            <button type="button" class="btn-micro" id="btn-brake-0">0%</button>
+                            <button type="button" class="btn-micro" id="btn-brake-50">50%</button>
+                            <button type="button" class="btn-micro" id="btn-brake-100">100%</button>
+                        </div>
+                    </div>
+
+                    <!-- Slope -->
+                    <div class="ctrl slope">
+                        <div class="ctrl-label">SLOPE <span class="pedal-val" id="slope-val">0 %</span></div>
+                        <div class="pedal-assembly">
+                            <div class="pedal-track">
+                                <input type="range" class="vslider" id="slope-slider" min="-25" max="25" value="0">
+                            </div>
+                        </div>
+                        <div class="slope-dir" id="slope-direction">FLAT</div>
+                        <div class="pedal-shortcuts">
+                            <button type="button" class="btn-micro" id="btn-slope-0">0%</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="right-col">
+<!-- Chart -->
+            <section class="panel chart-panel">
+                <div class="panel-title row">
+                    <span>Real-Time Signal Graph</span>
+                    <span class="chart-actions">
+                        <button class="btn btn-sm" id="btn-rec">● REC</button>
+                        <button class="btn btn-sm" id="btn-recstop">■</button>
+                        <button class="btn btn-sm" id="btn-rec-clear">✕ CLR</button>
+                    </span>
+                </div>
+                <div class="chart-box"><canvas id="live-chart"></canvas></div>
+            </section>
+
+            <!-- Gear state matrix -->
+            <section class="panel matrix-panel">
+                <div class="panel-title">Gear State Matrix</div>
+                <table class="matrix" id="gear-matrix-table">
+                    <thead>
+                        <tr><th>Gear</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                    </thead>
+                    <tbody id="gear-matrix-body"></tbody>
+                </table>
+            </section>
+
+            <!-- Signal monitor -->
+            <section class="panel monitor-panel">
+                <div class="panel-title">Signal Monitor</div>
+                <table class="monitor">
+                    <tbody id="signal-monitor-body"></tbody>
+                </table>
+            </section>
+
+            <!-- Current / Target gear -->
+            <section class="panel gear-ind">
+                <div class="panel-title">Gear State</div>
+                <div class="gear-ind-grid">
+                    <div class="gi-widget">
+                        <div class="gi-label">CURRENT</div>
+                        <div class="gi-box" id="cur-gear-box">P</div>
+                    </div>
+                    <div class="gi-widget">
+                        <div class="gi-label">TARGET</div>
+                        <div class="gi-box tgt" id="tgt-gear-box">P</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+<!-- ===================== BOTTOM TAB BAR ===================== -->
+    <footer class="bottombar collapsed">
+        <div class="tabs">
+            <button class="tab-btn toggle-btn" id="panel-toggle" title="Expand panel">▲ PANEL</button>
+            <button class="tab-btn" data-tab="console">Console</button>
+            <button class="tab-btn" data-tab="variables">Variables</button>
+            <button class="tab-btn" data-tab="module">Module</button>
+            <button class="tab-btn" data-tab="config">Configuration</button>
+            <button class="tab-btn" data-tab="stats">Statistics</button>
+            <button class="tab-btn" data-tab="build">Build</button>
+            <button class="tab-btn" data-tab="problems">Problems</button>
+        </div>
+        <div class="tab-panels">
+            <div class="tab-panel active" id="panel-console">
+                <div class="console-log" id="console-log"></div>
+            </div>
+            <div class="tab-panel" id="panel-variables">
+                <div class="var-list" id="variables-list"></div>
+            </div>
+            <div class="tab-panel" id="panel-module">
+                <div class="module-tree" id="module-tree">
+                    <div class="mj">VehicleModel</div>
+                    <div class="mb">└─ EngineModel <span class="mod-state" id="mod-engine">OFF</span></div>
+                    <div class="mb">└─ TransmissionModel <span class="mod-state" id="mod-trans">P</span></div>
+                    <div class="mb">└─ SignalManager <span class="mod-state ok">ACTIVE</span></div>
+                    <div class="mb">└─ DashboardModel <span class="mod-state ok">ACTIVE</span></div>
+                </div>
+                <div class="scenario-panel">
+                    <div class="sc-title">Test Scenarios</div>
+                    <button class="btn btn-sm" data-test="1">1 · Engine Start</button>
+                    <button class="btn btn-sm" data-test="2">2 · Full Accelerator</button>
+                    <button class="btn btn-sm" data-test="3">3 · Full Brake</button>
+                    <button class="btn btn-sm" data-test="4">4 · 0–100 Test</button>
+                    <button class="btn btn-sm" data-test="5">5 · Auto Shift</button>
+                    <button class="btn btn-sm" data-test="6">6 · Reverse</button>
+                    <button class="btn btn-sm" data-test="7">7 · Hill Start</button>
+                    <button class="btn btn-sm" data-test="8">8 · Emergency Brake</button>
+                </div>
+            </div>
+            <div class="tab-panel" id="panel-config">
+                <table class="kv"><tbody id="config-body"></tbody></table>
+            </div>
+            <div class="tab-panel" id="panel-stats">
+                <table class="kv"><tbody id="stats-body"></tbody></table>
+            </div>
+            <div class="tab-panel" id="panel-build">
+                <div class="console-log" id="build-log"></div>
+            </div>
+            <div class="tab-panel" id="panel-problems">
+                <div class="problems-empty">✓ 0 problems · 0 warnings</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================== SCRIPTS ===================== -->
+    <script src="signalManager.js"></script>
+    <script src="engineModel.js"></script>
+    <script src="transmissionModel.js"></script>
+    <script src="vehicleModel.js"></script>
+    <script src="dashboard.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

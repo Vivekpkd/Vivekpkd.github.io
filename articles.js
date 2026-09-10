@@ -22,5 +22,17 @@ const articlesData = [
             "Automotive"
         ],
         "image": ""
+    },
+    {
+        "title": "Virtual Vehicle Simulator — Interactive SIL Dashboard",
+        "date": "Sep 10, 2026",
+        "excerpt": "A browser-based virtual ECU / vehicle simulation dashboard: ignition & start sequence, engine torque curve, 6-speed automatic transmission with hysteresis, long...",
+        "link": "virtual-vehicle/index.html",
+        "category": "Automotive",
+        "tags": [
+            "Automotive",
+            "Simulation"
+        ],
+        "image": ""
     }
 ];
