@@ -769,9 +769,9 @@ body {
 .shifter {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 14px;
-    height: 190px;
+    gap: 8px;
 }
 .shifter-gate {
     display: flex;
