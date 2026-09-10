@@ -850,11 +850,11 @@ body {
     background: #6d80a0;
     box-shadow: 0 6px 0 -1px #6d80a0, 0 -6px 0 -1px #6d80a0;
 }
-/* knob travel: 7 + (39+6)*row  ->  P=7, R=52, N=97, D=142 */
-.shifter[data-active="P"] .shifter-knob { top: 7px; }
-.shifter[data-active="R"] .shifter-knob { top: 52px; }
-.shifter[data-active="N"] .shifter-knob { top: 97px; }
-.shifter[data-active="D"] .shifter-knob { top: 142px; }
+/* knob travel: 7 + (39+6)*row  ->  D=7, N=52, R=97, P=142 (D up, P down) */
+.shifter[data-active="D"] .shifter-knob { top: 7px; }
+.shifter[data-active="N"] .shifter-knob { top: 52px; }
+.shifter[data-active="R"] .shifter-knob { top: 97px; }
+.shifter[data-active="P"] .shifter-knob { top: 142px; }
 .shifter-readout {
     position: absolute;
     bottom: 0;
