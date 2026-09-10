@@ -828,7 +828,7 @@ body {
 .shifter-knob {
     position: absolute;
     left: 50%;
-    top: 7px;
+    top: 142px; /* default = P (bottom); matches data-active="P" so no slide-down on load */
     width: 55px;
     height: 41px;
     margin-left: -84px;
