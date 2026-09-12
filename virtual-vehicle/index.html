@@ -15,6 +15,7 @@
     <div id="site-header"></div>
 
     <!-- ===================== TOP BAR ===================== -->
+    <div class="sim-app">
     <header class="topbar">
         <div class="brand">
             <span class="logo">◧</span>
@@ -358,6 +359,7 @@
             </div>
         </div>
     </footer>
+    </div><!-- /.sim-app -->
 
     <!-- ===================== SITE FOOTER (Autodevv default) ===================== -->
     <div id="site-footer"></div>
@@ -369,7 +371,6 @@
     <script src="vehicleModel.js"></script>
     <script src="dashboard.js"></script>
     <script src="app.js"></script>
-    <script src="../app.js"></script>
     <script>
         // Load Autodevv default header/footer partials (same as all site pages).
         // Falls back gracefully when opened via file:// (fetch blocked) — sim still works.
@@ -397,6 +398,19 @@
             }
             load('../partials/header.html', '#site-header');
             load('../partials/footer.html', '#site-footer');
+            // Burger toggle for the shared site navbar (scoped to this page only).
+            document.addEventListener('click', function (e) {
+                var burger = e.target.closest ? e.target.closest('#site-header .burger') : null;
+                if (!burger) return;
+                var menu = document.querySelector('#site-header + * .mobile-menu, #site-header .mobile-menu');
+                var mm = document.querySelector('#site-header .mobile-menu') || document.getElementById('mobile-menu');
+                if (mm) {
+                    var open = mm.style.display === 'flex';
+                    mm.style.display = open ? 'none' : 'flex';
+                    mm.style.flexDirection = 'column';
+                    burger.classList.toggle('toggle', !open);
+                }
+            });
         })();
     </script>
 </body>
