@@ -1268,7 +1268,10 @@ body {
     .panel { overflow: visible; }
     .single-focus-cluster {
         display: grid; grid-template-columns: 1fr 1fr;
-        grid-template-areas: "speed speed" "hud hud";
+        grid-template-areas:
+            "warn warn"
+            "speed speed"
+            "hud hud";
         gap: 10px; padding: 12px 10px; min-height: 0;
         align-items: start; justify-items: stretch;
     }
@@ -1278,9 +1281,12 @@ body {
     /* Mobile: gear + fuel widgets removed — GEAR/FUEL shown as HUD text in single row */
     .dial-box.fuel-box { display: none; }
     .gear-cluster { display: none; }
-    .cluster-center { grid-area: hud; width: 100%; }
+    /* Flatten cluster-center so the HUD and the shift-warning banner become
+       direct grid items: the warning sits on TOP of the speed/rpm/gear/fuel row. */
+    .cluster-center { display: contents; }
     .cluster-subinfo { display: none; }
-    .cluster-hud { justify-content: space-between; gap: 6px; padding: 8px 6px; flex-wrap: nowrap; }
+    .cluster-hud { grid-area: hud; justify-content: space-between; gap: 6px; padding: 8px 6px; flex-wrap: nowrap; }
+    .shift-warn { grid-area: warn; grid-column: 1 / -1; margin: 0; width: auto; }
     .m-hud { display: flex; }
     .hud-item { flex: 1 1 0; min-width: 0; }
     .hud-item .val { font-size: 17px; }
