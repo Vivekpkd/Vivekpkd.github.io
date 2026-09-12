@@ -688,5 +688,20 @@ function boot() {
         lines.forEach((l) => { const d = document.createElement("div"); d.className = "build-success"; d.textContent = l; bl.appendChild(d); });
     }
     log("Autodevv Virtual Vehicle — SIL instrument cluster online.");
+    // Mobile: keep gauges + chart crisp on rotate / resize / scroll.
+    let _rzT = null;
+    window.addEventListener("resize", () => {
+        clearTimeout(_rzT);
+        _rzT = setTimeout(() => {
+            try { dashboard.draw(Sigs.signals); } catch (e) {}
+            try { if (chart) chart.resize(); } catch (e) {}
+        }, 120);
+    });
+    window.addEventListener("orientationchange", () => {
+        setTimeout(() => {
+            try { dashboard.draw(Sigs.signals); } catch (e) {}
+            try { if (chart) chart.resize(); } catch (e) {}
+        }, 250);
+    });
     requestAnimationFrame(frame);
 }

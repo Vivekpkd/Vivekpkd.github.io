@@ -1181,6 +1181,18 @@ body {
     .dial-box.speed-box canvas { height: 228px; }
     .dial-box.fuel-box { width: 140px; }
 }
+@media (max-width: 1024px) {
+    body { overflow: auto; height: auto; min-height: 100%; grid-template-rows: auto 1fr auto; }
+    .layout { grid-template-columns: 1fr 300px; grid-template-rows: auto auto; height: auto; min-height: 0; }
+    .explorer { display: none; }
+    .center-col { height: auto; }
+    .right-col { height: auto; grid-template-rows: auto auto auto auto; }
+    .single-focus-cluster { grid-template-columns: 150px 1fr 150px; min-height: 0; }
+    .cluster-center { grid-column: 1 / -1; flex-direction: row; justify-content: space-around; }
+    .gear-cluster { grid-template-columns: repeat(10, 28px); grid-template-rows: 28px; }
+    .controls-grid { grid-template-columns: repeat(3, 1fr); row-gap: 22px; }
+    .chart-box { height: 260px; flex: none; }
+}
 @media (max-width: 900px) {
     body { overflow: auto; }
     .layout { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
@@ -1189,7 +1201,79 @@ body {
     .controls-grid { grid-template-columns: 1fr 1fr; }
     .subtitle { display: none; }
 }
-@media (max-width: 600px) {
-    .single-focus-cluster { grid-template-columns: 1fr; }
-    .controls-grid { grid-template-columns: 1fr; }
+@media (max-width: 768px) {
+    html, body { overflow-x: hidden; overflow-y: auto; height: auto; }
+    body { display: flex; flex-direction: column; gap: 8px; padding: 8px; font-size: 14px; }
+    .topbar { flex-wrap: wrap; gap: 8px; padding: 10px; border-radius: 8px; }
+    .brand { width: 100%; flex-wrap: wrap; gap: 6px; }
+    .brand .title { font-size: 14px; }
+    .top-status { margin-left: 0; width: 100%; flex-wrap: wrap; gap: 6px; }
+    .status-chip, .rec-pill { font-size: 10px; padding: 4px 8px; }
+    .transport { width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .transport .btn { width: 100%; padding: 10px 4px; font-size: 11px; min-height: 42px; }
+    .layout { display: flex; flex-direction: column; height: auto; min-height: 0; gap: 8px; }
+    .center-col, .right-col { display: flex; flex-direction: column; height: auto; gap: 8px; min-width: 0; }
+    .panel { overflow: visible; }
+    .single-focus-cluster {
+        display: grid; grid-template-columns: 1fr 1fr;
+        grid-template-areas: "speed speed" "rpm fuel" "center center";
+        gap: 10px; padding: 12px 10px; min-height: 0;
+        align-items: start; justify-items: center;
+    }
+    .dial-box.speed-box { grid-area: speed; width: 100%; height: auto; max-width: 340px; margin: 0 auto; }
+    .dial-box.speed-box canvas { width: 100%; max-width: 300px; height: 210px; margin: 0 auto; }
+    .dial-box.rpm-box { grid-area: rpm; height: auto; }
+    .dial-box.rpm-box canvas { width: 140px; height: 140px; max-width: 38vw; max-height: 38vw; }
+    .dial-box.fuel-box { grid-area: fuel; width: 100%; max-width: 160px; justify-content: center; }
+    .dial-box.fuel-box canvas { width: 100%; height: auto; }
+    .cluster-center { grid-area: center; width: 100%; }
+    .cluster-subinfo { display: none; }
+    .gear-cluster { grid-template-columns: repeat(5, 34px); grid-template-rows: repeat(2, 34px); gap: 6px; }
+    .gear-slot { font-size: 15px; }
+    .cluster-hud { justify-content: space-between; }
+    .hud-item .val { font-size: 17px; }
+    .controls-wrap { overflow: visible; }
+    .controls-grid { grid-template-columns: 1fr 1fr; gap: 18px 10px; padding: 14px 10px; align-items: start; }
+    .ctrl { min-width: 0; width: 100%; }
+    .ctrl.battery { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .ctrl.ig { grid-column: 1 / -1; }
+    .ctrl-label { font-size: 11px; }
+    .engine-start-btn { width: 96px; height: 96px; touch-action: manipulation; }
+    .ign-stages { flex-wrap: wrap; justify-content: center; }
+    .ign-stage-btn { padding: 8px 12px; min-height: 38px; }
+    .shifter { padding-bottom: 30px; }
+    .shifter-readout { font-size: 12px; }
+    .pedal-assembly { height: 150px; }
+    .pedal-track { height: 144px; width: 48px; }
+    .pedal-plate { height: 144px; }
+    .vslider { touch-action: pan-y; }
+    .pedal-shortcuts { flex-wrap: wrap; justify-content: center; }
+    .btn-micro { padding: 8px 10px; font-size: 11px; min-height: 36px; min-width: 44px; }
+    .chart-panel { overflow: hidden; }
+    .chart-box { height: 230px; min-height: 230px; flex: none; padding: 6px; }
+    .chart-box canvas { width: 100% !important; height: 100% !important; }
+    .matrix th, .matrix td { padding: 6px 4px; font-size: 11px; }
+    .monitor-panel { max-height: none; }
+    .gear-ind-grid { padding: 10px; }
+    .gi-box { height: 56px; font-size: 28px; }
+    .bottombar { position: sticky; bottom: 0; z-index: 50; }
+    .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { padding: 10px 14px; font-size: 12px; flex: 0 0 auto; }
+    .tab-panels { height: 220px; }
+    .scenario-panel .btn { margin: 4px 3px; padding: 8px 10px; min-height: 38px; }
+    table.kv td, .monitor td { word-break: break-word; overflow-wrap: anywhere; }
+}
+@media (max-width: 430px) {
+    body { padding: 6px; gap: 6px; }
+    .transport { grid-template-columns: 1fr; }
+    .transport .btn { font-size: 12px; }
+    .dial-box.speed-box canvas { height: 190px; }
+    .dial-box.rpm-box canvas { width: 120px; height: 120px; }
+    .controls-grid { grid-template-columns: 1fr 1fr; gap: 16px 8px; padding: 12px 8px; }
+    .pedal-assembly { height: 140px; }
+    .pedal-track { height: 134px; }
+    .pedal-plate { height: 134px; width: 34px; }
+    .gear-cluster { grid-template-columns: repeat(5, 30px); grid-template-rows: repeat(2, 30px); }
+    .chart-box { height: 210px; min-height: 210px; }
 }
