@@ -98,29 +98,27 @@ class TransmissionModel {
 
         // ---- Shift interlock 1: leaving PARK needs brake fully pressed ----
         // Real automatics (shift-lock solenoid) refuse P -> R/N/D without the
-        // brake pedal down. The denied request is LATCHED OFF: we snap the
-        // input lever back to P so pressing the brake later does NOT auto-shift
-        // — the driver must press the gear button again, deliberately.
+        // brake pedal down. We hold the selector on P and raise a flag the
+        // dashboard turns into a "PRESS BRAKE" cluster warning.
         this.brakeWarning = false;
         if (engaged === "P" && requested !== "P" && brake < 100) {
             this.selector = "P";
             this.targetGear = "P";
             this.brakeWarning = true;
             this.shiftTimer = 0;
-            this.vehicle.inputs.gearSelector = "P"; // cancel stale request
-            return; // stay parked — driver must re-press gear AFTER braking
+            return; // stay parked — selector request ignored until brake = 100%
         }
 
         // ---- Shift interlock 2: no D <-> R reversals while moving ----
-        // Shifting into R (or back to D) above ~0.5 km/h is denied and the
-        // stale request is cancelled: stopping later does NOT auto-engage —
-        // the driver must press R (or D) again at ~0 speed.
+        // Shifting into R (or back to D) above ~0.5 km/h is ignored: the box
+        // stays in the last engaged direction and vehicle coasts/brakes to a
+        // stop (speed -> 0, engine falls back to idle RPM via EngineModel).
         this.reverseLock = false;
         const fwdEngaged = (engaged === "D") || /^[1-6]$/.test(engaged);
         if (requested === "R" && fwdEngaged && kmh > 0.5) {
+            this.selector = engaged === "D" ? "D" : this.vehicle.inputs.gearSelector;
             this.selector = "D";
             this.reverseLock = true;
-            this.vehicle.inputs.gearSelector = "D"; // cancel stale R request
             const kmhFwd = speed * 3.6;
             this.targetGear = String(this.autoGear(kmhFwd, rpm, throttle));
             this._animateShift(dt);
@@ -129,7 +127,6 @@ class TransmissionModel {
         if (requested === "D" && engaged === "R" && kmh > 0.5) {
             this.selector = "R";
             this.reverseLock = true;
-            this.vehicle.inputs.gearSelector = "R"; // cancel stale D request
             this.targetGear = "R";
             this._animateShift(dt);
             return;
