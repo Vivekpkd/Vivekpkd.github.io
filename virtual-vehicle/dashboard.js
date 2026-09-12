@@ -184,6 +184,11 @@ class Dashboard {
             isBig: true
         });
 
+        // Small mobile HUD text widgets: gear position + fuel % (single row).
+        const gearEl = document.getElementById("hud-gear");
+        if (gearEl) gearEl.textContent = signals.currentGear;
+        const fuelEl = document.getElementById("hud-fuel");
+        if (fuelEl) fuelEl.textContent = Math.round(signals.fuelLevel);
         // Small HORIZONTAL Fuel Gauge (DOM bar) — turns red below 15%.
         const fuelFill = document.getElementById("aux-fuel-fill");
         const fuelVal = document.getElementById("aux-fuel-val");
