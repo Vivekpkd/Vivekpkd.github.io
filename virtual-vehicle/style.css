@@ -1216,33 +1216,35 @@ body {
     .panel { overflow: visible; }
     .single-focus-cluster {
         display: grid; grid-template-columns: 1fr 1fr;
-        grid-template-areas: "speed speed" "rpm fuel" "center center";
+        grid-template-areas: "speed speed" "gear fuel" "gear hud";
         gap: 10px; padding: 12px 10px; min-height: 0;
-        align-items: start; justify-items: center;
+        align-items: start; justify-items: stretch;
     }
     .dial-box.speed-box { grid-area: speed; width: 100%; height: auto; max-width: 340px; margin: 0 auto; }
     .dial-box.speed-box canvas { width: 100%; max-width: 300px; height: 210px; margin: 0 auto; }
-    .dial-box.rpm-box { grid-area: rpm; height: auto; }
-    .dial-box.rpm-box canvas { width: 140px; height: 140px; max-width: 38vw; max-height: 38vw; }
-    .dial-box.fuel-box { grid-area: fuel; width: 100%; max-width: 160px; justify-content: center; }
+    .dial-box.rpm-box { display: none; }
+    .dial-box.fuel-box { grid-area: fuel; width: 100%; max-width: none; justify-content: center; }
     .dial-box.fuel-box canvas { width: 100%; height: auto; }
-    .cluster-center { grid-area: center; width: 100%; }
+    .cluster-center { display: contents; }
     .cluster-subinfo { display: none; }
-    .gear-cluster { grid-template-columns: repeat(5, 34px); grid-template-rows: repeat(2, 34px); gap: 6px; }
+    .gear-cluster { grid-area: gear; grid-template-columns: repeat(2, 44px); grid-template-rows: repeat(5, 34px); gap: 6px; justify-content: center; align-content: start; }
     .gear-slot { font-size: 15px; }
-    .cluster-hud { justify-content: space-between; }
+    .cluster-hud { grid-area: hud; justify-content: space-between; }
     .hud-item .val { font-size: 17px; }
     .controls-wrap { overflow: visible; }
-    /* Mobile cockpit strip: Battery | Start | Gear | Accel | Brake in ONE row */
-    .controls-grid { display: flex; flex-wrap: nowrap; gap: 8px; padding: 10px 8px; align-items: stretch; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; scrollbar-width: thin; }
-    .controls-grid::-webkit-scrollbar { height: 6px; }
-    .ctrl { min-width: 0; flex: 0 0 auto; width: auto; scroll-snap-align: start; background: rgba(13,17,24,.5); border: 1px solid var(--border); border-radius: 8px; padding: 8px 6px; }
-    .ctrl.battery { grid-column: auto; flex-direction: column; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; min-width: 64px; }
-    .ctrl.ig { grid-column: auto; min-width: 92px; }
-    .ctrl.gearsel { min-width: 66px; }
-    .ctrl.pedal { min-width: 76px; }
-    .ctrl.slope, .ctrl.env { min-width: 110px; }
-    .ctrl.steer { min-width: 130px; }
+    /* Mobile driver controls: [battery+start stacked] [gears vertical] [acc+brake] */
+    .controls-grid { display: grid; grid-template-columns: auto auto 1fr; grid-template-areas: "power gear pedals"; gap: 8px; padding: 10px 8px; align-items: start; overflow: visible; }
+    .controls-grid::before { content: ""; grid-area: power; grid-row: 1; grid-column: 1; }
+    .ctrl { min-width: 0; width: 100%; background: rgba(13,17,24,.5); border: 1px solid var(--border); border-radius: 8px; padding: 8px 6px; grid-row: 1; }
+    .ctrl.battery { grid-area: power; grid-column: 1; flex-direction: column; flex-wrap: nowrap; justify-content: flex-start; align-items: center; gap: 6px; align-self: start; }
+    .ctrl.ig { grid-area: power; grid-column: 1; align-self: start; margin-top: 112px; }
+    .ctrl.gearsel { grid-area: gear; grid-column: 2; }
+    .ctrl.accel-ctrl, .ctrl.brake-ctrl { grid-column: 3; }
+    .ctrl.accel-ctrl { grid-area: pedals; justify-self: stretch; }
+    .ctrl.brake-ctrl { grid-area: pedals; margin-top: 218px; justify-self: stretch; }
+    .ctrl.slope { display: none; } /* slope not required on mobile */
+    .ctrl.env, .ctrl.steer { grid-column: 1 / -1; }
+    .ctrl.steer { min-width: 0; }
     .ctrl-label { font-size: 9px; letter-spacing: .6px; }
     .pedal-val { font-size: 11px; }
     .engine-start-btn { width: 68px; height: 68px; }
@@ -1251,9 +1253,9 @@ body {
     .ign-key-row { display: none; } /* stage buttons cover this on mobile */
     .ign-stages { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%; }
     .ign-stage-btn { padding: 6px 4px; font-size: 10px; min-height: 32px; }
-    /* Compact horizontal gear gate for the one-row strip */
+    /* Vertical gear gate on mobile (matches desktop shifter) */
     .shifter { padding-bottom: 22px; min-width: 52px; }
-    .shifter-gate { flex-direction: row; gap: 4px; padding: 5px; }
+    .shifter-gate { flex-direction: column; gap: 4px; padding: 5px; }
     .gear-btn { width: 30px; height: 30px; font-size: 12px; border-radius: 5px; }
     .gate-letter { font-size: 12px; }
     .gate-led { width: 4px; height: 4px; margin-bottom: 1px; }
@@ -1285,9 +1287,8 @@ body {
     .transport { grid-template-columns: 1fr; }
     .transport .btn { font-size: 12px; }
     .dial-box.speed-box canvas { height: 190px; }
-    .dial-box.rpm-box canvas { width: 120px; height: 120px; }
+    .gear-cluster { grid-template-columns: repeat(2, 40px); grid-template-rows: repeat(5, 32px); }
     .engine-start-btn { width: 60px; height: 60px; }
     .gear-btn { width: 28px; height: 28px; }
-    .gear-cluster { grid-template-columns: repeat(5, 30px); grid-template-rows: repeat(2, 30px); }
     .chart-box { height: 210px; min-height: 210px; }
 }
