@@ -1183,17 +1183,18 @@ body {
 ::-webkit-scrollbar-thumb { background: #2a3850; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #3a4c6b; }
 
-/* ============ SIM HEADER / FOOTER (lightweight, no site CSS) ============ */
+/* ============ SIM FOOTER (lightweight, no site CSS) ============ */
 .transport-slot { display: none; } /* desktop: transport stays in topbar */
-.sim-chrome, .sim-footer {
+.home-title { color: var(--text); text-decoration: none; cursor: pointer; }
+.home-title:hover { color: var(--accent); text-decoration: underline; }
+.sim-footer {
     display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
     font-family: var(--mono); font-size: 11px; color: var(--text-dim);
     padding: 6px 10px;
 }
-.sim-chrome { padding-top: 2px; }
 .sim-footer { justify-content: center; padding-bottom: 8px; border-top: 1px solid var(--border); margin-top: 6px; }
-.sim-chrome a, .sim-footer a { color: var(--accent); text-decoration: none; font-weight: 700; }
-.sim-chrome a:hover, .sim-footer a:hover { text-decoration: underline; }
+.sim-footer a { color: var(--accent); text-decoration: none; font-weight: 700; }
+.sim-footer a:hover { text-decoration: underline; }
 .chrome-sep { color: var(--text-muted); }
 .chrome-title { color: var(--text-muted); }
 
@@ -1240,7 +1241,7 @@ body {
     .transport-slot { display: block; }
     .transport-slot:empty { display: none; }
     .transport-slot .transport { width: 100%; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
-    .sim-chrome, .sim-footer { font-size: 12px; justify-content: center; text-align: center; }
+    .sim-footer { font-size: 12px; justify-content: center; text-align: center; }
     .layout { display: flex; flex-direction: column; height: auto; min-height: 0; gap: 8px; }
     .center-col, .right-col { display: flex; flex-direction: column; height: auto; gap: 8px; min-width: 0; }
     .panel { overflow: visible; }
