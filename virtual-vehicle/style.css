@@ -488,12 +488,15 @@ body {
 
 .m-hud { display: none; } /* desktop: GEAR/FUEL text widgets hidden (gear+fuel boxes shown) */
 
-/* Shift-interlock warning inside the instrument cluster (hidden unless set). */
+/* Shift-interlock warning inside the instrument cluster (hidden unless set).
+   Now a DIRECT CHILD of .single-focus-cluster so it occupies its own full-width
+   grid row above the gauges — avoids being clipped by the flex on .cluster-center. */
 .shift-warn {
     display: none;
+    grid-column: 1 / -1;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 6px;
+    margin: 0 0 6px 0;
     padding: 7px 10px;
     border-radius: 6px;
     border: 1px solid rgba(255, 69, 58, 0.55);
@@ -504,8 +507,8 @@ body {
     font-weight: 700;
     letter-spacing: 0.4px;
     text-align: center;
+    animation: warnflash 0.9s ease-in-out infinite;
 }
-.shift-warn.show { display: block; animation: warnflash 0.9s ease-in-out infinite; }
 @keyframes warnflash { 50% { background: rgba(255, 69, 58, 0.22); } }
 
 /* Aux horizontal mini bars */

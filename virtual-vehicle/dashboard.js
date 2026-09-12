@@ -211,6 +211,7 @@ class Dashboard {
 
         // Gear-denial cluster warnings shown in the instrument cluster.
         // shiftWarning ∈ { "", "moving", "brake", "accel" }
+        // Use direct style.display (not classList) so repeated show/hide works reliably.
         const warnEl = document.getElementById("shift-warn");
         if (warnEl) {
             const map = {
@@ -220,7 +221,7 @@ class Dashboard {
             };
             const text = map[signals.shiftWarning] || "";
             warnEl.textContent = text ? "⚠ " + text : "";
-            warnEl.classList.toggle("show", text !== "");
+            warnEl.style.display = text ? "block" : "none";
         }
 
         this.updateGearCluster(signals.currentGear);
