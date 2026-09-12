@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Vehicle — Automotive SIL Simulation Dashboard</title>
     <meta name="description" content="Browser-based Virtual Vehicle / Virtual ECU SIL simulation dashboard for automotive software engineering.">
-    <link rel="stylesheet" href="../styles.css?v=2.4">
     <link rel="stylesheet" href="style.css">
     <!-- Chart.js for real-time graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <!-- ===================== SITE HEADER (Autodevv default) ===================== -->
-    <div id="site-header"></div>
+    <!-- ===================== SIM HEADER (Home link) ===================== -->
+    <div class="sim-chrome">
+        <a class="home-link" href="../index.html" title="Back to Autodevv home">⌂ Home</a>
+        <span class="chrome-sep">·</span>
+        <span class="chrome-title">Virtual Vehicle · SIL Simulation</span>
+    </div>
 
     <!-- ===================== TOP BAR ===================== -->
     <div class="sim-app">
@@ -361,8 +364,16 @@
     </footer>
     </div><!-- /.sim-app -->
 
-    <!-- ===================== SITE FOOTER (Autodevv default) ===================== -->
-    <div id="site-footer"></div>
+    <!-- ===================== SIM FOOTER ===================== -->
+    <div class="sim-footer">
+        <span>AUTODEVV · Virtual Vehicle SIL</span>
+        <span class="chrome-sep">·</span>
+        <a href="../index.html">Home</a>
+        <span class="chrome-sep">·</span>
+        <a href="../tutorial.html">Tutorials</a>
+        <span class="chrome-sep">·</span>
+        <a href="../contact.html">Contact</a>
+    </div>
 
     <!-- ===================== SCRIPTS ===================== -->
     <script src="signalManager.js"></script>
@@ -371,47 +382,5 @@
     <script src="vehicleModel.js"></script>
     <script src="dashboard.js"></script>
     <script src="app.js"></script>
-    <script>
-        // Load Autodevv default header/footer partials (same as all site pages).
-        // Falls back gracefully when opened via file:// (fetch blocked) — sim still works.
-        (function () {
-            function fixLinks(root) {
-                root.querySelectorAll('a[href]').forEach(function (a) {
-                    var h = a.getAttribute('href');
-                    if (!h || h.startsWith('http') || h.startsWith('#') || h.startsWith('../')) return;
-                    a.setAttribute('href', '../' + h);
-                });
-                root.querySelectorAll('img[src]').forEach(function (img) {
-                    var s = img.getAttribute('src');
-                    if (!s || s.startsWith('http') || s.startsWith('data:') || s.startsWith('../')) return;
-                    img.setAttribute('src', '../' + s);
-                });
-            }
-            function load(url, sel) {
-                fetch(url).then(function (r) { return r.ok ? r.text() : ''; }).then(function (html) {
-                    if (!html) return;
-                    var el = document.querySelector(sel);
-                    if (!el) return;
-                    el.innerHTML = html;
-                    fixLinks(el);
-                }).catch(function () {});
-            }
-            load('../partials/header.html', '#site-header');
-            load('../partials/footer.html', '#site-footer');
-            // Burger toggle for the shared site navbar (scoped to this page only).
-            document.addEventListener('click', function (e) {
-                var burger = e.target.closest ? e.target.closest('#site-header .burger') : null;
-                if (!burger) return;
-                var menu = document.querySelector('#site-header + * .mobile-menu, #site-header .mobile-menu');
-                var mm = document.querySelector('#site-header .mobile-menu') || document.getElementById('mobile-menu');
-                if (mm) {
-                    var open = mm.style.display === 'flex';
-                    mm.style.display = open ? 'none' : 'flex';
-                    mm.style.flexDirection = 'column';
-                    burger.classList.toggle('toggle', !open);
-                }
-            });
-        })();
-    </script>
 </body>
 </html>

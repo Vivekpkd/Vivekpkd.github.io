@@ -1183,25 +1183,19 @@ body {
 ::-webkit-scrollbar-thumb { background: #2a3850; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #3a4c6b; }
 
-/* ============ SITE HEADER / FOOTER (Autodevv default chrome) ============ */
+/* ============ SIM HEADER / FOOTER (lightweight, no site CSS) ============ */
 .transport-slot { display: none; } /* desktop: transport stays in topbar */
-#site-header:empty, #site-footer:empty { display: none; }
-
-/* Site chrome must not inherit the sim's full-viewport grid/scroll lock:
-   header + footer are normal page flow; only .layout is the app viewport. */
-#site-header, #site-footer { display: block; width: 100%; }
-#site-header .navbar { position: static; }
-#site-header .container, #site-footer .container { max-width: none; }
-#site-footer { margin-top: 6px; }
-#site-footer .footer-inner { max-width: 1300px; }
-
-/* Neutralize global site button/typography overrides inside the sim chrome.
-   (Site styles.css loads first; sim style.css must win for its own widgets.) */
-.topbar .btn, .tabs .tab-btn, .chart-actions .btn, .scenario-panel .btn,
-.pedal-shortcuts .btn-micro, .ign-stages .ign-stage-btn {
-    margin-right: 0;
+.sim-chrome, .sim-footer {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+    padding: 6px 10px;
 }
-.layout h1, .layout h2, .layout h3 { line-height: 1.4; }
+.sim-chrome { padding-top: 2px; }
+.sim-footer { justify-content: center; padding-bottom: 8px; border-top: 1px solid var(--border); margin-top: 6px; }
+.sim-chrome a, .sim-footer a { color: var(--accent); text-decoration: none; font-weight: 700; }
+.sim-chrome a:hover, .sim-footer a:hover { text-decoration: underline; }
+.chrome-sep { color: var(--text-muted); }
+.chrome-title { color: var(--text-muted); }
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1200px) {
@@ -1246,8 +1240,7 @@ body {
     .transport-slot { display: block; }
     .transport-slot:empty { display: none; }
     .transport-slot .transport { width: 100%; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
-    /* Mobile: page scrolls naturally with header + footer */
-    #site-footer { max-height: none; overflow: visible; }
+    .sim-chrome, .sim-footer { font-size: 12px; justify-content: center; text-align: center; }
     .layout { display: flex; flex-direction: column; height: auto; min-height: 0; gap: 8px; }
     .center-col, .right-col { display: flex; flex-direction: column; height: auto; gap: 8px; min-width: 0; }
     .panel { overflow: visible; }
