@@ -35,6 +35,13 @@ class TransmissionModel {
         this.shiftTimer = 0;
         this.finalDriveRatio = 3.5;
         this.transmissionEfficiency = 0.92;
+
+        // Shift-denial warning: held for a short window so the cluster banner
+        // stays visible (a denied request is latched back to the current gate,
+        // so without a hold timer the next frame would clear the warning).
+        this.shiftWarn = "";     // "" | "moving" | "brake" | "accel"
+        this.warnTimer = 0;      // remaining hold seconds
+        this.warnHold = 2.5;     // seconds before the warning auto-dismisses
     }
 
     // Speed-band edges facilitating gear selection (km/h)
@@ -91,21 +98,23 @@ class TransmissionModel {
 
     // Advance the transmission.
     update(dt, speed, rpm, throttle) {
+        // Decay any active warning hold (dt may be 0 on UI-only refresh calls).
+        if (this.warnTimer > 0) {
+            this.warnTimer -= dt;
+            if (this.warnTimer <= 0) { this.warnTimer = 0; this.shiftWarn = ""; }
+        }
+
         const requested = this.vehicle.inputs.gearSelector; // P R N D
         const brake = this.vehicle.inputs.brake || 0;       // 0..100 %
         const kmh = Math.abs(speed) * 3.6;                  // road speed magnitude
         const curGate = this.selector;                      // P / R / N / D
         const sameGate = curGate === requested;
 
-        // Advisory block reason for this frame (cleared below unless a block fires).
-        this.shiftWarn = "";
-
-        // Same-gate requests are always allowed: P->P, R->R, N->N, D->D
-        // (D->D just keeps auto gear selection alive while rolling).
+        // MANDATORY transition table & pedal dependency:
+        // EVERY selector change (P/R/N/D gate swap) requires:
+        //   1) vehicle stopped  2) brake pressed  3) accelerator released.
+        // Same-gate requests (P->P, R->R, N->N, D->D) are always allowed.
         if (!sameGate) {
-            // MANDATORY transition table & pedal dependency:
-            // EVERY selector change (P/R/N/D gate swap) requires:
-            //   1) vehicle stopped  2) brake pressed  3) accelerator released.
             const stopped = kmh < 0.5;              // speed ~ 0
             const brakePressed = brake >= 10;       // "PRESSED"
             const accelReleased = throttle < 0.01;  // "RELEASED"
@@ -116,21 +125,26 @@ class TransmissionModel {
             else if (!accelReleased) block = "accel";
 
             if (block) {
-                // LATCHED OFF (safety rule 7/8): keep the current gate unchanged
+                // LATCHED OFF (safety rules 7/8): keep the current gate unchanged
                 // and cancel the stale request — the driver must re-press the
-                // gear button after satisfying the conditions. Auto-shift is off.
+                // gear button. Hold the warning visible for warnHold seconds.
                 this.vehicle.inputs.gearSelector = curGate;
                 this.shiftTimer = 0;
                 this.shiftWarn = block;
+                this.warnTimer = this.warnHold;
                 // Keep the engaged gear consistent with the held gate.
                 if (curGate === "R") this.targetGear = "R";
                 else if (curGate === "P" || curGate === "N") this.targetGear = curGate;
                 else this.targetGear = String(this.autoGear(speed * 3.6, rpm, throttle)); // D
                 return;
             }
+
+            // Valid selector change accepted — clear any stale warning.
+            this.shiftWarn = "";
+            this.warnTimer = 0;
         }
 
-        // Request accepted: resolve the new gate.
+        // Resolve the (possibly new or unchanged) gate.
         this.selector = requested;
         if (this.selector === "P") {
             this.targetGear = "P";
@@ -174,5 +188,6 @@ class TransmissionModel {
         this.targetGear = "P";
         this.shiftTimer = 0;
         this.shiftWarn = "";
+        this.warnTimer = 0;
     }
 }
