@@ -1233,22 +1233,38 @@ body {
     .cluster-hud { justify-content: space-between; }
     .hud-item .val { font-size: 17px; }
     .controls-wrap { overflow: visible; }
-    .controls-grid { grid-template-columns: 1fr 1fr; gap: 18px 10px; padding: 14px 10px; align-items: start; }
-    .ctrl { min-width: 0; width: 100%; }
-    .ctrl.battery { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .ctrl.ig { grid-column: 1 / -1; }
-    .ctrl-label { font-size: 11px; }
-    .engine-start-btn { width: 96px; height: 96px; touch-action: manipulation; }
-    .ign-stages { flex-wrap: wrap; justify-content: center; }
-    .ign-stage-btn { padding: 8px 12px; min-height: 38px; }
-    .shifter { padding-bottom: 30px; }
-    .shifter-readout { font-size: 12px; }
+    /* Mobile cockpit strip: Battery | Start | Gear | Accel | Brake in ONE row */
+    .controls-grid { display: flex; flex-wrap: nowrap; gap: 8px; padding: 10px 8px; align-items: stretch; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+    .controls-grid::-webkit-scrollbar { height: 6px; }
+    .ctrl { min-width: 0; flex: 0 0 auto; width: auto; scroll-snap-align: start; background: rgba(13,17,24,.5); border: 1px solid var(--border); border-radius: 8px; padding: 8px 6px; }
+    .ctrl.battery { grid-column: auto; flex-direction: column; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; min-width: 64px; }
+    .ctrl.ig { grid-column: auto; min-width: 92px; }
+    .ctrl.gearsel { min-width: 66px; }
+    .ctrl.pedal { min-width: 76px; }
+    .ctrl.slope, .ctrl.env { min-width: 110px; }
+    .ctrl.steer { min-width: 130px; }
+    .ctrl-label { font-size: 9px; letter-spacing: .6px; }
+    .pedal-val { font-size: 11px; }
+    .engine-start-btn { width: 68px; height: 68px; }
+    .ess-main { font-size: 14px; }
+    .ess-sub, .ess-sub2 { font-size: 8px; }
+    .ign-key-row { display: none; } /* stage buttons cover this on mobile */
+    .ign-stages { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%; }
+    .ign-stage-btn { padding: 6px 4px; font-size: 10px; min-height: 32px; }
+    /* Compact horizontal gear gate for the one-row strip */
+    .shifter { padding-bottom: 22px; min-width: 52px; }
+    .shifter-gate { flex-direction: row; gap: 4px; padding: 5px; }
+    .gear-btn { width: 30px; height: 30px; font-size: 12px; border-radius: 5px; }
+    .gate-letter { font-size: 12px; }
+    .gate-led { width: 4px; height: 4px; margin-bottom: 1px; }
+    .shifter-knob, .knob-grip { display: none; } /* active LED+highlight shows gear on mobile */
+    .shifter-readout { font-size: 9px; letter-spacing: .5px; white-space: nowrap; }
     .pedal-assembly { height: 150px; }
-    .pedal-track { height: 144px; width: 48px; }
-    .pedal-plate { height: 144px; }
+    .pedal-track { height: 120px; width: 34px; }
+    .pedal-plate { height: 120px; width: 30px; }
+    .pedal-shortcuts { gap: 3px; flex-wrap: nowrap; justify-content: center; }
     .vslider { touch-action: pan-y; }
-    .pedal-shortcuts { flex-wrap: wrap; justify-content: center; }
-    .btn-micro { padding: 8px 10px; font-size: 11px; min-height: 36px; min-width: 44px; }
+    .btn-micro { padding: 6px 4px; font-size: 9px; min-height: 30px; min-width: 0; flex: 1; }
     .chart-panel { overflow: hidden; }
     .chart-box { height: 230px; min-height: 230px; flex: none; padding: 6px; }
     .chart-box canvas { width: 100% !important; height: 100% !important; }
@@ -1270,10 +1286,8 @@ body {
     .transport .btn { font-size: 12px; }
     .dial-box.speed-box canvas { height: 190px; }
     .dial-box.rpm-box canvas { width: 120px; height: 120px; }
-    .controls-grid { grid-template-columns: 1fr 1fr; gap: 16px 8px; padding: 12px 8px; }
-    .pedal-assembly { height: 140px; }
-    .pedal-track { height: 134px; }
-    .pedal-plate { height: 134px; width: 34px; }
+    .engine-start-btn { width: 60px; height: 60px; }
+    .gear-btn { width: 28px; height: 28px; }
     .gear-cluster { grid-template-columns: repeat(5, 30px); grid-template-rows: repeat(2, 30px); }
     .chart-box { height: 210px; min-height: 210px; }
 }
