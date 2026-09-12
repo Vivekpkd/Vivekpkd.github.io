@@ -282,8 +282,7 @@ class VehicleModel {
             engineRunning: this.engineRunning(),
             engineState: this.engine.state,
             vehicleState: this.vehicleState(),
-            brakeWarning: !!this.transmission.brakeWarning,
-            reverseLock: !!this.transmission.reverseLock
+            shiftWarning: this.transmission.shiftWarn || ""
         });
     }
 }

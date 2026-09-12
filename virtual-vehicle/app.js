@@ -289,8 +289,15 @@ function wireControls() {
         btn.addEventListener("click", () => {
             const prev = vehicle.inputs.gearSelector;
             vehicle.inputs.gearSelector = g;
-            // The transmission interlock decides the effective gear; the gate
-            // highlight is re-synced every frame (see syncShifterUI below).
+            // Evaluate the shift interlock immediately so the cluster warning
+            // and the effective gate position update right away — even when the
+            // simulation is paused (the main loop only refreshes while running).
+            if (vehicle.transmission) {
+                vehicle.transmission.update(0, vehicle.speed, vehicle.engine.rpm, vehicle.throttle());
+                vehicle.publishSignals();
+                if (APP.syncShifterUI) APP.syncShifterUI();
+                dashboard.draw(Sigs.signals);
+            }
             if (prev !== g) log(`GEAR SELECTOR → ${g} (requested)`);
         });
     });

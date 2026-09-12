@@ -209,15 +209,18 @@ class Dashboard {
         }
         if (tempVal) tempVal.textContent = `${Math.round(signals.engineTemperature)}°C`;
 
-        // Shift-interlock cluster warnings: PRESS BRAKE (P->gear w/o brake),
-        // reverse shift ignored while moving.
+        // Gear-denial cluster warnings shown in the instrument cluster.
+        // shiftWarning ∈ { "", "moving", "brake", "accel" }
         const warnEl = document.getElementById("shift-warn");
         if (warnEl) {
-            let msg = "";
-            if (signals.brakeWarning) msg = "⚠ PRESS BRAKE TO SHIFT FROM PARK";
-            else if (signals.reverseLock) msg = "⚠ STOP VEHICLE TO ENGAGE REVERSE";
-            warnEl.textContent = msg;
-            warnEl.classList.toggle("show", msg !== "");
+            const map = {
+                moving: "SHIFT NOT ALLOWED - VEHICLE MOVING",
+                brake: "SHIFT NOT ALLOWED - PRESS BRAKE",
+                accel: "SHIFT NOT ALLOWED - RELEASE ACCELERATOR"
+            };
+            const text = map[signals.shiftWarning] || "";
+            warnEl.textContent = text ? "⚠ " + text : "";
+            warnEl.classList.toggle("show", text !== "");
         }
 
         this.updateGearCluster(signals.currentGear);

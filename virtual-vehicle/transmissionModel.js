@@ -91,59 +91,55 @@ class TransmissionModel {
 
     // Advance the transmission.
     update(dt, speed, rpm, throttle) {
-        const requested = this.vehicle.inputs.gearSelector;
-        const brake = this.vehicle.inputs.brake || 0;   // 0..100 %
-        const kmh = Math.abs(speed) * 3.6;
-        const engaged = this.currentGear;               // last physically engaged gear
+        const requested = this.vehicle.inputs.gearSelector; // P R N D
+        const brake = this.vehicle.inputs.brake || 0;       // 0..100 %
+        const kmh = Math.abs(speed) * 3.6;                  // road speed magnitude
+        const curGate = this.selector;                      // P / R / N / D
+        const sameGate = curGate === requested;
 
-        // ---- Shift interlock 1: leaving PARK needs brake fully pressed ----
-        // Real automatics (shift-lock solenoid) refuse P -> R/N/D without the
-        // brake pedal down. We hold the selector on P and raise a flag the
-        // dashboard turns into a "PRESS BRAKE" cluster warning.
-        this.brakeWarning = false;
-        if (engaged === "P" && requested !== "P" && brake < 100) {
-            this.selector = "P";
-            this.targetGear = "P";
-            this.brakeWarning = true;
-            this.shiftTimer = 0;
-            return; // stay parked — selector request ignored until brake = 100%
+        // Advisory block reason for this frame (cleared below unless a block fires).
+        this.shiftWarn = "";
+
+        // Same-gate requests are always allowed: P->P, R->R, N->N, D->D
+        // (D->D just keeps auto gear selection alive while rolling).
+        if (!sameGate) {
+            // MANDATORY transition table & pedal dependency:
+            // EVERY selector change (P/R/N/D gate swap) requires:
+            //   1) vehicle stopped  2) brake pressed  3) accelerator released.
+            const stopped = kmh < 0.5;              // speed ~ 0
+            const brakePressed = brake >= 10;       // "PRESSED"
+            const accelReleased = throttle < 0.01;  // "RELEASED"
+
+            let block = null;
+            if (!stopped) block = "moving";
+            else if (!brakePressed) block = "brake";
+            else if (!accelReleased) block = "accel";
+
+            if (block) {
+                // LATCHED OFF (safety rule 7/8): keep the current gate unchanged
+                // and cancel the stale request — the driver must re-press the
+                // gear button after satisfying the conditions. Auto-shift is off.
+                this.vehicle.inputs.gearSelector = curGate;
+                this.shiftTimer = 0;
+                this.shiftWarn = block;
+                // Keep the engaged gear consistent with the held gate.
+                if (curGate === "R") this.targetGear = "R";
+                else if (curGate === "P" || curGate === "N") this.targetGear = curGate;
+                else this.targetGear = String(this.autoGear(speed * 3.6, rpm, throttle)); // D
+                return;
+            }
         }
 
-        // ---- Shift interlock 2: no D <-> R reversals while moving ----
-        // Shifting into R (or back to D) above ~0.5 km/h is ignored: the box
-        // stays in the last engaged direction and vehicle coasts/brakes to a
-        // stop (speed -> 0, engine falls back to idle RPM via EngineModel).
-        this.reverseLock = false;
-        const fwdEngaged = (engaged === "D") || /^[1-6]$/.test(engaged);
-        if (requested === "R" && fwdEngaged && kmh > 0.5) {
-            this.selector = engaged === "D" ? "D" : this.vehicle.inputs.gearSelector;
-            this.selector = "D";
-            this.reverseLock = true;
-            const kmhFwd = speed * 3.6;
-            this.targetGear = String(this.autoGear(kmhFwd, rpm, throttle));
-            this._animateShift(dt);
-            return;
-        }
-        if (requested === "D" && engaged === "R" && kmh > 0.5) {
-            this.selector = "R";
-            this.reverseLock = true;
-            this.targetGear = "R";
-            this._animateShift(dt);
-            return;
-        }
-
+        // Request accepted: resolve the new gate.
         this.selector = requested;
-
-        // (Re)solve desired gear from selector.
         if (this.selector === "P") {
             this.targetGear = "P";
         } else if (this.selector === "R") {
             this.targetGear = "R";
         } else if (this.selector === "N") {
             this.targetGear = "N";
-        } else if (this.selector === "D") {
-            const kmhFwd = speed * 3.6;               // m/s -> km/h
-            this.targetGear = String(this.autoGear(kmhFwd, rpm, throttle));
+        } else { // D
+            this.targetGear = String(this.autoGear(speed * 3.6, rpm, throttle));
         }
 
         this._animateShift(dt);
@@ -177,7 +173,6 @@ class TransmissionModel {
         this.currentGear = "P";
         this.targetGear = "P";
         this.shiftTimer = 0;
-        this.brakeWarning = false;
-        this.reverseLock = false;
+        this.shiftWarn = "";
     }
 }
