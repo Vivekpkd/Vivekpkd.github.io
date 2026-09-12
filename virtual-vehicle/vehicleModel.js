@@ -281,7 +281,9 @@ class VehicleModel {
             fuelLevel: +this.fuel.toFixed(1),
             engineRunning: this.engineRunning(),
             engineState: this.engine.state,
-            vehicleState: this.vehicleState()
+            vehicleState: this.vehicleState(),
+            brakeWarning: !!this.transmission.brakeWarning,
+            reverseLock: !!this.transmission.reverseLock
         });
     }
 }

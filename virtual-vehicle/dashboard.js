@@ -209,6 +209,17 @@ class Dashboard {
         }
         if (tempVal) tempVal.textContent = `${Math.round(signals.engineTemperature)}°C`;
 
+        // Shift-interlock cluster warnings: PRESS BRAKE (P->gear w/o brake),
+        // reverse shift ignored while moving.
+        const warnEl = document.getElementById("shift-warn");
+        if (warnEl) {
+            let msg = "";
+            if (signals.brakeWarning) msg = "⚠ PRESS BRAKE TO SHIFT FROM PARK";
+            else if (signals.reverseLock) msg = "⚠ STOP VEHICLE TO ENGAGE REVERSE";
+            warnEl.textContent = msg;
+            warnEl.classList.toggle("show", msg !== "");
+        }
+
         this.updateGearCluster(signals.currentGear);
         this.updateCurrentTarget(signals);
         this.updateMonitor(signals);

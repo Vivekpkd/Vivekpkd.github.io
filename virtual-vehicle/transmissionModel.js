@@ -91,7 +91,48 @@ class TransmissionModel {
 
     // Advance the transmission.
     update(dt, speed, rpm, throttle) {
-        this.selector = this.vehicle.inputs.gearSelector;
+        const requested = this.vehicle.inputs.gearSelector;
+        const brake = this.vehicle.inputs.brake || 0;   // 0..100 %
+        const kmh = Math.abs(speed) * 3.6;
+        const engaged = this.currentGear;               // last physically engaged gear
+
+        // ---- Shift interlock 1: leaving PARK needs brake fully pressed ----
+        // Real automatics (shift-lock solenoid) refuse P -> R/N/D without the
+        // brake pedal down. We hold the selector on P and raise a flag the
+        // dashboard turns into a "PRESS BRAKE" cluster warning.
+        this.brakeWarning = false;
+        if (engaged === "P" && requested !== "P" && brake < 100) {
+            this.selector = "P";
+            this.targetGear = "P";
+            this.brakeWarning = true;
+            this.shiftTimer = 0;
+            return; // stay parked — selector request ignored until brake = 100%
+        }
+
+        // ---- Shift interlock 2: no D <-> R reversals while moving ----
+        // Shifting into R (or back to D) above ~0.5 km/h is ignored: the box
+        // stays in the last engaged direction and vehicle coasts/brakes to a
+        // stop (speed -> 0, engine falls back to idle RPM via EngineModel).
+        this.reverseLock = false;
+        const fwdEngaged = (engaged === "D") || /^[1-6]$/.test(engaged);
+        if (requested === "R" && fwdEngaged && kmh > 0.5) {
+            this.selector = engaged === "D" ? "D" : this.vehicle.inputs.gearSelector;
+            this.selector = "D";
+            this.reverseLock = true;
+            const kmhFwd = speed * 3.6;
+            this.targetGear = String(this.autoGear(kmhFwd, rpm, throttle));
+            this._animateShift(dt);
+            return;
+        }
+        if (requested === "D" && engaged === "R" && kmh > 0.5) {
+            this.selector = "R";
+            this.reverseLock = true;
+            this.targetGear = "R";
+            this._animateShift(dt);
+            return;
+        }
+
+        this.selector = requested;
 
         // (Re)solve desired gear from selector.
         if (this.selector === "P") {
@@ -101,11 +142,15 @@ class TransmissionModel {
         } else if (this.selector === "N") {
             this.targetGear = "N";
         } else if (this.selector === "D") {
-            const kmh = speed * 3.6;               // m/s -> km/h
-            this.targetGear = String(this.autoGear(kmh, rpm, throttle));
+            const kmhFwd = speed * 3.6;               // m/s -> km/h
+            this.targetGear = String(this.autoGear(kmhFwd, rpm, throttle));
         }
 
-        // Animate gear engagement over a short shift window.
+        this._animateShift(dt);
+    }
+
+    // Animate gear engagement over a short shift window.
+    _animateShift(dt) {
         if (this.targetGear !== this.currentGear) {
             this.shiftTimer += dt;
             if (this.shiftTimer >= this.shiftTime) {
@@ -132,5 +177,7 @@ class TransmissionModel {
         this.currentGear = "P";
         this.targetGear = "P";
         this.shiftTimer = 0;
+        this.brakeWarning = false;
+        this.reverseLock = false;
     }
 }

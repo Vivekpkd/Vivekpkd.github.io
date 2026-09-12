@@ -488,6 +488,26 @@ body {
 
 .m-hud { display: none; } /* desktop: GEAR/FUEL text widgets hidden (gear+fuel boxes shown) */
 
+/* Shift-interlock warning inside the instrument cluster (hidden unless set). */
+.shift-warn {
+    display: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 6px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 69, 58, 0.55);
+    background: rgba(255, 69, 58, 0.12);
+    color: #ff8a80;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-align: center;
+}
+.shift-warn.show { display: block; animation: warnflash 0.9s ease-in-out infinite; }
+@keyframes warnflash { 50% { background: rgba(255, 69, 58, 0.22); } }
+
 /* Aux horizontal mini bars */
 .aux-bars {
     display: flex;

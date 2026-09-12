@@ -287,14 +287,23 @@ function wireControls() {
         const btn = $("btn-ga-" + g.toLowerCase());
         if (!btn) return;
         btn.addEventListener("click", () => {
+            const prev = vehicle.inputs.gearSelector;
             vehicle.inputs.gearSelector = g;
-            document.querySelectorAll(".gear-btn").forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-            moveShifter(g);
-            log(`GEAR SELECTOR → ${g}`);
+            // The transmission interlock decides the effective gear; the gate
+            // highlight is re-synced every frame (see syncShifterUI below).
+            if (prev !== g) log(`GEAR SELECTOR → ${g} (requested)`);
         });
     });
     APP.moveShifter = moveShifter;
+    // Keep the shifter gate + readout honest: reflect the effective selector
+    // (P held while brake interlock / reverse lock is active).
+    APP.syncShifterUI = function () {
+        const eff = vehicle.transmission.selector || vehicle.inputs.gearSelector;
+        document.querySelectorAll(".gear-btn").forEach((b) => {
+            b.classList.toggle("active", b.id === "btn-ga-" + eff.toLowerCase());
+        });
+        moveShifter(eff);
+    };
 
     // Pedals + slope
     bindSlider("accel-slider", "accel-val", (v) => { vehicle.inputs.accelerator = v; }, "accel-fill-bar");
@@ -661,6 +670,7 @@ function frame(now) {
         updateHUD();
         updateVariablesTab();
         updateStatsTab(false);
+        if (APP.syncShifterUI) APP.syncShifterUI();
         dashboard.draw(Sigs.signals);
     }
 
