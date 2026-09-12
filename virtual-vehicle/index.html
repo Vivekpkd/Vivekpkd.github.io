@@ -6,10 +6,14 @@
     <title>Virtual Vehicle — Automotive SIL Simulation Dashboard</title>
     <meta name="description" content="Browser-based Virtual Vehicle / Virtual ECU SIL simulation dashboard for automotive software engineering.">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles.css?v=2.4">
     <!-- Chart.js for real-time graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
+    <!-- ===================== SITE HEADER (Autodevv default) ===================== -->
+    <div id="site-header"></div>
+
     <!-- ===================== TOP BAR ===================== -->
     <header class="topbar">
         <div class="brand">
@@ -262,6 +266,9 @@
                 <div class="chart-box"><canvas id="live-chart"></canvas></div>
             </section>
 
+            <!-- Mobile: START/STOP/RESET transport docks here (moved by JS) -->
+            <div class="transport-slot" id="transport-slot"></div>
+
             <!-- Gear state matrix -->
             <section class="panel matrix-panel">
                 <div class="panel-title">Gear State Matrix</div>
@@ -352,6 +359,9 @@
         </div>
     </footer>
 
+    <!-- ===================== SITE FOOTER (Autodevv default) ===================== -->
+    <div id="site-footer"></div>
+
     <!-- ===================== SCRIPTS ===================== -->
     <script src="signalManager.js"></script>
     <script src="engineModel.js"></script>
@@ -359,5 +369,35 @@
     <script src="vehicleModel.js"></script>
     <script src="dashboard.js"></script>
     <script src="app.js"></script>
+    <script src="../app.js"></script>
+    <script>
+        // Load Autodevv default header/footer partials (same as all site pages).
+        // Falls back gracefully when opened via file:// (fetch blocked) — sim still works.
+        (function () {
+            function fixLinks(root) {
+                root.querySelectorAll('a[href]').forEach(function (a) {
+                    var h = a.getAttribute('href');
+                    if (!h || h.startsWith('http') || h.startsWith('#') || h.startsWith('../')) return;
+                    a.setAttribute('href', '../' + h);
+                });
+                root.querySelectorAll('img[src]').forEach(function (img) {
+                    var s = img.getAttribute('src');
+                    if (!s || s.startsWith('http') || s.startsWith('data:') || s.startsWith('../')) return;
+                    img.setAttribute('src', '../' + s);
+                });
+            }
+            function load(url, sel) {
+                fetch(url).then(function (r) { return r.ok ? r.text() : ''; }).then(function (html) {
+                    if (!html) return;
+                    var el = document.querySelector(sel);
+                    if (!el) return;
+                    el.innerHTML = html;
+                    fixLinks(el);
+                }).catch(function () {});
+            }
+            load('../partials/header.html', '#site-header');
+            load('../partials/footer.html', '#site-footer');
+        })();
+    </script>
 </body>
 </html>

@@ -673,6 +673,8 @@ document.addEventListener("DOMContentLoaded", boot);
 function boot() {
     buildChart();
     wireControls();
+    dockTransportMobile(); // move START/STOP/RESET after graph on mobile
+    window.matchMedia("(max-width: 768px)").addEventListener("change", dockTransportMobile);
     updateConfigTab();
     updateStatsTab(true);
     populateSignalTree();
@@ -704,4 +706,23 @@ function boot() {
         }, 250);
     });
     requestAnimationFrame(frame);
+}
+
+// ---- Mobile transport dock -------------------------------------------------
+// On mobile the START/STOP/RESET buttons live AFTER the Real-Time Signal Graph
+// (inside #transport-slot). On desktop they stay in the topbar. Wiring uses
+// stable element IDs so moving the node keeps all listeners working.
+function dockTransportMobile() {
+    const slot = $("transport-slot");
+    const topbar = document.querySelector(".topbar");
+    let transport = slot ? slot.querySelector(".transport") : null;
+    if (!transport) transport = topbar ? topbar.querySelector(".transport") : null;
+    if (!transport || !slot || !topbar) return;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) {
+        if (transport.parentElement !== slot) slot.appendChild(transport);
+    } else {
+        if (transport.parentElement !== topbar) topbar.appendChild(transport);
+    }
+    try { if (chart) chart.resize(); } catch (e) {}
 }

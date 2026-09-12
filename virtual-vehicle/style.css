@@ -1174,6 +1174,11 @@ body {
 ::-webkit-scrollbar-thumb { background: #2a3850; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #3a4c6b; }
 
+/* ============ SITE HEADER / FOOTER (Autodevv default chrome) ============ */
+.transport-slot { display: none; } /* desktop: transport stays in topbar */
+#site-header:empty, #site-footer:empty { display: none; }
+#site-footer { margin-top: 6px; }
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1200px) {
     .layout { grid-template-columns: 160px 1fr 300px; }
@@ -1213,6 +1218,13 @@ body {
     .status-chip, .rec-pill { font-size: 10px; padding: 4px 8px; }
     .transport { width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
     .transport .btn { width: 100%; padding: 10px 4px; font-size: 11px; min-height: 42px; }
+    /* Mobile docked transport: full-width bar right after the signal graph */
+    .transport-slot { display: block; }
+    .transport-slot:empty { display: none; }
+    .transport-slot .transport { width: 100%; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 8px; padding: 8px; }
+    /* Site header/footer (Autodevv default) adapt to sim dark theme */
+    #site-header .navbar { position: static; }
+    #site-header .container, #site-footer .container { max-width: none; }
     .layout { display: flex; flex-direction: column; height: auto; min-height: 0; gap: 8px; }
     .center-col, .right-col { display: flex; flex-direction: column; height: auto; gap: 8px; min-width: 0; }
     .panel { overflow: visible; }
