@@ -5,18 +5,19 @@ import json
 from datetime import datetime
 
 # Paths
-TUTORIAL_TEMPLATE_PATH = 'tutorial-template.html'
-DOWNLOAD_TEMPLATE_PATH = 'download-template.html'
+TUTORIAL_TEMPLATE_PATH = 'templates/tutorial-template.html'
+DOWNLOAD_TEMPLATE_PATH = 'templates/download-template.html'
 TUTORIALS_DIRS = ['tutorials', 'content']
 OUTPUT_DIR = '.'
-ARTICLES_JS_PATH = 'articles.js'
+ARTICLES_JS_PATH = 'js/articles.js'
 
 # Category Mapping (File basename -> Category Name)
 CATEGORY_MAPPING = {
     'stm32intro.md': 'Embedded Systems',
     'image-sample.md': 'Basics',
     'download.md': 'Resources',
-    'tutorial.md': 'General'
+    'tutorial.md': 'General',
+    'AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.md': 'Embedded Systems'
 }
 
 # Sidebar Category Mapping (for the accordion)
@@ -24,7 +25,8 @@ SIDEBAR_CATEGORY_MAPPING = {
     'stm32intro.md': 'Embedded Systems',
     'image-sample.md': 'Basics',
     'download.md': 'Resources',
-    'tutorial.md': 'Main Hub'
+    'tutorial.md': 'Main Hub',
+    'AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.md': 'Embedded Systems'
 }
 
 # Load templates
@@ -58,6 +60,8 @@ def get_first_image(md_content):
 def get_excerpt(md_content):
     # Remove title
     content = re.sub(r'^#\s+.*', '', md_content, flags=re.MULTILINE).strip()
+    # Remove blockquotes and callouts
+    content = re.sub(r'^[ \t]*>+[ \t]*(\[!.*?\])?[ \t]*', '', content, flags=re.MULTILINE)
     # Take first 150 chars of text, remove markdown formatting
     excerpt = re.sub(r'[#*`\[\]]', '', content)
     excerpt = re.sub(r'!.*?\)', '', excerpt) # Remove images
@@ -76,7 +80,13 @@ def parse_frontmatter(content):
         for line in frontmatter_str.split('\n'):
             if ':' in line:
                 key, val = line.split(':', 1)
-                metadata[key.strip().lower()] = val.strip().strip('"').strip("'")
+                val = val.strip().strip('"').strip("'")
+                if val.startswith('[') and val.endswith(']'):
+                    try:
+                        val = json.loads(val)
+                    except Exception:
+                        pass
+                metadata[key.strip().lower()] = val
         return metadata, remaining_content
     return {}, content
 
@@ -120,8 +130,8 @@ for md_path in md_files:
     sidebar_category = metadata.get('category') or SIDEBAR_CATEGORY_MAPPING.get(basename, 'Other Topics')
     main_category = metadata.get('category') or CATEGORY_MAPPING.get(basename, 'General')
     
-    image = get_first_image(content)
-    excerpt = get_excerpt(content)
+    image = metadata.get('image') or get_first_image(content)
+    excerpt = metadata.get('excerpt') or get_excerpt(content)
     # Using standard format: Mar 07, 2026
     date_str = metadata.get('date') or datetime.now().strftime("%b %d, %Y")
     
@@ -169,7 +179,7 @@ def generate_sidebar(items_list):
         organized[cat].append(t)
 
     # Sort categories (Main Hub first, then others)
-    cat_order = ['Main Hub', 'AUTOSAR Stack', 'Embedded mastery', 'Modern Tooling', 'Resources']
+    cat_order = ['Main Hub', 'Embedded Systems', 'AUTOSAR Stack', 'Embedded mastery', 'Modern Tooling', 'Basics', 'Resources']
     sorted_categories = sorted(organized.keys(), key=lambda x: (cat_order.index(x) if x in cat_order else 999, x))
 
     # Generate Sidebar HTML
@@ -222,6 +232,11 @@ for item in all_items:
     print(f"Generated ({item['type']}): {output_path}")
 
 # Update articles.js
+try:
+    articles_data.sort(key=lambda x: datetime.strptime(x['date'], "%b %d, %Y"), reverse=True)
+except Exception:
+    pass
+
 with open(ARTICLES_JS_PATH, 'w', encoding='utf-8') as f:
     f.write(f"const articlesData = {json.dumps(articles_data, indent=4)};")
 print(f"Updated: {ARTICLES_JS_PATH}")

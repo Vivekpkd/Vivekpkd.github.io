@@ -7,10 +7,10 @@ const URLS_TO_CACHE = [
   '/contact.html',
   '/privacy.html',
   '/terms.html',
-  '/styles.css',
-  '/app.js',
-  '/articles.js',
-  '/search-index.json',
+  '/css/styles.css',
+  '/js/app.js',
+  '/js/articles.js',
+  '/data/search-index.json',
   'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];

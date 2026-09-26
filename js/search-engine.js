@@ -16,7 +16,7 @@ class SearchEngine {
   loadSearchIndex() {
     if (this.isLoaded) return;
 
-    fetch('search-index.json')
+    fetch('data/search-index.json')
       .then(response => response.json())
       .then(data => {
         this.searchIndex = data.articles;

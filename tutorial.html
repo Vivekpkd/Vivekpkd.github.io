@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=2.4">
+    <link rel="stylesheet" href="css/styles.css?v=2.4">
 
     <script>
         (function () {
@@ -685,15 +685,6 @@
         <a href="tutorial.html" class="active" data-file="tutorial.html">Technical Tutorials</a>
     </div>
 </div>
-<div class="sidebar-category" data-category="basics">
-    <button class="category-header">
-        <span>Basics</span>
-        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-    </button>
-    <div class="category-content">
-        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
-    </div>
-</div>
 <div class="sidebar-category" data-category="embedded-systems">
     <button class="category-header">
         <span>Embedded Systems</span>
@@ -701,6 +692,16 @@
     </button>
     <div class="category-content">
         <a href="stm32intro.html" data-file="stm32intro.html">STM32 Microcontroller</a>
+        <a href="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html" data-file="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html">Secure Boot and HSM Concepts on STM32F103C8T6</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="basics">
+    <button class="category-header">
+        <span>Basics</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
     </div>
 </div>
 
@@ -721,15 +722,6 @@
         <a href="tutorial.html" class="active" data-file="tutorial.html">Technical Tutorials</a>
     </div>
 </div>
-<div class="sidebar-category" data-category="basics">
-    <button class="category-header">
-        <span>Basics</span>
-        <i class="fa-solid fa-chevron-down toggle-icon"></i>
-    </button>
-    <div class="category-content">
-        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
-    </div>
-</div>
 <div class="sidebar-category" data-category="embedded-systems">
     <button class="category-header">
         <span>Embedded Systems</span>
@@ -737,6 +729,16 @@
     </button>
     <div class="category-content">
         <a href="stm32intro.html" data-file="stm32intro.html">STM32 Microcontroller</a>
+        <a href="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html" data-file="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html">Secure Boot and HSM Concepts on STM32F103C8T6</a>
+    </div>
+</div>
+<div class="sidebar-category" data-category="basics">
+    <button class="category-header">
+        <span>Basics</span>
+        <i class="fa-solid fa-chevron-down toggle-icon"></i>
+    </button>
+    <div class="category-content">
+        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
     </div>
 </div>
 
@@ -748,9 +750,14 @@
 <p>Welcome to the technical tutorials section. Here you will find detailed guides and documentation on automotive software engineering, embedded systems, and modern development tooling.</p>
 <h2>Featured Topics</h2>
 <ul>
-<li><strong>Embedded Systems</strong>: Learn about microcontroller architectures like STM32 and ARM Cortex-M.</li>
+<li><strong>Embedded Systems</strong>: Learn about microcontroller architectures like STM32 and ARM Cortex-M, bare-metal register configuration, and security implementations.</li>
 <li><strong>Modern Tooling</strong>: Explore how to use Python and other tools for automotive development.</li>
 <li><strong>Documentation</strong>: Professional guides on how to structure your technical content.</li>
+</ul>
+<h2>Embedded Systems &amp; Hardware Security</h2>
+<ul>
+<li><strong><a href="stm32intro.html">STM32 Microcontroller Architecture</a></strong>: Core, peripherals, memory layout, and bare-metal GPIO register setup on ARM Cortex-M.</li>
+<li><strong><a href="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html">Secure Boot and HSM Concepts on STM32F103C8T6</a></strong>: Comprehensive guide to software-based secure boot, firmware integrity verification (SHA-256), cryptographic authenticity (ECDSA), anti-rollback mechanisms, Flash RDP protection, and mapping to automotive HSM architectures.</li>
 </ul>
 <p>Select a topic from the sidebar or browse the latest articles on the home page to get started.</p>
             </main>
@@ -840,9 +847,9 @@
     </footer>
 
     <!-- Scripts from index.html / app -->
-    <script src="articles.js"></script>
-    <script src="search-engine.js"></script>
-    <script src="app.js"></script>
+    <script src="js/articles.js"></script>
+    <script src="js/search-engine.js"></script>
+    <script src="js/app.js"></script>
 
     <script>
 

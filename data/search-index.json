@@ -3,6 +3,29 @@
   "generatedAt": "2026-03-01T00:00:00Z",
   "articles": [
     {
+      "id": "stm32f103-secure-boot-hsm",
+      "title": "Secure Boot and HSM Concepts on STM32F103C8T6",
+      "date": "Mar 09, 2026",
+      "year": 2026,
+      "excerpt": "Learn how to implement a practical software-based Secure Boot architecture on the STM32F103C8T6 and understand how it relates to an automotive HSM.",
+      "link": "AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html",
+      "category": "Embedded Systems",
+      "tags": ["STM32", "Secure Boot", "HSM", "Embedded Systems", "Cybersecurity"],
+      "keywords": ["stm32", "stm32f103", "stm32f103c8t6", "secure boot", "hsm", "sha256", "ecdsa", "bootloader", "firmware", "anti-rollback", "cybersecurity", "hardware security module"]
+    },
+    {
+      "id": "stm32-intro",
+      "title": "STM32 Microcontroller",
+      "date": "Mar 07, 2026",
+      "year": 2026,
+      "excerpt": "STM32 is a family of 32-bit microcontrollers based on ARM Cortex-M. Explore core architecture, peripherals, memory layout, and bare-metal programming.",
+      "link": "stm32intro.html",
+      "category": "Embedded Systems",
+      "tags": ["STM32", "Microcontroller", "Embedded C"],
+      "keywords": ["stm32", "microcontroller", "arm", "cortex-m", "gpio", "embedded"]
+    },
+
+    {
       "id": "automotive-bootloader",
       "title": "Automotive Bootloader",
       "date": "Jan 17, 2026",
