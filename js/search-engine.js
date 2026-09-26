@@ -15,8 +15,10 @@ class SearchEngine {
    */
   loadSearchIndex() {
     if (this.isLoaded) return;
-
-    fetch('data/search-index.json')
+    const isSubdir2 = window.location.pathname.includes('/pages/tutorials/') || window.location.pathname.includes('/pages/tools/') || window.location.pathname.includes('/pages/home/');
+    const isSubdir1 = window.location.pathname.includes('/pages/');
+    const path = isSubdir2 ? '../../data/search-index.json' : (isSubdir1 ? '../data/search-index.json' : 'data/search-index.json');
+    fetch(path)
       .then(response => response.json())
       .then(data => {
         this.searchIndex = data.articles;

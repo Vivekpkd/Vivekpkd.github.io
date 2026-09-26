@@ -210,6 +210,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             toShow.forEach(article => {
                 const style = categoryStyles[article.category] || categoryStyles['General'];
+                const isDepth2 = window.location.pathname.includes('/pages/tutorials/') || window.location.pathname.includes('/pages/tools/') || window.location.pathname.includes('/pages/home/');
+                let targetLink = article.link;
+                if (isDepth2) {
+                    targetLink = targetLink.startsWith('pages/tutorials/') ? targetLink.replace(/^pages\/tutorials\//, '') : '../../' + targetLink;
+                } else if (!isHome && targetLink.startsWith('pages/')) {
+                    targetLink = '../' + targetLink;
+                }
 
                 const card = document.createElement('div');
                 card.className = 'blog-card fade-in';
@@ -231,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="gfg-course-level"><span>${article.category}</span> &nbsp;•&nbsp; Beginner to Advanced</div>
                                 <div class="gfg-course-meta">
                                     <div class="gfg-interested"><b>${Math.floor(Math.random() * 50) + 10}k+</b> interested</div>
-                                    <a href="${article.link}" class="gfg-btn-explore">Read now</a>
+                                    <a href="${targetLink}" class="gfg-btn-explore">Read now</a>
                                 </div>
                             </div>
                         </div>
@@ -245,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div style="flex: 1;">
                                 <h3 style="font-size: 1.1rem; margin: 0 0 5px; font-weight: 600;">
-                                    <a href="${article.link}" style="color: inherit; text-decoration: none; transition: 0.2s;">${article.title}</a>
+                                    <a href="${targetLink}" style="color: inherit; text-decoration: none; transition: 0.2s;">${article.title}</a>
                                 </h3>
                                 <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 8px;">${article.excerpt || 'Comprehensive guide on ' + article.title + ' for automotive engineers.'}</p>
                                 <div style="display: flex; gap: 15px; align-items: center; font-size: 0.8rem; color: var(--text-muted);">

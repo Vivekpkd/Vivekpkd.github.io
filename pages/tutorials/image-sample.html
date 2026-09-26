@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Technical Tutorials - Autodevv</title>
+    <title>Markdown Image Sample - Autodevv</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/styles.css?v=2.4">
+    <link rel="stylesheet" href="../../css/styles.css?v=2.4">
 
     <script>
         (function () {
@@ -625,14 +625,14 @@
     <!-- Navbar (Exact from index.html) -->
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="index.html" class="logo">Autodevv<span>.</span></a>
+            <a href="../../index.html" class="logo">Autodevv<span>.</span></a>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#explore">Explore</a></li>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../index.html#explore">Explore</a></li>
                 <li><a href="tutorial.html" class="active">Tutorials</a></li>
-                <li><a href="download.html">Downloads</a></li>
-                <li><a href="index.html#site-footer">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="../tools/download.html">Downloads</a></li>
+                <li><a href="../../index.html#site-footer">About</a></li>
+                <li><a href="../tools/contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
                 <button id="search-toggle" class="theme-btn" title="Search"><i
@@ -650,12 +650,12 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
-        <a href="index.html">Home</a>
-        <a href="index.html#explore">Explore Topics</a>
+        <a href="../../index.html">Home</a>
+        <a href="../../index.html#explore">Explore Topics</a>
         <a href="tutorial.html">Tutorials</a>
-        <a href="download.html">Downloads</a>
-        <a href="index.html#site-footer">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="../tools/download.html">Downloads</a>
+        <a href="../../index.html#site-footer">About</a>
+        <a href="../tools/contact.html">Contact</a>
     </div>
 
     <!-- Search Overlay -->
@@ -682,7 +682,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="tutorial.html" class="active" data-file="tutorial.html">Technical Tutorials</a>
+        <a href="tutorial.html" data-file="tutorial.html">Technical Tutorials</a>
     </div>
 </div>
 <div class="sidebar-category" data-category="embedded-systems">
@@ -701,7 +701,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
+        <a href="image-sample.html" class="active" data-file="image-sample.html">Markdown Image Sample</a>
     </div>
 </div>
 
@@ -719,7 +719,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="tutorial.html" class="active" data-file="tutorial.html">Technical Tutorials</a>
+        <a href="tutorial.html" data-file="tutorial.html">Technical Tutorials</a>
     </div>
 </div>
 <div class="sidebar-category" data-category="embedded-systems">
@@ -738,7 +738,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
+        <a href="image-sample.html" class="active" data-file="image-sample.html">Markdown Image Sample</a>
     </div>
 </div>
 
@@ -746,20 +746,22 @@
 
             <!-- MAIN CONTENT -->
             <main class="content">
-                <h1>Tutorials Overview</h1>
-<p>Welcome to the technical tutorials section. Here you will find detailed guides and documentation on automotive software engineering, embedded systems, and modern development tooling.</p>
-<h2>Featured Topics</h2>
+                <h1>How to use Images in Markdown</h1>
+<p>To add an image with a specific size, use this syntax:</p>
+<p><img alt="Sample Image" height="200px" src="../../images/site.jpg" width="300px" /></p>
+<h3>Breakdown:</h3>
+<ol>
+<li><code>!</code>: Starts the image tag.</li>
+<li><code>[Sample Image]</code>: Alt text.</li>
+<li><code>(images/site.jpg)</code>: Path to the image file.</li>
+<li><code>{: width="300px" height="200px" }</code>: <strong>Custom attributes</strong> where you can set width, height, or CSS classes.</li>
+</ol>
+<h3>Other Options:</h3>
 <ul>
-<li><strong>Embedded Systems</strong>: Learn about microcontroller architectures like STM32 and ARM Cortex-M, bare-metal register configuration, and security implementations.</li>
-<li><strong>Modern Tooling</strong>: Explore how to use Python and other tools for automotive development.</li>
-<li><strong>Documentation</strong>: Professional guides on how to structure your technical content.</li>
+<li><strong>Only Width</strong>: <code>![Alt](url){: width="50%" }</code></li>
+<li><strong>Only Height</strong>: <code>![Alt](url){: height="100px" }</code></li>
+<li><strong>Using CSS classes</strong>: <code>![Alt](url){: .my-custom-class }</code></li>
 </ul>
-<h2>Embedded Systems &amp; Hardware Security</h2>
-<ul>
-<li><strong><a href="stm32intro.html">STM32 Microcontroller Architecture</a></strong>: Core, peripherals, memory layout, and bare-metal GPIO register setup on ARM Cortex-M.</li>
-<li><strong><a href="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html">Secure Boot and HSM Concepts on STM32F103C8T6</a></strong>: Comprehensive guide to software-based secure boot, firmware integrity verification (SHA-256), cryptographic authenticity (ECDSA), anti-rollback mechanisms, Flash RDP protection, and mapping to automotive HSM architectures.</li>
-</ul>
-<p>Select a topic from the sidebar or browse the latest articles on the home page to get started.</p>
             </main>
 
             <!-- RIGHT SIDEBAR -->
@@ -817,18 +819,18 @@
                     <div class="footer-nav-col">
                         <h5>Pages</h5>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="../../index.html">Home</a></li>
                             <li><a href="tutorial.html">Tutorials</a></li>
-                            <li><a href="download.html">Downloads</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="../tools/download.html">Downloads</a></li>
+                            <li><a href="../tools/contact.html">Contact</a></li>
                         </ul>
                     </div>
                     <div class="footer-nav-col">
                         <h5>Topics</h5>
                         <ul>
-                            <li><a href="blog.html?category=AUTOSAR">AUTOSAR</a></li>
-                            <li><a href="blog.html?category=Embedded Systems">Embedded C</a></li>
-                            <li><a href="blog.html?category=Automotive Security">Cybersecurity</a></li>
+                            <li><a href="tutorial.html?category=AUTOSAR">AUTOSAR</a></li>
+                            <li><a href="tutorial.html?category=Embedded Systems">Embedded C</a></li>
+                            <li><a href="tutorial.html?category=Automotive Security">Cybersecurity</a></li>
                         </ul>
                     </div>
                 </div>
@@ -838,8 +840,8 @@
             <div class="footer-bottom">
                 <p class="footer-copy">&copy; 2026 Autodevv. Engineered for Safety & Reliability.</p>
                 <div class="footer-bottom-links">
-                    <a href="privacy.html" style="color:var(--text-body);">Privacy Policy</a>
-                    <a href="terms.html">Terms</a>
+                    <a href="../tools/privacy.html" style="color:var(--text-body);">Privacy Policy</a>
+                    <a href="../tools/terms.html">Terms</a>
                 </div>
             </div>
 
@@ -847,9 +849,9 @@
     </footer>
 
     <!-- Scripts from index.html / app -->
-    <script src="js/articles.js"></script>
-    <script src="js/search-engine.js"></script>
-    <script src="js/app.js"></script>
+    <script src="../../js/articles.js"></script>
+    <script src="../../js/search-engine.js"></script>
+    <script src="../../js/app.js"></script>
 
     <script>
 

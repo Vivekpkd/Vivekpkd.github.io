@@ -8,7 +8,8 @@ from datetime import datetime
 TUTORIAL_TEMPLATE_PATH = 'templates/tutorial-template.html'
 DOWNLOAD_TEMPLATE_PATH = 'templates/download-template.html'
 TUTORIALS_DIRS = ['tutorials', 'content']
-OUTPUT_DIR = '.'
+TUTORIALS_OUTPUT_DIR = 'pages/tutorials'
+TOOLS_OUTPUT_DIR = 'pages/tools'
 ARTICLES_JS_PATH = 'js/articles.js'
 
 # Category Mapping (File basename -> Category Name)
@@ -152,7 +153,7 @@ for md_path in md_files:
             "title": title,
             "date": date_str,
             "excerpt": excerpt,
-            "link": filename,
+            "link": f"pages/tutorials/{filename}",
             "category": main_category,
             "tags": metadata.get('tags') if isinstance(metadata.get('tags'), list) else [main_category, "Automotive"],
             "image": image
@@ -211,14 +212,18 @@ download_sidebar_html = generate_sidebar(downloads_list)
 # Generate HTML for each item
 for item in all_items:
     body_html = markdown.markdown(item['content'], extensions=['fenced_code', 'tables', 'codehilite', 'nl2br', 'attr_list'])
+    # Fix image paths for 2-level subdirectories (pages/tutorials/ or pages/tools/)
+    body_html = re.sub(r'src=["\']images/', 'src="../../images/', body_html)
     
-    # Select template and sidebar based on type
+    # Select template, sidebar, and output directory based on type
     if item['type'] == 'Download':
         template_to_use = download_template
         sidebar_to_use = download_sidebar_html
+        target_dir = TOOLS_OUTPUT_DIR
     else:
         template_to_use = tutorial_template
         sidebar_to_use = tutorial_sidebar_html
+        target_dir = TUTORIALS_OUTPUT_DIR
     
     page_html = template_to_use.replace('{{TITLE}}', item['title'])
     page_html = page_html.replace('{{CONTENT}}', body_html)
@@ -226,7 +231,8 @@ for item in all_items:
     current_sidebar = sidebar_to_use.replace(f'href="{item["filename"]}"', f'href="{item["filename"]}" class="active"')
     page_html = page_html.replace('{{SIDEBAR}}', current_sidebar)
     
-    output_path = os.path.join(OUTPUT_DIR, item['filename'])
+    os.makedirs(target_dir, exist_ok=True)
+    output_path = os.path.join(target_dir, item['filename'])
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(page_html)
     print(f"Generated ({item['type']}): {output_path}")

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown Image Sample - Autodevv</title>
+    <title>STM32 Microcontroller - Autodevv</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/styles.css?v=2.4">
+    <link rel="stylesheet" href="../../css/styles.css?v=2.4">
 
     <script>
         (function () {
@@ -625,14 +625,14 @@
     <!-- Navbar (Exact from index.html) -->
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="index.html" class="logo">Autodevv<span>.</span></a>
+            <a href="../../index.html" class="logo">Autodevv<span>.</span></a>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#explore">Explore</a></li>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../index.html#explore">Explore</a></li>
                 <li><a href="tutorial.html" class="active">Tutorials</a></li>
-                <li><a href="download.html">Downloads</a></li>
-                <li><a href="index.html#site-footer">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="../tools/download.html">Downloads</a></li>
+                <li><a href="../../index.html#site-footer">About</a></li>
+                <li><a href="../tools/contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
                 <button id="search-toggle" class="theme-btn" title="Search"><i
@@ -650,12 +650,12 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
-        <a href="index.html">Home</a>
-        <a href="index.html#explore">Explore Topics</a>
+        <a href="../../index.html">Home</a>
+        <a href="../../index.html#explore">Explore Topics</a>
         <a href="tutorial.html">Tutorials</a>
-        <a href="download.html">Downloads</a>
-        <a href="index.html#site-footer">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="../tools/download.html">Downloads</a>
+        <a href="../../index.html#site-footer">About</a>
+        <a href="../tools/contact.html">Contact</a>
     </div>
 
     <!-- Search Overlay -->
@@ -691,7 +691,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="stm32intro.html" data-file="stm32intro.html">STM32 Microcontroller</a>
+        <a href="stm32intro.html" class="active" data-file="stm32intro.html">STM32 Microcontroller</a>
         <a href="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html" data-file="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html">Secure Boot and HSM Concepts on STM32F103C8T6</a>
     </div>
 </div>
@@ -701,7 +701,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="image-sample.html" class="active" data-file="image-sample.html">Markdown Image Sample</a>
+        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
     </div>
 </div>
 
@@ -728,7 +728,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="stm32intro.html" data-file="stm32intro.html">STM32 Microcontroller</a>
+        <a href="stm32intro.html" class="active" data-file="stm32intro.html">STM32 Microcontroller</a>
         <a href="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html" data-file="AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.html">Secure Boot and HSM Concepts on STM32F103C8T6</a>
     </div>
 </div>
@@ -738,7 +738,7 @@
         <i class="fa-solid fa-chevron-down toggle-icon"></i>
     </button>
     <div class="category-content">
-        <a href="image-sample.html" class="active" data-file="image-sample.html">Markdown Image Sample</a>
+        <a href="image-sample.html" data-file="image-sample.html">Markdown Image Sample</a>
     </div>
 </div>
 
@@ -746,22 +746,78 @@
 
             <!-- MAIN CONTENT -->
             <main class="content">
-                <h1>How to use Images in Markdown</h1>
-<p>To add an image with a specific size, use this syntax:</p>
-<p><img alt="Sample Image" height="200px" src="images/site.jpg" width="300px" /></p>
-<h3>Breakdown:</h3>
+                <h1>Introduction to STM32</h1>
+<p>STM32 is a family of 32-bit microcontrollers developed by the <a href="chatgpt://generic-entity?number=0">STMicroelectronics</a>.<br />
+They are based on the <a href="chatgpt://generic-entity?number=1">ARM Cortex-M</a> processor architecture and are widely used in embedded systems such as automotive electronics, industrial automation, IoT devices, robotics, and consumer electronics.</p>
+<blockquote>
+<p>[!NOTE]<br />
+STM32 microcontrollers provide high performance, low power consumption, and a rich set of peripherals, making them ideal for modern embedded applications.</p>
+</blockquote>
+<h2>The Three Main Parts of an STM32 System</h2>
+<p>A typical STM32-based embedded system consists of three main parts:</p>
 <ol>
-<li><code>!</code>: Starts the image tag.</li>
-<li><code>[Sample Image]</code>: Alt text.</li>
-<li><code>(images/site.jpg)</code>: Path to the image file.</li>
-<li><code>{: width="300px" height="200px" }</code>: <strong>Custom attributes</strong> where you can set width, height, or CSS classes.</li>
+<li>Core (Processor)</li>
+<li>Peripherals</li>
+<li>Memory</li>
 </ol>
-<h3>Other Options:</h3>
+<hr />
+<h2>1. Core (Processor)</h2>
+<p>The core is the brain of the microcontroller that executes instructions written in C or assembly.</p>
+<p>STM32 devices use ARM Cortex-M cores such as:</p>
 <ul>
-<li><strong>Only Width</strong>: <code>![Alt](url){: width="50%" }</code></li>
-<li><strong>Only Height</strong>: <code>![Alt](url){: height="100px" }</code></li>
-<li><strong>Using CSS classes</strong>: <code>![Alt](url){: .my-custom-class }</code></li>
+<li>Cortex-M0</li>
+<li>Cortex-M3</li>
+<li>Cortex-M4</li>
+<li>Cortex-M7</li>
 </ul>
+<p>The core is responsible for:</p>
+<ul>
+<li>Executing program instructions</li>
+<li>Performing arithmetic and logical operations</li>
+<li>Handling interrupts</li>
+<li>Managing system control functions</li>
+</ul>
+<hr />
+<h2>2. Peripherals</h2>
+<p>Peripherals are hardware modules integrated inside the STM32 microcontroller that allow interaction with external devices.</p>
+<p>Common STM32 peripherals include:</p>
+<ul>
+<li>GPIO (General Purpose Input Output)</li>
+<li>UART / USART</li>
+<li>SPI</li>
+<li>I2C</li>
+<li>ADC (Analog to Digital Converter)</li>
+<li>Timers</li>
+<li>PWM</li>
+<li>CAN communication</li>
+</ul>
+<p>These peripherals allow the microcontroller to communicate with sensors, displays, motors, and other hardware components.</p>
+<hr />
+<h2>3. Memory</h2>
+<p>STM32 microcontrollers contain different types of internal memory:</p>
+<ul>
+<li><strong>Flash Memory:</strong> Stores the program code.</li>
+<li><strong>SRAM:</strong> Used for runtime variables and stack.</li>
+<li><strong>EEPROM / Emulated EEPROM:</strong> Used for storing non-volatile data.</li>
+</ul>
+<p>This memory structure enables efficient execution of embedded applications.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Example STM32 GPIO Initialization (Bare Metal)</span>
+
+<span class="cp">#define GPIOA_BASE 0x48000000</span>
+<span class="cp">#define GPIOA_MODER (*(volatile unsigned int*)(GPIOA_BASE + 0x00))</span>
+<span class="cp">#define GPIOA_ODR   (*(volatile unsigned int*)(GPIOA_BASE + 0x14))</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">GPIO_Init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Configure PA5 as output</span>
+<span class="w">    </span><span class="n">GPIOA_MODER</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">LED_On</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">GPIOA_ODR</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
             </main>
 
             <!-- RIGHT SIDEBAR -->
@@ -819,18 +875,18 @@
                     <div class="footer-nav-col">
                         <h5>Pages</h5>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="../../index.html">Home</a></li>
                             <li><a href="tutorial.html">Tutorials</a></li>
-                            <li><a href="download.html">Downloads</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="../tools/download.html">Downloads</a></li>
+                            <li><a href="../tools/contact.html">Contact</a></li>
                         </ul>
                     </div>
                     <div class="footer-nav-col">
                         <h5>Topics</h5>
                         <ul>
-                            <li><a href="blog.html?category=AUTOSAR">AUTOSAR</a></li>
-                            <li><a href="blog.html?category=Embedded Systems">Embedded C</a></li>
-                            <li><a href="blog.html?category=Automotive Security">Cybersecurity</a></li>
+                            <li><a href="tutorial.html?category=AUTOSAR">AUTOSAR</a></li>
+                            <li><a href="tutorial.html?category=Embedded Systems">Embedded C</a></li>
+                            <li><a href="tutorial.html?category=Automotive Security">Cybersecurity</a></li>
                         </ul>
                     </div>
                 </div>
@@ -840,8 +896,8 @@
             <div class="footer-bottom">
                 <p class="footer-copy">&copy; 2026 Autodevv. Engineered for Safety & Reliability.</p>
                 <div class="footer-bottom-links">
-                    <a href="privacy.html" style="color:var(--text-body);">Privacy Policy</a>
-                    <a href="terms.html">Terms</a>
+                    <a href="../tools/privacy.html" style="color:var(--text-body);">Privacy Policy</a>
+                    <a href="../tools/terms.html">Terms</a>
                 </div>
             </div>
 
@@ -849,9 +905,9 @@
     </footer>
 
     <!-- Scripts from index.html / app -->
-    <script src="js/articles.js"></script>
-    <script src="js/search-engine.js"></script>
-    <script src="js/app.js"></script>
+    <script src="../../js/articles.js"></script>
+    <script src="../../js/search-engine.js"></script>
+    <script src="../../js/app.js"></script>
 
     <script>
 
