@@ -1,0 +1,4540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AutoDevv — AUTOSAR Interactive Learning</title>
+
+    <style>
+        /* =========================================================
+   GLOBAL
+========================================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f4f7fb;
+            --surface: #ffffff;
+            --surface2: #f8fafc;
+            --border: #dce3ec;
+            --text: #172033;
+            --muted: #667085;
+
+            --primary: #2563eb;
+            --primary2: #1d4ed8;
+
+            --green: #16a34a;
+            --orange: #f59e0b;
+            --red: #dc2626;
+            --purple: #7c3aed;
+
+            --shadow: 0 8px 30px rgba(15, 23, 42, .08);
+        }
+
+        body.dark {
+            --bg: #0b1220;
+            --surface: #111827;
+            --surface2: #172033;
+            --border: #293548;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+
+            --shadow: 0 10px 35px rgba(0, 0, 0, .35);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: var(--bg);
+            color: var(--text);
+
+            transition: background .25s, color .25s;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* =========================================================
+   HEADER
+========================================================= */
+
+        .header {
+            height: 68px;
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 24px;
+
+            background: var(--surface);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--text);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .progress-mini {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .progress-bar-small {
+            width: 90px;
+            height: 7px;
+
+            background: var(--border);
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .progress-bar-small div {
+            height: 100%;
+            width: 0;
+
+            background: var(--primary);
+
+            transition: width .4s;
+        }
+
+        .icon-button {
+            width: 38px;
+            height: 38px;
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            background: var(--surface);
+
+            color: var(--text);
+
+            font-size: 17px;
+        }
+
+        /* =========================================================
+   SIDEBAR
+========================================================= */
+
+        .sidebar {
+            position: fixed;
+
+            top: 68px;
+            left: 0;
+            bottom: 0;
+
+            width: 230px;
+
+            background: var(--surface);
+
+            border-right: 1px solid var(--border);
+
+            padding: 20px 12px;
+
+            z-index: 900;
+
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            padding: 10px 12px;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            color: var(--muted);
+
+            text-transform: uppercase;
+
+            letter-spacing: .08em;
+        }
+
+        .nav-item {
+            width: 100%;
+
+            border: none;
+
+            background: transparent;
+
+            color: var(--muted);
+
+            padding: 11px 13px;
+
+            border-radius: 99px;
+
+            text-align: left;
+
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 4px;
+
+            transition: .2s;
+            text-decoration: none;
+        }
+
+        .nav-header-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            transition: .2s;
+        }
+
+        .nav-header-link:hover {
+            color: var(--primary);
+            background: var(--surface2);
+        }
+
+        .nav-item:hover {
+            background: var(--surface2);
+            color: var(--text);
+        }
+
+        .nav-item.active {
+            background: rgba(37, 99, 235, .11);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .nav-icon {
+            width: 21px;
+            text-align: center;
+        }
+
+        /* =========================================================
+   MAIN
+========================================================= */
+
+        .main {
+            margin-left: 230px;
+
+            padding-top: 68px;
+
+            min-height: 100vh;
+        }
+
+        .page {
+            display: none;
+
+            padding: 30px;
+
+            max-width: 1450px;
+
+            margin: auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* =========================================================
+   PAGE HEADER
+========================================================= */
+
+        .page-header {
+            margin-bottom: 28px;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+   CARDS
+========================================================= */
+
+        .card {
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            padding: 20px 22px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h3 {
+            font-size: 17px;
+        }
+
+        .card-body {
+            padding: 22px;
+        }
+
+        /* =========================================================
+   DASHBOARD
+========================================================= */
+
+        .welcome {
+            background:
+                radial-gradient(circle at top right,
+                    rgba(37, 99, 235, .16),
+                    transparent 35%),
+                var(--surface);
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            border: 1px solid var(--border);
+
+            margin-bottom: 22px;
+        }
+
+        .welcome h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .welcome h1 span {
+            color: var(--primary);
+        }
+
+        .welcome p {
+            color: var(--muted);
+            max-width: 800px;
+            line-height: 1.7;
+        }
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 22px;
+        }
+
+        .stat {
+            padding: 20px;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 13px;
+        }
+
+        .stat-icon {
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr;
+
+            gap: 20px;
+        }
+
+        .lesson-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .lesson {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 14px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+        }
+
+        .lesson-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lesson-number {
+            width: 34px;
+            height: 34px;
+
+            border-radius: 8px;
+
+            display: grid;
+            place-items: center;
+
+            background: rgba(37, 99, 235, .1);
+
+            color: var(--primary);
+
+            font-weight: 700;
+        }
+
+        .lesson-title {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .lesson-desc {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* =========================================================
+   ARCHITECTURE
+========================================================= */
+
+        .arch-layout {
+            display: grid;
+
+            grid-template-columns:
+                minmax(550px, 1.3fr) minmax(300px, .7fr);
+
+            gap: 20px;
+        }
+
+        .arch-stack {
+            display: grid;
+            gap: 7px;
+        }
+
+        .arch-layer {
+            min-height: 75px;
+
+            padding: 15px 20px;
+
+            border-radius: 12px;
+
+            border: 2px solid transparent;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+            position: relative;
+        }
+
+        .arch-layer:hover {
+            transform: translateX(4px);
+        }
+
+        .arch-layer.selected {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, .12);
+        }
+
+        .arch-layer h3 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .arch-layer p {
+            font-size: 12px;
+            opacity: .85;
+        }
+
+        .layer-app {
+            background: #dbeafe;
+            color: #1e3a8a;
+        }
+
+        .layer-rte {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .layer-services {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .layer-ecu {
+            background: #fce7f3;
+            color: #9d174d;
+        }
+
+        .layer-mcal {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .layer-hw {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        body.dark .layer-app {
+            background: #1e3a8a;
+            color: #dbeafe;
+        }
+
+        body.dark .layer-rte {
+            background: #166534;
+            color: #dcfce7;
+        }
+
+        body.dark .layer-services {
+            background: #92400e;
+            color: #fef3c7;
+        }
+
+        body.dark .layer-ecu {
+            background: #9d174d;
+            color: #fce7f3;
+        }
+
+        body.dark .layer-mcal {
+            background: #5b21b6;
+            color: #ede9fe;
+        }
+
+        body.dark .layer-hw {
+            background: #334155;
+            color: #e2e8f0;
+        }
+
+        .arch-arrow {
+            text-align: center;
+            height: 16px;
+
+            color: var(--primary);
+        }
+
+        .detail-content {
+            min-height: 280px;
+        }
+
+        .detail-content h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .detail-content p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .detail-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .detail-list li {
+            padding: 9px 11px;
+
+            background: var(--surface2);
+
+            border-radius: 7px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        .detail-list li::before {
+            content: "✓";
+            color: var(--green);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        /* =========================================================
+   MODULE EXPLORER
+========================================================= */
+
+        .module-layout {
+            display: grid;
+
+            grid-template-columns: 1fr 1.2fr;
+
+            gap: 20px;
+        }
+
+        .search-box {
+            width: 100%;
+
+            padding: 12px 14px;
+
+            border-radius: 9px;
+
+            border: 1px solid var(--border);
+
+            background: var(--surface);
+
+            color: var(--text);
+
+            outline: none;
+
+            margin-bottom: 14px;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+        }
+
+        .category-filter {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-bottom: 14px;
+        }
+
+        .filter-btn {
+            padding: 7px 11px;
+
+            border-radius: 20px;
+
+            border: 1px solid var(--border);
+
+            background: var(--surface);
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .module-list {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 9px;
+
+            max-height: 550px;
+
+            overflow-y: auto;
+        }
+
+        .module-item {
+            padding: 13px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            background: var(--surface);
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .module-item:hover,
+        .module-item.selected {
+            border-color: var(--primary);
+
+            background: rgba(37, 99, 235, .06);
+        }
+
+        .module-name {
+            font-weight: 700;
+
+            color: var(--primary);
+
+            margin-bottom: 4px;
+        }
+
+        .module-category {
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .module-detail h2 {
+            margin-bottom: 7px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            background: rgba(37, 99, 235, .1);
+
+            color: var(--primary);
+
+            font-size: 11px;
+
+            margin-bottom: 17px;
+        }
+
+        .module-detail p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .module-flow {
+            margin-top: 20px;
+
+            padding: 15px;
+
+            background: var(--surface2);
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+        /* =========================================================
+   CAN LAB
+========================================================= */
+
+        .can-layout {
+            display: grid;
+
+            grid-template-columns:
+                340px 1fr;
+
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: var(--muted);
+
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+
+            padding: 11px 12px;
+
+            border-radius: 8px;
+
+            border: 1px solid var(--border);
+
+            background: var(--surface);
+
+            color: var(--text);
+
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn {
+            padding: 11px 16px;
+
+            border-radius: 8px;
+
+            border: none;
+
+            background: var(--primary);
+
+            color: white;
+
+            font-weight: 700;
+        }
+
+        .btn:hover {
+            background: var(--primary2);
+        }
+
+        .btn-outline {
+            background: transparent;
+
+            color: var(--primary);
+
+            border: 1px solid var(--primary);
+        }
+
+        .signal-table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 15px;
+        }
+
+        .signal-table th,
+        .signal-table td {
+            padding: 10px;
+
+            border-bottom: 1px solid var(--border);
+
+            text-align: left;
+
+            font-size: 13px;
+        }
+
+        .signal-table th {
+            color: var(--muted);
+        }
+
+        .can-frame {
+            margin-top: 20px;
+
+            background: #0f172a;
+
+            color: #d1fae5;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            font-family: Consolas, monospace;
+
+            line-height: 1.8;
+
+            overflow-x: auto;
+        }
+
+        .data-byte {
+            display: inline-block;
+
+            padding: 5px 7px;
+
+            background: #1e293b;
+
+            border-radius: 4px;
+
+            margin: 2px;
+
+            transition: .2s;
+        }
+
+        .data-byte.highlight {
+            background: #2563eb;
+
+            color: white;
+
+            transform: scale(1.08);
+        }
+
+        /* =========================================================
+   FLOW SIMULATOR
+========================================================= */
+
+        .flow-container {
+            padding: 25px;
+        }
+
+        .flow-track {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 5px;
+
+            margin: 30px 0;
+        }
+
+        .flow-node {
+            min-width: 95px;
+
+            text-align: center;
+
+            padding: 15px 10px;
+
+            border-radius: 10px;
+
+            border: 1px solid var(--border);
+
+            background: var(--surface2);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            transition: .35s;
+        }
+
+        .flow-node.active {
+            background: var(--primary);
+
+            color: white;
+
+            border-color: var(--primary);
+
+            transform: scale(1.1);
+
+            box-shadow:
+                0 0 20px rgba(37, 99, 235, .3);
+        }
+
+        .flow-connector {
+            color: var(--primary);
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+        .flow-status {
+            text-align: center;
+
+            color: var(--muted);
+
+            margin: 20px;
+        }
+
+        .packet-log {
+            height: 160px;
+
+            overflow-y: auto;
+
+            background: #0f172a;
+
+            color: #cbd5e1;
+
+            padding: 14px;
+
+            border-radius: 9px;
+
+            font-family: Consolas, monospace;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+        /* =========================================================
+   DIAGNOSTICS
+========================================================= */
+
+        .diagnostic-flow {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 10px;
+
+            margin: 25px 0;
+        }
+
+        .diag-node {
+            padding: 20px 10px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+            border: 1px solid var(--border);
+
+            background: var(--surface2);
+
+            transition: .3s;
+        }
+
+        .diag-node.active {
+            background: var(--red);
+
+            color: white;
+
+            border-color: var(--red);
+
+            transform: translateY(-4px);
+        }
+
+        .dtc-box {
+            margin-top: 20px;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            background: var(--surface2);
+
+            border: 1px solid var(--border);
+        }
+
+        .dtc-code {
+            font-size: 28px;
+
+            font-family: Consolas, monospace;
+
+            font-weight: 800;
+
+            color: var(--red);
+
+            margin: 8px 0;
+        }
+
+        /* =========================================================
+   QUIZ
+========================================================= */
+
+        .quiz-layout {
+            max-width: 850px;
+
+            margin: auto;
+        }
+
+        .quiz-progress {
+            height: 7px;
+
+            background: var(--border);
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            margin-bottom: 25px;
+        }
+
+        .quiz-progress div {
+            height: 100%;
+
+            width: 0;
+
+            background: var(--primary);
+
+            transition: .3s;
+        }
+
+        .question-number {
+            color: var(--primary);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 9px;
+        }
+
+        .question-text {
+            font-size: 21px;
+
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: grid;
+
+            gap: 10px;
+        }
+
+        .option {
+            padding: 14px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            background: var(--surface);
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+
+            background: rgba(37, 99, 235, .05);
+        }
+
+        .option.correct {
+            border-color: var(--green);
+
+            background: rgba(22, 163, 74, .1);
+
+            color: var(--green);
+        }
+
+        .option.wrong {
+            border-color: var(--red);
+
+            background: rgba(220, 38, 38, .1);
+
+            color: var(--red);
+        }
+
+        .quiz-actions {
+            margin-top: 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .quiz-feedback {
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        .result-screen {
+            text-align: center;
+
+            padding: 30px;
+        }
+
+        .score-big {
+            font-size: 55px;
+
+            font-weight: 800;
+
+            color: var(--primary);
+
+            margin: 20px 0;
+        }
+
+        /* =========================================================
+   PROGRESS
+========================================================= */
+
+        .progress-card {
+            padding: 25px;
+        }
+
+        .big-progress {
+            height: 14px;
+
+            background: var(--border);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin: 15px 0;
+        }
+
+        .big-progress div {
+            height: 100%;
+
+            width: 0;
+
+            background: var(--primary);
+
+            transition: width .5s;
+        }
+
+        .progress-items {
+            display: grid;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .progress-item {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 12px;
+
+            background: var(--surface2);
+
+            border-radius: 9px;
+        }
+
+        .check {
+            width: 27px;
+            height: 27px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+
+            background: var(--border);
+        }
+
+        .check.done {
+            background: var(--green);
+            color: white;
+        }
+
+        /* =========================================================
+   TOAST
+========================================================= */
+
+        .toast {
+            position: fixed;
+
+            bottom: 25px;
+
+            right: 25px;
+
+            background: #111827;
+
+            color: white;
+
+            padding: 13px 18px;
+
+            border-radius: 9px;
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            pointer-events: none;
+
+            transition: .3s;
+
+            z-index: 5000;
+        }
+
+        .toast.show {
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+        /* =========================================================
+   MOBILE
+========================================================= */
+
+        .mobile-menu {
+            display: none;
+        }
+
+        @media(max-width:1000px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+            }
+
+            .dashboard-grid,
+            .arch-layout,
+            .module-layout,
+            .can-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .diagnostic-flow {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:700px) {
+
+            .sidebar {
+                transform: translateX(-100%);
+
+                transition: .25s;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .header {
+                padding: 0 14px;
+            }
+
+            .progress-mini {
+                display: none;
+            }
+
+            .page {
+                padding: 20px 14px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .module-list {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-track {
+                flex-direction: column;
+            }
+
+            .flow-connector {
+                transform: rotate(90deg);
+            }
+
+            .diagnostic-flow {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+     HEADER
+===================================================== -->
+
+    <header class="header">
+
+        <div style="display:flex;align-items:center;gap:12px">
+
+            <button class="icon-button mobile-menu" onclick="toggleSidebar()">
+                ☰
+            </button>
+
+            <a href="../../index.html" class="logo" style="text-decoration:none;">
+                Auto<span>Devv</span> | AUTOSAR
+            </a>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <a href="../../index.html" class="nav-header-link" title="Home Page">🏠 Home</a>
+            <a href="../../index.html#explore" class="nav-header-link" title="Explore Topics">🌐 Explore</a>
+            <a href="tutorial.html" class="nav-header-link" title="Latest Articles">📚 Articles</a>
+
+            <div class="progress-mini">
+
+                <span id="headerProgressText">
+                    Progress 0%
+                </span>
+
+                <div class="progress-bar-small">
+                    <div id="headerProgress"></div>
+                </div>
+
+            </div>
+
+
+            <button class="icon-button" onclick="toggleTheme()" title="Toggle theme">
+
+                🌙
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-title">
+            Main Site
+        </div>
+
+        <a href="../../index.html" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            Home Page
+        </a>
+
+        <a href="../../index.html#explore" class="nav-item">
+            <span class="nav-icon">🌐</span>
+            Explore Topics
+        </a>
+
+        <a href="tutorial.html" class="nav-item">
+            <span class="nav-icon">📚</span>
+            Latest Articles
+        </a>
+
+        <div class="sidebar-title" style="margin-top:20px">
+            Learning
+        </div>
+
+        <button class="nav-item active" data-page="dashboard" onclick="openPage('dashboard')">
+
+            <span class="nav-icon">🏠</span>
+
+            Dashboard
+
+        </button>
+
+
+        <button class="nav-item" data-page="architecture" onclick="openPage('architecture')">
+
+            <span class="nav-icon">🏗️</span>
+
+            Architecture
+
+        </button>
+
+
+        <button class="nav-item" data-page="modules" onclick="openPage('modules')">
+
+            <span class="nav-icon">📦</span>
+
+            BSW Explorer
+
+        </button>
+
+
+        <button class="nav-item" data-page="canlab" onclick="openPage('canlab')">
+
+            <span class="nav-icon">🔌</span>
+
+            CAN Lab
+
+        </button>
+
+
+        <button class="nav-item" data-page="flow" onclick="openPage('flow')">
+
+            <span class="nav-icon">🔄</span>
+
+            Data Flow
+
+        </button>
+
+
+        <button class="nav-item" data-page="diagnostics" onclick="openPage('diagnostics')">
+
+            <span class="nav-icon">🩺</span>
+
+            Diagnostics
+
+        </button>
+
+
+        <button class="nav-item" data-page="quiz" onclick="openPage('quiz')">
+
+            <span class="nav-icon">🎯</span>
+
+            Quiz
+
+        </button>
+
+
+        <button class="nav-item" data-page="progress" onclick="openPage('progress')">
+
+            <span class="nav-icon">📊</span>
+
+            Progress
+
+        </button>
+
+
+        <div class="sidebar-title" style="margin-top:20px">
+            Reference
+        </div>
+
+
+        <button class="nav-item" onclick="showAbout()">
+
+            <span class="nav-icon">ℹ️</span>
+
+            About AUTOSAR
+
+        </button>
+
+    </aside>
+
+
+    <!-- =====================================================
+     MAIN
+===================================================== -->
+
+    <main class="main">
+
+
+        <!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+        <section class="page active" id="page-dashboard">
+
+            <div class="welcome">
+
+                <h1>
+                    Learn <span>AUTOSAR</span> interactively.
+                </h1>
+
+                <p>
+                    Explore the AUTOSAR architecture, understand BSW modules,
+                    simulate CAN communication, follow data through the software
+                    stack and test your knowledge.
+                </p>
+
+                <div style="display:flex;gap:10px;margin-top:15px;flex-wrap:wrap;">
+                    <a href="../../index.html" class="btn" style="text-decoration:none;">🏠 Home Page</a>
+                    <a href="../../index.html#explore" class="btn btn-outline" style="text-decoration:none;">🌐 Explore Topics</a>
+                    <a href="tutorial.html" class="btn btn-outline" style="text-decoration:none;">📚 Latest Articles</a>
+                </div>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🏗️
+                    </div>
+
+                    <div class="stat-number">
+                        6
+                    </div>
+
+                    <div class="stat-label">
+                        Architecture Layers
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        📦
+                    </div>
+
+                    <div class="stat-number">
+                        20+
+                    </div>
+
+                    <div class="stat-label">
+                        BSW Modules
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🔌
+                    </div>
+
+                    <div class="stat-number">
+                        1
+                    </div>
+
+                    <div class="stat-label">
+                        CAN Simulator
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🎯
+                    </div>
+
+                    <div class="stat-number">
+                        10
+                    </div>
+
+                    <div class="stat-label">
+                        Quiz Questions
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            📚 Learning Path
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="lesson-list">
+
+
+                            <div class="lesson">
+
+                                <div class="lesson-left">
+
+                                    <div class="lesson-number">
+                                        1
+                                    </div>
+
+                                    <div>
+
+                                        <div class="lesson-title">
+                                            AUTOSAR Architecture
+                                        </div>
+
+                                        <div class="lesson-desc">
+                                            Understand the major software layers.
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <button class="btn" onclick="openPage('architecture')">
+
+                                    Start
+
+                                </button>
+
+                            </div>
+
+
+                            <div class="lesson">
+
+                                <div class="lesson-left">
+
+                                    <div class="lesson-number">
+                                        2
+                                    </div>
+
+                                    <div>
+
+                                        <div class="lesson-title">
+                                            BSW Modules
+                                        </div>
+
+                                        <div class="lesson-desc">
+                                            Explore communication and system modules.
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <button class="btn" onclick="openPage('modules')">
+
+                                    Explore
+
+                                </button>
+
+                            </div>
+
+
+                            <div class="lesson">
+
+                                <div class="lesson-left">
+
+                                    <div class="lesson-number">
+                                        3
+                                    </div>
+
+                                    <div>
+
+                                        <div class="lesson-title">
+                                            CAN Communication
+                                        </div>
+
+                                        <div class="lesson-desc">
+                                            Configure and transmit a CAN signal.
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <button class="btn" onclick="openPage('canlab')">
+
+                                    Open Lab
+
+                                </button>
+
+                            </div>
+
+
+                            <div class="lesson">
+
+                                <div class="lesson-left">
+
+                                    <div class="lesson-number">
+                                        4
+                                    </div>
+
+                                    <div>
+
+                                        <div class="lesson-title">
+                                            Diagnostics
+                                        </div>
+
+                                        <div class="lesson-desc">
+                                            Follow a UDS request through DCM.
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <button class="btn" onclick="openPage('diagnostics')">
+
+                                    Try
+
+                                </button>
+
+                            </div>
+
+
+                            <div class="lesson">
+
+                                <div class="lesson-left">
+
+                                    <div class="lesson-number">
+                                        5
+                                    </div>
+
+                                    <div>
+
+                                        <div class="lesson-title">
+                                            Assessment
+                                        </div>
+
+                                        <div class="lesson-desc">
+                                            Test what you have learned.
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <button class="btn" onclick="openPage('quiz')">
+
+                                    Quiz
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            ⚡ Quick Concept
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h2 style="margin-bottom:10px;color:var(--primary)">
+                            What is RTE?
+                        </h2>
+
+                        <p style="color:var(--muted);line-height:1.7">
+
+                            RTE stands for Runtime Environment.
+                            It provides the communication mechanism between
+                            application software components and the underlying
+                            AUTOSAR Basic Software.
+
+                        </p>
+
+                        <br>
+
+                        <button class="btn" onclick="openPage('architecture')">
+
+                            Explore RTE
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     ARCHITECTURE
+===================================================== -->
+
+        <section class="page" id="page-architecture">
+
+            <div class="page-header">
+
+                <h1>
+                    🏗️ AUTOSAR Architecture
+                </h1>
+
+                <p>
+                    Click a layer to explore its responsibilities,
+                    interfaces and typical modules.
+                </p>
+
+            </div>
+
+
+            <div class="arch-layout">
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            AUTOSAR ECU Software Stack
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="arch-stack">
+
+
+                            <div class="arch-layer layer-app" data-layer="application"
+                                onclick="selectLayer('application',this)">
+
+                                <h3>
+                                    Application Layer
+                                </h3>
+
+                                <p>
+                                    SWC, Ports, Runnables, Interfaces
+                                </p>
+
+                            </div>
+
+
+                            <div class="arch-arrow">
+                                ↓
+                            </div>
+
+
+                            <div class="arch-layer layer-rte" data-layer="rte" onclick="selectLayer('rte',this)">
+
+                                <h3>
+                                    RTE
+                                </h3>
+
+                                <p>
+                                    Runtime communication middleware
+                                </p>
+
+                            </div>
+
+
+                            <div class="arch-arrow">
+                                ↓
+                            </div>
+
+
+                            <div class="arch-layer layer-services" data-layer="services"
+                                onclick="selectLayer('services',this)">
+
+                                <h3>
+                                    BSW Services
+                                </h3>
+
+                                <p>
+                                    OS, COM, DCM, DEM, NvM, ECU State
+                                </p>
+
+                            </div>
+
+
+                            <div class="arch-arrow">
+                                ↓
+                            </div>
+
+
+                            <div class="arch-layer layer-ecu" data-layer="ecu" onclick="selectLayer('ecu',this)">
+
+                                <h3>
+                                    ECU Abstraction
+                                </h3>
+
+                                <p>
+                                    Hardware-independent peripheral access
+                                </p>
+
+                            </div>
+
+
+                            <div class="arch-arrow">
+                                ↓
+                            </div>
+
+
+                            <div class="arch-layer layer-mcal" data-layer="mcal" onclick="selectLayer('mcal',this)">
+
+                                <h3>
+                                    MCAL
+                                </h3>
+
+                                <p>
+                                    CAN, SPI, ADC, DIO, PWM, GPT, MCU
+                                </p>
+
+                            </div>
+
+
+                            <div class="arch-arrow">
+                                ↓
+                            </div>
+
+
+                            <div class="arch-layer layer-hw" data-layer="hardware"
+                                onclick="selectLayer('hardware',this)">
+
+                                <h3>
+                                    Microcontroller
+                                </h3>
+
+                                <p>
+                                    CPU, Flash, RAM and peripherals
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            Layer Details
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body detail-content" id="layerDetails">
+
+                        <h2>
+                            Select a layer
+                        </h2>
+
+                        <p>
+                            Click any layer on the left to begin learning.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     MODULE EXPLORER
+===================================================== -->
+
+        <section class="page" id="page-modules">
+
+            <div class="page-header">
+
+                <h1>
+                    📦 BSW Module Explorer
+                </h1>
+
+                <p>
+                    Search AUTOSAR Basic Software modules and inspect
+                    their role in the ECU architecture.
+                </p>
+
+            </div>
+
+
+            <div class="module-layout">
+
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <input class="search-box" id="moduleSearch" placeholder="Search COM, PduR, DCM, DEM..."
+                            oninput="renderModuleList()">
+
+
+                        <div class="category-filter">
+
+                            <button class="filter-btn active" data-category="All"
+                                onclick="setModuleCategory('All',this)">
+                                All
+                            </button>
+
+                            <button class="filter-btn" data-category="Communication"
+                                onclick="setModuleCategory('Communication',this)">
+                                Communication
+                            </button>
+
+                            <button class="filter-btn" data-category="Diagnostics"
+                                onclick="setModuleCategory('Diagnostics',this)">
+                                Diagnostics
+                            </button>
+
+                            <button class="filter-btn" data-category="Memory"
+                                onclick="setModuleCategory('Memory',this)">
+                                Memory
+                            </button>
+
+                            <button class="filter-btn" data-category="MCAL" onclick="setModuleCategory('MCAL',this)">
+                                MCAL
+                            </button>
+
+                            <button class="filter-btn" data-category="System"
+                                onclick="setModuleCategory('System',this)">
+                                System
+                            </button>
+
+                        </div>
+
+
+                        <div class="module-list" id="moduleList">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            Module Information
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body module-detail" id="moduleDetail">
+
+                        <h2>
+                            Select a module
+                        </h2>
+
+                        <p>
+                            Choose a BSW module from the list.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     CAN LAB
+===================================================== -->
+
+        <section class="page" id="page-canlab">
+
+            <div class="page-header">
+
+                <h1>
+                    🔌 CAN Signal Lab
+                </h1>
+
+                <p>
+                    Configure a simple CAN signal and observe how it
+                    travels through the AUTOSAR communication stack.
+                </p>
+
+            </div>
+
+
+            <div class="can-layout">
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            CAN Configuration
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Message Name
+                            </label>
+
+                            <input class="form-input" id="canMessage" value="VehicleStatus">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                CAN ID
+                            </label>
+
+                            <input class="form-input" id="canId" value="0x101">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                DLC
+                            </label>
+
+                            <select class="form-input" id="canDlc">
+
+                                <option>8</option>
+                                <option>4</option>
+                                <option>6</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <hr style="border:none;border-top:1px solid var(--border);margin:20px 0">
+
+
+                        <h3 style="margin-bottom:15px">
+                            Signal
+                        </h3>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Signal Name
+                            </label>
+
+                            <input class="form-input" id="signalName" value="VehicleSpeed">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Start Bit
+                            </label>
+
+                            <input class="form-input" id="signalStart" type="number" value="8">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Length
+                            </label>
+
+                            <input class="form-input" id="signalLength" type="number" value="16">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Factor
+                            </label>
+
+                            <input class="form-input" id="signalFactor" type="number" value="0.01" step="0.01">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Signal Value
+                            </label>
+
+                            <input class="form-input" id="signalValue" type="number" value="72.5" step="0.01">
+
+                        </div>
+
+
+                        <button class="btn" onclick="generateCanFrame()">
+
+                            Generate CAN Frame
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            CAN Frame
+                        </h3>
+
+                    </div>
+
+                    <div class="card-body">
+
+
+                        <div id="canSummary" style="color:var(--muted);line-height:1.7">
+
+                            Configure the signal and click
+                            <strong>Generate CAN Frame</strong>.
+
+                        </div>
+
+
+                        <div class="can-frame" id="canFrame">
+
+                            CAN FRAME WILL APPEAR HERE
+
+                        </div>
+
+
+                        <table class="signal-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Parameter
+                                    </th>
+
+                                    <th>
+                                        Value
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="signalInfo">
+
+                            </tbody>
+
+                        </table>
+
+
+                        <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+
+                            <button class="btn" onclick="generateCanFrame();openPage('flow');startFlowSimulation();">
+
+                                ▶ Send Through AUTOSAR
+
+                            </button>
+
+                            <button class="btn btn-outline" onclick="resetCanLab()">
+
+                                Reset
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     DATA FLOW
+===================================================== -->
+
+        <section class="page" id="page-flow">
+
+            <div class="page-header">
+
+                <h1>
+                    🔄 AUTOSAR Data Flow Simulator
+                </h1>
+
+                <p>
+                    Watch a CAN signal move through the AUTOSAR software stack.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-body flow-container">
+
+
+                    <div class="flow-track">
+
+
+                        <div class="flow-node" id="flowNode0">
+                            SWC
+                        </div>
+
+
+                        <div class="flow-connector">
+                            →
+                        </div>
+
+
+                        <div class="flow-node" id="flowNode1">
+                            RTE
+                        </div>
+
+
+                        <div class="flow-connector">
+                            →
+                        </div>
+
+
+                        <div class="flow-node" id="flowNode2">
+                            COM
+                        </div>
+
+
+                        <div class="flow-connector">
+                            →
+                        </div>
+
+
+                        <div class="flow-node" id="flowNode3">
+                            PduR
+                        </div>
+
+
+                        <div class="flow-connector">
+                            →
+                        </div>
+
+
+                        <div class="flow-node" id="flowNode4">
+                            CanIf
+                        </div>
+
+
+                        <div class="flow-connector">
+                            →
+                        </div>
+
+
+                        <div class="flow-node" id="flowNode5">
+                            CAN
+                        </div>
+
+
+                        <div class="flow-connector">
+                            →
+                        </div>
+
+
+                        <div class="flow-node" id="flowNode6">
+                            MCU
+                        </div>
+
+                    </div>
+
+
+                    <div class="flow-status" id="flowStatus">
+
+                        Ready to transmit.
+
+                    </div>
+
+
+                    <div style="text-align:center">
+
+                        <button class="btn" onclick="startFlowSimulation()">
+
+                            ▶ Start Simulation
+
+                        </button>
+
+                        <button class="btn btn-outline" onclick="resetFlowSimulation()">
+
+                            Reset
+
+                        </button>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <h3 style="margin-bottom:10px">
+                        Simulation Log
+                    </h3>
+
+
+                    <div class="packet-log" id="packetLog">
+
+                        [SYSTEM] Simulator ready...
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     DIAGNOSTICS
+===================================================== -->
+
+        <section class="page" id="page-diagnostics">
+
+            <div class="page-header">
+
+                <h1>
+                    🩺 Diagnostics Lab
+                </h1>
+
+                <p>
+                    Follow a simplified UDS diagnostic request through an AUTOSAR ECU.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-body">
+
+
+                    <div class="diagnostic-flow">
+
+
+                        <div class="diag-node" id="diag0">
+
+                            Tester
+
+                        </div>
+
+
+                        <div class="diag-node" id="diag1">
+
+                            CanTp
+
+                        </div>
+
+
+                        <div class="diag-node" id="diag2">
+
+                            PduR
+
+                        </div>
+
+
+                        <div class="diag-node" id="diag3">
+
+                            DCM
+
+                        </div>
+
+
+                        <div class="diag-node" id="diag4">
+
+                            DEM
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="text-align:center">
+
+                        <button class="btn" onclick="runDiagnostic()">
+
+                            ▶ Send Diagnostic Request
+
+                        </button>
+
+                        <button class="btn btn-outline" onclick="resetDiagnostic()">
+
+                            Reset
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="dtc-box">
+
+                        <div style="color:var(--muted);font-size:12px">
+                            Example Diagnostic Event
+                        </div>
+
+                        <div class="dtc-code">
+                            P0562
+                        </div>
+
+                        <div style="color:var(--muted)">
+                            System Voltage Low
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     QUIZ
+===================================================== -->
+
+        <section class="page" id="page-quiz">
+
+            <div class="page-header">
+
+                <h1>
+                    🎯 AUTOSAR Assessment
+                </h1>
+
+                <p>
+                    Test your understanding of AUTOSAR architecture and BSW.
+                </p>
+
+            </div>
+
+
+            <div class="quiz-layout">
+
+                <div class="card">
+
+                    <div class="card-body" id="quizContainer">
+
+
+                        <div class="quiz-progress">
+
+                            <div id="quizProgress"></div>
+
+                        </div>
+
+
+                        <div class="question-number" id="questionNumber">
+
+                        </div>
+
+
+                        <div class="question-text" id="questionText">
+
+                        </div>
+
+
+                        <div class="options" id="quizOptions">
+
+                        </div>
+
+
+                        <div class="quiz-actions">
+
+                            <div class="quiz-feedback" id="quizFeedback">
+
+                            </div>
+
+
+                            <button class="btn" id="nextQuestionBtn" onclick="nextQuestion()">
+
+                                Next
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+     PROGRESS
+===================================================== -->
+
+        <section class="page" id="page-progress">
+
+            <div class="page-header">
+
+                <h1>
+                    📊 Learning Progress
+                </h1>
+
+                <p>
+                    Track the concepts and labs you have completed.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-body progress-card">
+
+
+                    <h2 id="progressTitle">
+                        0% Complete
+                    </h2>
+
+
+                    <div class="big-progress">
+
+                        <div id="bigProgress"></div>
+
+                    </div>
+
+
+                    <p style="color:var(--muted)">
+                        Complete the interactive sections to increase your progress.
+                    </p>
+
+
+                    <div class="progress-items" id="progressItems">
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+     TOAST
+===================================================== -->
+
+    <div class="toast" id="toast">
+
+    </div>
+
+
+    <script>
+
+        /* =========================================================
+           APPLICATION STATE
+        ========================================================= */
+
+        const state = {
+
+            currentPage: "dashboard",
+
+            moduleCategory: "All",
+
+            selectedModule: null,
+
+            completed: {
+
+                architecture: false,
+
+                modules: false,
+
+                canlab: false,
+
+                flow: false,
+
+                diagnostics: false,
+
+                quiz: false
+
+            }
+
+        };
+
+
+        /* =========================================================
+           PAGE NAVIGATION
+        ========================================================= */
+
+        function openPage(page) {
+
+            document
+                .querySelectorAll(".page")
+                .forEach(p => p.classList.remove("active"));
+
+
+            const target =
+                document.getElementById("page-" + page);
+
+
+            if (target) {
+
+                target.classList.add("active");
+
+            }
+
+
+            document
+                .querySelectorAll(".nav-item")
+                .forEach(item => {
+
+                    item.classList.remove("active");
+
+                    if (item.dataset.page === page) {
+
+                        item.classList.add("active");
+
+                    }
+
+                });
+
+
+            state.currentPage = page;
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+
+            if (window.innerWidth < 700) {
+
+                document
+                    .getElementById("sidebar")
+                    .classList.remove("open");
+
+            }
+
+        }
+
+
+        function toggleSidebar() {
+
+            document
+                .getElementById("sidebar")
+                .classList.toggle("open");
+
+        }
+
+
+        /* =========================================================
+           THEME
+        ========================================================= */
+
+        function toggleTheme() {
+
+            document.body.classList.toggle("dark");
+
+            localStorage.setItem(
+                "autosar-theme",
+                document.body.classList.contains("dark")
+                    ? "dark"
+                    : "light"
+            );
+
+        }
+
+
+        if (
+            localStorage.getItem("autosar-theme") === "dark"
+        ) {
+
+            document.body.classList.add("dark");
+
+        }
+
+
+        /* =========================================================
+           ARCHITECTURE DATA
+        ========================================================= */
+
+        const architectureData = {
+
+            application: {
+
+                title: "Application Layer",
+
+                description:
+                    "The Application Layer contains the vehicle functionality implemented as Software Components (SWCs). Application software should remain independent of the underlying MCU hardware.",
+
+                items: [
+                    "Software Components (SWC)",
+                    "Ports",
+                    "Runnables",
+                    "Sender-Receiver communication",
+                    "Client-Server communication",
+                    "Application interfaces"
+                ]
+
+            },
+
+
+            rte: {
+
+                title: "Runtime Environment (RTE)",
+
+                description:
+                    "The RTE is the generated communication layer between application software components and the underlying BSW.",
+
+                items: [
+                    "Connects SWCs",
+                    "Provides generated APIs",
+                    "Sender-Receiver communication",
+                    "Client-Server communication",
+                    "Inter-runnable communication",
+                    "BSW service access"
+                ]
+
+            },
+
+
+            services: {
+
+                title: "BSW Services Layer",
+
+                description:
+                    "The Services Layer provides common services required by applications and other BSW modules.",
+
+                items: [
+                    "Operating System",
+                    "Communication Services",
+                    "Diagnostic Services",
+                    "Memory Services",
+                    "ECU State Management",
+                    "Watchdog Management",
+                    "Network Management"
+                ]
+
+            },
+
+
+            ecu: {
+
+                title: "ECU Abstraction Layer",
+
+                description:
+                    "The ECU Abstraction Layer provides hardware-independent interfaces to ECU peripherals and external devices.",
+
+                items: [
+                    "Hides ECU-specific hardware",
+                    "Provides standardized interfaces",
+                    "Accesses peripheral abstraction",
+                    "Connects higher BSW to MCAL",
+                    "Supports hardware portability"
+                ]
+
+            },
+
+
+            mcal: {
+
+                title: "Microcontroller Abstraction Layer",
+
+                description:
+                    "MCAL contains the lowest-level AUTOSAR drivers that directly access MCU peripherals.",
+
+                items: [
+                    "Can",
+                    "Spi",
+                    "Adc",
+                    "Dio",
+                    "Pwm",
+                    "Gpt",
+                    "Mcu",
+                    "Icu",
+                    "Port",
+                    "Wdg"
+                ]
+
+            },
+
+
+            hardware: {
+
+                title: "Microcontroller / Hardware",
+
+                description:
+                    "The hardware layer consists of the physical MCU, processor cores, memory and integrated peripherals.",
+
+                items: [
+                    "CPU",
+                    "Flash",
+                    "RAM",
+                    "CAN controller",
+                    "SPI controller",
+                    "ADC",
+                    "GPIO",
+                    "Timers",
+                    "PWM"
+                ]
+
+            }
+
+        };
+
+
+        function selectLayer(name, element) {
+
+            document
+                .querySelectorAll(".arch-layer")
+                .forEach(x =>
+                    x.classList.remove("selected")
+                );
+
+
+            element.classList.add("selected");
+
+
+            const data =
+                architectureData[name];
+
+
+            document
+                .getElementById("layerDetails")
+                .innerHTML = `
+
+        <h2>${data.title}</h2>
+
+        <p>${data.description}</p>
+
+        <h3 style="margin:15px 0 10px">
+            Key Elements
+        </h3>
+
+        <ul class="detail-list">
+
+            ${data.items
+                    .map(item => `<li>${item}</li>`)
+                    .join("")}
+
+        </ul>
+
+    `;
+
+
+            if (!state.completed.architecture) {
+
+                state.completed.architecture = true;
+
+                updateProgress();
+
+            }
+
+        }
+
+
+        /* =========================================================
+           BSW MODULE DATA
+        ========================================================= */
+
+        const modules = [
+
+            {
+                name: "COM",
+                category: "Communication",
+                description:
+                    "The Communication module provides signal-oriented communication services. It packs and unpacks application signals into I-PDUs.",
+                flow:
+                    "SWC → RTE → COM → PduR"
+            },
+
+            {
+                name: "PduR",
+                category: "Communication",
+                description:
+                    "The PDU Router routes Protocol Data Units between communication modules.",
+                flow:
+                    "COM → PduR → CanIf"
+            },
+
+            {
+                name: "CanIf",
+                category: "Communication",
+                description:
+                    "CAN Interface provides a hardware-independent interface between upper communication layers and the CAN MCAL driver.",
+                flow:
+                    "PduR → CanIf → Can"
+            },
+
+            {
+                name: "Can",
+                category: "MCAL",
+                description:
+                    "The CAN MCAL driver controls the microcontroller's CAN peripheral.",
+                flow:
+                    "CanIf → Can Driver → CAN Controller"
+            },
+
+            {
+                name: "CanTp",
+                category: "Communication",
+                description:
+                    "CAN Transport Protocol supports segmented transmission and reception of large diagnostic messages.",
+                flow:
+                    "DCM → PduR → CanTp → CanIf"
+            },
+
+            {
+                name: "ComM",
+                category: "Communication",
+                description:
+                    "Communication Manager coordinates communication modes and manages communication requests.",
+                flow:
+                    "Application → ComM → Communication Stack"
+            },
+
+            {
+                name: "CanNm",
+                category: "Communication",
+                description:
+                    "CAN Network Management handles network management communication over CAN.",
+                flow:
+                    "ComM → CanNm → CanIf"
+            },
+
+            {
+                name: "Dcm",
+                category: "Diagnostics",
+                description:
+                    "Diagnostic Communication Manager processes UDS diagnostic requests and provides diagnostic services.",
+                flow:
+                    "Tester → CanTp → PduR → DCM"
+            },
+
+            {
+                name: "Dem",
+                category: "Diagnostics",
+                description:
+                    "Diagnostic Event Manager manages diagnostic events, event status, DTC information and fault memory.",
+                flow:
+                    "SWC/BSW → DEM → Diagnostic Memory"
+            },
+
+            {
+                name: "NvM",
+                category: "Memory",
+                description:
+                    "NVRAM Manager provides services for storing persistent data.",
+                flow:
+                    "Application → NvM → MemIf → Fee"
+            },
+
+            {
+                name: "MemIf",
+                category: "Memory",
+                description:
+                    "Memory Abstraction Interface provides a standardized interface between NvM and memory abstraction drivers.",
+                flow:
+                    "NvM → MemIf → Fee"
+            },
+
+            {
+                name: "Fee",
+                category: "Memory",
+                description:
+                    "Flash EEPROM Emulation provides EEPROM-like services using flash memory.",
+                flow:
+                    "MemIf → Fee → Flash"
+            },
+
+            {
+                name: "EcuM",
+                category: "System",
+                description:
+                    "ECU State Manager controls ECU initialization, startup, shutdown and sleep/wakeup handling.",
+                flow:
+                    "Startup → EcuM → BSW Initialization"
+            },
+
+            {
+                name: "BswM",
+                category: "System",
+                description:
+                    "Basic Software Mode Manager coordinates mode requests and mode transitions between BSW modules.",
+                flow:
+                    "Mode Request → BswM → BSW Actions"
+            },
+
+            {
+                name: "Os",
+                category: "System",
+                description:
+                    "AUTOSAR OS provides task scheduling, events, alarms, resources and operating system services.",
+                flow:
+                    "Runnable → Task → OS Scheduler"
+            },
+
+            {
+                name: "WdgM",
+                category: "System",
+                description:
+                    "Watchdog Manager supervises software entities and detects supervision violations.",
+                flow:
+                    "SWC → WdgM → Watchdog"
+            },
+
+            {
+                name: "Adc",
+                category: "MCAL",
+                description:
+                    "ADC driver provides access to the microcontroller analog-to-digital converter.",
+                flow:
+                    "Application → RTE → ADC Abstraction → ADC"
+            },
+
+            {
+                name: "Dio",
+                category: "MCAL",
+                description:
+                    "DIO driver provides access to digital input and output pins.",
+                flow:
+                    "Application → RTE → Dio → GPIO"
+            },
+
+            {
+                name: "Spi",
+                category: "MCAL",
+                description:
+                    "SPI driver controls synchronous serial communication peripherals.",
+                flow:
+                    "Application → SPI Services → SPI → MCU SPI"
+            },
+
+            {
+                name: "Pwm",
+                category: "MCAL",
+                description:
+                    "PWM driver controls pulse-width modulation channels.",
+                flow:
+                    "Application → PWM → MCU PWM"
+            },
+
+            {
+                name: "Mcu",
+                category: "MCAL",
+                description:
+                    "MCU driver provides initialization and control of microcontroller-specific functionality.",
+                flow:
+                    "EcuM → Mcu → Microcontroller"
+            }
+
+        ];
+
+
+        let currentModuleCategory = "All";
+
+
+        function setModuleCategory(category, button) {
+
+            currentModuleCategory = category;
+
+
+            document
+                .querySelectorAll(".filter-btn")
+                .forEach(x =>
+                    x.classList.remove("active")
+                );
+
+
+            button.classList.add("active");
+
+
+            renderModuleList();
+
+        }
+
+
+        function renderModuleList() {
+
+            const search =
+                document
+                    .getElementById("moduleSearch")
+                    .value
+                    .toLowerCase();
+
+
+            const list =
+                modules.filter(module => {
+
+                    const categoryMatch =
+                        currentModuleCategory === "All" ||
+                        module.category === currentModuleCategory;
+
+
+                    const searchMatch =
+                        module.name.toLowerCase().includes(search) ||
+                        module.category.toLowerCase().includes(search) ||
+                        module.description.toLowerCase().includes(search);
+
+
+                    return categoryMatch && searchMatch;
+
+                });
+
+
+            const container =
+                document.getElementById("moduleList");
+
+
+            container.innerHTML = "";
+
+
+            list.forEach(module => {
+
+                const div =
+                    document.createElement("div");
+
+
+                div.className = "module-item";
+
+
+                div.innerHTML = `
+
+            <div class="module-name">
+                ${module.name}
+            </div>
+
+            <div class="module-category">
+                ${module.category}
+            </div>
+
+        `;
+
+
+                div.onclick = () =>
+                    showModule(module, div);
+
+
+                container.appendChild(div);
+
+            });
+
+
+            if (!list.length) {
+
+                container.innerHTML =
+                    `<p style="color:var(--muted)">
+                No modules found.
+            </p>`;
+
+            }
+
+        }
+
+
+        function showModule(module, element) {
+
+            document
+                .querySelectorAll(".module-item")
+                .forEach(x =>
+                    x.classList.remove("selected")
+                );
+
+
+            element.classList.add("selected");
+
+
+            document
+                .getElementById("moduleDetail")
+                .innerHTML = `
+
+        <h2>${module.name}</h2>
+
+        <span class="badge">
+            ${module.category}
+        </span>
+
+        <p>
+            ${module.description}
+        </p>
+
+        <div class="module-flow">
+
+            <strong>Typical Flow</strong>
+
+            <br><br>
+
+            ${module.flow}
+
+        </div>
+
+    `;
+
+
+            if (!state.completed.modules) {
+
+                state.completed.modules = true;
+
+                updateProgress();
+
+            }
+
+        }
+
+
+        /* =========================================================
+           CAN LAB
+        ========================================================= */
+
+        function generateCanFrame() {
+
+            const message =
+                document.getElementById("canMessage").value;
+
+            const id =
+                document.getElementById("canId").value;
+
+            const dlc =
+                Number(document.getElementById("canDlc").value);
+
+            const signal =
+                document.getElementById("signalName").value;
+
+            const start =
+                Number(document.getElementById("signalStart").value);
+
+            const length =
+                Number(document.getElementById("signalLength").value);
+
+            const factor =
+                Number(document.getElementById("signalFactor").value);
+
+            const physicalValue =
+                Number(document.getElementById("signalValue").value);
+
+
+            let rawValue =
+                Math.round(
+                    physicalValue / factor
+                );
+
+
+            rawValue =
+                Math.max(
+                    0,
+                    Math.min(
+                        rawValue,
+                        Math.pow(2, Math.min(length, 24)) - 1
+                    )
+                );
+
+
+            let bytes =
+                new Array(dlc).fill(0);
+
+
+            /*
+               Simple educational little-endian
+               signal packing.
+            */
+
+            let bitPosition = start;
+
+
+            for (
+                let bit = 0;
+                bit < length;
+                bit++
+            ) {
+
+                const valueBit =
+                    (rawValue >> bit) & 1;
+
+
+                if (valueBit) {
+
+                    const absoluteBit =
+                        bitPosition + bit;
+
+                    const byteIndex =
+                        Math.floor(absoluteBit / 8);
+
+                    const bitIndex =
+                        absoluteBit % 8;
+
+
+                    if (byteIndex < bytes.length) {
+
+                        bytes[byteIndex] |=
+                            (1 << bitIndex);
+
+                    }
+
+                }
+
+            }
+
+
+            const hex =
+                bytes
+                    .map(b =>
+                        b
+                            .toString(16)
+                            .toUpperCase()
+                            .padStart(2, "0")
+                    );
+
+
+            document.getElementById("canSummary")
+                .innerHTML = `
+
+        <strong>${message}</strong>
+
+        <br>
+
+        CAN ID:
+        <strong>${id}</strong>
+
+        &nbsp; | &nbsp;
+
+        DLC:
+        <strong>${dlc}</strong>
+
+    `;
+
+
+            document.getElementById("canFrame")
+                .innerHTML = `
+
+        ID: ${id}<br>
+
+        DLC: ${dlc}<br>
+
+        DATA:<br>
+
+        ${hex
+                    .map((b, i) =>
+                        `<span class="data-byte"
+                       id="byte-${i}">
+                    ${b}
+                 </span>`
+                    )
+                    .join("")}
+
+    `;
+
+
+            document.getElementById("signalInfo")
+                .innerHTML = `
+
+        <tr>
+            <td>Signal</td>
+            <td>${signal}</td>
+        </tr>
+
+        <tr>
+            <td>Physical Value</td>
+            <td>${physicalValue}</td>
+        </tr>
+
+        <tr>
+            <td>Raw Value</td>
+            <td>${rawValue}</td>
+        </tr>
+
+        <tr>
+            <td>Start Bit</td>
+            <td>${start}</td>
+        </tr>
+
+        <tr>
+            <td>Length</td>
+            <td>${length}</td>
+        </tr>
+
+        <tr>
+            <td>Factor</td>
+            <td>${factor}</td>
+        </tr>
+
+    `;
+
+
+            state.completed.canlab = true;
+
+            updateProgress();
+
+
+            showToast("CAN frame generated");
+
+        }
+
+
+        function resetCanLab() {
+
+            document.getElementById("canFrame")
+                .innerText =
+                "CAN FRAME WILL APPEAR HERE";
+
+
+            document.getElementById("signalInfo")
+                .innerHTML = "";
+
+
+            document.getElementById("canSummary")
+                .innerText =
+                "Configure the signal and click Generate CAN Frame.";
+
+        }
+
+
+        /* =========================================================
+           DATA FLOW SIMULATION
+        ========================================================= */
+
+        let flowTimer = null;
+
+
+        const flowNames = [
+            "SWC",
+            "RTE",
+            "COM",
+            "PduR",
+            "CanIf",
+            "CAN Driver",
+            "MCU"
+        ];
+
+
+        function startFlowSimulation() {
+
+            resetFlowSimulation();
+
+
+            const log =
+                document.getElementById("packetLog");
+
+
+            log.innerHTML =
+                "[SYSTEM] Starting CAN transmission...<br>";
+
+
+            let step = 0;
+
+
+            flowTimer =
+                setInterval(() => {
+
+                    if (step > 0) {
+
+                        document
+                            .getElementById(
+                                `flowNode${step - 1}`
+                            )
+                            .classList.remove("active");
+
+                    }
+
+
+                    if (step < flowNames.length) {
+
+                        const node =
+                            document.getElementById(
+                                `flowNode${step}`
+                            );
+
+
+                        node.classList.add("active");
+
+
+                        document.getElementById(
+                            "flowStatus"
+                        ).innerText =
+                            `Signal is currently at ${flowNames[step]}`;
+
+
+                        log.innerHTML +=
+                            `[${new Date().toLocaleTimeString()}] `
+                            +
+                            `${flowNames[step]} processed signal<br>`;
+
+
+                        log.scrollTop =
+                            log.scrollHeight;
+
+
+                        step++;
+
+                    } else {
+
+                        clearInterval(flowTimer);
+
+
+                        document.getElementById(
+                            "flowStatus"
+                        ).innerText =
+                            "✅ CAN signal reached the MCU.";
+
+
+                        log.innerHTML +=
+                            "[SYSTEM] Transmission completed.<br>";
+
+
+                        state.completed.flow = true;
+
+                        updateProgress();
+
+                    }
+
+                }, 800);
+
+        }
+
+
+        function resetFlowSimulation() {
+
+            if (flowTimer) {
+
+                clearInterval(flowTimer);
+
+            }
+
+
+            for (
+                let i = 0;
+                i < flowNames.length;
+                i++
+            ) {
+
+                document
+                    .getElementById(
+                        `flowNode${i}`
+                    )
+                    .classList.remove("active");
+
+            }
+
+
+            document.getElementById(
+                "flowStatus"
+            ).innerText =
+                "Ready to transmit.";
+
+        }
+
+
+        /* =========================================================
+           DIAGNOSTIC SIMULATION
+        ========================================================= */
+
+        let diagTimer = null;
+
+
+        function runDiagnostic() {
+
+            resetDiagnostic();
+
+
+            let step = 0;
+
+
+            diagTimer =
+                setInterval(() => {
+
+                    if (step > 0) {
+
+                        document
+                            .getElementById(
+                                `diag${step - 1}`
+                            )
+                            .classList.remove("active");
+
+                    }
+
+
+                    if (step < 5) {
+
+                        document
+                            .getElementById(
+                                `diag${step}`
+                            )
+                            .classList.add("active");
+
+
+                        step++;
+
+                    } else {
+
+                        clearInterval(diagTimer);
+
+
+                        showToast(
+                            "Diagnostic request processed"
+                        );
+
+
+                        state.completed.diagnostics =
+                            true;
+
+
+                        updateProgress();
+
+                    }
+
+                }, 700);
+
+        }
+
+
+        function resetDiagnostic() {
+
+            if (diagTimer) {
+
+                clearInterval(diagTimer);
+
+            }
+
+
+            for (let i = 0; i < 5; i++) {
+
+                document
+                    .getElementById(`diag${i}`)
+                    .classList.remove("active");
+
+            }
+
+        }
+
+
+        /* =========================================================
+           QUIZ
+        ========================================================= */
+
+        const quizQuestions = [
+
+            {
+                question:
+                    "Which AUTOSAR layer contains Software Components?",
+
+                options: [
+                    "MCAL",
+                    "Application Layer",
+                    "ECU Abstraction",
+                    "Services"
+                ],
+
+                answer: 1
+            },
+
+            {
+                question:
+                    "What is the primary purpose of the RTE?",
+
+                options: [
+                    "Control MCU registers",
+                    "Store DTCs",
+                    "Connect application software with other software and BSW",
+                    "Program flash memory"
+                ],
+
+                answer: 2
+            },
+
+            {
+                question:
+                    "Which module routes PDUs?",
+
+                options: [
+                    "DEM",
+                    "PduR",
+                    "NvM",
+                    "EcuM"
+                ],
+
+                answer: 1
+            },
+
+            {
+                question:
+                    "Which module handles UDS diagnostic communication?",
+
+                options: [
+                    "COM",
+                    "DCM",
+                    "CanIf",
+                    "Fee"
+                ],
+
+                answer: 1
+            },
+
+            {
+                question:
+                    "Which module manages diagnostic events and DTC information?",
+
+                options: [
+                    "DEM",
+                    "Dio",
+                    "Pwm",
+                    "Rte"
+                ],
+
+                answer: 0
+            },
+
+            {
+                question:
+                    "Which layer contains hardware-specific MCU drivers?",
+
+                options: [
+                    "RTE",
+                    "Application",
+                    "MCAL",
+                    "BSW Services"
+                ],
+
+                answer: 2
+            },
+
+            {
+                question:
+                    "Which module provides non-volatile memory management?",
+
+                options: [
+                    "NvM",
+                    "COM",
+                    "CanIf",
+                    "OS"
+                ],
+
+                answer: 0
+            },
+
+            {
+                question:
+                    "Which module provides signal-based communication services?",
+
+                options: [
+                    "COM",
+                    "DCM",
+                    "DEM",
+                    "WdgM"
+                ],
+
+                answer: 0
+            },
+
+            {
+                question:
+                    "Which module manages ECU startup and shutdown states?",
+
+                options: [
+                    "EcuM",
+                    "PduR",
+                    "CanTp",
+                    "Fee"
+                ],
+
+                answer: 0
+            },
+
+            {
+                question:
+                    "Which module supervises software entities using watchdog mechanisms?",
+
+                options: [
+                    "WdgM",
+                    "COM",
+                    "NvM",
+                    "CanIf"
+                ],
+
+                answer: 0
+            }
+
+        ];
+
+
+        let quizIndex = 0;
+
+        let quizScore = 0;
+
+        let quizAnswered = false;
+
+
+        function loadQuiz() {
+
+            if (
+                quizIndex >= quizQuestions.length
+            ) {
+
+                showQuizResult();
+
+                return;
+
+            }
+
+
+            quizAnswered = false;
+
+
+            const q =
+                quizQuestions[quizIndex];
+
+
+            document.getElementById(
+                "questionNumber"
+            ).innerText =
+                `QUESTION ${quizIndex + 1} / ${quizQuestions.length}`;
+
+
+            document.getElementById(
+                "questionText"
+            ).innerText =
+                q.question;
+
+
+            document.getElementById(
+                "quizProgress"
+            ).style.width =
+                `${((quizIndex) / quizQuestions.length) * 100}%`;
+
+
+            document.getElementById(
+                "quizFeedback"
+            ).innerText = "";
+
+
+            document.getElementById(
+                "nextQuestionBtn"
+            ).disabled = false;
+
+
+            const options =
+                document.getElementById(
+                    "quizOptions"
+                );
+
+
+            options.innerHTML = "";
+
+
+            q.options.forEach(
+                (option, index) => {
+
+                    const div =
+                        document.createElement("div");
+
+
+                    div.className = "option";
+
+                    div.innerText = option;
+
+
+                    div.onclick =
+                        () =>
+                            answerQuiz(index, div);
+
+
+                    options.appendChild(div);
+
+                }
+            );
+
+        }
+
+
+        function answerQuiz(index, element) {
+
+            if (quizAnswered) {
+
+                return;
+
+            }
+
+
+            quizAnswered = true;
+
+
+            const q =
+                quizQuestions[quizIndex];
+
+
+            const options =
+                document.querySelectorAll(
+                    ".option"
+                );
+
+
+            if (index === q.answer) {
+
+                element.classList.add("correct");
+
+                quizScore++;
+
+
+                document.getElementById(
+                    "quizFeedback"
+                ).innerText =
+                    "✅ Correct answer.";
+
+            } else {
+
+                element.classList.add("wrong");
+
+
+                options[q.answer]
+                    .classList.add("correct");
+
+
+                document.getElementById(
+                    "quizFeedback"
+                ).innerText =
+                    "❌ Incorrect answer.";
+
+            }
+
+        }
+
+
+        function nextQuestion() {
+
+            if (!quizAnswered) {
+
+                showToast(
+                    "Select an answer first."
+                );
+
+                return;
+
+            }
+
+
+            quizIndex++;
+
+            loadQuiz();
+
+        }
+
+
+        function showQuizResult() {
+
+            const percentage =
+                Math.round(
+                    quizScore /
+                    quizQuestions.length *
+                    100
+                );
+
+
+            document.getElementById(
+                "quizContainer"
+            ).innerHTML = `
+
+        <div class="result-screen">
+
+            <div style="font-size:50px">
+                🎉
+            </div>
+
+            <h2>
+                Quiz Completed
+            </h2>
+
+            <div class="score-big">
+                ${percentage}%
+            </div>
+
+            <p style="color:var(--muted)">
+                You scored
+                <strong>
+                    ${quizScore}
+                </strong>
+                out of
+                <strong>
+                    ${quizQuestions.length}
+                </strong>.
+            </p>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="restartQuiz()">
+
+                Try Again
+
+            </button>
+
+        </div>
+
+    `;
+
+
+            state.completed.quiz = true;
+
+            updateProgress();
+
+        }
+
+
+        function restartQuiz() {
+
+            quizIndex = 0;
+
+            quizScore = 0;
+
+
+            document.getElementById(
+                "quizContainer"
+            ).innerHTML = `
+
+        <div class="quiz-progress">
+
+            <div id="quizProgress"></div>
+
+        </div>
+
+        <div
+            class="question-number"
+            id="questionNumber">
+        </div>
+
+        <div
+            class="question-text"
+            id="questionText">
+        </div>
+
+        <div
+            class="options"
+            id="quizOptions">
+        </div>
+
+        <div class="quiz-actions">
+
+            <div
+                class="quiz-feedback"
+                id="quizFeedback">
+            </div>
+
+            <button
+                class="btn"
+                id="nextQuestionBtn"
+                onclick="nextQuestion()">
+
+                Next
+
+            </button>
+
+        </div>
+
+    `;
+
+
+            loadQuiz();
+
+        }
+
+
+        /* =========================================================
+           PROGRESS
+        ========================================================= */
+
+        function updateProgress() {
+
+            const values =
+                Object.values(
+                    state.completed
+                );
+
+
+            const completed =
+                values.filter(Boolean).length;
+
+
+            const percentage =
+                Math.round(
+                    completed /
+                    values.length *
+                    100
+                );
+
+
+            document.getElementById(
+                "headerProgress"
+            ).style.width =
+                percentage + "%";
+
+
+            document.getElementById(
+                "headerProgressText"
+            ).innerText =
+                `Progress ${percentage}%`;
+
+
+            const big =
+                document.getElementById(
+                    "bigProgress"
+                );
+
+
+            if (big) {
+
+                big.style.width =
+                    percentage + "%";
+
+            }
+
+
+            const title =
+                document.getElementById(
+                    "progressTitle"
+                );
+
+
+            if (title) {
+
+                title.innerText =
+                    `${percentage}% Complete`;
+
+            }
+
+
+            const labels = {
+
+                architecture:
+                    "AUTOSAR Architecture",
+
+                modules:
+                    "BSW Module Explorer",
+
+                canlab:
+                    "CAN Signal Lab",
+
+                flow:
+                    "Data Flow Simulation",
+
+                diagnostics:
+                    "Diagnostics Lab",
+
+                quiz:
+                    "AUTOSAR Quiz"
+
+            };
+
+
+            const container =
+                document.getElementById(
+                    "progressItems"
+                );
+
+
+            if (container) {
+
+                container.innerHTML = "";
+
+
+                Object.entries(
+                    state.completed
+                ).forEach(
+                    ([key, done]) => {
+
+                        container.innerHTML += `
+
+                    <div class="progress-item">
+
+                        <div class="check ${done ? "done" : ""}">
+                            ${done ? "✓" : ""}
+                        </div>
+
+                        <div>
+                            ${labels[key]}
+                        </div>
+
+                    </div>
+
+                `;
+
+                    }
+                );
+
+            }
+
+
+            localStorage.setItem(
+                "autosar-progress",
+                JSON.stringify(
+                    state.completed
+                )
+            );
+
+        }
+
+
+        /* =========================================================
+           LOAD SAVED PROGRESS
+        ========================================================= */
+
+        const savedProgress =
+            localStorage.getItem(
+                "autosar-progress"
+            );
+
+
+        if (savedProgress) {
+
+            try {
+
+                const parsed =
+                    JSON.parse(savedProgress);
+
+
+                Object.keys(
+                    state.completed
+                ).forEach(key => {
+
+                    if (
+                        typeof parsed[key] === "boolean"
+                    ) {
+
+                        state.completed[key] =
+                            parsed[key];
+
+                    }
+
+                });
+
+            } catch (e) {
+
+                console.log(
+                    "Progress data reset."
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        function showAbout() {
+
+            alert(
+                `AUTOSAR Interactive Learning
+
+This educational simulator demonstrates:
+
+• AUTOSAR software architecture
+• Application Layer
+• RTE
+• BSW Services
+• ECU Abstraction
+• MCAL
+• CAN communication
+• Diagnostics
+• PDU routing
+• DCM / DEM
+• Interactive learning
+
+AutoDevv`
+            );
+
+        }
+
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        let toastTimer;
+
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById(
+                    "toast"
+                );
+
+
+            toast.innerText =
+                message;
+
+
+            toast.classList.add("show");
+
+
+            clearTimeout(toastTimer);
+
+
+            toastTimer =
+                setTimeout(() => {
+
+                    toast.classList.remove("show");
+
+                }, 2200);
+
+        }
+
+
+        /* =========================================================
+           INITIALIZE
+        ========================================================= */
+
+        renderModuleList();
+
+        loadQuiz();
+
+        updateProgress();
+
+    </script>
+
+</body>
+
+</html>

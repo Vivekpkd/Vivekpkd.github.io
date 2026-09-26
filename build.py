@@ -18,7 +18,8 @@ CATEGORY_MAPPING = {
     'image-sample.md': 'Basics',
     'download.md': 'Resources',
     'tutorial.md': 'General',
-    'AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.md': 'Embedded Systems'
+    'AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.md': 'Embedded Systems',
+    'AUTOSAR_Interactive_Learning.md': 'AUTOSAR'
 }
 
 # Sidebar Category Mapping (for the accordion)
@@ -27,7 +28,8 @@ SIDEBAR_CATEGORY_MAPPING = {
     'image-sample.md': 'Basics',
     'download.md': 'Resources',
     'tutorial.md': 'Main Hub',
-    'AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.md': 'Embedded Systems'
+    'AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.md': 'Embedded Systems',
+    'AUTOSAR_Interactive_Learning.md': 'AUTOSAR'
 }
 
 # Load templates
@@ -233,6 +235,9 @@ for item in all_items:
     
     os.makedirs(target_dir, exist_ok=True)
     output_path = os.path.join(target_dir, item['filename'])
+    if item['basename'] == 'AUTOSAR_Interactive_Learning.md':
+        print(f"Preserved custom interactive app: {output_path}")
+        continue
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(page_html)
     print(f"Generated ({item['type']}): {output_path}")

@@ -1,7 +1,18 @@
 {
   "version": "1.0",
-  "generatedAt": "2026-03-01T00:00:00Z",
+  "generatedAt": "2026-09-26T00:00:00Z",
   "articles": [
+    {
+      "id": "autosar-interactive-learning",
+      "title": "AUTOSAR Interactive Learning Suite",
+      "date": "Sep 26, 2026",
+      "year": 2026,
+      "excerpt": "Interactive AUTOSAR architecture explorer, BSW module inspector, CAN signal lab, and diagnostic flow simulator.",
+      "link": "pages/tutorials/AUTOSAR_Interactive_Learning.html",
+      "category": "AUTOSAR",
+      "tags": ["AUTOSAR", "Architecture", "Interactive", "CAN", "Diagnostics"],
+      "keywords": ["autosar", "architecture", "bsw", "can", "diagnostics", "uds", "interactive", "simulator", "mcal", "rte"]
+    },
     {
       "id": "stm32f103-secure-boot-hsm",
       "title": "Secure Boot and HSM Concepts on STM32F103C8T6",
