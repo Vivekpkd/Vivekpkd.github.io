@@ -204,8 +204,13 @@ document.addEventListener('DOMContentLoaded', () => {
             'Update': { gradient: 'linear-gradient(135deg, #06b6d4 0%, #0e7490 100%)', icon: 'fa-bullhorn', color: '#06b6d4' }
         };
 
+        // Hand-authored cards in the markup (e.g. a featured tool card) are wiped
+        // by the innerHTML reset below, so keep them and re-insert them first.
+        const featuredCards = Array.from(blogContainer.querySelectorAll('[data-featured-card]'));
+
         function renderArticles(count) {
             blogContainer.innerHTML = '';
+            featuredCards.forEach(card => blogContainer.appendChild(card));
             const toShow = articles.slice(0, count);
 
             toShow.forEach(article => {

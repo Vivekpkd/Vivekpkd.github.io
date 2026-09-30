@@ -15,7 +15,6 @@ ARTICLES_JS_PATH = 'js/articles.js'
 # Category Mapping (File basename -> Category Name)
 CATEGORY_MAPPING = {
     'stm32intro.md': 'Embedded Systems',
-    'image-sample.md': 'Basics',
     'download.md': 'Resources',
     'tutorial.md': 'General',
     'AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.md': 'Embedded Systems',
@@ -25,7 +24,6 @@ CATEGORY_MAPPING = {
 # Sidebar Category Mapping (for the accordion)
 SIDEBAR_CATEGORY_MAPPING = {
     'stm32intro.md': 'Embedded Systems',
-    'image-sample.md': 'Basics',
     'download.md': 'Resources',
     'tutorial.md': 'Main Hub',
     'AutoDevv_STM32F103_Secure_Boot_HSM_Tutorial.md': 'Embedded Systems',

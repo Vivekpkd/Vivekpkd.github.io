@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutoDevv | 3D Cruise Control Simulation</title>
+    <meta
+      name="description"
+      content="Interactive 3D cruise control simulator: PID controller, longitudinal vehicle model, live speed graph and AUTOSAR-style CAN signals."
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Built from ../app: npm run build -> ../assets/app.js (single classic
+         bundle; Tailwind styles are injected by it, so there is no .css file) -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background: #030712;
+        color: #e5e7eb;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      #app-fallback {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 70vh;
+        text-align: center;
+        padding: 24px;
+      }
+      #app-fallback a {
+        color: #22d3ee;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Replaced by React on mount; shown only until/unless the app boots -->
+      <div id="app-fallback">
+        <p>Loading 3D cruise control simulation…</p>
+        <p><a href="../../../index.html">← Back to Autodevv Home</a></p>
+      </div>
+    </div>
+    <noscript>
+      <p style="text-align: center; padding: 24px">
+        This simulator needs JavaScript.
+        <a href="../../../index.html" style="color: #22d3ee">Back to Autodevv Home</a>
+      </p>
+    </noscript>
+    <!-- One self-contained classic script (styles are injected by it, which is
+         why there is no separate .css file). A classic script, not a module:
+         module scripts are CORS-blocked when the page is opened from disk. -->
+    <script defer src="./assets/app.js"></script>
+  </body>
+</html>
+
